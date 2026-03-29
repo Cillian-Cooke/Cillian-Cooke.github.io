@@ -36,6 +36,7 @@
       <li><a data-page="home">Home</a></li>
       <li><a data-page="projects">Projects</a></li>
       <li><a data-page="about">About</a></li>
+      <li><a data-page="books">Books</a></li>
       <li><a data-page="contact">Contact</a></li>
     </ul>
   </nav>
@@ -50,7 +51,8 @@
         <h1 class="hero-title">Hey, I'm Cillian.</h1>
         <p class="hero-subtitle">
           First year computer science student. I like building things — 
-          full-stack apps, mobile stuff, and messing around with AI.
+          apps that solve real problems, hacking at hackathons, and trying 
+          to make the internet a bit less broken.
         </p>
         <div class="hero-cta">
           <a class="btn btn-primary" data-page="projects">
@@ -61,6 +63,10 @@
             GitHub
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </a>
+          <a class="btn" href="Cillian-Cooke-CV.docx" download>
+            CV
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </a>
         </div>
       </div>
       <div class="hero-line"></div>
@@ -70,7 +76,7 @@
     <section class="section">
       <div class="stats reveal">
         <div class="stat">
-          <h3 data-count="4">0</h3>
+          <h3 data-count="6">0</h3>
           <p>Projects</p>
         </div>
         <div class="stat">
@@ -95,34 +101,34 @@
         <a data-page="projects">See all &rarr;</a>
       </div>
       <div class="projects-grid stagger">
-        <!-- Project 1 -->
-        <a class="project-card" href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">
+        <!-- Project: Atlas -->
+        <a class="project-card" href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">
           <div class="project-card-header">
-            <span class="project-card-number">01</span>
+            <span class="project-card-number"></span>
             <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </div>
-          <h3>Metricare</h3>
-          <p>Medical patient dashboard — patient history, medications, drug interactions (FDA), and AI-generated summaries in one unified UI.</p>
-          <div class="project-tags">
-            <span class="project-tag">TypeScript</span>
-            <span class="project-tag">React</span>
-            <span class="project-tag">FastAPI</span>
-            <span class="project-tag">Python</span>
-          </div>
-        </a>
-
-        <!-- Project 2 -->
-        <a class="project-card" href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number">02</span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
-          <h3>Digishelf</h3>
-          <p>A cross-platform digital bookshelf app built with Flutter. Scan barcodes to add books and organize your reading collection.</p>
+          <h3>Atlas</h3>
+          <p>A social media platform built from scratch — no ads, no algorithms, no bots. Uses Bluetooth proximity so you see content from people near you. My most ambitious project.</p>
           <div class="project-tags">
             <span class="project-tag">Dart</span>
             <span class="project-tag">Flutter</span>
+            <span class="project-tag">Backend</span>
+            <span class="project-tag">BLE</span>
+          </div>
+        </a>
+
+        <!-- Project: BlackOut -->
+        <a class="project-card" data-page="projects" style="cursor:pointer">
+          <div class="project-card-header">
+            <span class="project-card-number"></span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>BlackOut</h3>
+          <p>An app that fights phone addiction at social gatherings. Host generates a QR code, guests scan it, and distracting apps get locked. Built with friends from college.</p>
+          <div class="project-tags">
             <span class="project-tag">Mobile</span>
+            <span class="project-tag">QR</span>
+            <span class="project-tag">Team Project</span>
           </div>
         </a>
       </div>
@@ -133,7 +139,7 @@
       <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </footer>
   </div>
@@ -150,14 +156,47 @@
 
       <div class="projects-grid stagger">
 
+        <!-- Project: Atlas -->
+        <a class="project-card" href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number"></span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Atlas — Social Media Platform</h3>
+          <p>A not-for-profit social media app I've been building solo for 4+ months. No ads, no algorithmic feed, no bots. Discovery works as a map of posts. Uses Bluetooth Low Energy so you primarily see content from people you've physically been near — encouraging real-world connection instead of doomscrolling. About halfway done and it's consumed most of my free time. My most ambitious project by far.</p>
+          <div class="project-tags">
+            <span class="project-tag">Dart</span>
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Backend Design</span>
+            <span class="project-tag">BLE</span>
+            <span class="project-tag">Solo Project</span>
+          </div>
+        </a>
+
+        <!-- Project: BlackOut -->
+        <a class="project-card">
+          <div class="project-card-header">
+            <span class="project-card-number"></span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>BlackOut</h3>
+          <p>A team app to fight phone addiction at social gatherings. Host generates a QR code, guests scan it, and the app temporarily restricts distracting apps so everyone actually talks to each other. Apple's restrictions on app control made us rethink the whole approach, and the team disagreements about design ended up being the most valuable part.</p>
+          <div class="project-tags">
+            <span class="project-tag">Mobile</span>
+            <span class="project-tag">QR Code</span>
+            <span class="project-tag">Team Project</span>
+            <span class="project-tag">UX</span>
+          </div>
+        </a>
+
         <!-- Project: Metricare -->
         <a class="project-card" href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">
           <div class="project-card-header">
-            <span class="project-card-number">01</span>
+            <span class="project-card-number"></span>
             <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </div>
           <h3>Metricare</h3>
-          <p>Medical patient dashboard that consolidates patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into a single clean interface. Built with a React + Vite frontend and a FastAPI Python backend.</p>
+          <p>Medical patient dashboard that pulls together patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into one clean interface. React + Vite frontend, FastAPI Python backend.</p>
           <div class="project-tags">
             <span class="project-tag">TypeScript</span>
             <span class="project-tag">React</span>
@@ -171,11 +210,11 @@
         <!-- Project: Digishelf -->
         <a class="project-card" href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">
           <div class="project-card-header">
-            <span class="project-card-number">02</span>
+            <span class="project-card-number"></span>
             <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </div>
           <h3>Digishelf</h3>
-          <p>A cross-platform digital bookshelf application. Scan barcodes to quickly add books, organise your collection, and keep track of your reading. Built in Flutter for iOS, Android, web, and desktop.</p>
+          <p>A cross-platform digital bookshelf app. Scan barcodes to quickly add books, organise your collection, and keep track of your reading. Built in Flutter for iOS, Android, web, and desktop.</p>
           <div class="project-tags">
             <span class="project-tag">Dart</span>
             <span class="project-tag">Flutter</span>
@@ -187,11 +226,11 @@
         <!-- Project: Claude Hackathon -->
         <a class="project-card" href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer">
           <div class="project-card-header">
-            <span class="project-card-number">03</span>
+            <span class="project-card-number"></span>
             <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </div>
           <h3>Claude CLI Tool</h3>
-          <p>A command-line interface for interacting with Claude AI — ask questions, start interactive chats, and analyse files. Built at the Claude Builder Club hackathon at Trinity College Dublin.</p>
+          <p>A command-line interface for chatting with Claude AI — ask questions, start interactive chats, and analyse files. Built at the Claude Builder Club hackathon at Trinity.</p>
           <div class="project-tags">
             <span class="project-tag">Python</span>
             <span class="project-tag">Claude API</span>
@@ -203,11 +242,11 @@
         <!-- Project: Mars Food Simulation -->
         <a class="project-card" href="https://github.com/mcrowley19/mars-food-simulation" target="_blank" rel="noopener noreferrer">
           <div class="project-card-header">
-            <span class="project-card-number">04</span>
+            <span class="project-card-number"></span>
             <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </div>
           <h3>Mars Food Simulation</h3>
-          <p>A simulation modelling food production and resource management for a Mars colony. Explores sustainable agriculture in extraterrestrial environments.</p>
+          <p>Simulation modelling food production and resource management for a Mars colony. Exploring sustainable agriculture in extraterrestrial environments.</p>
           <div class="project-tags">
             <span class="project-tag">Simulation</span>
             <span class="project-tag">Collaborative</span>
@@ -221,7 +260,7 @@
       <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </footer>
   </div>
@@ -233,26 +272,32 @@
     <section class="about-page section">
       <div class="page-header reveal">
         <h1>About me</h1>
-        <p>Who I am, what I use, and what I've been up to.</p>
+        <p>Who I am, what I care about, and what I get up to.</p>
       </div>
 
       <div class="about-grid reveal">
         <div class="about-text">
           <p>
             I'm <strong>Cillian Cooke</strong>, a first-year Computer Science student at 
-            <strong>Trinity College Dublin</strong>. I'm drawn to building software that 
-            solves real problems — whether that's a medical dashboard, a mobile app for 
-            book lovers, or a CLI tool powered by AI.
+            <strong>Trinity College Dublin</strong>. Programming isn't a passion in itself, 
+            but creating things is. I love finishing a project and taking a moment to realise 
+            that something exists because I made it.
           </p>
           <p>
-            I enjoy working across the full stack and I'm always picking up new tools 
-            and frameworks. When I'm not coding, you'll find me at hackathons, collaborating 
-            with classmates on ambitious projects, or diving into something new.
+            From building small video games using YouTube comment APIs to creating apps 
+            designed to help friends be less antisocial — I love having an idea and running 
+            with it. I'm not satisfied with identifying problems, I feel compelled to build solutions.
           </p>
           <p>
-            I'm currently looking for <strong>internship opportunities</strong> and 
-            interesting open-source projects to contribute to. If you have something 
-            in mind, I'd love to hear about it.
+            Outside of code, I founded a <strong>Dungeons & Dragons summer camp</strong> at 17, 
+            run a <strong>gardening business</strong> with 20+ clients, work in an afterschool 
+            setting, and I'm a member of Trinity's <strong>Juggling & Circus Society</strong>. 
+            I was also selected for the <strong>Centre for Talented Youth Ireland</strong> programme.
+          </p>
+          <p>
+            In summer 2024, I spent three weeks in <strong>Tanzania</strong> — completely 
+            disconnected, camping at rural schools and hiking mountains. It shifted how I see 
+            everything.
           </p>
         </div>
 
@@ -277,45 +322,88 @@
               <li>Flutter</li>
               <li>FastAPI</li>
               <li>Git</li>
-              <li>Node.js</li>
+              <li>Figma</li>
             </ul>
           </div>
           <div class="detail-block">
-            <h3>Interests</h3>
-            <ul>
-              <li>Full-Stack Dev</li>
-              <li>AI/ML</li>
-              <li>Mobile Apps</li>
-              <li>Open Source</li>
-              <li>Hackathons</li>
-            </ul>
+            <h3>CV</h3>
+            <p><a href="Cillian-Cooke-CV.docx" download style="color: var(--accent); font-weight: 600;">Download my CV &darr;</a></p>
           </div>
+        </div>
+      </div>
+
+      <!-- Interests -->
+      <div class="interests-section reveal">
+        <h2>Things I'm into</h2>
+        <div class="interests-grid">
+
+          <div class="interest-card interest-orange">
+            <div class="interest-emoji">🎲</div>
+            <h3>Dungeons & Dragons</h3>
+            <p>I've been a Dungeon Master for three years. I create worlds, characters, and stories that other people inhabit and shape. It combines creativity with collaboration — watching others engage with something I built is incredibly rewarding. I also founded a D&D summer camp at 17.</p>
+          </div>
+
+          <div class="interest-card interest-blue">
+            <div class="interest-emoji">🤹</div>
+            <h3>Juggling & Circus</h3>
+            <p>My brother convinced me to join Trinity's Juggling & Circus Society. I'm not in it for the technical juggling — I love the atmosphere. Nobody cares about looking foolish. People just experiment and have fun. That mindset of valuing play and curiosity over judgement is something I try to bring everywhere.</p>
+          </div>
+
+          <div class="interest-card interest-green">
+            <div class="interest-emoji">🌱</div>
+            <h3>Gardening Business</h3>
+            <p>I independently manage a gardening business with over 20 clients. It's taught me responsibility, client management, and the satisfaction of physical work alongside all the screen time.</p>
+          </div>
+
+          <div class="interest-card interest-purple">
+            <div class="interest-emoji">🌍</div>
+            <h3>Travel & Perspective</h3>
+            <p>Three weeks in Tanzania in 2024 — camping at rural schools, hiking mountains, going on safari. What stayed with me most were the conversations and the sense of community without technology. It made me more independent and aware of the world beyond my routine.</p>
+          </div>
+
+          <!-- Add more interests here -->
+
         </div>
       </div>
 
       <!-- Timeline -->
       <div class="timeline reveal">
-        <h2>Experience</h2>
+        <h2>What I've been up to</h2>
         <div class="timeline-items">
+          <div class="timeline-item">
+            <div class="timeline-date">2025 – ongoing</div>
+            <div class="timeline-title">Atlas — Building a social media platform from scratch</div>
+            <div class="timeline-desc">Teaching myself backend design and Dart. No ads, no algorithms, proximity-based discovery. About halfway done.</div>
+          </div>
           <div class="timeline-item">
             <div class="timeline-date">Mar 2026</div>
             <div class="timeline-title">Metricare — Medical Dashboard</div>
-            <div class="timeline-desc">Built a full-stack patient dashboard with React, FastAPI, and Gemini AI integration as a team project.</div>
+            <div class="timeline-desc">Built a full-stack patient dashboard with React, FastAPI, and Gemini AI as a team project.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Feb 2026</div>
-            <div class="timeline-title">Digishelf — Flutter App</div>
-            <div class="timeline-desc">Contributed to a cross-platform digital bookshelf app with barcode scanning and library management.</div>
+            <div class="timeline-title">BlackOut — Phone addiction app</div>
+            <div class="timeline-desc">Built with friends from college. QR-based app locking to keep people present at social gatherings.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Jan 2026</div>
             <div class="timeline-title">Claude Builder Club Hackathon</div>
-            <div class="timeline-desc">Built a Python CLI tool for interacting with Claude AI at Trinity College Dublin's hackathon.</div>
+            <div class="timeline-desc">Built a Python CLI tool for interacting with Claude AI at Trinity.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Summer 2024</div>
+            <div class="timeline-title">Tanzania</div>
+            <div class="timeline-desc">Three weeks volunteering, camping at rural schools, and hiking mountains. Completely disconnected from home.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2024</div>
+            <div class="timeline-title">Founded D&D Summer Camp</div>
+            <div class="timeline-desc">Planned and ran the whole thing independently at 17.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Sep 2025</div>
             <div class="timeline-title">Started at Trinity College Dublin</div>
-            <div class="timeline-desc">Began studying Computer Science at one of Ireland's top universities.</div>
+            <div class="timeline-desc">Computer Science. Selected for Centre for Talented Youth Ireland.</div>
           </div>
         </div>
       </div>
@@ -325,7 +413,119 @@
       <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       PAGE: BOOKS
+       ======================================== -->
+  <div id="books" class="page">
+    <section class="books-page section">
+      <div class="page-header reveal">
+        <h1>Reading</h1>
+        <p>Comics and books that stuck with me. I'll keep adding to this.</p>
+      </div>
+
+      <!-- Comics -->
+      <div class="shelf-section reveal">
+        <h2>Comics</h2>
+      </div>
+      <div class="books-grid stagger">
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
+          <h3>Invincible Compendium 1</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2 cover" loading="lazy">
+          <h3>Invincible Compendium 2</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3 cover" loading="lazy">
+          <h3>Invincible Compendium 3</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys cover" loading="lazy">
+          <h3>The Boys</h3>
+          <p class="book-author">Garth Ennis &mdash; Complete Series</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta cover" loading="lazy">
+          <h3>V for Vendetta</h3>
+          <p class="book-author">Alan Moore</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History cover" loading="lazy">
+          <h3>Sapiens: A Graphic History</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+
+        <!-- Add more comics here -->
+
+      </div>
+
+      <!-- Books -->
+      <div class="shelf-section reveal">
+        <h2>Books</h2>
+      </div>
+      <div class="books-grid stagger">
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus cover" loading="lazy">
+          <h3>Nexus</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World cover" loading="lazy">
+          <h3>Hello World</h3>
+          <p class="book-author">Hannah Fry</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies cover" loading="lazy">
+          <h3>If Anyone Builds It, Everyone Dies</h3>
+          <p class="book-author">Eliezer Yudkowsky &amp; Nate Soares</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action cover" loading="lazy">
+          <h3>Flutter in Action</h3>
+          <p class="book-author">Eric Windmill</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications cover" loading="lazy">
+          <h3>Designing Data-Intensive Applications</h3>
+          <p class="book-author">Martin Kleppmann</p>
+        </a>
+
+        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780593727461" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593727461-L.jpg" alt="The Seven Rules of Trust cover" loading="lazy">
+          <h3>The Seven Rules of Trust</h3>
+          <p class="book-author">Jimmy Wales</p>
+        </a>
+
+        <!-- Add more books here -->
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </footer>
   </div>
@@ -362,7 +562,7 @@
                 <div class="contact-link-value">Cillian-Cooke</div>
               </div>
             </a>
-            <a class="contact-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <a class="contact-link" href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">
               <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               <div>
                 <div class="contact-link-label">LinkedIn</div>
@@ -397,7 +597,7 @@
       <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </footer>
   </div>
