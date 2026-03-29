@@ -1,1 +1,408 @@
-<h1>Coming Soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cillian Cooke — Developer</title>
+  <meta name="description" content="Portfolio of Cillian Cooke — Computer Science student at Trinity College Dublin.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== LOADER ========== -->
+  <div class="loader">
+    <div class="loader-text">Cillian Cooke</div>
+    <div class="loader-bar-track">
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav">
+    <div class="nav-logo" data-page="home">cillian cooke</div>
+
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li><a data-page="home">Home</a></li>
+      <li><a data-page="projects">Projects</a></li>
+      <li><a data-page="about">About</a></li>
+      <li><a data-page="contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========================================
+       PAGE: HOME
+       ======================================== -->
+  <div id="home" class="page active visible">
+    <section class="hero section">
+      <div class="hero-content">
+        <p class="hero-label">CS @ Trinity College Dublin</p>
+        <h1 class="hero-title">Hey, I'm Cillian.</h1>
+        <p class="hero-subtitle">
+          First year computer science student. I like building things — 
+          full-stack apps, mobile stuff, and messing around with AI.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" data-page="projects">
+            See my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="btn" href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">
+            GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="hero-line"></div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section">
+      <div class="stats reveal">
+        <div class="stat">
+          <h3 data-count="4">0</h3>
+          <p>Projects</p>
+        </div>
+        <div class="stat">
+          <h3 data-count="67" data-suffix="+">0</h3>
+          <p>Contributions</p>
+        </div>
+        <div class="stat">
+          <h3 data-count="4" data-suffix="+">0</h3>
+          <p>Languages</p>
+        </div>
+        <div class="stat">
+          <h3 data-count="1" data-suffix="st">0</h3>
+          <p>Year CS</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Work Preview -->
+    <section class="section selected-work reveal">
+      <div class="selected-work-header">
+        <h2>Recent stuff</h2>
+        <a data-page="projects">See all &rarr;</a>
+      </div>
+      <div class="projects-grid stagger">
+        <!-- Project 1 -->
+        <a class="project-card" href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">01</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Metricare</h3>
+          <p>Medical patient dashboard — patient history, medications, drug interactions (FDA), and AI-generated summaries in one unified UI.</p>
+          <div class="project-tags">
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Python</span>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a class="project-card" href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">02</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Digishelf</h3>
+          <p>A cross-platform digital bookshelf app built with Flutter. Scan barcodes to add books and organize your reading collection.</p>
+          <div class="project-tags">
+            <span class="project-tag">Dart</span>
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Mobile</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       PAGE: PROJECTS
+       ======================================== -->
+  <div id="projects" class="page">
+    <section class="projects-page section">
+      <div class="page-header reveal">
+        <h1>Projects</h1>
+        <p>Stuff I've built and contributed to.</p>
+      </div>
+
+      <div class="projects-grid stagger">
+
+        <!-- Project: Metricare -->
+        <a class="project-card" href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">01</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Metricare</h3>
+          <p>Medical patient dashboard that consolidates patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into a single clean interface. Built with a React + Vite frontend and a FastAPI Python backend.</p>
+          <div class="project-tags">
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">Vite</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Gemini AI</span>
+          </div>
+        </a>
+
+        <!-- Project: Digishelf -->
+        <a class="project-card" href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">02</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Digishelf</h3>
+          <p>A cross-platform digital bookshelf application. Scan barcodes to quickly add books, organise your collection, and keep track of your reading. Built in Flutter for iOS, Android, web, and desktop.</p>
+          <div class="project-tags">
+            <span class="project-tag">Dart</span>
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Mobile</span>
+            <span class="project-tag">Cross-Platform</span>
+          </div>
+        </a>
+
+        <!-- Project: Claude Hackathon -->
+        <a class="project-card" href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">03</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Claude CLI Tool</h3>
+          <p>A command-line interface for interacting with Claude AI — ask questions, start interactive chats, and analyse files. Built at the Claude Builder Club hackathon at Trinity College Dublin.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Claude API</span>
+            <span class="project-tag">CLI</span>
+            <span class="project-tag">Hackathon</span>
+          </div>
+        </a>
+
+        <!-- Project: Mars Food Simulation -->
+        <a class="project-card" href="https://github.com/mcrowley19/mars-food-simulation" target="_blank" rel="noopener noreferrer">
+          <div class="project-card-header">
+            <span class="project-card-number">04</span>
+            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </div>
+          <h3>Mars Food Simulation</h3>
+          <p>A simulation modelling food production and resource management for a Mars colony. Explores sustainable agriculture in extraterrestrial environments.</p>
+          <div class="project-tags">
+            <span class="project-tag">Simulation</span>
+            <span class="project-tag">Collaborative</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       PAGE: ABOUT
+       ======================================== -->
+  <div id="about" class="page">
+    <section class="about-page section">
+      <div class="page-header reveal">
+        <h1>About me</h1>
+        <p>Who I am, what I use, and what I've been up to.</p>
+      </div>
+
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>
+            I'm <strong>Cillian Cooke</strong>, a first-year Computer Science student at 
+            <strong>Trinity College Dublin</strong>. I'm drawn to building software that 
+            solves real problems — whether that's a medical dashboard, a mobile app for 
+            book lovers, or a CLI tool powered by AI.
+          </p>
+          <p>
+            I enjoy working across the full stack and I'm always picking up new tools 
+            and frameworks. When I'm not coding, you'll find me at hackathons, collaborating 
+            with classmates on ambitious projects, or diving into something new.
+          </p>
+          <p>
+            I'm currently looking for <strong>internship opportunities</strong> and 
+            interesting open-source projects to contribute to. If you have something 
+            in mind, I'd love to hear about it.
+          </p>
+        </div>
+
+        <div class="about-details">
+          <div class="detail-block">
+            <h3>Location</h3>
+            <p>Dublin, Ireland</p>
+          </div>
+          <div class="detail-block">
+            <h3>Education</h3>
+            <p>BSc Computer Science — Trinity College Dublin (2025–2029)</p>
+          </div>
+          <div class="detail-block">
+            <h3>Languages & Tools</h3>
+            <ul>
+              <li>Python</li>
+              <li>TypeScript</li>
+              <li>Dart</li>
+              <li>JavaScript</li>
+              <li>HTML/CSS</li>
+              <li>React</li>
+              <li>Flutter</li>
+              <li>FastAPI</li>
+              <li>Git</li>
+              <li>Node.js</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h3>Interests</h3>
+            <ul>
+              <li>Full-Stack Dev</li>
+              <li>AI/ML</li>
+              <li>Mobile Apps</li>
+              <li>Open Source</li>
+              <li>Hackathons</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline reveal">
+        <h2>Experience</h2>
+        <div class="timeline-items">
+          <div class="timeline-item">
+            <div class="timeline-date">Mar 2026</div>
+            <div class="timeline-title">Metricare — Medical Dashboard</div>
+            <div class="timeline-desc">Built a full-stack patient dashboard with React, FastAPI, and Gemini AI integration as a team project.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Feb 2026</div>
+            <div class="timeline-title">Digishelf — Flutter App</div>
+            <div class="timeline-desc">Contributed to a cross-platform digital bookshelf app with barcode scanning and library management.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Jan 2026</div>
+            <div class="timeline-title">Claude Builder Club Hackathon</div>
+            <div class="timeline-desc">Built a Python CLI tool for interacting with Claude AI at Trinity College Dublin's hackathon.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Sep 2025</div>
+            <div class="timeline-title">Started at Trinity College Dublin</div>
+            <div class="timeline-desc">Began studying Computer Science at one of Ireland's top universities.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       PAGE: CONTACT
+       ======================================== -->
+  <div id="contact" class="page">
+    <section class="contact-page section">
+      <div class="page-header reveal">
+        <h1>Get in touch</h1>
+        <p>Want to work together or just say hi? Go for it.</p>
+      </div>
+
+      <div class="contact-grid reveal">
+        <div class="contact-text">
+          <p>
+            I'm always up for hearing about interesting projects, internships, 
+            or just chatting about tech. Don't be a stranger.
+          </p>
+
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:your.email@tcd.ie">
+              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+              <div>
+                <div class="contact-link-label">Email</div>
+                <div class="contact-link-value">your.email@tcd.ie</div>
+              </div>
+            </a>
+            <a class="contact-link" href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">
+              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-.09-3.77s-1.18-.35-3.91 1.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 3.5 8.55c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22"/></svg>
+              <div>
+                <div class="contact-link-label">GitHub</div>
+                <div class="contact-link-value">Cillian-Cooke</div>
+              </div>
+            </a>
+            <a class="contact-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <div>
+                <div class="contact-link-label">LinkedIn</div>
+                <div class="contact-link-value">Connect with me</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="What's on your mind?"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Send Message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
