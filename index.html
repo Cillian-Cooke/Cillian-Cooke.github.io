@@ -37,6 +37,7 @@
       <li><a data-page="projects">Projects</a></li>
       <li><a data-page="about">About</a></li>
       <li><a data-page="books">Books</a></li>
+      <li><a data-page="cv">CV</a></li>
       <li><a data-page="contact">Contact</a></li>
     </ul>
   </nav>
@@ -63,9 +64,9 @@
             GitHub
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </a>
-          <a class="btn" href="Cillian-Cooke-CV.docx" download>
+          <a class="btn" data-page="cv">
             CV
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </a>
         </div>
       </div>
@@ -327,7 +328,7 @@
           </div>
           <div class="detail-block">
             <h3>CV</h3>
-            <p><a href="Cillian-Cooke-CV.docx" download style="color: var(--accent); font-weight: 600;">Download my CV &darr;</a></p>
+            <p><a data-page="cv" style="color: var(--accent); font-weight: 600; cursor: pointer;">View my CV &rarr;</a></p>
           </div>
         </div>
       </div>
@@ -590,6 +591,192 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       PAGE: CV
+       ======================================== -->
+  <div id="cv" class="page">
+    <section class="cv-page section">
+      <div class="page-header reveal">
+        <h1>CV</h1>
+        <p>Here's what I've been up to.</p>
+      </div>
+
+      <div class="cv-container reveal">
+        <div class="cv-sheet">
+
+          <!-- Header -->
+          <div class="cv-header">
+            <h2>Cillian Cooke</h2>
+            <p class="cv-subtitle">23 Moyne Road, Ranelagh, Dublin 6 &bull; +353 83 354 6599</p>
+            <div class="cv-contact-row">
+              <a href="mailto:cicooke@tcd.ie">cicooke@tcd.ie</a>
+              <span>&bull;</span>
+              <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <span>&bull;</span>
+              <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+          </div>
+
+          <p class="cv-summary">Motivated First Year Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software projects, leading teams, and running independent ventures.</p>
+
+          <!-- Education -->
+          <div class="cv-section">
+            <h3>Education</h3>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Trinity College Dublin</strong>
+                <span class="cv-date">09/2025 &ndash; Present</span>
+              </div>
+              <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
+              <ul>
+                <li>Developing proficiency in multiple programming languages and the ability to quickly learn new technologies</li>
+                <li>Expected graduation: 05/2030</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>CTYI Engineering Programme</strong>
+                <span class="cv-date">09/2022 &ndash; 05/2023</span>
+              </div>
+              <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
+              <ul>
+                <li>Selected for competitive engineering programme focused on problem-solving, design and analytical thinking</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>St Conleth&rsquo;s College</strong>
+                <span class="cv-date">09/2019 &ndash; 05/2025</span>
+              </div>
+              <p class="cv-place">Secondary School Education</p>
+            </div>
+          </div>
+
+          <!-- Employment Experience -->
+          <div class="cv-section">
+            <h3>Employment Experience</h3>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Gardening</strong>
+                <span class="cv-date">06/2022 &ndash; Present</span>
+              </div>
+              <ul>
+                <li>Managed an independent business serving 10+ recurring clients, handling scheduling, customer relations, pricing and service delivery</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Dungeons and Dragons Summer Camp</strong>
+                <span class="cv-date">Summer 2024 &amp; Summer 2025</span>
+              </div>
+              <p class="cv-place">Founder and Organiser</p>
+              <ul>
+                <li>Designed, marketed and ran a multi-year summer camp</li>
+                <li>Managed client communication, planning and group facilitation</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Happy Days Preschool and Afterschool</strong>
+                <span class="cv-date">07/2025 &ndash; 01/2026</span>
+              </div>
+              <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
+              <ul>
+                <li>Developed responsibility, communication and teamwork skills</li>
+                <li>Designed and built the Happy Days Preschool &amp; Afterschool website, delivering a clear, user-friendly online presence</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Leinster Rugby Ball Boy</strong>
+                <span class="cv-date">09/2019 &ndash; 04/2025</span>
+              </div>
+              <ul>
+                <li>Selected to support professional-level matches, requiring discipline, teamwork and performance under pressure</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Projects -->
+          <div class="cv-section">
+            <h3>Projects</h3>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Atlas</strong>
+                <span class="cv-date">10/2025 &ndash; Present</span>
+              </div>
+              <p class="cv-place">Social Media Startup &mdash; Solo Project &mdash; Flutter | Firebase</p>
+              <ul>
+                <li>Ongoing independent project (4+ months) designing and building a social media application</li>
+                <li>Responsible for full stack development, UI/UX and system architecture</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>BlackOut</strong>
+                <span class="cv-date">01/2026</span>
+              </div>
+              <p class="cv-place">Group Focus Startup &mdash; Team Project &mdash; React Native | Firebase</p>
+              <ul>
+                <li>A month-long project to build an application that encourages healthier phone habits in groups</li>
+                <li>Led backend and app design, collaborating with teammates using Git-based workflows</li>
+              </ul>
+            </div>
+
+            <div class="cv-entry">
+              <div class="cv-entry-header">
+                <strong>Claude Builder Hackathon</strong>
+                <span class="cv-date">11/2025</span>
+              </div>
+              <p class="cv-place">Winning Team Project &mdash; D&amp;D Game</p>
+              <ul>
+                <li>Won Most Creative Use of AI &amp; Best Teamwork</li>
+                <li>Built a collaborative Dungeons &amp; Dragons campaign app powered by generative AI</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Skills & Interests -->
+          <div class="cv-section">
+            <h3>Skills &amp; Interests</h3>
+            <div class="cv-skills-list">
+              <p><strong>Coding Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
+              <p><strong>Technical Skills:</strong> Firebase (Authentication, Firestore, Hosting) [advanced], VS Code [advanced], GitHub [intermediate]</p>
+              <p><strong>Interests:</strong> Football, Circus &amp; Juggling, Dungeons &amp; Dragons, App Development, Reading non-fiction</p>
+            </div>
+          </div>
+
+          <!-- Awards & Leadership -->
+          <div class="cv-section">
+            <h3>Awards &amp; Leadership</h3>
+            <ul>
+              <li><strong>Student of The Year</strong> &mdash; Awarded in St Conleth&rsquo;s College five times for academic excellence, commitment and leadership</li>
+              <li><strong>Rugby Team Captain</strong> &mdash; Demonstrated leadership, discipline and team coordination</li>
+            </ul>
+          </div>
+
+        </div>
       </div>
     </section>
 
