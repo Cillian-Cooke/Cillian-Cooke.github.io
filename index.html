@@ -7,9 +7,8 @@
   <meta name="description" content="Portfolio of Cillian Cooke — Computer Science student at Trinity College Dublin.">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.cdnfonts.com">
+  <link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
@@ -36,7 +35,6 @@
       <li><a data-page="home">Home</a></li>
       <li><a data-page="projects">Projects</a></li>
       <li><a data-page="about">About</a></li>
-      <li><a data-page="books">Books</a></li>
       <li><a data-page="cv">CV</a></li>
       <li><a data-page="contact">Contact</a></li>
     </ul>
@@ -333,37 +331,299 @@
         </div>
       </div>
 
-      <!-- Interests -->
-      <div class="interests-section reveal">
-        <h2>Things I'm into</h2>
-        <div class="interests-grid">
+      <div class="about-tabs reveal">
+        <div class="tabs-header">
+          <button class="about-tab active" data-tab="books">Books</button>
+          <button class="about-tab" data-tab="sports">Sports</button>
+          <button class="about-tab" data-tab="dnd">DnD</button>
+          <button class="about-tab" data-tab="poetry">Poetry</button>
+        </div>
 
-          <div class="interest-card interest-orange">
-            <div class="interest-emoji">🎲</div>
-            <h3>Dungeons & Dragons</h3>
-            <p>I've been a Dungeon Master for three years. I create worlds, characters, and stories that other people inhabit and shape. It combines creativity with collaboration — watching others engage with something I built is incredibly rewarding. I also founded a D&D summer camp at 17.</p>
+        <div class="about-tab-panels">
+          <div class="about-tab-panel active" id="about-tab-books">
+            <p><strong>Books & comics</strong> are where I combine curiosity and creativity. I read both storytelling and technical work, and I keep a growing list of favourites.</p>
+            <h3>Comics & graphic novels</h3>
+            <ul>
+              <li><strong>Invincible</strong> — a gritty superhero saga with emotional stakes and unexpected twists.</li>
+              <li><strong>The Boys</strong> — dark satire that made me rethink how stories can use real-world edge.</li>
+              <li><strong>V for Vendetta</strong> — one of the best examples of political worldbuilding in comics.</li>
+              <li><strong>Sapiens: A Graphic History</strong> — a more visual take on my favourite history text.</li>
+            </ul>
+            <h3>Books I keep returning to</h3>
+            <ul>
+              <li><strong>Hello World</strong> — it blends tech and human stories in a way that feels thoughtful and relevant.</li>
+              <li><strong>Designing Data-Intensive Applications</strong> — a practical guide for building systems that scale.</li>
+              <li><strong>Flutter in Action</strong> — useful for shipping mobile apps faster and more confidently.</li>
+              <li><strong>If Anyone Builds It, Everyone Dies</strong> — funny and sharp commentary on internet culture.</li>
+            </ul>
+
+            <div class="shelf-section">
+              <h2>Current shelf</h2>
+            </div>
+            <div class="books-grid">
+              <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
+                <h3>Invincible Compendium 1</h3>
+                <p class="book-author">Robert Kirkman</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2 cover" loading="lazy">
+                <h3>Invincible Compendium 2</h3>
+                <p class="book-author">Robert Kirkman</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3 cover" loading="lazy">
+                <h3>Invincible Compendium 3</h3>
+                <p class="book-author">Robert Kirkman</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys cover" loading="lazy">
+                <h3>The Boys</h3>
+                <p class="book-author">Garth Ennis</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta cover" loading="lazy">
+                <h3>V for Vendetta</h3>
+                <p class="book-author">Alan Moore</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History cover" loading="lazy">
+                <h3>Sapiens: A Graphic History</h3>
+                <p class="book-author">Yuval Noah Harari</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus cover" loading="lazy">
+                <h3>Nexus</h3>
+                <p class="book-author">Yuval Noah Harari</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World cover" loading="lazy">
+                <h3>Hello World</h3>
+                <p class="book-author">Hannah Fry</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies cover" loading="lazy">
+                <h3>If Anyone Builds It, Everyone Dies</h3>
+                <p class="book-author">Eliezer Yudkowsky &amp; Nate Soares</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action cover" loading="lazy">
+                <h3>Flutter in Action</h3>
+                <p class="book-author">Eric Windmill</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications cover" loading="lazy">
+                <h3>Designing Data-Intensive Applications</h3>
+                <p class="book-author">Martin Kleppmann</p>
+              </a>
+
+              <a class="book-card" href="https://openlibrary.org/isbn/9780593727461" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593727461-L.jpg" alt="The Seven Rules of Trust cover" loading="lazy">
+                <h3>The Seven Rules of Trust</h3>
+                <p class="book-author">Jimmy Wales</p>
+              </a>
+            </div>
           </div>
 
-          <div class="interest-card interest-blue">
-            <div class="interest-emoji">🤹</div>
-            <h3>Juggling & Circus</h3>
-            <p>My brother convinced me to join Trinity's Juggling & Circus Society. I'm not in it for the technical juggling — I love the atmosphere. Nobody cares about looking foolish. People just experiment and have fun. That mindset of valuing play and curiosity over judgement is something I try to bring everywhere.</p>
+          <div class="about-tab-panel" id="about-tab-sports">
+            <p><strong>Sports</strong> help me stay grounded and present. I enjoy activities that combine focus, physical energy, and community.</p>
+            <ul>
+              <li>Trinity Juggling & Circus Society — I love learning new tricks and the supportive atmosphere.</li>
+              <li>Leinster Rugby ball boy — match-day discipline and teamwork taught me a lot.</li>
+              <li>Hiking and camping — getting outside is the best way to reset after screen time.</li>
+            </ul>
           </div>
 
-          <div class="interest-card interest-green">
-            <div class="interest-emoji">🌱</div>
-            <h3>Gardening Business</h3>
-            <p>I independently manage a gardening business with over 20 clients. It's taught me responsibility, client management, and the satisfaction of physical work alongside all the screen time.</p>
+          <div class="about-tab-panel" id="about-tab-dnd">
+            <div class="dnd-intro">
+              <p><strong>Dungeons & Dragons</strong> is one of my favourite creative outlets. I enjoy worldbuilding, storytelling, and guiding groups through adventures.</p>
+              <ul>
+                <li>Dungeon Master for three years — I build campaigns, characters, and immersive storylines.</li>
+                <li>Founder of a D&D summer camp — I planned sessions and helped others discover roleplaying.</li>
+                <li>I advertised, organised, and ran the whole camp myself at age 17.</li>
+                <li>It combines creativity, collaboration, and improvisation in a way I love.</li>
+              </ul>
+            </div>
+
+            <div class="dnd-camp-card">
+              <div class="camp-card-header">
+                <h3>D&D Summer Camp</h3>
+                <p>Run independently at 17</p>
+              </div>
+              <div class="camp-card-grid">
+                <div class="camp-card-body">
+                  <p><strong>How I organised it</strong></p>
+                  <ul>
+                    <li>Designed each session and the full camp timetable.</li>
+                    <li>Advertised through social media and local flyers.</li>
+                    <li>Handled bookings, registration, and camp logistics solo.</li>
+                    <li>Led new players through a full 15+ hour campaign.</li>
+                  </ul>
+                </div>
+                <div class="camp-poster-stack">
+                  <img class="camp-poster" src="images/DnD_poster1.png" alt="Dungeons & Dragons camp poster 1">
+                  <img class="camp-poster" src="images/DnD_poster2.png" alt="Dungeons & Dragons camp poster 2">
+                </div>
+              </div>
+            </div>
+
+            <div class="campaigns-section">
+              <h3>Campaign I — The Living Canvas</h3>
+              <p><em>A world dreamed into being</em></p>
+              <p><strong>8 months</strong></p>
+              <p>Step inside the mind of a Sacred Artist — a god who paints reality itself. Inspired by the hauntingly beautiful post-apocalyptic visions of Simon Stålenhag, this world is one where rusting machines breathe and move with something disturbingly close to life. Organic circuitry pulses beneath metal flesh. Wetlands hum with forgotten technology.</p>
+              <p>But the landscape is never fixed. The world shifts with the artist's mood — storm-grey desolation when he despairs, amber warmth when wonder stirs in him again. To navigate it, players must learn to read not the terrain, but the soul behind it.</p>
+              <div class="campaign-tags">
+                <span>Sacred Artist Class</span>
+                <span>Post-Apocalyptic</span>
+                <span>Biomechanical</span>
+                <span>Surrealist</span>
+              </div>
+
+              <h3>Campaign II — The Next Stage</h3>
+              <p><em>A race through the poetry of dying</em></p>
+              <p><strong>7 months</strong></p>
+              <p>Death, in the world of Norman Alperson, is not a wall — it is a door. A poet of extraordinary power, Norman grants new stages of existence to those whose lives have reached their natural fullness. Not an ending, but a transformation into something richer.</p>
+              <p>Players raced toward the Final Life — a heaven beyond all heavens — but the path demanded more than strength or cunning. Every trial was woven into verse. To advance, they had to feel the meaning hidden within the language, to move through metaphor as though it were terrain.</p>
+              <p class="campaign-note">Original poems from this campaign live in the Poetry tab →</p>
+              <div class="campaign-tags">
+                <span>Poetic Puzzles</span>
+                <span>Afterlife Mythology</span>
+                <span>Literary</span>
+                <span>Philosophical</span>
+              </div>
+            </div>
+
           </div>
 
-          <div class="interest-card interest-purple">
-            <div class="interest-emoji">🌍</div>
-            <h3>Travel & Perspective</h3>
-            <p>Three weeks in Tanzania in 2024 — camping at rural schools, hiking mountains, going on safari. What stayed with me most were the conversations and the sense of community without technology. It made me more independent and aware of the world beyond my routine.</p>
+          <div class="about-tab-panel" id="about-tab-poetry">
+            <p><strong>Poetry</strong> is where I explore thoughts and emotions through words. Click a title to open each poem.</p>
+            <div class="poetry-section">
+              <details class="poem-item">
+                <summary>
+                  <span class="poem-title">Overture I</span>
+                  <span class="poem-subtitle">Every note is born equal</span>
+                </summary>
+                <div class="poem-content">
+                  <p>Every note is born equal — yet
+                  An artist must decide what note comes next.
+                  A choice that should never rest with one alone.
+                  Equality does not mean perfection.</p>
+                  <p>Across this universe, infinite lives begin.
+                  Infinite lives end.
+                  And I, as an artist — as a lover — must choose but one.
+                  A choice made infinitely impossible.</p>
+                  <p>With the concept of infinity,
+                  With a gesture most romantic, I will—
+                  Divide infinity to reach you,
+                  Until infinity becomes one.</p>
+                  <p>And with that,
+                  Multiply one to infinity.</p>
+                </div>
+              </details>
+
+              <details class="poem-item">
+                <summary>
+                  <span class="poem-title">Undying Note III</span>
+                  <span class="poem-subtitle">War is coming — maybe not in this life</span>
+                </summary>
+                <div class="poem-content">
+                  <p>War is coming — maybe not in this life,
+                  but definitely in the next.</p>
+                  <p>Living is to fight; dying is to move on.
+                  Each stage grows, while you shrink.</p>
+                  <p>A war shouldn’t be won with a thousand soldiers,
+                  but rather one right leader —
+                  one who unites,
+                  one who plays the perfect harmony
+                  between pain and growth.</p>
+                  <p>War isn’t won with sticks and stones,
+                  but rather a series of notes —
+                  a chord juxtaposed with a lullaby.</p>
+                  <p>So this fight may be over,
+                  but the war has just begun.
+                  To fight and die is the greatest sacrifice;
+                  to fight and live is to fight again.</p>
+                </div>
+              </details>
+
+              <details class="poem-item">
+                <summary>
+                  <span class="poem-title">Singularity IV</span>
+                  <span class="poem-subtitle">Weightless in the eyes of progress</span>
+                </summary>
+                <div class="poem-content">
+                  <p>Weightless in the eyes of progress,
+                  Progress found in the event of no return.</p>
+                  <p>Beyond the cliff of moments.
+                  For a God does not fear
+                  The concept of time.</p>
+                  <p>The other side awaits. Patiently
+                  Aging the mortals.
+                  Like a clock ticking down its own demise.
+                  So shall you. A warrior with no urgency.</p>
+                  <p>Is a hero with no purpose.</p>
+                </div>
+              </details>
+
+              <details class="poem-item">
+                <summary>
+                  <span class="poem-title">The Final Chapter XII</span>
+                  <span class="poem-subtitle">It begins and ends with you</span>
+                </summary>
+                <div class="poem-content">
+                  <p>It begins and ends with you,
+                  My fallen angel bearing the golden ticket.
+                  A war to end all wars is not worth the blade
+                  If your soul wasn’t left to save.</p>
+                  <p>This ticket to omnipotence is priceless,
+                  Yet exemption from battle is granted
+                  Along with the greatest honour.
+                  For you and you alone must choose —</p>
+                  <p>A single champion.</p>
+                  <p>A champion to lead us into war.
+                  And the war comes for us now,
+                  For a plague has taken root,
+                  Defence will only buy us time.</p>
+                </div>
+              </details>
+
+              <details class="poem-item">
+                <summary>
+                  <span class="poem-title">Questioning V</span>
+                  <span class="poem-subtitle">Walking in circles; running from memories</span>
+                </summary>
+                <div class="poem-content">
+                  <p>Walking in circles; running from memories.
+                  Memories of nightmares.
+                  Nightmares that manifest to reality.</p>
+                  <p>An endless cycle, building upon itself.</p>
+                  <p>I never got to the heart of the problem,
+                  As I never learned to hold my breath.</p>
+                  <p>How I apologise to myself with empty words.
+                  “Sorry” isn’t enough to put out a fire.</p>
+                  <p>Stop looking in the eyes of others,
+                  As you share different worlds.</p>
+                  <p>By walking through old memories,
+                  Each one slightly wrong.</p>
+                  <p>A mirror placed in front of me,
+                  Still doesn’t reflect how I feel.
+                  In a world of good and evil.
+                  I feel left out.</p>
+                </div>
+              </details>
+            </div>
           </div>
-
-          <!-- Add more interests here -->
-
         </div>
       </div>
 
@@ -407,118 +667,6 @@
             <div class="timeline-desc">Computer Science. Selected for Centre for Talented Youth Ireland.</div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ========================================
-       PAGE: BOOKS
-       ======================================== -->
-  <div id="books" class="page">
-    <section class="books-page section">
-      <div class="page-header reveal">
-        <h1>Reading</h1>
-        <p>Comics and books that stuck with me. I'll keep adding to this.</p>
-      </div>
-
-      <!-- Comics -->
-      <div class="shelf-section reveal">
-        <h2>Comics</h2>
-      </div>
-      <div class="books-grid stagger">
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
-          <h3>Invincible Compendium 1</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2 cover" loading="lazy">
-          <h3>Invincible Compendium 2</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3 cover" loading="lazy">
-          <h3>Invincible Compendium 3</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys cover" loading="lazy">
-          <h3>The Boys</h3>
-          <p class="book-author">Garth Ennis &mdash; Complete Series</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta cover" loading="lazy">
-          <h3>V for Vendetta</h3>
-          <p class="book-author">Alan Moore</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History cover" loading="lazy">
-          <h3>Sapiens: A Graphic History</h3>
-          <p class="book-author">Yuval Noah Harari</p>
-        </a>
-
-        <!-- Add more comics here -->
-
-      </div>
-
-      <!-- Books -->
-      <div class="shelf-section reveal">
-        <h2>Books</h2>
-      </div>
-      <div class="books-grid stagger">
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus cover" loading="lazy">
-          <h3>Nexus</h3>
-          <p class="book-author">Yuval Noah Harari</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World cover" loading="lazy">
-          <h3>Hello World</h3>
-          <p class="book-author">Hannah Fry</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies cover" loading="lazy">
-          <h3>If Anyone Builds It, Everyone Dies</h3>
-          <p class="book-author">Eliezer Yudkowsky &amp; Nate Soares</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action cover" loading="lazy">
-          <h3>Flutter in Action</h3>
-          <p class="book-author">Eric Windmill</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications cover" loading="lazy">
-          <h3>Designing Data-Intensive Applications</h3>
-          <p class="book-author">Martin Kleppmann</p>
-        </a>
-
-        <a class="book-card reveal" href="https://openlibrary.org/isbn/9780593727461" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593727461-L.jpg" alt="The Seven Rules of Trust cover" loading="lazy">
-          <h3>The Seven Rules of Trust</h3>
-          <p class="book-author">Jimmy Wales</p>
-        </a>
-
-        <!-- Add more books here -->
-
       </div>
     </section>
 

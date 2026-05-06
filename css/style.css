@@ -26,8 +26,8 @@
   --purple-light: rgba(124, 92, 191, 0.08);
   --amber: #c48a1a;
   --amber-light: rgba(196, 138, 26, 0.08);
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: 'OpenDyslexic', Arial, sans-serif;
+  --font-mono: 'OpenDyslexic', monospace;
   --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --radius: 12px;
@@ -289,6 +289,337 @@ img { max-width: 100%; display: block; }
 }
 .detail-block ul li:nth-child(3n) {
   background: var(--purple-light); color: var(--purple);
+}
+
+.about-tabs {
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.about-tab {
+  min-width: 110px;
+  border: 1px solid transparent;
+  background: rgba(232, 93, 58, 0.08);
+  color: var(--text);
+  border-radius: 9999px;
+  padding: 0.95rem 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.22s var(--transition), background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.about-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(232, 93, 58, 0.18);
+  border-color: rgba(232, 93, 58, 0.35);
+}
+.about-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 18px 40px rgba(232, 93, 58, 0.16);
+}
+.about-tab-panels {
+  display: grid; gap: 1rem;
+}
+.about-tab-panel { display: none; }
+.about-tab-panel.active { display: block; }
+.about-tab-panel p,
+.about-tab-panel h3 {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.about-tab-panel h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+.about-tab-panel ul {
+  list-style: disc inside;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+  line-height: 1.75;
+}
+.about-tab-panel li {
+  margin-bottom: 0.75rem;
+}
+
+.about-tab-panel#about-tab-dnd {
+  background: rgba(232, 93, 58, 0.06);
+  padding: 1.8rem;
+  border-radius: 1.5rem;
+}
+
+.dnd-intro {
+  margin-bottom: 1.75rem;
+}
+
+.dnd-intro ul {
+  list-style: disc inside;
+  color: var(--text-muted);
+  margin-left: 0.45rem;
+}
+
+.dnd-camp-card {
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(232, 93, 58, 0.18);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 20px 42px rgba(232, 93, 58, 0.08);
+  margin-bottom: 2rem;
+}
+
+.camp-card-header h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.camp-card-body p,
+.camp-card-body ul {
+  margin-bottom: 1rem;
+}
+
+.campaigns-section {
+  margin-top: 1rem;
+}
+
+.campaigns-section h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.campaigns-section p {
+  margin-bottom: 1rem;
+}
+
+.campaign-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.campaign-tags span {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(232, 93, 58, 0.12);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.campaign-note {
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.camp-posters {
+  margin-top: 2rem;
+}
+
+.camp-poster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.camp-poster {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  background: #fff;
+}
+
+.campaign-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-warm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.camp-card-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.camp-card-header p {
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.camp-card-body p {
+  color: var(--text);
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.camp-card-body ul {
+  list-style: disc inside;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.camp-card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 260px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.camp-poster-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.camp-card-body li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.camp-age {
+  margin-bottom: 1rem;
+}
+
+.camp-posters {
+  margin-top: 1.5rem;
+}
+
+.camp-posters h4 {
+  margin-bottom: 0.45rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.camp-posters p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.camp-poster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.camp-poster {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  background: #fff;
+}
+
+.campaign-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-warm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.campaign-item h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.campaign-item p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.poetry-section {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.poem-item {
+  margin-bottom: 0;
+  padding: 0;
+  background: none;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.poem-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  background: rgba(232, 93, 58, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.poem-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.poem-item summary::before {
+  content: '+';
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-right: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.poem-item[open] summary::before {
+  content: '–';
+}
+
+.poem-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.poem-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.poem-content {
+  padding: 1rem 1.25rem 1.25rem;
+  background: var(--bg-warm);
+  color: var(--text-muted);
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.poem-content p {
+  margin-bottom: 1rem;
 }
 
 /* Timeline */
@@ -581,8 +912,8 @@ img { max-width: 100%; display: block; }
 }
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1.2rem;
   margin-top: 1.25rem;
   margin-bottom: 1rem;
 }
@@ -638,6 +969,9 @@ img { max-width: 100%; display: block; }
   .projects-grid { grid-template-columns: 1fr; }
   .interests-grid { grid-template-columns: 1fr; }
   .books-grid { grid-template-columns: 1fr; }
+  .dnd-panel-grid { grid-template-columns: 1fr; }
+  .camp-card-grid { grid-template-columns: 1fr; }
+  .camp-poster-grid { grid-template-columns: 1fr; }
   .cv-sheet { padding: 1.5rem; }
   .stats { flex-wrap: wrap; gap: 1.5rem; }
   .footer {

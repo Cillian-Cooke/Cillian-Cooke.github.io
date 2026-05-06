@@ -138,6 +138,41 @@
     }, { passive: true });
   }
 
+  // --- About tabs ---
+  function initAboutTabs() {
+    const tabButtons = document.querySelectorAll('.about-tab');
+    const panels = document.querySelectorAll('.about-tab-panel');
+    if (!tabButtons.length || !panels.length) return;
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const tab = button.getAttribute('data-tab');
+        tabButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+        panels.forEach(panel => {
+          panel.classList.toggle('active', panel.id === `about-tab-${tab}`);
+        });
+      });
+    });
+  }
+
+  // --- Poetry accordion ---
+  function initPoemAccordion() {
+    const poems = document.querySelectorAll('.poem-item');
+    if (!poems.length) return;
+
+    poems.forEach(poem => {
+      poem.addEventListener('toggle', (e) => {
+        if (e.target.open) {
+          poems.forEach(other => {
+            if (other !== poem && other.open) {
+              other.open = false;
+            }
+          });
+        }
+      });
+    });
+  }
+
   // --- Cursor Glow ---
   function initCursorGlow() {
     const glow = document.querySelector('.cursor-glow');
@@ -203,6 +238,8 @@
     initRouter();
     initMobileMenu();
     initNavScroll();
+    initAboutTabs();
+    initPoemAccordion();
     initCursorGlow();
     initReveals();
     animateCounters();
