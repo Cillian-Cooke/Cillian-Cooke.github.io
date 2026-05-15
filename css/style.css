@@ -2,7 +2,22 @@
    CILLIAN COOKE — PORTFOLIO
    ============================================ */
 
-/* Import dyslexia-friendly font */
+/* Local dyslexia-friendly font with fallbacks */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('../fonts/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('../fonts/OpenDyslexic-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+/* Fallback from Google Fonts if local files don't load */
 @import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
 
 *, *::before, *::after {
