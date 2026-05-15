@@ -2,6 +2,9 @@
    CILLIAN COOKE — PORTFOLIO
    ============================================ */
 
+/* Import dyslexia-friendly font */
+@import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
