@@ -871,57 +871,58 @@ img { max-width: 100%; display: block; }
 
 /* --- CV --- */
 .cv-page { padding-top: 8rem; padding-bottom: 5rem; }
-.cv-container { max-width: 800px; margin: 0 auto; }
+.cv-container { max-width: 850px; margin: 0 auto; }
 .cv-sheet {
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 3rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border: none;
+  border-radius: 0;
+  padding: 2.5rem 2rem;
+  box-shadow: none;
+  font-family: Georgia, serif;
 }
-.cv-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
-.cv-header h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
-.cv-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.6rem; }
+.cv-header { text-align: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: none; }
+.cv-header h2 { font-family: Georgia, serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.1rem; letter-spacing: 0.02em; }
+.cv-subtitle { font-family: Georgia, serif; color: #333; font-size: 0.75rem; margin-bottom: 0.3rem; font-weight: normal; }
 .cv-contact-row {
   display: flex; justify-content: center; align-items: center;
-  gap: 0.5rem; flex-wrap: wrap;
-  font-size: 0.8rem; color: var(--text-muted);
+  gap: 0.35rem; flex-wrap: wrap;
+  font-family: Georgia, serif; font-size: 0.7rem; color: #333;
 }
-.cv-contact-row a { color: var(--accent); text-decoration: none; }
+.cv-contact-row a { color: #1155CC; text-decoration: none; font-weight: bold; }
 .cv-contact-row a:hover { text-decoration: underline; }
 .cv-summary {
-  font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
-  margin-bottom: 1.75rem; padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border);
+  font-family: Georgia, serif; font-size: 0.75rem; color: #333; line-height: 1.5;
+  margin-bottom: 1rem; padding-bottom: 1rem;
+  border-bottom: none;
 }
 
-.cv-section { margin-bottom: 1.75rem; }
+.cv-section { margin-bottom: 1.25rem; }
 .cv-section h3 {
-  font-family: var(--font-sans);
-  font-size: 0.85rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--accent); margin-bottom: 0.75rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border);
+  font-family: Georgia, serif;
+  font-size: 0.95rem; font-weight: bold;
+  text-transform: none; letter-spacing: 0;
+  color: #000; margin-bottom: 0.6rem;
+  padding-bottom: 0;
+  border-bottom: none;
 }
-.cv-entry { margin-bottom: 1.25rem; }
+.cv-entry { margin-bottom: 0.8rem; }
 .cv-entry:last-child { margin-bottom: 0; }
 .cv-entry-header {
   display: flex; justify-content: space-between; align-items: baseline;
   flex-wrap: wrap; gap: 0.5rem;
 }
-.cv-entry-header strong { font-size: 0.95rem; }
-.cv-date { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
-.cv-place { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.3rem; }
+.cv-entry-header strong { font-family: Georgia, serif; font-size: 0.85rem; font-weight: bold; color: #000; }
+.cv-date { font-family: Georgia, serif; font-size: 0.75rem; color: #555; white-space: nowrap; }
+.cv-place { font-family: Georgia, serif; font-size: 0.75rem; color: #555; font-style: normal; margin-bottom: 0.2rem; font-weight: normal; }
 .cv-entry ul {
-  list-style: disc; padding-left: 1.25rem;
-  margin-top: 0.3rem;
+  list-style: disc; padding-left: 1.5rem;
+  margin-top: 0.2rem;
 }
 .cv-entry ul li {
-  font-size: 0.85rem; color: var(--text-muted);
-  line-height: 1.55; margin-bottom: 0.15rem;
+  font-family: Georgia, serif; font-size: 0.75rem; color: #333;
+  line-height: 1.5; margin-bottom: 0.1rem;
 }
-.cv-entry p:not(.cv-place) { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+.cv-entry p:not(.cv-place) { font-family: Georgia, serif; font-size: 0.75rem; color: #333; line-height: 1.5; }
 .cv-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .cv-skill {
   font-size: 0.75rem; font-weight: 500;
@@ -931,22 +932,26 @@ img { max-width: 100%; display: block; }
 }
 .cv-section:last-child { margin-bottom: 0; }
 .cv-skills-list p {
-  font-size: 0.85rem; color: var(--text-muted);
-  line-height: 1.6; margin-bottom: 0.35rem;
+  font-family: Georgia, serif; font-size: 0.75rem; color: #333;
+  line-height: 1.5; margin-bottom: 0.25rem;
 }
 .cv-skills-list p:last-child { margin-bottom: 0; }
-.cv-section > ul { list-style: disc; padding-left: 1.25rem; }
+.cv-section > ul { list-style: disc; padding-left: 1.5rem; }
 .cv-section > ul li {
-  font-size: 0.85rem; color: var(--text-muted);
-  line-height: 1.55; margin-bottom: 0.25rem;
+  font-family: Georgia, serif; font-size: 0.75rem; color: #333;
+  line-height: 1.5; margin-bottom: 0.15rem;
 }
 
 /* --- CV Download Button --- */
 .cv-download {
-  display: flex; justify-content: center; margin-top: 2.5rem; padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  display: flex; justify-content: center; margin-top: 2rem; padding-top: 1.5rem;
+  border-top: none;
 }
-.cv-download .btn { font-size: 1rem; padding: 0.75rem 1.5rem; }
+.cv-download .btn { 
+  font-family: Georgia, serif; font-size: 0.9rem; padding: 0.6rem 1.2rem; 
+  background: #1155CC; color: white; border: none; border-radius: 4px;
+}
+.cv-download .btn:hover { background: #0d3a99; }
 
 /* --- Books / Comics --- */
 .books-page { padding-top: 8rem; padding-bottom: 5rem; }
