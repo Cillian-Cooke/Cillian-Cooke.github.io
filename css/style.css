@@ -896,12 +896,21 @@ img { max-width: 100%; display: block; }
   border-bottom: none;
 }
 
-.cv-section { margin-bottom: 1.25rem; }
+.cv-section { 
+  margin-bottom: 1.5rem; 
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #d0d0d0;
+}
+.cv-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 .cv-section h3 {
   font-family: Georgia, serif;
   font-size: 0.95rem; font-weight: bold;
   text-transform: none; letter-spacing: 0;
-  color: #000; margin-bottom: 0.6rem;
+  color: #000; margin-bottom: 0.75rem;
   padding-bottom: 0;
   border-bottom: none;
 }
