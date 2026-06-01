@@ -196,6 +196,16 @@
 
     if (!config) return;   // pages without interests (e.g. detail pages) stay clean
 
+    // On mobile the draggable tag pills crowd the screen, so we skip them
+    // entirely and just drift a few colourful bubbles in the background.
+    if (window.innerWidth < 768) {
+      const total = bubbleCount();
+      const palette = [config[0].color, config[1].color, ROGUE_COLOR];
+      for (let i = 0; i < total; i++) bubbles.push(makeBubble(-1, palette[i % palette.length]));
+      if (reduceMotion) bubbles.forEach(render);
+      return;
+    }
+
     // Tags spawn at random spots, but never on top of the text or any
     // important element: collect the on-screen content rects and
     // rejection-sample a clear position for each pill (its bubbles cluster
@@ -336,9 +346,17 @@
     buildPage(active ? active.id : 'home');
   }
 
-  // Reclamp positions on resize
+  // Reclamp positions on resize; rebuild if we cross the mobile breakpoint
+  // (so tags get dropped/restored when the viewport flips past 768px).
+  let wasMobile = window.innerWidth < 768;
   window.addEventListener('resize', () => {
     const W = window.innerWidth, H = window.innerHeight;
+    const nowMobile = W < 768;
+    if (nowMobile !== wasMobile) {
+      wasMobile = nowMobile;
+      if (currentPage) buildPage(currentPage);
+      return;
+    }
     tags.forEach(t => {
       t.x = clamp(t.x, 0, W);
       t.y = clamp(t.y, 60, H);

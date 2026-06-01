@@ -264,11 +264,6 @@ img { max-width: 100%; display: block; }
   .nav-overlay.active { opacity: 1; pointer-events: auto; }
 }
 
-/* When the mobile menu is open, hide the floating interest tags and
-   background bubbles so they don't overlap the menu and obscure options. */
-body:has(.nav-links.open) .tag-layer,
-body:has(.nav-links.open) .bubble-field { display: none; }
-
 /* --- Pages --- */
 .page { display: none; min-height: 100vh; }
 .page.active { display: block; position: relative; z-index: 1; }
@@ -1316,9 +1311,17 @@ em, i { font-style: normal; }
     padding-left: 0; padding-bottom: 0.75rem; gap: 0.5rem 1rem;
   }
   .about-tl-item::before { display: none; }
-  .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .project-card { padding: 1rem; }
+  .project-card h3 { font-size: 1rem; line-height: 1.25; }
+  .project-card p {
+    font-size: 0.8rem; margin-bottom: 0.6rem;
+    display: -webkit-box; -webkit-line-clamp: 6; line-clamp: 6;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .project-tag { font-size: 0.65rem; padding: 0.18rem 0.45rem; }
   .interests-grid { grid-template-columns: 1fr; }
-  .books-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .books-grid { grid-template-columns: repeat(4, 1fr); gap: 0.65rem; }
   .dnd-panel-grid { grid-template-columns: 1fr; }
   .camp-card-grid { grid-template-columns: 1fr; }
   .camp-poster-grid { grid-template-columns: 1fr; }
@@ -1343,11 +1346,13 @@ em, i { font-style: normal; }
   .hero-title { font-size: 2.2rem; }
   .hero-cta { flex-direction: row; flex-wrap: wrap; }
   .btn { justify-content: center; }
-  .books-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-  .book-card h3 { font-size: 0.75rem; }
-  .project-card { padding: 1rem; }
-  .project-card h3 { font-size: 1rem; }
-  .project-card p { font-size: 0.8rem; }
+  .books-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .book-card h3 { font-size: 0.7rem; margin-top: 0.5rem; }
+  .book-author { font-size: 0.68rem; }
+  .project-card { padding: 0.8rem; }
+  .project-card h3 { font-size: 0.92rem; }
+  .project-card p { font-size: 0.76rem; -webkit-line-clamp: 5; line-clamp: 5; }
+  .project-tags { gap: 0.25rem; }
   .country-flag { font-size: 1.5rem; }
   .country-name { font-size: 0.7rem; }
   .country-card { padding: 0.6rem 0.35rem; }
