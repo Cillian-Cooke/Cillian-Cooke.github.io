@@ -1112,6 +1112,16 @@ img { max-width: 100%; display: block; }
 .country-flag { font-size: 1.75rem; margin-bottom: 0.35rem; }
 .country-name { font-size: 0.78rem; font-weight: 500; color: var(--text); }
 
+/* --- Featured timeline dots (bigger, accent) --- */
+.timeline-item.tl-featured::before {
+  width: 16px; height: 16px;
+  background: var(--accent);
+  border-color: var(--accent);
+  top: 3px;
+  transform: translateX(-7px);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
 /* --- Clickable timeline items --- */
 .tl-clickable {
   cursor: pointer;
@@ -1267,4 +1277,62 @@ em, i { font-style: normal; }
   .hero-title { font-size: 2rem; }
   .hero-cta { flex-direction: column; }
   .btn { justify-content: center; }
+}
+
+/* ============================================
+   INTEREST BUBBLES & TAGS (Atlas style)
+   ============================================ */
+
+/* Bubbles drift in the background, behind all page content */
+.bubble-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  /* Atlas: fill at 65% opacity, solid 2px border in the same colour */
+  background: color-mix(in srgb, var(--bubble-color) 65%, transparent);
+  border: 2px solid var(--bubble-color);
+  will-change: transform;
+}
+
+/* Tags float above everything */
+.tag-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* Atlas label: rounded pill, translucent dark bg (light theme), white text */
+.interest-tag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.interest-tag.dragging { cursor: grabbing; }
+
+/* Atlas dark theme: white @ 20% */
+[data-theme="dark"] .interest-tag { background: rgba(255, 255, 255, 0.2); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .interest-tag { background: rgba(255, 255, 255, 0.2); }
 }
