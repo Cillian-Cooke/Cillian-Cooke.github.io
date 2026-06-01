@@ -93,19 +93,22 @@
     const target = pages[pageId];
     if (!target) return;
 
-    target.classList.add('active');
-
-    // Scroll to top
     window.scrollTo(0, 0);
+    target.classList.add('active', 'visible');
 
-    // Animate in
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        target.classList.add('visible');
-        // Trigger reveals on the new page
-        initReveals();
-      });
+    // Immediately reveal elements already in the viewport
+    target.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('revealed');
     });
+    target.querySelectorAll('.timeline-item:not(.revealed)').forEach((el, i) => {
+      if (i % 2 !== 0) el.classList.add('tl-from-right');
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('revealed');
+    });
+
+    // Register observer for off-screen reveals
+    initReveals();
   }
 
   // --- Mobile Menu ---

@@ -185,7 +185,6 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -197,7 +196,16 @@
        PAGE: PROJECTS
        ======================================== -->
   <div id="projects" class="page">
-    <section class="projects-page section">
+    <section class="projects-page section" style="position:relative; overflow:hidden;">
+      <!-- Diagonal decorative timeline (projects) -->
+      <svg class="page-bg-tl" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="0" y1="92" x2="100" y2="5" stroke="currentColor" stroke-width="0.12" opacity="0.18"/>
+        <circle cx="12" cy="81.6" r="0.9" fill="currentColor" opacity="0.22"/>
+        <circle cx="28" cy="67.6" r="0.65" fill="currentColor" opacity="0.16"/>
+        <circle cx="48" cy="50.0" r="1.1" fill="currentColor" opacity="0.24"/>
+        <circle cx="65" cy="35.7" r="0.65" fill="currentColor" opacity="0.16"/>
+        <circle cx="82" cy="20.5" r="0.9" fill="currentColor" opacity="0.22"/>
+      </svg>
       <div class="page-header reveal">
         <h1>Projects</h1>
         <p>Stuff I've built and contributed to.</p>
@@ -346,7 +354,6 @@
     </section>
 
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -358,7 +365,16 @@
        PAGE: ABOUT
        ======================================== -->
   <div id="about" class="page">
-    <section class="about-page section">
+    <section class="about-page section" style="position:relative; overflow:hidden;">
+      <!-- Diagonal decorative timeline (life events) -->
+      <svg class="page-bg-tl page-bg-tl--right" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="100" y1="95" x2="0" y2="8" stroke="currentColor" stroke-width="0.12" opacity="0.18"/>
+        <circle cx="88" cy="84.3" r="0.65" fill="currentColor" opacity="0.16"/>
+        <circle cx="72" cy="70.3" r="1.0" fill="currentColor" opacity="0.24"/>
+        <circle cx="55" cy="55.9" r="0.65" fill="currentColor" opacity="0.16"/>
+        <circle cx="38" cy="41.5" r="0.9" fill="currentColor" opacity="0.22"/>
+        <circle cx="20" cy="25.7" r="0.65" fill="currentColor" opacity="0.16"/>
+      </svg>
       <div class="page-header reveal">
         <h1>About me</h1>
         <p>Who I am, what I care about, and what I get up to.</p>
@@ -417,9 +433,6 @@
             <li><button class="about-tl-item" data-panel="dnd">D&amp;D</button></li>
             <li><button class="about-tl-item" data-panel="poetry">Poetry</button></li>
             <li><button class="about-tl-item" data-panel="travel">Travel</button></li>
-            <li><button class="about-tl-item" data-panel="work">Work</button></li>
-            <li><button class="about-tl-item" data-panel="education">Education</button></li>
-            <li><button class="about-tl-item" data-panel="societies">Societies</button></li>
           </ul>
         </nav>
 
@@ -702,93 +715,6 @@
             </div>
           </div>
 
-          <!-- Work / Employment -->
-          <div class="about-panel" id="panel-work">
-            <div class="timeline-items">
-              <div class="timeline-item tl-featured tl-clickable" data-page="detail-lockup">
-                <div class="timeline-date">Apr 2026 – Present</div>
-                <div class="timeline-title">Lockup — Co-Founder</div>
-                <div class="timeline-desc">Group focus startup. Built app to reduce phone use at social gatherings. React Native + Firebase.</div>
-                <div class="tl-goto">View more &rarr;</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Jul 2025 – Jan 2026</div>
-                <div class="timeline-title">Happy Days Preschool &amp; Afterschool</div>
-                <div class="timeline-desc">Afterschool assistant and web designer. Built and delivered the school's website.</div>
-              </div>
-              <div class="timeline-item tl-featured tl-clickable" data-page="detail-dnd-camp">
-                <div class="timeline-date">Summer 2024 &amp; Summer 2025</div>
-                <div class="timeline-title">D&amp;D Summer Camp — Founder</div>
-                <div class="timeline-desc">Designed, marketed, and ran a full multi-week camp independently at 17.</div>
-                <div class="tl-goto">View more &rarr;</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Jun 2022 – Present</div>
-                <div class="timeline-title">Gardening Business</div>
-                <div class="timeline-desc">Independent business with 10+ recurring clients. Scheduling, pricing, and customer relations all managed solo.</div>
-              </div>
-              <div class="timeline-item tl-featured">
-                <div class="timeline-date">Sep 2019 – Apr 2025</div>
-                <div class="timeline-title">Leinster Rugby Ball Boy</div>
-                <div class="timeline-desc">Selected to support professional-level matches. Discipline and teamwork at the highest level of Irish rugby.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Education -->
-          <div class="about-panel" id="panel-education">
-            <div class="timeline-items">
-              <div class="timeline-item tl-featured tl-clickable" data-page="detail-trinity">
-                <div class="timeline-date">Sep 2025 – 2030</div>
-                <div class="timeline-title">Trinity College Dublin</div>
-                <div class="timeline-desc">BSc/MSc Integrated Computer Science. Current average 72%.</div>
-                <div class="tl-goto">View more &rarr;</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Sep 2022 – May 2023</div>
-                <div class="timeline-title">CTYI Engineering Programme</div>
-                <div class="timeline-desc">Centre for Talented Youth Ireland. Competitive engineering programme — average grade 90%.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Sep 2019 – May 2025</div>
-                <div class="timeline-title">St Conleth's College</div>
-                <div class="timeline-desc">Secondary school. Student of the Year awarded five times for academic excellence, commitment, and leadership.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Societies & Hobbies -->
-          <div class="about-panel" id="panel-societies">
-            <div class="timeline-items">
-              <div class="timeline-item tl-featured">
-                <div class="timeline-date">Apr 2026</div>
-                <div class="timeline-title">National Juggling Festival of Ireland</div>
-                <div class="timeline-desc">Competed and connected with circus performers from across Ireland.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Sep 2025 – Present</div>
-                <div class="timeline-title">Trinity Juggling &amp; Circus Society</div>
-                <div class="timeline-desc">Member and regular performer. Learning new props and skills in a supportive community.</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-date">Sep 2025 – Present</div>
-                <div class="timeline-title">Captain — Trinity 5-a-side Football</div>
-                <div class="timeline-desc">Leading the team's tactics and culture week to week.</div>
-              </div>
-              <div class="timeline-item tl-featured">
-                <div class="timeline-date">Jun 2022 – Present</div>
-                <div class="timeline-title">Leinster Celtic FC</div>
-                <div class="timeline-desc">Men's competitive football. Regular training and matches in the Leinster football leagues.</div>
-              </div>
-              <div class="timeline-item tl-featured tl-clickable" data-page="detail-dnd-camp">
-                <div class="timeline-date">2023 – Present</div>
-                <div class="timeline-title">Dungeons &amp; Dragons — Dungeon Master</div>
-                <div class="timeline-desc">Three years running campaigns. Worldbuilding, storytelling, and player facilitation.</div>
-                <div class="tl-goto">View more &rarr;</div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -843,7 +769,6 @@
     </section>
 
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -855,12 +780,34 @@
        PAGE: CV
        ======================================== -->
   <div id="cv" class="page">
-    <section class="cv-page section">
-      <div class="page-header reveal">
-        <h1>CV</h1>
+    <section class="cv-page section" style="position:relative; overflow:hidden;">
+
+      <!-- Decorative jobs timeline behind the CV -->
+      <div class="cv-bg-timeline" aria-hidden="true">
+        <div class="cv-bg-line"></div>
+        <div class="cv-bg-node" style="left:3%">
+          <div class="cv-bg-dot"></div>
+          <div class="cv-bg-label cv-bg-below">2019<br>Leinster Rugby</div>
+        </div>
+        <div class="cv-bg-node" style="left:22%">
+          <div class="cv-bg-dot"></div>
+          <div class="cv-bg-label cv-bg-above">2022<br>Gardening</div>
+        </div>
+        <div class="cv-bg-node" style="left:42%">
+          <div class="cv-bg-dot"></div>
+          <div class="cv-bg-label cv-bg-below">2024<br>D&amp;D Camp</div>
+        </div>
+        <div class="cv-bg-node" style="left:62%">
+          <div class="cv-bg-dot"></div>
+          <div class="cv-bg-label cv-bg-above">2025<br>Happy Days</div>
+        </div>
+        <div class="cv-bg-node" style="left:82%">
+          <div class="cv-bg-dot"></div>
+          <div class="cv-bg-label cv-bg-below">2026<br>Lockup</div>
+        </div>
       </div>
 
-      <div class="cv-container reveal">
+      <div class="cv-container reveal" style="position:relative; z-index:1;">
         <div class="cv-sheet">
 
           <!-- Header -->
@@ -1036,7 +983,6 @@
     </section>
 
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1070,7 +1016,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1097,7 +1042,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1124,7 +1068,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1152,7 +1095,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1181,7 +1123,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1209,7 +1150,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1236,7 +1176,6 @@
       </div>
     </section>
     <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>

@@ -17,8 +17,8 @@
      the Atlas Material palette. Tweak the labels to
      whatever interests you want shown on each tab. */
   const PAGE_CONFIG = {
-    home:     [{ name: 'Coding',   color: '#ff9800' }, { name: 'Coffee',    color: '#009688' }],
-    projects: [{ name: 'Flutter',  color: '#2196f3' }, { name: 'Startups',  color: '#9c27b0' }],
+    home:     [{ name: 'Coding',   color: '#ff9800' }, { name: 'Juggling',    color: '#009688' }],
+    projects: [{ name: 'Football',  color: '#2196f3' }, { name: 'Startups',  color: '#9c27b0' }],
     about:    [{ name: 'Books',    color: '#4caf50' }, { name: 'D&D',        color: '#e91e63' }],
     cv:       [{ name: 'Travel',   color: '#f44336' }, { name: 'Poetry',     color: '#2196f3' }],
   };

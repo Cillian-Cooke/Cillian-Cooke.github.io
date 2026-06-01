@@ -116,9 +116,9 @@ html {
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Smooth dark/light transition on all key properties */
-body, .nav, .page, .project-card, .about-tabs, .contact-link,
-.btn, .loader, .footer, .about-tab, .poem-item, .poem-item summary,
+/* Smooth dark/light transition — do NOT include .page here (it has its own transition) */
+body, .nav, .project-card,
+.btn, .loader, .footer, .poem-item, .poem-item summary,
 .poem-content, .timeline-item, .book-card {
   transition-property: background-color, border-color, color, box-shadow;
   transition-duration: 0.35s;
@@ -254,8 +254,8 @@ img { max-width: 100%; display: block; }
 /* --- Mobile nav overlay --- */
 .nav-overlay {
   display: none;
-  position: fixed; inset: 0; z-index: 98;
-  background: rgba(0, 0, 0, 0.4);
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(0, 0, 0, 0.55);
   opacity: 0;
   transition: opacity 0.4s var(--transition);
 }
@@ -264,19 +264,19 @@ img { max-width: 100%; display: block; }
   .nav-overlay.active { opacity: 1; pointer-events: auto; }
 }
 
+/* When the mobile menu is open, hide the floating interest tags and
+   background bubbles so they don't overlap the menu and obscure options. */
+body:has(.nav-links.open) .tag-layer,
+body:has(.nav-links.open) .bubble-field { display: none; }
+
 /* --- Pages --- */
-.page {
-  display: none; min-height: 100vh; opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s var(--transition), transform 0.5s var(--transition);
-}
-.page.active { display: block; }
-.page.visible { opacity: 1; transform: translateY(0); }
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; position: relative; z-index: 1; }
 
 .section { max-width: 920px; margin: 0 auto; padding: 0 2rem; }
 
 /* --- Hero --- */
-.hero { min-height: 100vh; display: flex; align-items: center; position: relative; }
+.hero { min-height: 100svh; display: flex; align-items: center; position: relative; }
 .hero-content { position: relative; z-index: 2; }
 
 .hero-label {
@@ -386,7 +386,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* --- About --- */
-.about-page { padding-top: 8rem; padding-bottom: 5rem; }
+.about-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 
 .about-grid {
   display: grid; grid-template-columns: 1.2fr 1fr;
@@ -728,7 +728,17 @@ img { max-width: 100%; display: block; }
 .timeline { margin-top: 2.5rem; }
 .timeline h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.75rem; }
 .timeline-items {
-  padding-left: 1.5rem; border-left: 2px solid var(--border);
+  padding-left: 1.5rem;
+  position: relative;
+  padding-bottom: 6rem;
+}
+.timeline-items::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border) 70%, transparent 100%);
 }
 .timeline-item { padding-bottom: 1.75rem; position: relative; }
 .timeline-item::before {
@@ -749,7 +759,7 @@ img { max-width: 100%; display: block; }
 .timeline-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
 
 /* --- Projects --- */
-.projects-page { padding-top: 8rem; padding-bottom: 5rem; }
+.projects-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 
 .projects-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
@@ -824,7 +834,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* --- Contact --- */
-.contact-page { padding-top: 8rem; padding-bottom: 5rem; }
+.contact-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 .contact-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 3rem; margin-top: 2rem;
@@ -887,17 +897,10 @@ img { max-width: 100%; display: block; }
 
 /* --- Footer --- */
 .footer {
-  padding: 2rem; border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 2rem; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: flex-end;
   font-size: 0.82rem; color: var(--text-muted);
   max-width: 920px; margin: 0 auto;
-  position: relative;
-}
-.footer::before {
-  content: '';
-  position: absolute; top: 0; left: 0;
-  width: 60px; height: 2px;
-  background: var(--accent); border-radius: 2px;
 }
 .footer-links { display: flex; gap: 1.25rem; }
 .footer-links a { font-weight: 500; color: var(--text-muted); transition: color 0.3s; }
@@ -951,9 +954,56 @@ img { max-width: 100%; display: block; }
 .interest-green { border-top: 3px solid var(--green); }
 .interest-purple { border-top: 3px solid var(--purple); }
 
+/* --- Page background diagonal timelines (SVG) --- */
+.page-bg-tl {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  color: var(--accent);
+  overflow: visible;
+}
+
+/* --- CV background timeline --- */
+.cv-bg-timeline {
+  position: absolute;
+  left: -2rem; right: -2rem;
+  top: 55%;
+  z-index: 0;
+  pointer-events: none;
+}
+.cv-bg-line {
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, var(--border) 8%, var(--border) 92%, transparent 100%);
+}
+.cv-bg-node {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+}
+.cv-bg-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.25;
+  margin: 0 auto;
+  transform: translateY(-50%);
+}
+.cv-bg-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  opacity: 0.35;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.cv-bg-above { margin-top: -2.8rem; }
+.cv-bg-below { margin-top: 0.6rem; }
+
 /* --- CV --- */
 .cv-sheet { color: #1a1a1a; }
-.cv-page { padding-top: 8rem; padding-bottom: 5rem; }
+.cv-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 .cv-container { max-width: 850px; margin: 0 auto; }
 .cv-sheet {
   background: #fff;
@@ -1151,7 +1201,7 @@ img { max-width: 100%; display: block; }
 .timeline-item.revealed { opacity: 1; transform: translateX(0); }
 
 /* --- Detail sub-pages --- */
-.detail-page { padding-top: 7rem; padding-bottom: 5rem; }
+.detail-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 .detail-back {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: none; border: none;
@@ -1185,7 +1235,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* --- Books / Comics --- */
-.books-page { padding-top: 8rem; padding-bottom: 5rem; }
+.books-page { padding-top: 5.5rem; padding-bottom: 4rem; }
 .shelf-section { margin-top: 3rem; margin-bottom: 0.5rem; }
 .shelf-section:first-of-type { margin-top: 0; }
 .shelf-section h2 {
@@ -1239,15 +1289,22 @@ em, i { font-style: normal; }
   .nav { padding: 1rem 1.25rem; }
   .nav-links {
     position: fixed; top: 0; right: 0; bottom: 0;
-    width: 240px; background: var(--bg);
+    width: 250px; background: var(--bg);
     border-left: 1px solid var(--border);
     flex-direction: column; padding: 5rem 1.5rem 2rem;
-    gap: 1.1rem; transform: translateX(100%);
-    transition: transform 0.4s var(--transition); z-index: 99;
-    box-shadow: -4px 0 16px rgba(0,0,0,0.05);
+    gap: 0.4rem; transform: translateX(100%);
+    transition: transform 0.4s var(--transition); z-index: 200;
+    box-shadow: -8px 0 28px rgba(0,0,0,0.22);
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-toggle { display: flex; z-index: 101; }
+  .nav-links a {
+    display: block; padding: 0.85rem 0.75rem;
+    font-size: 1rem; border-radius: var(--radius-sm);
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { background: var(--accent-light); color: var(--accent); }
+  .nav-links a::after { display: none; }
+  .nav-toggle { display: flex; z-index: 201; }
   .section { padding: 0 1.25rem; }
   .hero-line { left: 1.25rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1261,77 +1318,70 @@ em, i { font-style: normal; }
   .about-tl-item::before { display: none; }
   .projects-grid { grid-template-columns: 1fr; }
   .interests-grid { grid-template-columns: 1fr; }
-  .books-grid { grid-template-columns: 1fr; }
+  .books-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
   .dnd-panel-grid { grid-template-columns: 1fr; }
   .camp-card-grid { grid-template-columns: 1fr; }
   .camp-poster-grid { grid-template-columns: 1fr; }
-  .cv-sheet { padding: 1.5rem; }
+  .cv-sheet { padding: 1.25rem 1rem; }
   .stats { flex-wrap: wrap; gap: 1.5rem; }
-  .footer {
-    flex-direction: column; gap: 0.5rem;
-    text-align: center; padding: 1.5rem 1.25rem;
+  .footer { padding: 1.25rem; }
+  .hero {
+    align-items: flex-start;
+    padding-top: 5.5rem;
+    min-height: auto;
   }
+  .hero-cta { flex-wrap: wrap; gap: 0.5rem; }
+  .btn { padding: 0.55rem 1rem; font-size: 0.85rem; }
+  .about-page, .projects-page, .cv-page, .detail-page {
+    padding-top: 4.5rem; padding-bottom: 3rem;
+  }
+  .country-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .detail-photo-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 2rem; }
-  .hero-cta { flex-direction: column; }
+  .hero-title { font-size: 2.2rem; }
+  .hero-cta { flex-direction: row; flex-wrap: wrap; }
   .btn { justify-content: center; }
+  .books-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .book-card h3 { font-size: 0.75rem; }
+  .project-card { padding: 1rem; }
+  .project-card h3 { font-size: 1rem; }
+  .project-card p { font-size: 0.8rem; }
+  .country-flag { font-size: 1.5rem; }
+  .country-name { font-size: 0.7rem; }
+  .country-card { padding: 0.6rem 0.35rem; }
+  .timeline-title { font-size: 0.95rem; }
+  .timeline-desc { font-size: 0.8rem; }
 }
 
 /* ============================================
    INTEREST BUBBLES & TAGS (Atlas style)
    ============================================ */
 
-/* Bubbles drift in the background, behind all page content */
 .bubble-field {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
 }
-
 .bubble {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: absolute; top: 0; left: 0;
   border-radius: 50%;
-  /* Atlas: fill at 65% opacity, solid 2px border in the same colour */
   background: color-mix(in srgb, var(--bubble-color) 65%, transparent);
   border: 2px solid var(--bubble-color);
   will-change: transform;
 }
-
-/* Tags float above everything */
 .tag-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 101;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 101; pointer-events: none;
 }
-
-/* Atlas label: rounded pill, translucent dark bg (light theme), white text */
 .interest-tag {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  line-height: 1;
-  white-space: nowrap;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.7);
-  pointer-events: auto;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: none;
+  position: absolute; transform: translate(-50%, -50%);
+  padding: 6px 12px; border-radius: 10px;
+  font-size: 14px; line-height: 1; white-space: nowrap;
+  color: #fff; background: rgba(0, 0, 0, 0.7);
+  pointer-events: auto; cursor: grab;
+  user-select: none; -webkit-user-select: none; touch-action: none;
 }
-
 .interest-tag.dragging { cursor: grabbing; }
-
-/* Atlas dark theme: white @ 20% */
 [data-theme="dark"] .interest-tag { background: rgba(255, 255, 255, 0.2); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .interest-tag { background: rgba(255, 255, 255, 0.2); }
