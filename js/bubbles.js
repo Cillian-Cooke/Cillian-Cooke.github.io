@@ -120,6 +120,46 @@
 
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
+  // --- Collect on-screen rects to avoid (text + important elements) ---
+  function collectAvoidRects() {
+    const rects = [];
+    const push = (el) => {
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight) {
+        rects.push(r);
+      }
+    };
+    push(document.querySelector('.nav'));
+    const active = document.querySelector('.page.active');
+    if (active) {
+      active.querySelectorAll(
+        'h1, h2, h3, h4, p, li, .btn, .project-card, .book-card, .timeline-item, ' +
+        '.about-tl-item, .about-panel, .page-header, .stat, table, details, img'
+      ).forEach(push);
+    }
+    return rects;
+  }
+
+  function hits(x, y, w, h, rects, pad) {
+    const L = x - w / 2 - pad, R = x + w / 2 + pad;
+    const T = y - h / 2 - pad, B = y + h / 2 + pad;
+    return rects.some(r => !(R < r.left || L > r.right || B < r.top || T > r.bottom));
+  }
+
+  // Rejection-sample a random spot that doesn't land on any avoided rect
+  function findFreeSpot(w, h, rects) {
+    const W = window.innerWidth, H = window.innerHeight;
+    const edgeX = w / 2 + 16, topPad = 80, botPad = 40, pad = 14;
+    for (let i = 0; i < 250; i++) {
+      const x = rand(edgeX, W - edgeX);
+      const y = rand(topPad + h / 2, H - botPad - h / 2);
+      if (!hits(x, y, w, h, rects, pad)) return { x, y };
+    }
+    // Fallback: drop it into whichever side margin is emptier
+    return { x: Math.random() < 0.5 ? edgeX : W - edgeX, y: rand(topPad + h / 2, H - botPad - h / 2) };
+  }
+
   // --- Create a bubble ---
   function makeBubble(group, color) {
     const size = rand(16, 60);
@@ -156,11 +196,22 @@
 
     if (!config) return;   // pages without interests (e.g. detail pages) stay clean
 
-    const W = window.innerWidth, H = window.innerHeight;
-
-    // Tags: bias toward left/right edges so bubbles cluster away from the text
-    tags.push(makeTag(config[0], W * rand(0.12, 0.22), H * rand(0.30, 0.55)));
-    tags.push(makeTag(config[1], W * rand(0.78, 0.88), H * rand(0.45, 0.70)));
+    // Tags spawn at random spots, but never on top of the text or any
+    // important element: collect the on-screen content rects and
+    // rejection-sample a clear position for each pill (its bubbles cluster
+    // there too, so they stay off the text as well).
+    const placed = collectAvoidRects();
+    config.forEach(c => {
+      const tag = makeTag(c, -9999, -9999);   // append off-screen so we can measure it
+      const w = tag.el.offsetWidth, h = tag.el.offsetHeight;
+      const spot = findFreeSpot(w, h, placed);
+      tag.x = spot.x;
+      tag.y = spot.y;
+      tag.el.style.left = spot.x + 'px';
+      tag.el.style.top = spot.y + 'px';
+      placed.push({ left: spot.x - w / 2, right: spot.x + w / 2, top: spot.y - h / 2, bottom: spot.y + h / 2 });
+      tags.push(tag);
+    });
 
     // Bubbles: split between the two tags, plus a few rogue grey ones
     const total = bubbleCount();
