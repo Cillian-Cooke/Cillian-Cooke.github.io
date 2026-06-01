@@ -138,15 +138,14 @@
 
   // --- Theme Toggle ---
   function initThemeToggle() {
-    const btn = document.querySelector('.theme-toggle');
-    if (!btn) return;
-
     const saved = localStorage.getItem('theme');
     if (saved) {
       document.documentElement.setAttribute('data-theme', saved);
     }
 
-    btn.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.theme-toggle-hero');
+      if (!btn) return;
       const current = document.documentElement.getAttribute('data-theme');
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const isDark = current === 'dark' || (!current && systemDark);

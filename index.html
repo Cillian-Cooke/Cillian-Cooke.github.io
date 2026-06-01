@@ -3,8 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cillian Cooke — Developer</title>
-  <meta name="description" content="Portfolio of Cillian Cooke — Computer Science student at Trinity College Dublin.">
+  <title>Cillian Cooke — CS Student & Developer | Trinity College Dublin</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin building real-world apps and software. Projects include Atlas (social media platform), Lockup, Metricare, and more. Based in Dublin, Ireland.">
+  <meta name="keywords" content="Cillian Cooke, Computer Science, Trinity College Dublin, TCD, software developer, app developer, Flutter, Dart, React, TypeScript, Python, Firebase, Atlas app, Lockup, Metricare, Digishelf, Dublin, Ireland, student developer, portfolio">
+  <meta name="author" content="Cillian Cooke">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cilliancooke.com/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cilliancooke.com/">
+  <meta property="og:title" content="Cillian Cooke — CS Student & Developer">
+  <meta property="og:description" content="Computer Science student at Trinity College Dublin. Building apps, social platforms, and real-world software. Founder of a D&D summer camp, hackathon winner, and more.">
+  <meta property="og:locale" content="en_IE">
+  <meta property="og:site_name" content="Cillian Cooke">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cillian Cooke — CS Student & Developer">
+  <meta name="twitter:description" content="Computer Science student at Trinity College Dublin building real-world apps and software. Dublin, Ireland.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.svg">
+
+  <!-- Structured Data: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cillian Cooke",
+    "url": "https://cilliancooke.com",
+    "sameAs": [
+      "https://github.com/Cillian-Cooke",
+      "https://www.linkedin.com/in/cillian-cooke-15155939a/"
+    ],
+    "jobTitle": "Computer Science Student",
+    "worksFor": {
+      "@type": "EducationalOrganization",
+      "name": "Trinity College Dublin"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "St Conleth's College"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dublin",
+      "addressCountry": "IE"
+    },
+    "knowsAbout": [
+      "Flutter", "Dart", "React", "TypeScript", "Python", "Firebase",
+      "Software Engineering", "App Development", "Backend Design",
+      "Bluetooth Low Energy", "FastAPI", "Figma", "Git"
+    ],
+    "description": "Computer Science student at Trinity College Dublin (2025–2030). Founder of a D&D summer camp, independent app developer, and hackathon winner (Most Creative Use of AI, Best Teamwork at Claude Hackathon, Trinity College Dublin). Projects include Atlas — a proximity-based social media platform built in Flutter — and Lockup, an app that fights phone addiction at social gatherings.",
+    "award": [
+      "Most Creative Use of AI — Claude Hackathon, Trinity College Dublin (2026)",
+      "Best Teamwork — Claude Hackathon, Trinity College Dublin (2026)",
+      "Student of The Year — St Conleth's College (x5)",
+      "Centre for Talented Youth Ireland — Engineering Programme (avg 90%)"
+    ],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Software Developer",
+      "description": "Building mobile and web applications using Flutter, React, and Python"
+    }
+  }
+  </script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
@@ -14,7 +82,6 @@
   <!-- ========== LOADER ========== -->
   <div class="loader">
     <div class="loader-inner">
-      <div class="loader-monogram" aria-hidden="true">CC</div>
       <div class="loader-text">Cillian Cooke</div>
       <div class="loader-bar-track">
         <div class="loader-bar"></div>
@@ -26,19 +93,6 @@
   <nav class="nav">
     <div class="nav-logo" data-page="home">cillian cooke</div>
 
-    <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
-      </svg>
-    </button>
-
     <button class="nav-toggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -48,7 +102,6 @@
       <li><a data-page="projects">Projects</a></li>
       <li><a data-page="about">About</a></li>
       <li><a data-page="cv">CV</a></li>
-      <li><a data-page="contact">Contact</a></li>
     </ul>
     <div class="nav-overlay" aria-hidden="true"></div>
   </nav>
@@ -58,15 +111,9 @@
        ======================================== -->
   <div id="home" class="page active visible">
     <section class="hero section">
-      <div class="hero-bg" aria-hidden="true"><div class="hero-blob"></div></div>
       <div class="hero-content">
         <p class="hero-label">CS @ Trinity College Dublin</p>
         <h1 class="hero-title">Hey, I'm Cillian.</h1>
-        <p class="hero-subtitle">
-          First year computer science student. I like building things — 
-          apps that solve real problems, hacking at hackathons, and trying 
-          to make the internet a bit less broken.
-        </p>
         <div class="hero-cta">
           <a class="btn btn-primary" data-page="projects">
             See my work
@@ -80,6 +127,18 @@
             CV
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </a>
+          <button class="btn theme-toggle-hero" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            </svg>
+          </button>
         </div>
       </div>
       <div class="hero-line"></div>
@@ -289,26 +348,15 @@
       <div class="about-grid reveal">
         <div class="about-text">
           <p>
-            I'm <strong>Cillian Cooke</strong>, a first-year Computer Science student at 
-            <strong>Trinity College Dublin</strong>. Programming isn't a passion in itself, 
-            but creating things is. I love finishing a project and taking a moment to realise 
-            that something exists because I made it.
+            I'm <strong>Cillian Cooke</strong>, a Computer Science student at
+            <strong>Trinity College Dublin</strong>. I build things — not code for its own sake,
+            but real solutions to real problems. If I spot something worth making, I build it.
           </p>
           <p>
-            From building small video games using YouTube comment APIs to creating apps 
-            designed to help friends be less antisocial — I love having an idea and running 
-            with it. I'm not satisfied with identifying problems, I feel compelled to build solutions.
-          </p>
-          <p>
-            Outside of code, I founded a <strong>Dungeons & Dragons summer camp</strong> at 17, 
-            run a <strong>gardening business</strong> with 20+ clients, work in an afterschool 
-            setting, and I'm a member of Trinity's <strong>Juggling & Circus Society</strong>. 
-            I was also selected for the <strong>Centre for Talented Youth Ireland</strong> programme.
-          </p>
-          <p>
-            In summer 2024, I spent three weeks in <strong>Tanzania</strong> — completely 
-            disconnected, camping at rural schools and hiking mountains. It shifted how I see 
-            everything.
+            Outside of tech: I founded a <strong>D&D summer camp</strong> at 17, play football
+            for <strong>Leinster Celtic</strong>, juggle with Trinity's Circus Society, and spent
+            three weeks volunteering at rural schools in <strong>Tanzania</strong>.
+            Selected for the <strong>Centre for Talented Youth Ireland</strong> programme.
           </p>
         </div>
 
@@ -346,117 +394,79 @@
       <div class="about-tabs reveal">
         <div class="tabs-header">
           <button class="about-tab active" data-tab="books">Books</button>
-          <button class="about-tab" data-tab="sports">Sports</button>
           <button class="about-tab" data-tab="dnd">DnD</button>
           <button class="about-tab" data-tab="poetry">Poetry</button>
         </div>
 
         <div class="about-tab-panels">
           <div class="about-tab-panel active" id="about-tab-books">
-            <p><strong>Books & comics</strong> are where I combine curiosity and creativity. I read both storytelling and technical work, and I keep a growing list of favourites.</p>
-            <h3>Comics & graphic novels</h3>
-            <ul>
-              <li><strong>Invincible</strong> — a gritty superhero saga with emotional stakes and unexpected twists.</li>
-              <li><strong>The Boys</strong> — dark satire that made me rethink how stories can use real-world edge.</li>
-              <li><strong>V for Vendetta</strong> — one of the best examples of political worldbuilding in comics.</li>
-              <li><strong>Sapiens: A Graphic History</strong> — a more visual take on my favourite history text.</li>
-            </ul>
-            <h3>Books I keep returning to</h3>
-            <ul>
-              <li><strong>Hello World</strong> — it blends tech and human stories in a way that feels thoughtful and relevant.</li>
-              <li><strong>Designing Data-Intensive Applications</strong> — a practical guide for building systems that scale.</li>
-              <li><strong>Flutter in Action</strong> — useful for shipping mobile apps faster and more confidently.</li>
-              <li><strong>If Anyone Builds It, Everyone Dies</strong> — funny and sharp commentary on internet culture.</li>
-            </ul>
-
-            <div class="shelf-section">
-              <h2>Current shelf</h2>
-            </div>
             <div class="books-grid">
               <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
                 <h3>Invincible Compendium 1</h3>
                 <p class="book-author">Robert Kirkman</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2 cover" loading="lazy">
                 <h3>Invincible Compendium 2</h3>
                 <p class="book-author">Robert Kirkman</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3 cover" loading="lazy">
                 <h3>Invincible Compendium 3</h3>
                 <p class="book-author">Robert Kirkman</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys cover" loading="lazy">
                 <h3>The Boys</h3>
                 <p class="book-author">Garth Ennis</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta cover" loading="lazy">
                 <h3>V for Vendetta</h3>
                 <p class="book-author">Alan Moore</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History cover" loading="lazy">
                 <h3>Sapiens: A Graphic History</h3>
                 <p class="book-author">Yuval Noah Harari</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus cover" loading="lazy">
                 <h3>Nexus</h3>
                 <p class="book-author">Yuval Noah Harari</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World cover" loading="lazy">
                 <h3>Hello World</h3>
                 <p class="book-author">Hannah Fry</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies cover" loading="lazy">
                 <h3>If Anyone Builds It, Everyone Dies</h3>
                 <p class="book-author">Eliezer Yudkowsky &amp; Nate Soares</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action cover" loading="lazy">
                 <h3>Flutter in Action</h3>
                 <p class="book-author">Eric Windmill</p>
               </a>
-
               <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications cover" loading="lazy">
                 <h3>Designing Data-Intensive Applications</h3>
                 <p class="book-author">Martin Kleppmann</p>
               </a>
-
-              <a class="book-card" href="https://openlibrary.org/isbn/9780593727461" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593727461-L.jpg" alt="The Seven Rules of Trust cover" loading="lazy">
-                <h3>The Seven Rules of Trust</h3>
-                <p class="book-author">Jimmy Wales</p>
+              <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts cover" loading="lazy">
+                <h3>Smartcuts</h3>
+                <p class="book-author">Shane Snow</p>
+              </a>
+              <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test cover" loading="lazy">
+                <h3>The Mom Test</h3>
+                <p class="book-author">Rob Fitzpatrick</p>
               </a>
             </div>
-          </div>
-
-          <div class="about-tab-panel" id="about-tab-sports">
-            <p><strong>Sports</strong> help me stay grounded and present. I enjoy activities that combine focus, physical energy, and community.</p>
-            <ul>
-              <li>Men's football for Leinster Celtic Football Club — competitive play and teamwork at a higher level.</li>
-              <li>Captain of Trinity 5 a side football team — leading teammates and driving our team's performance.</li>
-              <li>Trinity Juggling & Circus Society — I love learning new tricks and the supportive atmosphere.</li>
-              <li>National Juggling Festival of Ireland — competed and connected with fellow jugglers and circus performers.</li>
-              <li>Professional Leinster Rugby ball boy — match-day discipline and teamwork taught me a lot at professional level.</li>
-              <li>Hiking and camping — getting outside is the best way to reset after screen time.</li>
-            </ul>
           </div>
 
           <div class="about-tab-panel" id="about-tab-dnd">
@@ -496,7 +506,7 @@
             <div class="campaigns-section">
               <p><h2>Campaigns I am Proud of</h2></p>
               <h3>Campaign I — The Living Canvas</h3>
-              <p><em>A world dreamed into being</em></p>
+              <p>A world dreamed into being</p>
               <p><strong>8 months</strong></p>
               <p>Step inside the mind of a Sacred Artist — a god who paints reality itself. Inspired by the hauntingly beautiful post-apocalyptic visions of Simon Stålenhag, this world is one where rusting machines breathe and move with something disturbingly close to life. Organic circuitry pulses beneath metal flesh. Wetlands hum with forgotten technology.</p>
               <p>But the landscape is never fixed. The world shifts with the artist's mood — storm-grey desolation when he despairs, amber warmth when wonder stirs in him again. To navigate it, players must learn to read not the terrain, but the soul behind it.</p>
@@ -508,7 +518,7 @@
               </div>
 
               <h3>Campaign II — The Next Stage</h3>
-              <p><em>A race through the poetry of dying</em></p>
+              <p>A race through the poetry of dying</p>
               <p><strong>7 months</strong></p>
               <p>Death, in the world of Norman Alperson, is not a wall — it is a door. A poet of extraordinary power, Norman grants new stages of existence to those whose lives have reached their natural fullness. Not an ending, but a transformation into something richer.</p>
               <p>Players raced toward the Final Life — a heaven beyond all heavens — but the path demanded more than strength or cunning. Every trial was woven into verse. To advance, they had to feel the meaning hidden within the language, to move through metaphor as though it were terrain.</p>
@@ -524,7 +534,6 @@
           </div>
 
           <div class="about-tab-panel" id="about-tab-poetry">
-            <p><strong>Poetry</strong> is where I explore thoughts and emotions through words. Click a title to open each poem.</p>
             <div class="poetry-section">
               <details class="poem-item">
                 <summary>
@@ -654,9 +663,9 @@
             <div class="timeline-desc">Built with friends from college. App locking to keep people present at social gatherings.</div>
           </div>
           <div class="timeline-item">
-            <div class="timeline-date">2025 – ongoing</div>
-            <div class="timeline-title">Atlas — Building a social media platform from scratch</div>
-            <div class="timeline-desc">Teaching myself backend design and Dart. No ads, no algorithms, proximity-based discovery. About halfway done.</div>
+            <div class="timeline-date">Apr 2026</div>
+            <div class="timeline-title">Claude Hackathon — Won Most Creative Use of AI</div>
+            <div class="timeline-desc">Built a D&D campaign app powered by generative AI at Trinity. Won two awards.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Mar 2026</div>
@@ -664,102 +673,25 @@
             <div class="timeline-desc">Built a full-stack patient dashboard with React, FastAPI, and Gemini AI as a team project.</div>
           </div>
           <div class="timeline-item">
-            <div class="timeline-date">Apr 2026</div>
-            <div class="timeline-title">Claude Hackathon</div>
-            <div class="timeline-desc">Built a Python CLI tool for interacting with Claude AI at Trinity.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">Summer 2024</div>
-            <div class="timeline-title">Tanzania</div>
-            <div class="timeline-desc">Three weeks volunteering, camping at rural schools, and hiking mountains. Completely disconnected from home.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2024</div>
-            <div class="timeline-title">Founded D&D Summer Camp</div>
-            <div class="timeline-desc">Planned and ran the whole thing independently at 17.</div>
+            <div class="timeline-date">Oct 2025 – ongoing</div>
+            <div class="timeline-title">Atlas — Building a social media platform from scratch</div>
+            <div class="timeline-desc">Teaching myself backend design and Dart. No ads, no algorithms, proximity-based discovery.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Sep 2025</div>
             <div class="timeline-title">Started at Trinity College Dublin</div>
-            <div class="timeline-desc">Computer Science. Selected for Centre for Talented Youth Ireland.</div>
+            <div class="timeline-desc">Computer Science. Current average 72%.</div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <span>&copy; 2026 Cillian Cooke</span>
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ========================================
-       PAGE: CONTACT
-       ======================================== -->
-  <div id="contact" class="page">
-    <section class="contact-page section">
-      <div class="page-header reveal">
-        <h1>Get in touch</h1>
-        <p>Want to work together or just say hi? Go for it.</p>
-      </div>
-
-      <div class="contact-grid reveal">
-        <div class="contact-text">
-          <p>
-            I'm always up for hearing about interesting projects, internships, 
-            or just chatting about tech. Don't be a stranger.
-          </p>
-
-          <div class="contact-links">
-            <a class="contact-link" href="mailto:cilliancooke876@gmail.com">
-              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
-              <div>
-                <div class="contact-link-label">Email</div>
-                <div class="contact-link-value">cilliancooke876@gmail.com</div>
-              </div>
-            </a>
-            <a class="contact-link" href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">
-              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77a5.07 5.07 0 0 0-.09-3.77s-1.18-.35-3.91 1.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 3.5 8.55c0 5.42 3.3 6.61 6.44 7a3.37 3.37 0 0 0-.94 2.58V22"/></svg>
-              <div>
-                <div class="contact-link-label">GitHub</div>
-                <div class="contact-link-value">Cillian-Cooke</div>
-              </div>
-            </a>
-            <a class="contact-link" href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">
-              <svg class="contact-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              <div>
-                <div class="contact-link-label">LinkedIn</div>
-                <div class="contact-link-value">Connect with me</div>
-              </div>
-            </a>
+          <div class="timeline-item">
+            <div class="timeline-date">Summer 2024</div>
+            <div class="timeline-title">Tanzania</div>
+            <div class="timeline-desc">Three weeks volunteering at rural schools, camping, and hiking mountains.</div>
           </div>
-        </div>
-
-        <form class="contact-form" onsubmit="handleContactSubmit(event);">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name" autocomplete="name" required>
+          <div class="timeline-item">
+            <div class="timeline-date">Summer 2024</div>
+            <div class="timeline-title">Founded D&D Summer Camp</div>
+            <div class="timeline-desc">Planned and ran the whole thing independently at 17.</div>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="What's on your mind?" required></textarea>
-          </div>
-          <button class="btn btn-primary" type="submit">
-            Send Message
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </form>
-        <div class="contact-success" aria-live="polite" hidden>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <h3>Message received!</h3>
-          <p>Thanks for reaching out — I'll get back to you soon.</p>
         </div>
       </div>
     </section>
