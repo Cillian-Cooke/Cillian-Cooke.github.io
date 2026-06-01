@@ -165,19 +165,33 @@
     }, { passive: true });
   }
 
-  // --- About tabs ---
-  function initAboutTabs() {
-    const tabButtons = document.querySelectorAll('.about-tab');
-    const panels = document.querySelectorAll('.about-tab-panel');
-    if (!tabButtons.length || !panels.length) return;
+  // --- About left-side timeline nav ---
+  function initAboutNav() {
+    const items = document.querySelectorAll('.about-tl-item');
+    const panels = document.querySelectorAll('.about-panel');
+    if (!items.length || !panels.length) return;
 
-    tabButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const tab = button.getAttribute('data-tab');
-        tabButtons.forEach(btn => btn.classList.toggle('active', btn === button));
-        panels.forEach(panel => {
-          panel.classList.toggle('active', panel.id === `about-tab-${tab}`);
-        });
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        const panel = item.getAttribute('data-panel');
+        items.forEach(i => i.classList.toggle('active', i === item));
+        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${panel}`));
+      });
+    });
+  }
+
+  // --- Clickable timeline items ---
+  function initTimelineLinks() {
+    document.querySelectorAll('.tl-clickable').forEach(item => {
+      item.addEventListener('click', () => {
+        const target = item.getAttribute('data-page');
+        if (target) navigateTo(target);
+      });
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const target = item.getAttribute('data-page');
+          if (target) navigateTo(target);
+        }
       });
     });
   }
@@ -214,8 +228,6 @@
   function initReveals() {
     const reveals = document.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)');
 
-    if (!reveals.length) return;
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -223,12 +235,24 @@
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     reveals.forEach(el => observer.observe(el));
+
+    // Alternating timeline item animations
+    const tlObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          tlObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.timeline-item:not(.revealed)').forEach((item, i) => {
+      if (i % 2 !== 0) item.classList.add('tl-from-right');
+      tlObserver.observe(item);
+    });
   }
 
   // --- Counter animation ---
@@ -266,7 +290,8 @@
     initRouter();
     initMobileMenu();
     initNavScroll();
-    initAboutTabs();
+    initAboutNav();
+    initTimelineLinks();
     initPoemAccordion();
     initCursorGlow();
     initReveals();

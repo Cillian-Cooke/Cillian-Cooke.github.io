@@ -144,28 +144,6 @@
       <div class="hero-line"></div>
     </section>
 
-    <!-- Stats -->
-    <section class="section">
-      <div class="stats reveal">
-        <div class="stat">
-          <h3 data-count="6">0</h3>
-          <p>Projects</p>
-        </div>
-        <div class="stat">
-          <h3 data-count="67" data-suffix="+">0</h3>
-          <p>Contributions</p>
-        </div>
-        <div class="stat">
-          <h3 data-count="4" data-suffix="+">0</h3>
-          <p>Languages</p>
-        </div>
-        <div class="stat">
-          <h3 data-count="1" data-suffix="st">0</h3>
-          <p>Year CS</p>
-        </div>
-      </div>
-    </section>
-
     <!-- Selected Work Preview -->
     <section class="section selected-work reveal">
       <div class="selected-work-header">
@@ -391,15 +369,18 @@
         </div>
       </div>
 
-      <div class="about-tabs reveal">
-        <div class="tabs-header">
-          <button class="about-tab active" data-tab="books">Books</button>
-          <button class="about-tab" data-tab="dnd">DnD</button>
-          <button class="about-tab" data-tab="poetry">Poetry</button>
-        </div>
+      <div class="about-sections reveal">
+        <nav class="about-tl-nav">
+          <ul class="about-tl-list">
+            <li><button class="about-tl-item active" data-panel="books">Books</button></li>
+            <li><button class="about-tl-item" data-panel="dnd">D&amp;D</button></li>
+            <li><button class="about-tl-item" data-panel="poetry">Poetry</button></li>
+            <li><button class="about-tl-item" data-panel="travel">Travel</button></li>
+          </ul>
+        </nav>
 
-        <div class="about-tab-panels">
-          <div class="about-tab-panel active" id="about-tab-books">
+        <div class="about-panels">
+          <div class="about-panel active" id="panel-books">
             <div class="books-grid">
               <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
                 <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
@@ -469,7 +450,7 @@
             </div>
           </div>
 
-          <div class="about-tab-panel" id="about-tab-dnd">
+          <div class="about-panel" id="panel-dnd">
             <div class="dnd-intro">
               <p><strong>Dungeons & Dragons</strong> is one of my favourite creative outlets. I enjoy worldbuilding, storytelling, and guiding groups through adventures.</p>
               <ul>
@@ -533,7 +514,7 @@
 
           </div>
 
-          <div class="about-tab-panel" id="about-tab-poetry">
+          <div class="about-panel" id="panel-poetry">
             <div class="poetry-section">
               <details class="poem-item">
                 <summary>
@@ -650,6 +631,32 @@
               </details>
             </div>
           </div>
+
+          <div class="about-panel" id="panel-travel">
+            <h2 class="travel-heading">Countries I've visited</h2>
+            <div class="country-grid">
+              <div class="country-card"><div class="country-flag">🇮🇪</div><div class="country-name">Ireland</div></div>
+              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="country-name">England</div></div>
+              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="country-name">Scotland</div></div>
+              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁮󠁩󠁲󠁿</div><div class="country-name">Northern Ireland</div></div>
+              <div class="country-card"><div class="country-flag">🇪🇸</div><div class="country-name">Spain</div></div>
+              <div class="country-card"><div class="country-flag">🇵🇹</div><div class="country-name">Portugal</div></div>
+              <div class="country-card"><div class="country-flag">🇮🇹</div><div class="country-name">Italy</div></div>
+              <div class="country-card"><div class="country-flag">🇩🇪</div><div class="country-name">Germany</div></div>
+              <div class="country-card"><div class="country-flag">🇨🇭</div><div class="country-name">Switzerland</div></div>
+              <div class="country-card"><div class="country-flag">🇫🇮</div><div class="country-name">Finland</div></div>
+              <div class="country-card"><div class="country-flag">🇮🇸</div><div class="country-name">Iceland</div></div>
+              <div class="country-card"><div class="country-flag">🇵🇱</div><div class="country-name">Poland</div></div>
+              <div class="country-card"><div class="country-flag">🇨🇿</div><div class="country-name">Czech Republic</div></div>
+              <div class="country-card"><div class="country-flag">🇸🇮</div><div class="country-name">Slovenia</div></div>
+              <div class="country-card"><div class="country-flag">🇭🇷</div><div class="country-name">Croatia</div></div>
+              <div class="country-card"><div class="country-flag">🇧🇦</div><div class="country-name">Bosnia &amp; Herzegovina</div></div>
+              <div class="country-card"><div class="country-flag">🇪🇪</div><div class="country-name">Estonia</div></div>
+              <div class="country-card"><div class="country-flag">🇹🇿</div><div class="country-name">Tanzania</div></div>
+              <div class="country-card"><div class="country-flag">🇹🇭</div><div class="country-name">Thailand</div></div>
+              <div class="country-card"><div class="country-flag">🇺🇸</div><div class="country-name">USA</div></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -657,40 +664,47 @@
       <div class="timeline reveal">
         <h2>What I've been up to</h2>
         <div class="timeline-items">
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-lockup" role="button" tabindex="0">
             <div class="timeline-date">Apr 2026</div>
             <div class="timeline-title">Lockup — Phone addiction app</div>
             <div class="timeline-desc">Built with friends from college. App locking to keep people present at social gatherings.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-hackathon" role="button" tabindex="0">
             <div class="timeline-date">Apr 2026</div>
             <div class="timeline-title">Claude Hackathon — Won Most Creative Use of AI</div>
             <div class="timeline-desc">Built a D&D campaign app powered by generative AI at Trinity. Won two awards.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-metricare" role="button" tabindex="0">
             <div class="timeline-date">Mar 2026</div>
             <div class="timeline-title">Metricare — Medical Dashboard</div>
             <div class="timeline-desc">Built a full-stack patient dashboard with React, FastAPI, and Gemini AI as a team project.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-atlas" role="button" tabindex="0">
             <div class="timeline-date">Oct 2025 – ongoing</div>
             <div class="timeline-title">Atlas — Building a social media platform from scratch</div>
             <div class="timeline-desc">Teaching myself backend design and Dart. No ads, no algorithms, proximity-based discovery.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-trinity" role="button" tabindex="0">
             <div class="timeline-date">Sep 2025</div>
             <div class="timeline-title">Started at Trinity College Dublin</div>
             <div class="timeline-desc">Computer Science. Current average 72%.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-tanzania" role="button" tabindex="0">
             <div class="timeline-date">Summer 2024</div>
             <div class="timeline-title">Tanzania</div>
             <div class="timeline-desc">Three weeks volunteering at rural schools, camping, and hiking mountains.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item tl-clickable" data-page="detail-dnd-camp" role="button" tabindex="0">
             <div class="timeline-date">Summer 2024</div>
             <div class="timeline-title">Founded D&D Summer Camp</div>
             <div class="timeline-desc">Planned and ran the whole thing independently at 17.</div>
+            <div class="tl-goto">View more &rarr;</div>
           </div>
         </div>
       </div>
@@ -889,6 +903,206 @@
       </div>
     </section>
 
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================
+       DETAIL PAGES
+       ======================================== -->
+
+  <div id="detail-tanzania" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Summer 2024</p>
+        <h1>Tanzania</h1>
+        <p>Three weeks completely disconnected from home.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>In summer 2024, I spent three weeks in Tanzania volunteering at rural schools, camping, and hiking in the mountains. No Wi-Fi, no social media — just the work, the people, and the landscape. It shifted how I see everything.</p>
+        <p>We camped at schools that had very little, helped where we could, and spent time with communities who had a very different relationship with life than anything I'd known. One of the most important experiences of my life.</p>
+        <div class="detail-photo-grid">
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-dnd-camp" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Summer 2024 &amp; Summer 2025</p>
+        <h1>D&amp;D Summer Camp</h1>
+        <p>Designed, advertised, and ran independently at 17.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>I founded and ran a multi-week Dungeons &amp; Dragons summer camp — handling everything solo: session design, marketing, bookings, registration, payments, and facilitation.</p>
+        <p>The camp welcomed new and experienced players. Sessions ranged from character creation workshops to full 15+ hour guided campaigns. I managed group dynamics and made sure everyone felt included.</p>
+        <p>I ran it again the following summer. The whole thing came from a simple idea: D&amp;D should be accessible to anyone, not just those who already know the rules.</p>
+        <div class="detail-photo-grid">
+          <img src="images/DnD_poster1.png" alt="D&D Camp poster 1" style="border-radius: var(--radius); object-fit: contain; background: #fff; border: 1px solid var(--border);">
+          <img src="images/DnD_poster2.png" alt="D&D Camp poster 2" style="border-radius: var(--radius); object-fit: contain; background: #fff; border: 1px solid var(--border);">
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-trinity" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Sep 2025 &ndash; Present</p>
+        <h1>Trinity College Dublin</h1>
+        <p>BSc/MSc Integrated Computer Science (2025&ndash;2030).</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>I'm studying Computer Science at Trinity College Dublin, currently averaging 72% in first year. The five-year integrated programme leads to both a BSc and MSc.</p>
+        <p>Before starting, I was selected for the Centre for Talented Youth Ireland Engineering Programme, where I averaged 90%.</p>
+        <p>At Trinity I'm also Captain of the 5-a-side football team, a member of the Juggling &amp; Circus Society, and competed at the National Juggling Festival of Ireland.</p>
+        <div class="detail-photo-grid">
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+          <div class="detail-photo-placeholder">Photo coming soon</div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-atlas" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Oct 2025 &ndash; ongoing</p>
+        <h1>Atlas</h1>
+        <p>A not-for-profit social media platform built solo.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>Atlas is a social media app I've been building alone for over four months. No ads, no algorithmic feed, no bots. Content discovery works as a map of posts. Bluetooth Low Energy means you primarily see content from people you've physically been near — encouraging real-world connection over doomscrolling.</p>
+        <p>About halfway done. It's consumed most of my free time and taught me backend architecture, state management, BLE, and what it actually takes to build something from scratch with no team.</p>
+        <ul>
+          <li>Stack: Flutter (Dart), Firebase, Bluetooth Low Energy</li>
+          <li>Solo project — design, backend, frontend, architecture</li>
+          <li>Not-for-profit concept</li>
+        </ul>
+        <p><a href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View Figma design &rarr;</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-metricare" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Mar 2026</p>
+        <h1>Metricare</h1>
+        <p>A full-stack medical patient dashboard.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>Metricare pulls together patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into one clean interface for healthcare providers.</p>
+        <p>Built as a team project. I worked on the backend (FastAPI, Python) and frontend integration.</p>
+        <ul>
+          <li>Frontend: React + TypeScript + Vite</li>
+          <li>Backend: FastAPI (Python)</li>
+          <li>AI: Gemini API for clinical summaries</li>
+          <li>Drug data: FDA Open API</li>
+        </ul>
+        <p><a href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View on GitHub &rarr;</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-hackathon" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Apr 2026 &mdash; Trinity College Dublin</p>
+        <h1>Claude Hackathon</h1>
+        <p>Won Most Creative Use of AI &amp; Best Teamwork.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>At the Claude Hackathon at Trinity, our team built a collaborative Dungeons &amp; Dragons campaign app powered by generative AI. The AI acted as a dynamic Dungeon Master — responding to players' choices and generating rich narrative in real time.</p>
+        <p>We won two awards: Most Creative Use of AI and Best Teamwork. Built in a single day.</p>
+        <ul>
+          <li>Stack: Python, Claude API</li>
+          <li>Team project — 24-hour build</li>
+          <li>Awards: Most Creative Use of AI, Best Teamwork</li>
+        </ul>
+        <p><a href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View on GitHub &rarr;</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <span>&copy; 2026 Cillian Cooke</span>
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail-lockup" class="page">
+    <section class="detail-page section">
+      <button class="detail-back" data-page="about">&#8592; Back</button>
+      <div class="page-header reveal">
+        <p class="detail-meta">Apr 2026 &ndash; Present</p>
+        <h1>Lockup</h1>
+        <p>An app that fights phone addiction at social gatherings.</p>
+      </div>
+      <div class="detail-body reveal">
+        <p>Lockup is a team project I built with friends from college. Guests join a session and the app restricts distracting apps so everyone actually talks to each other at social gatherings.</p>
+        <p>Apple's restrictions on app control made us rethink the technical approach entirely. The design disagreements within the team turned out to be the most valuable part — forcing us to think harder about what the product actually needed to be.</p>
+        <ul>
+          <li>Stack: React Native, Firebase</li>
+          <li>Team project</li>
+          <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">lockup-app.com</a></li>
+        </ul>
+      </div>
+    </section>
     <footer class="footer">
       <span>&copy; 2026 Cillian Cooke</span>
       <div class="footer-links">
