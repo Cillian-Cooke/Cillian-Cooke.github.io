@@ -392,6 +392,18 @@ img { max-width: 100%; display: block; }
 }
 .about-text p strong { color: var(--text); font-weight: 600; }
 
+/* Solid card surfaces so About text stays readable over the background bubbles */
+.about-text,
+.about-details,
+.about-panels {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.about-text p:last-child { margin-bottom: 0; }
+
 .about-details {
   display: flex; flex-direction: column; gap: 1.5rem;
 }
@@ -499,6 +511,12 @@ img { max-width: 100%; display: block; }
 
 .campaigns-section {
   margin-top: 1rem;
+}
+
+.campaigns-section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .campaigns-section h3 {
@@ -1303,6 +1321,7 @@ em, i { font-style: normal; }
   .section { padding: 0 1.25rem; }
   .hero-line { left: 1.25rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-text, .about-details, .about-panels { padding: 1.25rem; }
   .about-sections { grid-template-columns: 1fr; gap: 1.5rem; }
   .about-tl-nav { position: static; }
   .about-tl-list {
