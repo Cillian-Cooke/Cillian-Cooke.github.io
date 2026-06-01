@@ -112,20 +112,48 @@
   function initMobileMenu() {
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.nav-overlay');
 
     if (!toggle || !links) return;
 
     toggle.addEventListener('click', () => {
-      toggle.classList.toggle('open');
-      links.classList.toggle('open');
+      const isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      if (overlay) overlay.classList.toggle('active', isOpen);
     });
+
+    if (overlay) {
+      overlay.addEventListener('click', () => closeMobileMenu());
+    }
   }
 
   function closeMobileMenu() {
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.nav-overlay');
     if (toggle) toggle.classList.remove('open');
     if (links) links.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  // --- Theme Toggle ---
+  function initThemeToggle() {
+    const btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = current === 'dark' || (!current && systemDark);
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
   }
 
   // --- Nav scroll style ---
@@ -234,6 +262,7 @@
 
   // --- Init ---
   document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
     initLoader();
     initRouter();
     initMobileMenu();
@@ -246,3 +275,11 @@
   });
 
 })();
+
+window.handleContactSubmit = function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const success = form.nextElementSibling;
+  form.hidden = true;
+  if (success) success.hidden = false;
+};
