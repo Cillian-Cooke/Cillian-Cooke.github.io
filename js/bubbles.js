@@ -1,5 +1,5 @@
 /* ============================================
-   INTEREST BUBBLES — ported from the Atlas app
+   INTEREST BUBBLES · ported from the Atlas app
    (lib/Map_And_Bubbles/bubble_simulation.dart)
 
    Per page: two draggable interest tags float

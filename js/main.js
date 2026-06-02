@@ -1,5 +1,5 @@
 /* ============================================
-   CILLIAN COOKE — PORTFOLIO JS
+   CILLIAN COOKE · PORTFOLIO JS
    Loading, routing, animations
    ============================================ */
 

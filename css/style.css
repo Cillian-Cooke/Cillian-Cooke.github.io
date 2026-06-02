@@ -1,5 +1,5 @@
 /* ============================================
-   CILLIAN COOKE — PORTFOLIO
+   CILLIAN COOKE · PORTFOLIO
    ============================================ */
 
 /* --- Self-hosted fonts --- */
@@ -116,7 +116,7 @@ html {
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Smooth dark/light transition — do NOT include .page here (it has its own transition) */
+/* Smooth dark/light transition (do NOT include .page here; it has its own transition) */
 body, .nav, .project-card,
 .btn, .loader, .footer, .poem-item, .poem-item summary,
 .poem-content, .timeline-item, .book-card {
@@ -186,7 +186,7 @@ img { max-width: 100%; display: block; }
   100% { width: 100%; }
 }
 
-/* cursor glow — off */
+/* cursor glow: off */
 .cursor-glow { display: none; }
 
 /* --- Nav --- */
@@ -743,7 +743,7 @@ img { max-width: 100%; display: block; }
 .timeline-items {
   padding-left: 1.5rem;
   position: relative;
-  padding-bottom: 6rem;
+  padding-bottom: 1.5rem;
 }
 .timeline-items::before {
   content: '';
@@ -751,7 +751,7 @@ img { max-width: 100%; display: block; }
   left: 0; top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, var(--border) 70%, transparent 100%);
+  background: linear-gradient(to bottom, var(--border) 80%, transparent 100%);
 }
 .timeline-item { padding-bottom: 1.75rem; position: relative; }
 .timeline-item::before {
@@ -1119,40 +1119,31 @@ img { max-width: 100%; display: block; }
 .about-tl-nav { position: sticky; top: 7rem; }
 .about-tl-list {
   list-style: none;
-  border-left: 2px solid var(--border);
-  padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
 }
 .about-tl-item {
-  position: relative;
-  padding: 0.65rem 0;
+  padding: 0.6rem 0.85rem;
   cursor: pointer;
   background: none;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   text-align: left;
   font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-muted);
   width: 100%;
-  transition: color 0.25s;
+  transition: color 0.25s, background 0.25s, border-color 0.25s;
 }
-.about-tl-item::before {
-  content: '';
-  position: absolute;
-  left: -1.5rem;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid var(--border);
-  transition: background 0.25s, border-color 0.25s;
+.about-tl-item:hover:not(.active) { color: var(--text); background: var(--bg-warm); }
+.about-tl-item.active {
+  color: var(--accent);
+  font-weight: 700;
+  background: var(--accent-light);
+  border-color: color-mix(in srgb, var(--accent) 25%, transparent);
 }
-.about-tl-item.active { color: var(--text); font-weight: 700; }
-.about-tl-item:hover:not(.active) { color: var(--text); }
-.about-tl-item.active::before { background: var(--accent); border-color: var(--accent); }
 .about-panel { display: none; }
 .about-panel.active { display: block; }
 
@@ -1194,6 +1185,9 @@ img { max-width: 100%; display: block; }
   transition: background 0.25s;
 }
 .tl-clickable:hover { background: var(--accent-light); }
+/* tl-clickable rows use a -0.75rem margin + 0.75rem padding, which drags the
+   dot off the line and above the date, so pull it back onto both. */
+.timeline-item.tl-clickable::before { left: -0.75rem; top: calc(0.75rem + 5px); }
 .tl-goto {
   font-size: 0.78rem;
   font-weight: 600;
@@ -1324,12 +1318,7 @@ em, i { font-style: normal; }
   .about-text, .about-details, .about-panels { padding: 1.25rem; }
   .about-sections { grid-template-columns: 1fr; gap: 1.5rem; }
   .about-tl-nav { position: static; }
-  .about-tl-list {
-    flex-direction: row; flex-wrap: wrap;
-    border-left: none; border-bottom: 2px solid var(--border);
-    padding-left: 0; padding-bottom: 0.75rem; gap: 0.5rem 1rem;
-  }
-  .about-tl-item::before { display: none; }
+  .about-tl-list { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
   .projects-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
   .project-card { padding: 1rem; }
   .project-card h3 { font-size: 1rem; line-height: 1.25; }
@@ -1344,6 +1333,10 @@ em, i { font-style: normal; }
   .dnd-panel-grid { grid-template-columns: 1fr; }
   .camp-card-grid { grid-template-columns: 1fr; }
   .camp-poster-grid { grid-template-columns: 1fr; }
+  /* D&D camp card: stack on mobile so the 280px poster column can't overflow */
+  .dnd-camp-card { grid-template-columns: 1fr; gap: 1.25rem; }
+  .camp-poster-stack { grid-column: 1; grid-template-columns: 1fr 1fr; }
+  .camp-poster { max-width: 100%; }
   .cv-sheet { padding: 1.25rem 1rem; }
   .stats { flex-wrap: wrap; gap: 1.5rem; }
   .footer { padding: 1.25rem; }
@@ -1359,6 +1352,11 @@ em, i { font-style: normal; }
   }
   .country-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
   .detail-photo-grid { grid-template-columns: 1fr 1fr; }
+  /* Decorative background timelines clutter and overflow on small screens */
+  .cv-bg-timeline, .page-bg-tl { display: none; }
+  /* No hover on touch: always show the "View more" tap hint */
+  .tl-goto { opacity: 1; }
+  .timeline-items { padding-bottom: 1rem; }
 }
 
 @media (max-width: 480px) {
