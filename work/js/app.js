@@ -113,6 +113,7 @@
 
     body.classList.remove('state-empty');
     body.classList.add('state-active');
+    workspace.hidden = false;
     reloadBtn.hidden = false;
 
     navigate(0, false);
@@ -505,6 +506,7 @@
   reloadBtn.addEventListener('click', () => {
     body.classList.remove('state-active');
     body.classList.add('state-empty');
+    workspace.hidden = true;
     reloadBtn.hidden = true;
     fileInput.value = '';
     clearError();
