@@ -23,10 +23,31 @@
   const progressEl = document.querySelector('.progress');
 
   // ---- State ----
-  let pages = [];        // [{ number, title, blocks, el, dot, done }]
-  let active = 0;
-  let navLock = false;
-  let scrubbing = false; // true while dragging the dot rail
+  let pages = [];           // [{ number, title, blocks, el, dot, done }]
+  let active = -1;          // currently centered page (integer)
+  let railTrack = null;     // moving strip inside the rail
+
+  // Continuous position + inertia model
+  let posF = 0;             // fractional page position (drives every transform)
+  let vel = 0;              // velocity in pages/second
+  let snapTarget = null;    // page to settle on when not flicking
+  let rafId = null;
+  let lastT = 0;
+
+  // Rail picker geometry (measured from the DOM so CSS can change it)
+  let DOT_BASE = 18;
+  let DOT_PITCH = 28;
+
+  // Drag state
+  let dragging = false, dragLastY = 0, dragLastT = 0, dragVel = 0, dragMoved = false;
+  let suppressClickUntil = 0;
+
+  // Inertia tuning
+  const WHEEL_IMPULSE = 0.018;  // velocity added per unit of wheel delta
+  const MAX_VEL = 46;           // pages/second cap (hard scroll can flick ~20 pages)
+  const SNAP_VEL = 0.7;         // below this, settle onto a page
+  const FRICTION = 0.10;        // fraction of velocity kept per second (strong decay)
+  const SNAP_SPEED = 16;        // settle easing rate
 
   // Block type aliases -> canonical
   const TYPE_ALIASES = {
@@ -94,8 +115,12 @@
     // Reset
     track.innerHTML = '';
     rail.innerHTML = '';
+    railTrack = document.createElement('div');
+    railTrack.className = 'rail-track';
+    rail.appendChild(railTrack);
     pages = [];
-    active = 0;
+    active = -1;
+    posF = 0; vel = 0; snapTarget = null;
 
     raw.forEach((p, i) => {
       const number = (p.number !== undefined && p.number !== null) ? String(p.number) : String(i + 1);
@@ -108,7 +133,7 @@
       track.appendChild(pageEl.el);
 
       const dot = buildDot(number, title, i);
-      rail.appendChild(dot);
+      railTrack.appendChild(dot);
 
       pages.push({ number, title, el: pageEl.el, dot, done: false });
     });
@@ -118,8 +143,8 @@
     workspace.hidden = false;
     reloadBtn.hidden = false;
 
-    layoutRail();
-    navigate(0, false);
+    measurePitch();
+    jumpTo(0);
     updateProgress();
   }
 
@@ -373,7 +398,10 @@
     label.innerHTML = '<span class="dl-num">' + escapeHtml(number) + '</span>' + escapeHtml(title);
     dot.appendChild(label);
 
-    dot.addEventListener('click', () => navigate(index, true));
+    dot.addEventListener('click', () => {
+      if (performance.now() < suppressClickUntil) return; // ignore the click that ends a drag
+      glideTo(index);
+    });
     return dot;
   }
 
@@ -402,141 +430,180 @@
   }
 
   // ====================================================
-  //  Navigation (vertical slide)
+  //  Navigation - continuous position with inertia
   // ====================================================
-  function navigate(index, animate) {
-    index = Math.max(0, Math.min(pages.length - 1, index));
-    active = index;
+  function clampPos(v) { return Math.max(0, Math.min(pages.length - 1, v)); }
+  function isActive() { return body.classList.contains('state-active'); }
 
-    if (!animate) {
-      const prev = track.style.transition;
-      track.style.transition = 'none';
-      track.style.transform = 'translateY(-' + index * 100 + '%)';
-      // force reflow then restore transition
-      void track.offsetHeight;
-      track.style.transition = prev;
-    } else {
-      navLock = true;
-      track.style.transform = 'translateY(-' + index * 100 + '%)';
-      setTimeout(() => { navLock = false; }, 620);
-    }
-
-    // Reset incoming page scroll to top so the slide reads cleanly
-    pages[index].el.scrollTop = 0;
-
-    // Header
-    docNumber.textContent = pages[index].number;
-    docTitle.textContent = pages[index].title;
-
-    // Dots
-    pages.forEach((p, i) => p.dot.classList.toggle('active', i === index));
-    if (!scrubbing) pages[index].dot.scrollIntoView({ block: 'nearest' });
+  // Measure dot size + gap so the rail centering stays exact across breakpoints
+  function measurePitch() {
+    if (!pages.length || !railTrack) return;
+    const base = pages[0].dot.offsetHeight || 18;   // transforms don't change the layout box
+    const cs = getComputedStyle(railTrack);
+    const gap = parseFloat(cs.rowGap || cs.gap) || 10;
+    DOT_BASE = base;
+    DOT_PITCH = base + gap;
   }
 
-  function go(delta) { navigate(active + delta, true); }
+  function navigate(index, animate) {
+    if (animate === false) jumpTo(index);
+    else glideTo(index);
+  }
+  function jumpTo(index) {
+    posF = clampPos(index);
+    vel = 0; snapTarget = null; active = -1;
+    render();
+  }
+  function glideTo(index) {
+    snapTarget = clampPos(index);
+    vel = 0;
+    startLoop();
+  }
+  function go(delta) { glideTo(Math.round(posF) + delta); }
 
-  // Size the rail so every dot fits on screen (compact for 60+ pages),
-  // which keeps the drag-scrub reaching every page without inner scrolling.
-  function layoutRail() {
+  // Paint the content deck + the rail picker from posF
+  function render() {
     const N = pages.length;
     if (!N) return;
-    const avail = Math.max(140, window.innerHeight - 60 - 24); // topbar + padding
-    const unit = Math.floor(avail / N);
-    const dot = Math.min(24, Math.max(7, Math.round(unit * 0.78)));
-    let gap = Math.max(1, unit - dot);
-    gap = Math.min(gap, 8);
-    const fits = N * (dot + gap) <= avail;
-    rail.style.gap = gap + 'px';
-    rail.style.overflowY = fits ? 'hidden' : 'auto';
-    rail.classList.toggle('tiny', dot < 15);
-    pages.forEach(p => {
-      p.dot.style.width = dot + 'px';
-      p.dot.style.height = dot + 'px';
-      p.dot.style.fontSize = Math.max(7, Math.round(dot * 0.36)) + 'px';
-    });
-  }
+    track.style.transform = 'translateY(' + (-posF * 100) + '%)';
 
-  // ---- Drag-scrub on the rail (acts like a satisfying scrollbar) ----
-  function dotIndexAtY(y) {
-    let best = 0, bestDist = Infinity;
-    for (let i = 0; i < pages.length; i++) {
-      const r = pages[i].dot.getBoundingClientRect();
-      const c = r.top + r.height / 2;
-      const d = Math.abs(c - y);
-      if (d < bestDist) { bestDist = d; best = i; }
+    const railH = rail.clientHeight || 0;
+    if (railTrack) {
+      railTrack.style.transform =
+        'translateY(' + (railH / 2 - posF * DOT_PITCH - DOT_BASE / 2) + 'px)';
     }
-    return best;
-  }
-  function railDown(e) {
-    if (!body.classList.contains('state-active')) return;
-    scrubbing = true;
-    track.classList.add('scrubbing');
-    rail.classList.add('scrubbing');
-    try { rail.setPointerCapture(e.pointerId); } catch (_) {}
-    const i = dotIndexAtY(e.clientY);
-    if (i !== active) navigate(i, true);
-    e.preventDefault();
-    e.stopPropagation();
-  }
-  function railMove(e) {
-    if (!scrubbing) return;
-    const i = dotIndexAtY(e.clientY);
-    if (i !== active) navigate(i, true);
-  }
-  function railUp(e) {
-    if (!scrubbing) return;
-    scrubbing = false;
-    track.classList.remove('scrubbing');
-    rail.classList.remove('scrubbing');
-    try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
-    pages[active].dot.scrollIntoView({ block: 'nearest' });
+    // Centered page is largest; neighbours shrink and fade with distance
+    for (let i = 0; i < N; i++) {
+      const dist = Math.abs(i - posF);
+      const s = Math.max(0.5, 1.5 - dist * 0.22);
+      const o = Math.max(0.2, 1 - dist * 0.13);
+      const dot = pages[i].dot;
+      dot.style.transform = 'scale(' + s.toFixed(3) + ')';
+      dot.style.opacity = o.toFixed(3);
+    }
+    const ai = Math.round(posF);
+    if (ai !== active) { active = ai; onActiveChange(); }
   }
 
-  // Wheel over the rail steps one page at a time (a gentle scroll between pages)
-  let railWheelLock = false;
-  function onRailWheel(e) {
-    if (!body.classList.contains('state-active')) return;
-    e.preventDefault();
-    e.stopPropagation();
-    if (railWheelLock) return;
-    railWheelLock = true;
-    setTimeout(() => { railWheelLock = false; }, 110);
-    navigate(active + (e.deltaY > 0 ? 1 : -1), true);
+  function onActiveChange() {
+    const p = pages[active];
+    if (!p) return;
+    docNumber.textContent = p.number;
+    docTitle.textContent = p.title;
+    pages.forEach((q, i) => q.dot.classList.toggle('active', i === active));
+    p.el.scrollTop = 0;
   }
 
-  // Wheel: slide pages only at the scroll edges, so tall pages still scroll inside.
+  // Animation loop: apply inertia, then settle onto a page
+  function startLoop() { if (rafId == null) { lastT = 0; rafId = requestAnimationFrame(loop); } }
+  function loop(t) {
+    const dt = lastT ? Math.min((t - lastT) / 1000, 0.05) : 0.016;
+    lastT = t;
+
+    if (dragging) { render(); rafId = requestAnimationFrame(loop); return; }
+
+    let moving = false;
+    if (Math.abs(vel) > 0.0001) {
+      posF += vel * dt;
+      vel *= Math.pow(FRICTION, dt);
+      if (posF <= 0) { posF = 0; vel = 0; }
+      else if (posF >= pages.length - 1) { posF = pages.length - 1; vel = 0; }
+      if (Math.abs(vel) < SNAP_VEL) vel = 0;
+      moving = true;
+    } else {
+      const target = (snapTarget != null) ? snapTarget : Math.round(posF);
+      const d = target - posF;
+      if (Math.abs(d) > 0.002) { posF += d * Math.min(1, dt * SNAP_SPEED); moving = true; }
+      else { posF = target; snapTarget = null; }
+    }
+
+    render();
+    if (moving) rafId = requestAnimationFrame(loop);
+    else { rafId = null; lastT = 0; }
+  }
+
+  function addImpulse(deltaY, mode) {
+    let d = deltaY;
+    if (mode === 1) d *= 16; else if (mode === 2) d *= window.innerHeight;
+    vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel + d * WHEEL_IMPULSE));
+    snapTarget = null;
+    startLoop();
+  }
+
+  // Wheel over content: scroll a tall page internally, otherwise flick through pages
   function onWheel(e) {
-    if (!body.classList.contains('state-active')) return;
-    const page = pages[active].el;
+    if (!isActive()) return;
+    const page = pages[active] && pages[active].el;
+    if (!page) return;
     const atTop = page.scrollTop <= 0;
     const atBottom = page.scrollTop + page.clientHeight >= page.scrollHeight - 1;
-    if (e.deltaY > 0 && atBottom) {
-      e.preventDefault();
-      if (!navLock && active < pages.length - 1) go(1);
-    } else if (e.deltaY < 0 && atTop) {
-      e.preventDefault();
-      if (!navLock && active > 0) go(-1);
+    const down = e.deltaY > 0;
+    const flicking = Math.abs(vel) > 0.15;
+    if (!flicking && ((down && !atBottom) || (!down && !atTop))) return; // let the page scroll
+    e.preventDefault();
+    addImpulse(e.deltaY, e.deltaMode);
+  }
+
+  // Wheel over the rail always flicks pages (no internal scroll there)
+  function onRailWheel(e) {
+    if (!isActive()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    addImpulse(e.deltaY, e.deltaMode);
+  }
+
+  // ---- Drag the rail like a scrollbar, with release momentum ----
+  function railDown(e) {
+    if (!isActive()) return;
+    dragging = true; dragMoved = false;
+    dragLastY = e.clientY; dragLastT = performance.now(); dragVel = 0;
+    vel = 0; snapTarget = null;
+    rail.classList.add('scrubbing');
+    try { rail.setPointerCapture(e.pointerId); } catch (_) {}
+    startLoop();
+  }
+  function railMove(e) {
+    if (!dragging) return;
+    const now = performance.now();
+    const dy = e.clientY - dragLastY;
+    if (Math.abs(dy) > 2) dragMoved = true;
+    posF = clampPos(posF + dy / DOT_PITCH);
+    const dts = (now - dragLastT) / 1000;
+    if (dts > 0) dragVel = (dy / DOT_PITCH) / dts; // pages/sec
+    dragLastY = e.clientY; dragLastT = now;
+    render();
+  }
+  function railUp(e) {
+    if (!dragging) return;
+    dragging = false;
+    rail.classList.remove('scrubbing');
+    try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+    if (dragMoved) {
+      vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, dragVel * 0.5)); // fling on release
+      snapTarget = null;
+      suppressClickUntil = performance.now() + 250;
     }
+    startLoop();
   }
 
   // Keyboard
   function onKey(e) {
-    if (!body.classList.contains('state-active')) return;
-    if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); go(1); }
+    if (!isActive()) return;
+    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
     else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
-    else if (e.key === 'Home') { e.preventDefault(); navigate(0, true); }
-    else if (e.key === 'End') { e.preventDefault(); navigate(pages.length - 1, true); }
+    else if (e.key === 'Home') { e.preventDefault(); glideTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); glideTo(pages.length - 1); }
   }
 
-  // Touch (swipe between pages at the edges)
+  // Touch swipe on content (tall pages scroll inside; at the edge a swipe flicks)
   let touchY = null;
   function onTouchStart(e) { touchY = e.touches[0].clientY; }
   function onTouchEnd(e) {
-    if (touchY === null || !body.classList.contains('state-active')) return;
+    if (touchY === null || !isActive()) return;
     const page = pages[active].el;
     const dy = e.changedTouches[0].clientY - touchY;
     touchY = null;
-    if (Math.abs(dy) < 60 || navLock) return;
+    if (Math.abs(dy) < 40) return;
     const atTop = page.scrollTop <= 0;
     const atBottom = page.scrollTop + page.clientHeight >= page.scrollHeight - 1;
     if (dy < 0 && atBottom) go(1);
@@ -653,5 +720,5 @@
   rail.addEventListener('pointerup', railUp);
   rail.addEventListener('pointercancel', railUp);
   rail.addEventListener('wheel', onRailWheel, { passive: false });
-  window.addEventListener('resize', () => { if (pages.length) layoutRail(); });
+  window.addEventListener('resize', () => { if (pages.length) { measurePitch(); render(); } });
 })();
