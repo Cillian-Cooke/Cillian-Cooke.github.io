@@ -44,7 +44,6 @@
       object-fit: cover;
     }
 
-    /* Rive canvas sits exactly over the image */
     .photo-wrap canvas {
       position: absolute;
       inset: 0;
@@ -53,102 +52,124 @@
       pointer-events: none;
     }
 
-    .blank {
-      width: 100%;
-      height: 100%;
-      background: #ddd5c8;
-    }
-
     /* ── Frame positions & rotations ── */
 
-    /* Frame 1 — portrait, picture1.jpeg + Rive animation */
+    /* Frame 1 — portrait 3:4, picture1 */
     .f1 {
       width: 240px;
-      top: 140px;
-      left: 200px;
+      top: 120px;
+      left: 165px;
       transform: rotate(-3.1deg);
       z-index: 3;
     }
     .f1 .photo-wrap { width: 220px; height: 293px; }
 
-    /* Frame 2 — landscape, upper centre, overlaps f1 slightly */
+    /* Frame 2 — landscape 16:9, picture2 */
     .f2 {
       width: 228px;
-      top: 60px;
-      left: 390px;
+      top: 50px;
+      left: 388px;
       transform: rotate(2.4deg);
       z-index: 2;
     }
-    .f2 .photo-wrap { width: 208px; height: 156px; }
+    .f2 .photo-wrap { width: 208px; height: 117px; }
 
-    /* Frame 3 — landscape, upper right */
+    /* Frame 3 — landscape 4:3, picture3 */
     .f3 {
       width: 214px;
-      top: 85px;
-      left: 658px;
+      top: 65px;
+      left: 648px;
       transform: rotate(-4.3deg);
       z-index: 1;
     }
     .f3 .photo-wrap { width: 194px; height: 145px; }
 
-    /* Frame 4 — landscape, lower left, clips under f1 */
+    /* Frame 4 — portrait 3:4, picture4 */
     .f4 {
-      width: 218px;
-      top: 400px;
-      left: 100px;
-      transform: rotate(1.7deg);
+      width: 210px;
+      top: 340px;
+      left: 78px;
+      transform: rotate(1.9deg);
       z-index: 2;
     }
-    .f4 .photo-wrap { width: 198px; height: 148px; }
+    .f4 .photo-wrap { width: 190px; height: 253px; }
 
-    /* Frame 5 — portrait, lower right, overlaps f2/f3 bases */
+    /* Frame 5 — landscape 16:9, picture5 */
     .f5 {
       width: 236px;
-      top: 310px;
-      left: 582px;
-      transform: rotate(-1.9deg);
+      top: 380px;
+      left: 548px;
+      transform: rotate(-2.2deg);
       z-index: 4;
     }
-    .f5 .photo-wrap { width: 216px; height: 288px; }
+    .f5 .photo-wrap { width: 216px; height: 121px; }
   </style>
 </head>
 <body>
 <div class="board">
 
-  <!-- Frame 1: picture1.jpeg with Rive animation running on top -->
+  <!-- Frame 1: picture1 (portrait 3:4) + Animation1 -->
   <div class="frame f1">
     <div class="photo-wrap" id="pw1">
-      <img src="../picture1.jpeg" alt="">
-      <canvas id="rive-canvas"></canvas>
+      <img src="images/p1.jpg" alt="">
+      <canvas id="canvas1"></canvas>
     </div>
   </div>
 
-  <!-- Frames 2–5: replace <div class="blank"></div> with <img src="…"> when ready -->
+  <!-- Frame 2: picture2 (landscape 16:9) + Animation2 -->
   <div class="frame f2">
-    <div class="photo-wrap"><div class="blank"></div></div>
+    <div class="photo-wrap" id="pw2">
+      <img src="images/p2.jpg" alt="">
+      <canvas id="canvas2"></canvas>
+    </div>
   </div>
 
+  <!-- Frame 3: picture3 (landscape 4:3) + Animation3 -->
   <div class="frame f3">
-    <div class="photo-wrap"><div class="blank"></div></div>
+    <div class="photo-wrap" id="pw3">
+      <img src="images/p3.jpg" alt="">
+      <canvas id="canvas3"></canvas>
+    </div>
   </div>
 
+  <!-- Frame 4: picture4 (portrait 3:4) + Animation4 -->
   <div class="frame f4">
-    <div class="photo-wrap"><div class="blank"></div></div>
+    <div class="photo-wrap" id="pw4">
+      <img src="images/p4.jpg" alt="">
+      <canvas id="canvas4"></canvas>
+    </div>
   </div>
 
+  <!-- Frame 5: picture5 (landscape 16:9) + Animation5 -->
   <div class="frame f5">
-    <div class="photo-wrap"><div class="blank"></div></div>
+    <div class="photo-wrap" id="pw5">
+      <img src="images/p5.jpg" alt="">
+      <canvas id="canvas5"></canvas>
+    </div>
   </div>
 
 </div>
 
 <script type="module">
-  const pw1    = document.getElementById('pw1');
-  const canvas = document.getElementById('rive-canvas');
+  // Animations play in sequence: 1 → 2 → 3 → 4 → 5 → 1 → …
+  // speed: multiplier on natural animation speed (1.0 = as designed)
+  const slots = [
+    { wrap: 'pw1', canvas: 'canvas1', src: '../Animation1.riv', speed: 1.0 },
+    { wrap: 'pw2', canvas: 'canvas2', src: '../Animation2.riv', speed: 0.8 },
+    { wrap: 'pw3', canvas: 'canvas3', src: '../Animation3.riv', speed: 0.8 },
+    { wrap: 'pw4', canvas: 'canvas4', src: '../Animation4.riv', speed: 0.8 },
+    { wrap: 'pw5', canvas: 'canvas5', src: '../Animation5.riv', speed: 0.8 },
+  ];
 
-  canvas.width  = pw1.offsetWidth;
-  canvas.height = pw1.offsetHeight;
+  // Size each canvas to its photo-wrap
+  for (const s of slots) {
+    const pw = document.getElementById(s.wrap);
+    const c  = document.getElementById(s.canvas);
+    c.width  = pw.offsetWidth;
+    c.height = pw.offsetHeight;
+  }
 
+  // Boot Rive
   const mod  = await import('./rive/canvas_advanced.mjs');
   const rive = await mod.default({
     locateFile: f => new URL(
@@ -157,15 +178,28 @@
     ).href,
   });
 
-  const bytes    = new Uint8Array(await (await fetch('../Animation1.riv')).arrayBuffer());
-  const file     = await rive.load(bytes);
-  const artboard = file.defaultArtboard();
-  const la       = artboard.animationByIndex(0);
-  const inst     = new rive.LinearAnimationInstance(la, artboard);
-  const durSec   = la.duration / la.fps;
+  async function loadAnim(src) {
+    const bytes    = new Uint8Array(await (await fetch(src)).arrayBuffer());
+    const file     = await rive.load(bytes);
+    const artboard = file.defaultArtboard();
+    const la       = artboard.animationByIndex(0);
+    const inst     = new rive.LinearAnimationInstance(la, artboard);
+    const durSec   = la.duration / la.fps;
+    return { artboard, inst, durSec };
+  }
 
-  const renderer = rive.makeRenderer(canvas);
+  const anims     = await Promise.all(slots.map(s => loadAnim(s.src)));
+  const canvases  = slots.map(s => document.getElementById(s.canvas));
+  const renderers = canvases.map(c => rive.makeRenderer(c));
 
+  function flush(r) {
+    const H = r.H;
+    for (const fn of H) fn();
+    H.length = 0;
+  }
+
+  // Sequential state machine: plays one animation at a time
+  let phase    = 0;
   let elapsed  = 0;
   let lastTime = null;
 
@@ -173,30 +207,35 @@
     const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
     lastTime  = time;
 
-    // Advance elapsed at 0.6× speed and loop
-    elapsed = (elapsed + dt * 0.6) % durSec;
+    const { artboard, inst, durSec } = anims[phase];
+    const renderer = renderers[phase];
+    const canvas   = canvases[phase];
 
-    // Pose the artboard at the current time
-    inst.time = elapsed;
-    inst.apply(1.0);
-    artboard.advance(0);
+    elapsed += dt * slots[phase].speed;
 
-    // Draw to canvas
-    renderer.clear();
-    renderer.save();
-    renderer.align(
-      rive.Fit.fill,
-      rive.Alignment.center,
-      { minX: 0, minY: 0, maxX: canvas.width, maxY: canvas.height },
-      artboard.bounds
-    );
-    artboard.draw(renderer);
-    renderer.restore();
+    if (elapsed >= durSec) {
+      // Clear this canvas and move to the next animation
+      renderer.clear();
+      flush(renderer);
+      phase   = (phase + 1) % slots.length;
+      elapsed = 0;
+    } else {
+      inst.time = elapsed;
+      inst.apply(1.0);
+      artboard.advance(0);
 
-    // Flush the render queue immediately so the canvas updates this frame
-    const H = renderer.H;
-    for (const fn of H) fn();
-    H.length = 0;
+      renderer.clear();
+      renderer.save();
+      renderer.align(
+        rive.Fit.fill,
+        rive.Alignment.center,
+        { minX: 0, minY: 0, maxX: canvas.width, maxY: canvas.height },
+        artboard.bounds
+      );
+      artboard.draw(renderer);
+      renderer.restore();
+      flush(renderer);
+    }
 
     requestAnimationFrame(loop);
   }
