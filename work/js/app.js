@@ -26,13 +26,15 @@
   let pages = [];        // [{ number, title, blocks, el, dot, done }]
   let active = 0;
   let navLock = false;
+  let scrubbing = false; // true while dragging the dot rail
 
   // Block type aliases -> canonical
   const TYPE_ALIASES = {
     explain: 'explain', explanation: 'explain', text: 'explain', info: 'explain', note: 'explain',
     copy: 'copy', copybox: 'copy', clipboard: 'copy',
     link: 'link', tab: 'link', url: 'link',
-    window: 'window', popup: 'window', newwindow: 'window', 'new-window': 'window'
+    window: 'window', popup: 'window', newwindow: 'window', 'new-window': 'window',
+    search: 'search', google: 'search', 'google-search': 'search', lookup: 'search'
   };
 
   // ====================================================
@@ -116,6 +118,7 @@
     workspace.hidden = false;
     reloadBtn.hidden = false;
 
+    layoutRail();
     navigate(0, false);
     updateProgress();
   }
@@ -168,6 +171,7 @@
       case 'copy':    return blockCopy(b);
       case 'link':    return blockLink(b);
       case 'window':  return blockWindow(b);
+      case 'search':  return blockSearch(b);
       default:        return blockUnknown(b);
     }
   }
@@ -228,29 +232,35 @@
   function blockLink(b) {
     const wrap = document.createElement('div');
     wrap.className = 'block block-link';
-    const url = String(b.url || b.href || '');
+    const query = b.search ? String(b.search) : '';
+    const url = query ? googleURL(query) : String(b.url || b.href || '');
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'action-btn';
-    btn.innerHTML = openTabIcon() + '<span>' + escapeHtml(b.label || b.text || 'Open link') + '</span>';
+    const label = b.label || b.text || (query ? 'Search Google' : 'Open link');
+    btn.innerHTML = (query ? searchIcon() : openTabIcon()) + '<span>' + escapeHtml(label) + '</span>';
     btn.addEventListener('click', () => {
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     });
     wrap.appendChild(btn);
-    if (b.showUrl !== false && url) wrap.appendChild(urlCaption(url));
+    if (b.showUrl !== false && url) {
+      wrap.appendChild(urlCaption(query ? 'Google: ' + query : url));
+    }
     return wrap;
   }
 
   function blockWindow(b) {
     const wrap = document.createElement('div');
     wrap.className = 'block block-window';
-    const url = String(b.url || b.href || '');
+    const query = b.search ? String(b.search) : '';
+    const url = query ? googleURL(query) : String(b.url || b.href || '');
     const w = parseInt(b.width, 10) || 1024;
     const h = parseInt(b.height, 10) || 720;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'action-btn';
-    btn.innerHTML = newWindowIcon() + '<span>' + escapeHtml(b.label || b.text || 'Open window') + '</span>';
+    const label = b.label || b.text || (query ? 'Search in new window' : 'Open window');
+    btn.innerHTML = (query ? searchIcon() : newWindowIcon()) + '<span>' + escapeHtml(label) + '</span>';
     btn.addEventListener('click', () => {
       if (!url) return;
       const left = Math.max(0, Math.round((screen.width - w) / 2));
@@ -260,7 +270,43 @@
       window.open(url, '_blank', feat);
     });
     wrap.appendChild(btn);
-    if (b.showUrl !== false && url) wrap.appendChild(urlCaption(url));
+    if (b.showUrl !== false && url) {
+      wrap.appendChild(urlCaption(query ? 'Google: ' + query : url));
+    }
+    return wrap;
+  }
+
+  // Click-the-box Google search (mirrors the copy box)
+  function blockSearch(b) {
+    const wrap = document.createElement('div');
+    wrap.className = 'block block-search';
+    withLabel(wrap, b.label);
+
+    const query = String(
+      b.text !== undefined ? b.text :
+      b.query !== undefined ? b.query :
+      b.value !== undefined ? b.value : ''
+    );
+
+    const boxBtn = document.createElement('button');
+    boxBtn.type = 'button';
+    boxBtn.className = 'search-box';
+    boxBtn.title = 'Click to search Google';
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'search-text';
+    textSpan.textContent = query;
+
+    const hint = document.createElement('span');
+    hint.className = 'search-hint';
+    hint.innerHTML = searchIcon() + '<span>Search</span>';
+
+    boxBtn.appendChild(textSpan);
+    boxBtn.appendChild(hint);
+    boxBtn.addEventListener('click', () => {
+      if (query) window.open(googleURL(query), '_blank', 'noopener,noreferrer');
+    });
+    wrap.appendChild(boxBtn);
     return wrap;
   }
 
@@ -342,6 +388,11 @@
     const label = p.el.querySelector('.done-label');
     if (label) label.textContent = p.done ? 'Done' : 'Mark done';
     updateProgress();
+
+    // When a page is marked done (not when un-done), slide to the next page.
+    if (p.done && index === active && index < pages.length - 1) {
+      setTimeout(() => { if (active === index) navigate(index + 1, true); }, 220);
+    }
   }
 
   function updateProgress() {
@@ -379,10 +430,79 @@
 
     // Dots
     pages.forEach((p, i) => p.dot.classList.toggle('active', i === index));
-    pages[index].dot.scrollIntoView({ block: 'nearest' });
+    if (!scrubbing) pages[index].dot.scrollIntoView({ block: 'nearest' });
   }
 
   function go(delta) { navigate(active + delta, true); }
+
+  // Size the rail so every dot fits on screen (compact for 60+ pages),
+  // which keeps the drag-scrub reaching every page without inner scrolling.
+  function layoutRail() {
+    const N = pages.length;
+    if (!N) return;
+    const avail = Math.max(140, window.innerHeight - 60 - 24); // topbar + padding
+    const unit = Math.floor(avail / N);
+    const dot = Math.min(24, Math.max(7, Math.round(unit * 0.78)));
+    let gap = Math.max(1, unit - dot);
+    gap = Math.min(gap, 8);
+    const fits = N * (dot + gap) <= avail;
+    rail.style.gap = gap + 'px';
+    rail.style.overflowY = fits ? 'hidden' : 'auto';
+    rail.classList.toggle('tiny', dot < 15);
+    pages.forEach(p => {
+      p.dot.style.width = dot + 'px';
+      p.dot.style.height = dot + 'px';
+      p.dot.style.fontSize = Math.max(7, Math.round(dot * 0.36)) + 'px';
+    });
+  }
+
+  // ---- Drag-scrub on the rail (acts like a satisfying scrollbar) ----
+  function dotIndexAtY(y) {
+    let best = 0, bestDist = Infinity;
+    for (let i = 0; i < pages.length; i++) {
+      const r = pages[i].dot.getBoundingClientRect();
+      const c = r.top + r.height / 2;
+      const d = Math.abs(c - y);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best;
+  }
+  function railDown(e) {
+    if (!body.classList.contains('state-active')) return;
+    scrubbing = true;
+    track.classList.add('scrubbing');
+    rail.classList.add('scrubbing');
+    try { rail.setPointerCapture(e.pointerId); } catch (_) {}
+    const i = dotIndexAtY(e.clientY);
+    if (i !== active) navigate(i, true);
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  function railMove(e) {
+    if (!scrubbing) return;
+    const i = dotIndexAtY(e.clientY);
+    if (i !== active) navigate(i, true);
+  }
+  function railUp(e) {
+    if (!scrubbing) return;
+    scrubbing = false;
+    track.classList.remove('scrubbing');
+    rail.classList.remove('scrubbing');
+    try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+    pages[active].dot.scrollIntoView({ block: 'nearest' });
+  }
+
+  // Wheel over the rail steps one page at a time (a gentle scroll between pages)
+  let railWheelLock = false;
+  function onRailWheel(e) {
+    if (!body.classList.contains('state-active')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (railWheelLock) return;
+    railWheelLock = true;
+    setTimeout(() => { railWheelLock = false; }, 110);
+    navigate(active + (e.deltaY > 0 ? 1 : -1), true);
+  }
 
   // Wheel: slide pages only at the scroll edges, so tall pages still scroll inside.
   function onWheel(e) {
@@ -442,6 +562,14 @@
       'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
       '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>';
   }
+  function searchIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
+  }
+  function googleURL(q) {
+    return 'https://www.google.com/search?q=' + encodeURIComponent(q);
+  }
 
   // ====================================================
   //  Sample file
@@ -458,11 +586,13 @@
           ]
         },
         {
-          number: 'II', title: 'Links & windows',
+          number: 'II', title: 'Links, windows & search',
           blocks: [
             { type: 'explain', text: 'You can mix any number of blocks on a page.' },
             { type: 'link', label: 'Open documentation', url: 'https://example.com/docs' },
-            { type: 'window', label: 'Open dashboard popup', url: 'https://example.com/app', width: 1100, height: 760 }
+            { type: 'window', label: 'Open dashboard popup', url: 'https://example.com/app', width: 1100, height: 760 },
+            { type: 'search', label: 'Click to Google this', text: 'how to use Utmost workspace' },
+            { type: 'window', label: 'Google this in a window', search: 'corporate onboarding checklist' }
           ]
         },
         {
@@ -516,4 +646,12 @@
   document.addEventListener('keydown', onKey);
   workspace.addEventListener('touchstart', onTouchStart, { passive: true });
   workspace.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  // Rail scrub + wheel + responsive sizing
+  rail.addEventListener('pointerdown', railDown);
+  rail.addEventListener('pointermove', railMove);
+  rail.addEventListener('pointerup', railUp);
+  rail.addEventListener('pointercancel', railUp);
+  rail.addEventListener('wheel', onRailWheel, { passive: false });
+  window.addEventListener('resize', () => { if (pages.length) layoutRail(); });
 })();

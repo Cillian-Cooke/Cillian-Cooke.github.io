@@ -1,56 +1,1093 @@
 {
-  "title": "Sample workspace",
+  "title": "60-page sample",
   "pages": [
     {
       "number": "1",
-      "title": "Welcome",
+      "title": "Step 1",
       "blocks": [
         {
           "type": "explain",
-          "title": "What this is",
-          "text": "This is a sample Utmost workspace.\nEach page is a checklist step. Use the dots on the right to jump around, and the button at the bottom to mark a page done."
+          "title": "Step 1",
+          "text": "This is page 1 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
         },
         {
           "type": "copy",
-          "label": "Copy this token",
-          "text": "UTMOST-2026-XYZ-001"
+          "label": "Reference code",
+          "text": "STEP-001"
         }
       ]
     },
     {
-      "number": "II",
-      "title": "Links and windows",
+      "number": "2",
+      "title": "Step 2",
       "blocks": [
         {
           "type": "explain",
-          "text": "You can stack any number of blocks on a page. They render top to bottom in order."
+          "title": "Step 2",
+          "text": "This is page 2 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-002"
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "title": "Step 3",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 3",
+          "text": "This is page 3 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-003"
+        }
+      ]
+    },
+    {
+      "number": "4",
+      "title": "Step 4",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 4",
+          "text": "This is page 4 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-004"
+        }
+      ]
+    },
+    {
+      "number": "5",
+      "title": "Step 5",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 5",
+          "text": "This is page 5 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-005"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 5 example"
+        }
+      ]
+    },
+    {
+      "number": "6",
+      "title": "Step 6",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 6",
+          "text": "This is page 6 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-006"
+        }
+      ]
+    },
+    {
+      "number": "7",
+      "title": "Step 7",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 7",
+          "text": "This is page 7 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-007"
         },
         {
           "type": "link",
-          "label": "Open documentation",
-          "url": "https://example.com/docs"
-        },
-        {
-          "type": "window",
-          "label": "Open dashboard popup",
-          "url": "https://example.com/app",
-          "width": 1100,
-          "height": 760
+          "label": "Open reference",
+          "url": "https://example.com/step/7"
         }
       ]
     },
     {
-      "number": "C",
-      "title": "Numbers can be anything",
+      "number": "8",
+      "title": "Step 8",
       "blocks": [
         {
           "type": "explain",
-          "text": "The number is just a string, so 1, II, C, or anything works. It shows in the header and inside the side dot."
+          "title": "Step 8",
+          "text": "This is page 8 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
         },
         {
           "type": "copy",
-          "label": "Command",
-          "text": "npm install && npm run build"
+          "label": "Reference code",
+          "text": "STEP-008"
+        }
+      ]
+    },
+    {
+      "number": "9",
+      "title": "Step 9",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 9",
+          "text": "This is page 9 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-009"
+        }
+      ]
+    },
+    {
+      "number": "10",
+      "title": "Step 10",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 10",
+          "text": "This is page 10 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-010"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 10 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 10 guidance"
+        }
+      ]
+    },
+    {
+      "number": "11",
+      "title": "Step 11",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 11",
+          "text": "This is page 11 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-011"
+        }
+      ]
+    },
+    {
+      "number": "12",
+      "title": "Step 12",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 12",
+          "text": "This is page 12 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-012"
+        }
+      ]
+    },
+    {
+      "number": "13",
+      "title": "Step 13",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 13",
+          "text": "This is page 13 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-013"
+        }
+      ]
+    },
+    {
+      "number": "14",
+      "title": "Step 14",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 14",
+          "text": "This is page 14 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-014"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/14"
+        }
+      ]
+    },
+    {
+      "number": "15",
+      "title": "Step 15",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 15",
+          "text": "This is page 15 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-015"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 15 example"
+        }
+      ]
+    },
+    {
+      "number": "16",
+      "title": "Step 16",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 16",
+          "text": "This is page 16 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-016"
+        }
+      ]
+    },
+    {
+      "number": "17",
+      "title": "Step 17",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 17",
+          "text": "This is page 17 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-017"
+        }
+      ]
+    },
+    {
+      "number": "18",
+      "title": "Step 18",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 18",
+          "text": "This is page 18 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-018"
+        }
+      ]
+    },
+    {
+      "number": "19",
+      "title": "Step 19",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 19",
+          "text": "This is page 19 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-019"
+        }
+      ]
+    },
+    {
+      "number": "20",
+      "title": "Step 20",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 20",
+          "text": "This is page 20 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-020"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 20 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 20 guidance"
+        }
+      ]
+    },
+    {
+      "number": "21",
+      "title": "Step 21",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 21",
+          "text": "This is page 21 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-021"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/21"
+        }
+      ]
+    },
+    {
+      "number": "22",
+      "title": "Step 22",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 22",
+          "text": "This is page 22 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-022"
+        }
+      ]
+    },
+    {
+      "number": "23",
+      "title": "Step 23",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 23",
+          "text": "This is page 23 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-023"
+        }
+      ]
+    },
+    {
+      "number": "24",
+      "title": "Step 24",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 24",
+          "text": "This is page 24 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-024"
+        }
+      ]
+    },
+    {
+      "number": "25",
+      "title": "Step 25",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 25",
+          "text": "This is page 25 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-025"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 25 example"
+        }
+      ]
+    },
+    {
+      "number": "26",
+      "title": "Step 26",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 26",
+          "text": "This is page 26 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-026"
+        }
+      ]
+    },
+    {
+      "number": "27",
+      "title": "Step 27",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 27",
+          "text": "This is page 27 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-027"
+        }
+      ]
+    },
+    {
+      "number": "28",
+      "title": "Step 28",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 28",
+          "text": "This is page 28 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-028"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/28"
+        }
+      ]
+    },
+    {
+      "number": "29",
+      "title": "Step 29",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 29",
+          "text": "This is page 29 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-029"
+        }
+      ]
+    },
+    {
+      "number": "30",
+      "title": "Step 30",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 30",
+          "text": "This is page 30 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-030"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 30 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 30 guidance"
+        }
+      ]
+    },
+    {
+      "number": "31",
+      "title": "Step 31",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 31",
+          "text": "This is page 31 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-031"
+        }
+      ]
+    },
+    {
+      "number": "32",
+      "title": "Step 32",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 32",
+          "text": "This is page 32 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-032"
+        }
+      ]
+    },
+    {
+      "number": "33",
+      "title": "Step 33",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 33",
+          "text": "This is page 33 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-033"
+        }
+      ]
+    },
+    {
+      "number": "34",
+      "title": "Step 34",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 34",
+          "text": "This is page 34 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-034"
+        }
+      ]
+    },
+    {
+      "number": "35",
+      "title": "Step 35",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 35",
+          "text": "This is page 35 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-035"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 35 example"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/35"
+        }
+      ]
+    },
+    {
+      "number": "36",
+      "title": "Step 36",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 36",
+          "text": "This is page 36 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-036"
+        }
+      ]
+    },
+    {
+      "number": "37",
+      "title": "Step 37",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 37",
+          "text": "This is page 37 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-037"
+        }
+      ]
+    },
+    {
+      "number": "38",
+      "title": "Step 38",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 38",
+          "text": "This is page 38 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-038"
+        }
+      ]
+    },
+    {
+      "number": "39",
+      "title": "Step 39",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 39",
+          "text": "This is page 39 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-039"
+        }
+      ]
+    },
+    {
+      "number": "40",
+      "title": "Step 40",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 40",
+          "text": "This is page 40 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-040"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 40 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 40 guidance"
+        }
+      ]
+    },
+    {
+      "number": "41",
+      "title": "Step 41",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 41",
+          "text": "This is page 41 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-041"
+        }
+      ]
+    },
+    {
+      "number": "42",
+      "title": "Step 42",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 42",
+          "text": "This is page 42 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-042"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/42"
+        }
+      ]
+    },
+    {
+      "number": "43",
+      "title": "Step 43",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 43",
+          "text": "This is page 43 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-043"
+        }
+      ]
+    },
+    {
+      "number": "44",
+      "title": "Step 44",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 44",
+          "text": "This is page 44 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-044"
+        }
+      ]
+    },
+    {
+      "number": "45",
+      "title": "Step 45",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 45",
+          "text": "This is page 45 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-045"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 45 example"
+        }
+      ]
+    },
+    {
+      "number": "46",
+      "title": "Step 46",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 46",
+          "text": "This is page 46 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-046"
+        }
+      ]
+    },
+    {
+      "number": "47",
+      "title": "Step 47",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 47",
+          "text": "This is page 47 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-047"
+        }
+      ]
+    },
+    {
+      "number": "48",
+      "title": "Step 48",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 48",
+          "text": "This is page 48 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-048"
+        }
+      ]
+    },
+    {
+      "number": "49",
+      "title": "Step 49",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 49",
+          "text": "This is page 49 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-049"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/49"
+        }
+      ]
+    },
+    {
+      "number": "50",
+      "title": "Step 50",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 50",
+          "text": "This is page 50 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-050"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 50 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 50 guidance"
+        }
+      ]
+    },
+    {
+      "number": "51",
+      "title": "Step 51",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 51",
+          "text": "This is page 51 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-051"
+        }
+      ]
+    },
+    {
+      "number": "52",
+      "title": "Step 52",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 52",
+          "text": "This is page 52 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-052"
+        }
+      ]
+    },
+    {
+      "number": "53",
+      "title": "Step 53",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 53",
+          "text": "This is page 53 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-053"
+        }
+      ]
+    },
+    {
+      "number": "54",
+      "title": "Step 54",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 54",
+          "text": "This is page 54 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-054"
+        }
+      ]
+    },
+    {
+      "number": "55",
+      "title": "Step 55",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 55",
+          "text": "This is page 55 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-055"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 55 example"
+        }
+      ]
+    },
+    {
+      "number": "56",
+      "title": "Step 56",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 56",
+          "text": "This is page 56 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-056"
+        },
+        {
+          "type": "link",
+          "label": "Open reference",
+          "url": "https://example.com/step/56"
+        }
+      ]
+    },
+    {
+      "number": "57",
+      "title": "Step 57",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 57",
+          "text": "This is page 57 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-057"
+        }
+      ]
+    },
+    {
+      "number": "58",
+      "title": "Step 58",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 58",
+          "text": "This is page 58 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-058"
+        }
+      ]
+    },
+    {
+      "number": "59",
+      "title": "Step 59",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 59",
+          "text": "This is page 59 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-059"
+        }
+      ]
+    },
+    {
+      "number": "60",
+      "title": "Step 60",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "Step 60",
+          "text": "This is page 60 of the checklist. Read the note, do the task, then hit Done to slide to the next page."
+        },
+        {
+          "type": "copy",
+          "label": "Reference code",
+          "text": "STEP-060"
+        },
+        {
+          "type": "search",
+          "label": "Look this up",
+          "text": "checklist step 60 example"
+        },
+        {
+          "type": "window",
+          "label": "Search in a window",
+          "search": "step 60 guidance"
         }
       ]
     }

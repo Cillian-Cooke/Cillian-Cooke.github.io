@@ -192,6 +192,8 @@ body.state-empty .workspace { display: none; }
   transition: transform var(--slide);
   will-change: transform;
 }
+/* While scrubbing the rail, the slide chases your finger a touch faster */
+.track.scrubbing { transition-duration: 0.28s; }
 
 /* Each page fills the workspace; tall content scrolls inside it */
 .page {
@@ -255,6 +257,29 @@ body.state-empty .workspace { display: none; }
 }
 .block-copy .copy-box.copied { border-color: var(--c-green); background: var(--c-green-bg); }
 .block-copy .copy-box.copied .copy-hint { color: var(--c-green-d); }
+
+/* Search box (click to Google) - mirrors the copy box */
+.block-search .search-box {
+  width: 100%;
+  display: flex; align-items: center; gap: 0.8rem;
+  text-align: left;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  cursor: pointer; font: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.block-search .search-box:hover { border-color: var(--c-primary); box-shadow: 0 1px 6px rgba(11,92,173,0.1); }
+.block-search .search-box:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
+.search-text { flex: 1; min-width: 0; color: var(--c-text); font-size: 0.92rem; word-break: break-word; }
+.search-hint {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.74rem; font-weight: 700; color: var(--c-primary);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.search-hint .ico { width: 14px; height: 14px; }
 
 /* Link + window buttons */
 .block-link .action-btn,
@@ -322,8 +347,17 @@ body.state-empty .workspace { display: none; }
   padding: 8px 6px;
   overflow-y: auto;
   scrollbar-width: none;
+  cursor: grab;
+  touch-action: none;          /* drag-scrub instead of scrolling the page */
 }
 .rail::-webkit-scrollbar { display: none; }
+.rail.scrubbing { cursor: grabbing; }
+.rail.scrubbing .dot:hover { transform: none; }  /* no jitter mid-drag */
+/* When dots get tiny (lots of pages) drop the number; the hover label still shows it */
+.rail.tiny .dot-num { display: none; }
+.rail.tiny .dot.active {
+  box-shadow: 0 0 0 1px var(--c-primary-bg), 0 0 0 2px var(--c-primary);
+}
 
 .dot {
   position: relative;
