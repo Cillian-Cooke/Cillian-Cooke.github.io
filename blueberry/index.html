@@ -142,29 +142,66 @@
 
 </div>
 
-<script src="https://unpkg.com/@rive-app/canvas@2.21.6/rive.js"></script>
-<script>
+<script type="module">
   const pw1    = document.getElementById('pw1');
   const canvas = document.getElementById('rive-canvas');
 
-  // Set canvas pixel dimensions to exactly match the displayed photo area
   canvas.width  = pw1.offsetWidth;
   canvas.height = pw1.offsetHeight;
 
-  let r;
-  r = new rive.Rive({
-    src: '../Animation1.riv',
-    canvas: canvas,
-    autoplay: true,
-    layout: new rive.Layout({
-      fit: rive.Fit.Fill,
-      alignment: rive.Alignment.Center,
-    }),
-    onLoad: () => {
-      // Slow the loop down — 0.6× natural speed reads as "slow and steady"
-      r.setSpeed(0.6);
-    },
+  const mod  = await import('./rive/canvas_advanced.mjs');
+  const rive = await mod.default({
+    locateFile: f => new URL(
+      f.endsWith('.wasm') ? 'rive/rive.wasm' : 'rive/' + f,
+      location.href
+    ).href,
   });
+
+  const bytes    = new Uint8Array(await (await fetch('../Animation1.riv')).arrayBuffer());
+  const file     = await rive.load(bytes);
+  const artboard = file.defaultArtboard();
+  const la       = artboard.animationByIndex(0);
+  const inst     = new rive.LinearAnimationInstance(la, artboard);
+  const durSec   = la.duration / la.fps;
+
+  const renderer = rive.makeRenderer(canvas);
+
+  let elapsed  = 0;
+  let lastTime = null;
+
+  function loop(time) {
+    const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
+    lastTime  = time;
+
+    // Advance elapsed at 0.6× speed and loop
+    elapsed = (elapsed + dt * 0.6) % durSec;
+
+    // Pose the artboard at the current time
+    inst.time = elapsed;
+    inst.apply(1.0);
+    artboard.advance(0);
+
+    // Draw to canvas
+    renderer.clear();
+    renderer.save();
+    renderer.align(
+      rive.Fit.fill,
+      rive.Alignment.center,
+      { minX: 0, minY: 0, maxX: canvas.width, maxY: canvas.height },
+      artboard.bounds
+    );
+    artboard.draw(renderer);
+    renderer.restore();
+
+    // Flush the render queue immediately so the canvas updates this frame
+    const H = renderer.H;
+    for (const fn of H) fn();
+    H.length = 0;
+
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
 </script>
 </body>
 </html>
