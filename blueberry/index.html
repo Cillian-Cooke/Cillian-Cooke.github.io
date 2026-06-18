@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueberry</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background-color: #ede3d5;
+      background-image:
+        radial-gradient(ellipse at 25% 35%, rgba(170,140,110,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 65%, rgba(150,120,90,0.07) 0%, transparent 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .board {
+      position: relative;
+      width: 960px;
+      height: 680px;
+    }
+
+    .frame {
+      position: absolute;
+      background: #fffdf9;
+      box-shadow: 3px 5px 20px rgba(0,0,0,0.24), 0 1px 5px rgba(0,0,0,0.1);
+      padding: 10px 10px 44px;
+    }
+
+    .photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Rive canvas sits exactly over the image */
+    .photo-wrap canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .blank {
+      width: 100%;
+      height: 100%;
+      background: #ddd5c8;
+    }
+
+    /* ── Frame positions & rotations ── */
+
+    /* Frame 1 — portrait, picture1.jpeg + Rive animation */
+    .f1 {
+      width: 240px;
+      top: 140px;
+      left: 200px;
+      transform: rotate(-3.1deg);
+      z-index: 3;
+    }
+    .f1 .photo-wrap { width: 220px; height: 293px; }
+
+    /* Frame 2 — landscape, upper centre, overlaps f1 slightly */
+    .f2 {
+      width: 228px;
+      top: 60px;
+      left: 390px;
+      transform: rotate(2.4deg);
+      z-index: 2;
+    }
+    .f2 .photo-wrap { width: 208px; height: 156px; }
+
+    /* Frame 3 — landscape, upper right */
+    .f3 {
+      width: 214px;
+      top: 85px;
+      left: 658px;
+      transform: rotate(-4.3deg);
+      z-index: 1;
+    }
+    .f3 .photo-wrap { width: 194px; height: 145px; }
+
+    /* Frame 4 — landscape, lower left, clips under f1 */
+    .f4 {
+      width: 218px;
+      top: 400px;
+      left: 100px;
+      transform: rotate(1.7deg);
+      z-index: 2;
+    }
+    .f4 .photo-wrap { width: 198px; height: 148px; }
+
+    /* Frame 5 — portrait, lower right, overlaps f2/f3 bases */
+    .f5 {
+      width: 236px;
+      top: 310px;
+      left: 582px;
+      transform: rotate(-1.9deg);
+      z-index: 4;
+    }
+    .f5 .photo-wrap { width: 216px; height: 288px; }
+  </style>
+</head>
+<body>
+<div class="board">
+
+  <!-- Frame 1: picture1.jpeg with Rive animation running on top -->
+  <div class="frame f1">
+    <div class="photo-wrap" id="pw1">
+      <img src="../picture1.jpeg" alt="">
+      <canvas id="rive-canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- Frames 2–5: replace <div class="blank"></div> with <img src="…"> when ready -->
+  <div class="frame f2">
+    <div class="photo-wrap"><div class="blank"></div></div>
+  </div>
+
+  <div class="frame f3">
+    <div class="photo-wrap"><div class="blank"></div></div>
+  </div>
+
+  <div class="frame f4">
+    <div class="photo-wrap"><div class="blank"></div></div>
+  </div>
+
+  <div class="frame f5">
+    <div class="photo-wrap"><div class="blank"></div></div>
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/@rive-app/canvas@2.21.6/rive.js"></script>
+<script>
+  const pw1    = document.getElementById('pw1');
+  const canvas = document.getElementById('rive-canvas');
+
+  // Set canvas pixel dimensions to exactly match the displayed photo area
+  canvas.width  = pw1.offsetWidth;
+  canvas.height = pw1.offsetHeight;
+
+  let r;
+  r = new rive.Rive({
+    src: '../Animation1.riv',
+    canvas: canvas,
+    autoplay: true,
+    layout: new rive.Layout({
+      fit: rive.Fit.Fill,
+      alignment: rive.Alignment.Center,
+    }),
+    onLoad: () => {
+      // Slow the loop down — 0.6× natural speed reads as "slow and steady"
+      r.setSpeed(0.6);
+    },
+  });
+</script>
+</body>
+</html>
