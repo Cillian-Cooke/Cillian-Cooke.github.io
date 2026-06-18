@@ -1,0 +1,58 @@
+{
+  "title": "Sample workspace",
+  "pages": [
+    {
+      "number": "1",
+      "title": "Welcome",
+      "blocks": [
+        {
+          "type": "explain",
+          "title": "What this is",
+          "text": "This is a sample Utmost workspace.\nEach page is a checklist step. Use the dots on the right to jump around, and the button at the bottom to mark a page done."
+        },
+        {
+          "type": "copy",
+          "label": "Copy this token",
+          "text": "UTMOST-2026-XYZ-001"
+        }
+      ]
+    },
+    {
+      "number": "II",
+      "title": "Links and windows",
+      "blocks": [
+        {
+          "type": "explain",
+          "text": "You can stack any number of blocks on a page. They render top to bottom in order."
+        },
+        {
+          "type": "link",
+          "label": "Open documentation",
+          "url": "https://example.com/docs"
+        },
+        {
+          "type": "window",
+          "label": "Open dashboard popup",
+          "url": "https://example.com/app",
+          "width": 1100,
+          "height": 760
+        }
+      ]
+    },
+    {
+      "number": "C",
+      "title": "Numbers can be anything",
+      "blocks": [
+        {
+          "type": "explain",
+          "text": "The number is just a string, so 1, II, C, or anything works. It shows in the header and inside the side dot."
+        },
+        {
+          "type": "copy",
+          "label": "Command",
+          "text": "npm install && npm run build"
+        }
+      ]
+    }
+  ]
+}

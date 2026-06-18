@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utmost</title>
+
+  <!-- Hidden tool: keep it out of search engines and unlinked from the main site -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="state-empty">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">U</span>
+      <span class="brand-name">Utmost</span>
+    </div>
+
+    <div class="doc-meta" aria-live="polite">
+      <span class="doc-number"></span>
+      <h1 class="doc-title"></h1>
+    </div>
+
+    <div class="topbar-actions">
+      <span class="progress" aria-live="polite"></span>
+      <button type="button" class="btn btn-ghost" id="reloadBtn" hidden>Load file</button>
+    </div>
+  </header>
+
+  <!-- ===== Empty / load state ===== -->
+  <section class="loader-screen" id="loaderScreen">
+    <div class="loader-card">
+      <p class="loader-eyebrow">Workspace configuration</p>
+      <h2>Load a configuration file</h2>
+      <p class="loader-sub">Select or drop a <code>.json</code> file to build the workspace.</p>
+
+      <label class="dropzone" id="dropzone">
+        <input type="file" accept="application/json,.json" id="fileInput" hidden>
+        <span class="dz-icon">{&nbsp;}</span>
+        <span class="dz-text"><strong>Click to choose a file</strong>, or drop it here</span>
+      </label>
+
+      <p class="loader-error" id="loaderError" hidden></p>
+
+      <div class="loader-foot">
+        <button type="button" class="link-like" id="sampleBtn">Download a sample file</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Workspace ===== -->
+  <main class="workspace" id="workspace" hidden>
+    <div class="track" id="track"></div>
+    <nav class="rail" id="rail" aria-label="Section navigation"></nav>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
