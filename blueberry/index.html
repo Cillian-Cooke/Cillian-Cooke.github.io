@@ -21,8 +21,8 @@
 
     .board {
       position: relative;
-      width: 960px;
-      height: 680px;
+      width: 1050px;
+      height: 760px;
     }
 
     .frame {
@@ -56,53 +56,53 @@
 
     /* Frame 1 — portrait 3:4, picture1 */
     .f1 {
-      width: 240px;
-      top: 120px;
-      left: 165px;
+      width: 280px;
+      top: 105px;
+      left: 60px;
       transform: rotate(-3.1deg);
       z-index: 3;
     }
-    .f1 .photo-wrap { width: 220px; height: 293px; }
+    .f1 .photo-wrap { width: 260px; height: 347px; }
 
     /* Frame 2 — landscape 16:9, picture2 */
     .f2 {
-      width: 228px;
-      top: 50px;
-      left: 388px;
+      width: 268px;
+      top: 40px;
+      left: 350px;
       transform: rotate(2.4deg);
       z-index: 2;
     }
-    .f2 .photo-wrap { width: 208px; height: 117px; }
+    .f2 .photo-wrap { width: 248px; height: 139px; }
 
     /* Frame 3 — landscape 4:3, picture3 */
     .f3 {
-      width: 214px;
-      top: 65px;
-      left: 648px;
+      width: 252px;
+      top: 55px;
+      left: 642px;
       transform: rotate(-4.3deg);
       z-index: 1;
     }
-    .f3 .photo-wrap { width: 194px; height: 145px; }
+    .f3 .photo-wrap { width: 232px; height: 174px; }
 
     /* Frame 4 — portrait 3:4, picture4 */
     .f4 {
-      width: 210px;
-      top: 340px;
-      left: 78px;
+      width: 248px;
+      top: 330px;
+      left: 75px;
       transform: rotate(1.9deg);
       z-index: 2;
     }
-    .f4 .photo-wrap { width: 190px; height: 253px; }
+    .f4 .photo-wrap { width: 228px; height: 304px; }
 
-    /* Frame 5 — landscape 16:9, picture5 */
+    /* Frame 5 — portrait ~4:7, picture5 */
     .f5 {
-      width: 236px;
-      top: 380px;
-      left: 548px;
+      width: 250px;
+      top: 290px;
+      left: 560px;
       transform: rotate(-2.2deg);
       z-index: 4;
     }
-    .f5 .photo-wrap { width: 216px; height: 121px; }
+    .f5 .photo-wrap { width: 230px; height: 350px; }
   </style>
 </head>
 <body>
@@ -154,11 +154,11 @@
   // Animations play in sequence: 1 → 2 → 3 → 4 → 5 → 1 → …
   // speed: multiplier on natural animation speed (1.0 = as designed)
   const slots = [
-    { wrap: 'pw1', canvas: 'canvas1', src: '../Animation1.riv', speed: 1.0 },
-    { wrap: 'pw2', canvas: 'canvas2', src: '../Animation2.riv', speed: 0.8 },
-    { wrap: 'pw3', canvas: 'canvas3', src: '../Animation3.riv', speed: 0.8 },
-    { wrap: 'pw4', canvas: 'canvas4', src: '../Animation4.riv', speed: 0.8 },
-    { wrap: 'pw5', canvas: 'canvas5', src: '../Animation5.riv', speed: 0.8 },
+    { wrap: 'pw1', canvas: 'canvas1', src: '../Animation1.riv', speed: 1.5 },
+    { wrap: 'pw2', canvas: 'canvas2', src: '../Animation2.riv', speed: 1.2 },
+    { wrap: 'pw3', canvas: 'canvas3', src: '../Animation3.riv', speed: 1.2 },
+    { wrap: 'pw4', canvas: 'canvas4', src: '../Animation4.riv', speed: 1.2 },
+    { wrap: 'pw5', canvas: 'canvas5', src: '../Animation5.riv', speed: 1.2 },
   ];
 
   // Size each canvas to its photo-wrap
