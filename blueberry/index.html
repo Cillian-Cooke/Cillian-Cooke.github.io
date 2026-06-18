@@ -7,22 +7,22 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      min-height: 100vh;
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
       background-color: #ede3d5;
       background-image:
         radial-gradient(ellipse at 25% 35%, rgba(170,140,110,0.1) 0%, transparent 55%),
         radial-gradient(ellipse at 75% 65%, rgba(150,120,90,0.07) 0%, transparent 50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
     }
 
+    /* Board is designed at 1400×900 and scaled to fit any viewport via JS */
     .board {
-      position: relative;
-      width: 1050px;
-      height: 760px;
+      position: absolute;
+      width: 1400px;
+      height: 900px;
+      transform-origin: top left;
     }
 
     .frame {
@@ -52,63 +52,68 @@
       pointer-events: none;
     }
 
-    /* ── Frame positions & rotations ── */
+    /* ── Frame layout ────────────────────────────────────────────────────────
+       All frames are 1.5× the previous photo-wrap sizes.
+       Positions are chosen so rotated corners stay clear of neighbours.
+       Horizontal and vertical gaps are ≥50px before rotation, which
+       comfortably absorbs the ≤30px corner-shift from ±4.3° rotations.
+    ── */
 
-    /* Frame 1 — portrait 3:4, picture1 */
+    /* f1 — portrait 3:4 — picture1 */
     .f1 {
-      width: 280px;
-      top: 105px;
-      left: 60px;
+      width: 410px;          /* photo-wrap 390 + 20px padding */
+      top:  70px;
+      left: 30px;
       transform: rotate(-3.1deg);
       z-index: 3;
     }
-    .f1 .photo-wrap { width: 260px; height: 347px; }
+    .f1 .photo-wrap { width: 390px; height: 520px; }
 
-    /* Frame 2 — landscape 16:9, picture2 */
+    /* f2 — landscape 16:9 — picture2 (upper centre) */
     .f2 {
-      width: 268px;
-      top: 40px;
-      left: 350px;
+      width: 392px;          /* photo-wrap 372 + 20 */
+      top:  30px;
+      left: 500px;           /* gap from f1 right(440): 60px */
       transform: rotate(2.4deg);
       z-index: 2;
     }
-    .f2 .photo-wrap { width: 248px; height: 139px; }
+    .f2 .photo-wrap { width: 372px; height: 209px; }
 
-    /* Frame 3 — landscape 4:3, picture3 */
+    /* f3 — landscape 4:3 — picture3 (upper right) */
     .f3 {
-      width: 252px;
-      top: 55px;
-      left: 642px;
+      width: 368px;          /* photo-wrap 348 + 20 */
+      top:  25px;
+      left: 960px;           /* gap from f2 right(892): 68px */
       transform: rotate(-4.3deg);
       z-index: 1;
     }
-    .f3 .photo-wrap { width: 232px; height: 174px; }
+    .f3 .photo-wrap { width: 348px; height: 261px; }
 
-    /* Frame 4 — portrait 3:4, picture4 */
+    /* f4 — portrait 3:4 — picture4 (lower centre) */
     .f4 {
-      width: 248px;
-      top: 330px;
-      left: 75px;
+      width: 362px;          /* photo-wrap 342 + 20 */
+      top:  340px;           /* gap from f2 bottom(293): 47px */
+      left: 500px;           /* same column as f2, gap from f1: 60px */
       transform: rotate(1.9deg);
       z-index: 2;
     }
-    .f4 .photo-wrap { width: 228px; height: 304px; }
+    .f4 .photo-wrap { width: 342px; height: 456px; }
 
-    /* Frame 5 — portrait ~4:7, picture5 */
+    /* f5 — landscape — picture5 (lower right) */
     .f5 {
-      width: 250px;
-      top: 290px;
-      left: 560px;
+      width: 344px;          /* photo-wrap 324 + 20 */
+      top:  410px;           /* gap from f3 bottom(340): 70px */
+      left: 970px;           /* gap from f4 right(862): 108px */
       transform: rotate(-2.2deg);
       z-index: 4;
     }
-    .f5 .photo-wrap { width: 230px; height: 350px; }
+    .f5 .photo-wrap { width: 324px; height: 182px; }
   </style>
 </head>
 <body>
 <div class="board">
 
-  <!-- Frame 1: picture1 (portrait 3:4) + Animation1 -->
+  <!-- Frame 1: picture1 (portrait) + Animation1 -->
   <div class="frame f1">
     <div class="photo-wrap" id="pw1">
       <img src="images/p1.jpg" alt="">
@@ -132,7 +137,7 @@
     </div>
   </div>
 
-  <!-- Frame 4: picture4 (portrait 3:4) + Animation4 -->
+  <!-- Frame 4: picture4 (portrait) + Animation4 -->
   <div class="frame f4">
     <div class="photo-wrap" id="pw4">
       <img src="images/p4.jpg" alt="">
@@ -140,7 +145,7 @@
     </div>
   </div>
 
-  <!-- Frame 5: picture5 (landscape 16:9) + Animation5 -->
+  <!-- Frame 5: picture5 (landscape) + Animation5 -->
   <div class="frame f5">
     <div class="photo-wrap" id="pw5">
       <img src="images/p5.jpg" alt="">
@@ -150,9 +155,22 @@
 
 </div>
 
+<script>
+  // Scale the board to fill the viewport without scrollbars
+  const BOARD_W = 1400, BOARD_H = 900;
+  const board = document.querySelector('.board');
+  function rescale() {
+    const s  = Math.min(innerWidth / BOARD_W, innerHeight / BOARD_H);
+    board.style.transform = `scale(${s})`;
+    board.style.left = (innerWidth  - BOARD_W * s) / 2 + 'px';
+    board.style.top  = (innerHeight - BOARD_H * s) / 2 + 'px';
+  }
+  rescale();
+  addEventListener('resize', rescale);
+</script>
+
 <script type="module">
-  // Animations play in sequence: 1 → 2 → 3 → 4 → 5 → 1 → …
-  // speed: multiplier on natural animation speed (1.0 = as designed)
+  // Animations play in sequence: 1 → 2 → 3 → 4 → 5, then stop
   const slots = [
     { wrap: 'pw1', canvas: 'canvas1', src: '../Animation1.riv', speed: 1.5 },
     { wrap: 'pw2', canvas: 'canvas2', src: '../Animation2.riv', speed: 1.2 },
@@ -161,7 +179,7 @@
     { wrap: 'pw5', canvas: 'canvas5', src: '../Animation5.riv', speed: 1.2 },
   ];
 
-  // Size each canvas to its photo-wrap
+  // Size each canvas to its photo-wrap (CSS layout pixels, unaffected by transform)
   for (const s of slots) {
     const pw = document.getElementById(s.wrap);
     const c  = document.getElementById(s.canvas);
@@ -192,16 +210,7 @@
   const canvases  = slots.map(s => document.getElementById(s.canvas));
   const renderers = canvases.map(c => rive.makeRenderer(c));
 
-  function flush(r) {
-    const H = r.H;
-    for (const fn of H) fn();
-    H.length = 0;
-  }
-
-  // Sequential state machine: plays one animation at a time, holds final frame
-  let phase    = 0;
-  let elapsed  = 0;
-  let lastTime = null;
+  function flush(r) { const H = r.H; for (const fn of H) fn(); H.length = 0; }
 
   function draw(artboard, inst, renderer, canvas, t) {
     inst.time = t;
@@ -220,24 +229,21 @@
     flush(renderer);
   }
 
+  let phase = 0, elapsed = 0, lastTime = null;
+
   function loop(time) {
     const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
     lastTime  = time;
 
     const { artboard, inst, durSec } = anims[phase];
-    const renderer = renderers[phase];
-    const canvas   = canvases[phase];
-
     elapsed += dt * slots[phase].speed;
 
     if (elapsed >= durSec) {
-      // Hold on the last frame, then hand off to the next animation
-      draw(artboard, inst, renderer, canvas, durSec - 0.001);
-      phase++;
+      draw(artboard, inst, renderers[phase], canvases[phase], durSec - 0.001);
+      if (++phase >= slots.length) return; // all done — holds final frames
       elapsed = 0;
-      if (phase >= slots.length) return; // all done — stop until page reload
     } else {
-      draw(artboard, inst, renderer, canvas, elapsed);
+      draw(artboard, inst, renderers[phase], canvases[phase], elapsed);
     }
 
     requestAnimationFrame(loop);
