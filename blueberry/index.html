@@ -198,10 +198,27 @@
     H.length = 0;
   }
 
-  // Sequential state machine: plays one animation at a time
+  // Sequential state machine: plays one animation at a time, holds final frame
   let phase    = 0;
   let elapsed  = 0;
   let lastTime = null;
+
+  function draw(artboard, inst, renderer, canvas, t) {
+    inst.time = t;
+    inst.apply(1.0);
+    artboard.advance(0);
+    renderer.clear();
+    renderer.save();
+    renderer.align(
+      rive.Fit.fill,
+      rive.Alignment.center,
+      { minX: 0, minY: 0, maxX: canvas.width, maxY: canvas.height },
+      artboard.bounds
+    );
+    artboard.draw(renderer);
+    renderer.restore();
+    flush(renderer);
+  }
 
   function loop(time) {
     const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
@@ -214,27 +231,13 @@
     elapsed += dt * slots[phase].speed;
 
     if (elapsed >= durSec) {
-      // Clear this canvas and move to the next animation
-      renderer.clear();
-      flush(renderer);
-      phase   = (phase + 1) % slots.length;
+      // Hold on the last frame, then hand off to the next animation
+      draw(artboard, inst, renderer, canvas, durSec - 0.001);
+      phase++;
       elapsed = 0;
+      if (phase >= slots.length) return; // all done — stop until page reload
     } else {
-      inst.time = elapsed;
-      inst.apply(1.0);
-      artboard.advance(0);
-
-      renderer.clear();
-      renderer.save();
-      renderer.align(
-        rive.Fit.fill,
-        rive.Alignment.center,
-        { minX: 0, minY: 0, maxX: canvas.width, maxY: canvas.height },
-        artboard.bounds
-      );
-      artboard.draw(renderer);
-      renderer.restore();
-      flush(renderer);
+      draw(artboard, inst, renderer, canvas, elapsed);
     }
 
     requestAnimationFrame(loop);
