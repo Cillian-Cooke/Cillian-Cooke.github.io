@@ -23,7 +23,7 @@
   --c-danger-bg: #fce8e6;
 
   --topbar-h: 60px;
-  --rail-w: 74px;
+  --rail-w: 220px;
   --radius: 4px;
   --slide: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -209,15 +209,45 @@ body.state-empty .workspace { display: none; }
 /* ===== Blocks ===== */
 .block { margin-bottom: 1.1rem; }
 .block:last-of-type { margin-bottom: 0; }
+
+/* Block header: label (left) + edit pencil button (right, shows on hover) */
+.block-hdr {
+  display: flex;
+  align-items: center;
+  min-height: 22px;
+  margin-bottom: 0.3rem;
+}
 .block-label {
-  display: block;
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
   text-transform: uppercase; color: var(--c-faint);
-  margin-bottom: 0.4rem;
+  flex: 1;
 }
+.block-edit-btn {
+  flex: 0 0 auto;
+  margin-left: auto;
+  width: 24px; height: 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--c-faint);
+  display: grid; place-items: center;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s, background 0.15s;
+}
+.block:hover .block-edit-btn,
+.block:focus-within .block-edit-btn { opacity: 1; }
+.block-edit-btn:hover {
+  color: var(--c-primary);
+  border-color: var(--c-border);
+  background: var(--c-primary-bg);
+}
+.block-edit-btn .ico { width: 12px; height: 12px; }
 
 /* Explanatory callout */
-.block-explain {
+.block-explain .block-hdr { margin-bottom: 0; }
+.block-explain .block-inner {
   background: var(--c-surface);
   border: 1px solid var(--c-border);
   border-left: 3px solid var(--c-primary);
@@ -228,6 +258,21 @@ body.state-empty .workspace { display: none; }
   font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; color: var(--c-text);
 }
 .block-explain .explain-body { color: var(--c-muted); font-size: 0.92rem; white-space: pre-line; }
+
+/* Help / hint callout (yellow) */
+.block-help .block-hdr { margin-bottom: 0; }
+.block-help .block-inner {
+  background: #fffbeb;
+  border: 1px solid #e8c840;
+  border-left: 3px solid #c9a800;
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+.block-help .help-title {
+  font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; color: #7a5600;
+}
+.block-help .help-body { color: #5c4100; font-size: 0.92rem; white-space: pre-line; }
+.block-help .block-editor { border: none; background: transparent; padding: 0; }
 
 /* Copy box */
 .block-copy .copy-box {
@@ -303,17 +348,128 @@ body.state-empty .workspace { display: none; }
   font-family: var(--mono); word-break: break-all;
 }
 
-.block-unknown {
+.block-unknown .block-inner {
   background: var(--c-danger-bg); color: var(--c-danger);
   border: 1px solid #f3c2bf; border-radius: var(--radius);
   padding: 0.6rem 0.9rem; font-size: 0.82rem;
 }
 
-/* ===== Done button ===== */
+/* ===== Template placeholder inputs (for [bracket] tokens in copy/search text) ===== */
+.template-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.template-field { flex: 1; min-width: 130px; }
+.template-input {
+  width: 100%;
+  font: inherit; font-size: 0.88rem;
+  padding: 0.48rem 0.75rem;
+  border: 1.5px solid var(--c-primary);
+  border-radius: var(--radius);
+  background: var(--c-primary-bg);
+  color: var(--c-text);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.template-input:focus {
+  outline: none;
+  border-color: var(--c-primary-d);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(11, 92, 173, 0.15);
+}
+.template-input::placeholder { color: var(--c-primary); font-style: italic; }
+
+/* Inline placeholder highlights inside copy-text / search-text */
+.tmpl-filled {
+  background: rgba(11, 92, 173, 0.13);
+  color: var(--c-text);
+  font-style: normal;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.tmpl-empty {
+  color: var(--c-primary);
+  opacity: 0.65;
+  font-style: italic;
+}
+
+/* ===== Inline block editor ===== */
+.block-editor {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+/* Explain blocks already provide the card frame */
+.block-explain .block-editor {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.editor-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--c-faint);
+}
+.editor-input {
+  font: inherit; font-size: 0.88rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-text);
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.editor-input:focus { border-color: var(--c-primary); outline: none; box-shadow: 0 0 0 2px var(--c-primary-bg); }
+.editor-textarea { resize: vertical; min-height: 66px; font-family: var(--font); }
+.editor-btns { display: flex; gap: 0.45rem; }
+.editor-save {
+  font: inherit; font-size: 0.82rem; font-weight: 600;
+  padding: 0.38rem 0.85rem; border-radius: var(--radius);
+  border: 1px solid var(--c-primary);
+  background: var(--c-primary); color: #fff;
+  cursor: pointer; transition: background 0.15s;
+}
+.editor-save:hover { background: var(--c-primary-d); }
+.editor-cancel {
+  font: inherit; font-size: 0.82rem; font-weight: 500;
+  padding: 0.38rem 0.85rem; border-radius: var(--radius);
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface); color: var(--c-muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.editor-cancel:hover { border-color: var(--c-text); color: var(--c-text); }
+
+/* ===== Done button + page edit button ===== */
 .done-row {
   margin-top: 2.5rem; padding-top: 1.5rem;
   border-top: 1px solid var(--c-border);
+  display: flex; align-items: center; gap: 0.75rem;
 }
+
+/* Page-level edit mode button (right side of done-row) */
+.page-edit-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--font); font-size: 0.82rem; font-weight: 500;
+  padding: 0.5rem 1rem; border-radius: var(--radius);
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface); color: var(--c-muted);
+  cursor: pointer; transition: all 0.15s;
+  margin-left: auto;
+}
+.page-edit-btn .ico { width: 12px; height: 12px; }
+.page-edit-btn:hover { border-color: var(--c-primary); color: var(--c-primary); background: var(--c-primary-bg); }
+.page-edit-btn.active { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+.page-edit-btn.active:hover { background: var(--c-primary-d); }
 .done-btn {
   display: inline-flex; align-items: center; gap: 0.55rem;
   font-family: var(--font); font-weight: 600; font-size: 0.9rem;
@@ -335,83 +491,188 @@ body.state-empty .workspace { display: none; }
 .page.is-done .done-btn .check { background: var(--c-green); border-color: var(--c-green); }
 .page.is-done .done-btn .check svg { opacity: 1; stroke: #fff; }
 
-/* ===== Right-side dot rail (centered picker) ===== */
+/* ===== Right-side navigation rail ===== */
 .rail {
   position: fixed; right: 0; top: var(--topbar-h); bottom: 0;
   width: var(--rail-w); z-index: 20;
-  overflow: hidden;
-  cursor: grab;
-  touch-action: none;          /* drag to scrub instead of scrolling the page */
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--c-surface);
+  border-left: 1px solid var(--c-border);
+  box-shadow: -4px 0 16px rgba(20, 40, 60, 0.05);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border-strong) transparent;
 }
-.rail.scrubbing { cursor: grabbing; }
-/* Soft fade at the top/bottom edges so dots slide in and out gracefully */
-.rail::before, .rail::after {
-  content: ''; position: absolute; left: 0; right: 0; height: 64px; z-index: 1;
-  pointer-events: none;
-}
-.rail::before { top: 0; background: linear-gradient(to bottom, var(--c-bg), transparent); }
-.rail::after { bottom: 0; background: linear-gradient(to top, var(--c-bg), transparent); }
+.rail::-webkit-scrollbar { width: 4px; }
+.rail::-webkit-scrollbar-track { background: transparent; }
+.rail::-webkit-scrollbar-thumb { background: var(--c-border-strong); border-radius: 2px; }
 
-/* The moving strip; JS translates it so the active dot sits at the centre */
+/* Plain vertical list — no JS translation needed */
 .rail-track {
-  position: absolute; left: 0; right: 0; top: 0;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 10px;
-  will-change: transform;
+  display: flex; flex-direction: column; align-items: stretch;
+  gap: 2px;
+  padding: 12px 8px;
+  min-height: 100%;
 }
 
+/* Each nav item is a horizontal row: [badge] [title] */
 .dot {
   position: relative;
   flex: 0 0 auto;
-  width: 18px; height: 18px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--c-muted);
+  font-family: var(--font);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.dot:hover { background: var(--c-surface-2); color: var(--c-text); }
+.dot.active {
+  background: var(--c-primary-bg);
+  color: var(--c-text);
+}
+.dot.active .dot-num {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+.dot.done .dot-num {
+  background: var(--c-green);
+  border-color: var(--c-green);
+  color: #fff;
+}
+
+/* Step number badge */
+.dot-num {
+  flex: 0 0 auto;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  border: 1px solid var(--c-border-strong);
-  background: var(--c-surface);
+  border: 1.5px solid var(--c-border-strong);
+  background: var(--c-surface-2);
   color: var(--c-muted);
   font-size: 9px; font-weight: 700; line-height: 1;
-  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
   display: grid; place-items: center;
-  cursor: pointer; padding: 0;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
-  /* transform + opacity are set every frame by the JS picker */
-}
-.dot.done {
-  background: var(--c-green); border-color: var(--c-green); color: #fff;
-}
-.dot.active {
-  border-color: var(--c-primary);
-  box-shadow: 0 0 0 2px var(--c-surface), 0 0 0 3px var(--c-primary);
-  z-index: 2;
-}
-.dot.active.done {
-  box-shadow: 0 0 0 2px var(--c-surface), 0 0 0 3px var(--c-primary);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
 }
 
-/* Hover label showing the full title */
+/* Step title — always visible, truncated if too long */
 .dot-label {
-  position: absolute; right: 32px; top: 50%;
-  transform: translateY(-50%) translateX(4px);
-  white-space: nowrap;
-  background: #0f2436; color: #fff;
-  font-size: 12px; font-weight: 500;
-  padding: 4px 9px; border-radius: var(--radius);
-  pointer-events: none; opacity: 0;
-  transition: opacity 0.15s, transform 0.15s;
-  max-width: 40vw; overflow: hidden; text-overflow: ellipsis;
+  /* Reset old tooltip styles */
+  position: static;
+  transform: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  pointer-events: none;
+  opacity: 1;   /* was hidden tooltip before; now always visible */
+
+  flex: 1; min-width: 0;
+  font-size: 0.8rem; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  line-height: 1.3;
+  transition: none;
 }
-.dot-label .dl-num { color: #8fb8e6; font-weight: 700; margin-right: 0.4rem; }
-.dot:hover .dot-label, .dot:focus-visible .dot-label {
-  opacity: 1; transform: translateY(-50%) translateX(0);
+/* The duplicate number inside the label is redundant now */
+.dot-label .dl-num { display: none; }
+
+/* ===== Page-level edit mode ===== */
+
+/* Drag handle (6-dot grip, shown in block-hdr when page is in edit mode) */
+.block-drag-handle {
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  cursor: grab; color: var(--c-faint);
+  border-radius: 3px;
+  transition: color 0.12s, background 0.12s;
+  margin-right: 2px;
+  user-select: none;
 }
+.block-drag-handle:hover { color: var(--c-text); background: var(--c-surface-2); }
+.block-drag-handle:active { cursor: grabbing; }
+.block-drag-handle .ico { width: 14px; height: 14px; }
+
+/* Dragging state */
+.block.is-dragging { opacity: 0.3; }
+
+/* Drop position indicators — blue line above or below the target block */
+.block.drag-hint-before { box-shadow: 0 -3px 0 0 var(--c-primary); }
+.block.drag-hint-after  { box-shadow: 0 3px 0 0 var(--c-primary); }
+
+/* Subtle edit-mode highlight on each block header */
+.page.is-editing .block-hdr {
+  background: var(--c-surface-2);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 2px 4px;
+  margin: -2px -4px 4px;
+}
+
+/* Add block row */
+.add-block-row {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.add-block-btn {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+  padding: 0.65rem 1rem; border-radius: var(--radius);
+  border: 1.5px dashed var(--c-border-strong);
+  background: transparent; color: var(--c-muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.add-block-btn:hover { border-color: var(--c-primary); color: var(--c-primary); background: var(--c-primary-bg); }
+.add-block-btn .ico { width: 15px; height: 15px; }
+
+/* Block type picker */
+.block-picker {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  padding: 0.1rem 0;
+}
+.picker-type-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font); font-size: 0.79rem; font-weight: 600;
+  padding: 0.38rem 0.75rem; border-radius: var(--radius);
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface); color: var(--c-muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.picker-type-btn:hover { border-color: var(--c-primary); color: var(--c-primary); background: var(--c-primary-bg); }
+.picker-type-btn .ico { width: 13px; height: 13px; }
 
 /* ===== Responsive ===== */
+@media (max-width: 1000px) {
+  :root { --rail-w: 180px; }
+  .dot-label { font-size: 0.76rem; }
+}
+
 @media (max-width: 720px) {
   .topbar { grid-template-columns: auto 1fr auto; padding: 0 0.9rem; gap: 0.6rem; }
   .brand-name { display: none; }
   .doc-title { font-size: 0.95rem; }
-  :root { --rail-w: 56px; }
+  :root { --rail-w: 52px; }
   .page-inner { padding: 1.75rem 1.1rem 3.5rem; }
-  .rail-track { gap: 8px; }
-  .dot { width: 16px; height: 16px; font-size: 8px; }
+
+  /* Collapse to icon-only on mobile */
+  .rail { box-shadow: none; }
+  .rail-track { padding: 8px; gap: 6px; align-items: center; }
+  .dot {
+    padding: 4px;
+    justify-content: center;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    gap: 0;
+  }
+  .dot-label { display: none; }
+  .dot-num { width: 20px; height: 20px; font-size: 8px; border-width: 1px; }
+  .dot.active { background: var(--c-primary-bg); border-radius: 50%; }
   .progress { display: none; }
 }

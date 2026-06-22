@@ -15,6 +15,7 @@
   const loaderError = document.getElementById('loaderError');
   const sampleBtn = document.getElementById('sampleBtn');
   const reloadBtn = document.getElementById('reloadBtn');
+  const saveJsonBtn = document.getElementById('saveJsonBtn');
   const workspace = document.getElementById('workspace');
   const track = document.getElementById('track');
   const rail = document.getElementById('rail');
@@ -26,6 +27,8 @@
   let pages = [];           // [{ number, title, blocks, el, dot, done }]
   let active = -1;          // currently centered page (integer)
   let railTrack = null;     // moving strip inside the rail
+  let pageEditIdx = -1;     // which page is in page-level edit mode (-1 = none)
+  let workspaceTitle = '';  // top-level title from the loaded JSON
 
   // Continuous position + inertia model
   let posF = 0;             // fractional page position (drives every transform)
@@ -34,13 +37,6 @@
   let rafId = null;
   let lastT = 0;
 
-  // Rail picker geometry (measured from the DOM so CSS can change it)
-  let DOT_BASE = 18;
-  let DOT_PITCH = 28;
-
-  // Drag state
-  let dragging = false, dragLastY = 0, dragLastT = 0, dragVel = 0, dragMoved = false;
-  let suppressClickUntil = 0;
 
   // Inertia tuning
   const WHEEL_IMPULSE = 0.018;  // velocity added per unit of wheel delta
@@ -55,7 +51,8 @@
     copy: 'copy', copybox: 'copy', clipboard: 'copy',
     link: 'link', tab: 'link', url: 'link',
     window: 'window', popup: 'window', newwindow: 'window', 'new-window': 'window',
-    search: 'search', google: 'search', 'google-search': 'search', lookup: 'search'
+    search: 'search', google: 'search', 'google-search': 'search', lookup: 'search',
+    help: 'help', hint: 'help', tip: 'help'
   };
 
   // ====================================================
@@ -112,6 +109,8 @@
       throw new Error('No pages found. Expected a "pages" array in the JSON.');
     }
 
+    workspaceTitle = (data && data.title) ? String(data.title) : '';
+
     // Reset
     track.innerHTML = '';
     rail.innerHTML = '';
@@ -142,8 +141,8 @@
     body.classList.add('state-active');
     workspace.hidden = false;
     reloadBtn.hidden = false;
+    saveJsonBtn.hidden = false;
 
-    measurePitch();
     jumpTo(0);
     updateProgress();
   }
@@ -181,6 +180,14 @@
       '<span class="done-label">Mark done</span>';
     doneBtn.addEventListener('click', () => toggleDone(index));
     doneRow.appendChild(doneBtn);
+
+    const editPageBtn = document.createElement('button');
+    editPageBtn.type = 'button';
+    editPageBtn.className = 'page-edit-btn';
+    editPageBtn.innerHTML = pencilIcon() + '<span>Edit page</span>';
+    editPageBtn.addEventListener('click', () => togglePageEditMode(index));
+    doneRow.appendChild(editPageBtn);
+
     inner.appendChild(doneRow);
 
     el.appendChild(inner);
@@ -190,73 +197,184 @@
   // ---- Blocks ----
   function buildBlock(b) {
     if (!b || typeof b !== 'object') return null;
-    const type = TYPE_ALIASES[String(b.type || '').toLowerCase().trim()];
-    switch (type) {
-      case 'explain': return blockExplain(b);
-      case 'copy':    return blockCopy(b);
-      case 'link':    return blockLink(b);
-      case 'window':  return blockWindow(b);
-      case 'search':  return blockSearch(b);
-      default:        return blockUnknown(b);
-    }
-  }
+    const type = TYPE_ALIASES[String(b.type || '').toLowerCase().trim()] || 'unknown';
 
-  function withLabel(wrap, label) {
-    if (label) {
-      const l = document.createElement('span');
-      l.className = 'block-label';
-      l.textContent = label;
-      wrap.appendChild(l);
-    }
-  }
-
-  function blockExplain(b) {
     const wrap = document.createElement('div');
-    wrap.className = 'block block-explain';
+    wrap.className = 'block block-' + type;
+    wrap._bd = Object.assign({}, b);
+    wrap._bt = type;
+
+    // Header row: label (left) + pencil edit button (right, shows on hover)
+    const hdr = document.createElement('div');
+    hdr.className = 'block-hdr';
+    const lbl = document.createElement('span');
+    lbl.className = 'block-label';
+    if (b.label) { lbl.textContent = String(b.label); } else { lbl.hidden = true; }
+    hdr.appendChild(lbl);
+
+    if (type !== 'unknown') {
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'block-edit-btn';
+      editBtn.setAttribute('aria-label', 'Edit block');
+      editBtn.innerHTML = pencilIcon();
+      editBtn.addEventListener('click', e => { e.stopPropagation(); openEditor(wrap); });
+      hdr.appendChild(editBtn);
+    }
+
+    wrap.appendChild(hdr);
+    renderBlockInner(wrap);
+    return wrap;
+  }
+
+  function renderBlockInner(wrap) {
+    const old = wrap.querySelector('.block-inner');
+    if (old) old.remove();
+
+    const inner = document.createElement('div');
+    inner.className = 'block-inner';
+    const b = wrap._bd;
+
+    switch (wrap._bt) {
+      case 'explain': fillExplain(inner, b); break;
+      case 'help':    fillHelp(inner, b); break;
+      case 'copy':    fillCopy(inner, b); break;
+      case 'link':    fillLink(inner, b); break;
+      case 'window':  fillWindow(inner, b); break;
+      case 'search':  fillSearch(inner, b); break;
+      default:        fillUnknown(inner, b); break;
+    }
+
+    // Sync the header label after a save
+    const lbl = wrap.querySelector('.block-hdr .block-label');
+    if (lbl) {
+      if (b.label) { lbl.textContent = String(b.label); lbl.hidden = false; }
+      else { lbl.textContent = ''; lbl.hidden = true; }
+    }
+
+    wrap.appendChild(inner);
+  }
+
+  function fillExplain(inner, b) {
     const heading = b.title || b.heading;
     if (heading) {
       const h = document.createElement('div');
       h.className = 'explain-title';
       h.textContent = String(heading);
-      wrap.appendChild(h);
+      inner.appendChild(h);
     }
     const body = document.createElement('div');
     body.className = 'explain-body';
     body.textContent = String(b.text || b.body || '');
-    wrap.appendChild(body);
-    return wrap;
+    inner.appendChild(body);
   }
 
-  function blockCopy(b) {
-    const wrap = document.createElement('div');
-    wrap.className = 'block block-copy';
-    withLabel(wrap, b.label);
+  function fillHelp(inner, b) {
+    const heading = b.title || b.heading;
+    if (heading) {
+      const h = document.createElement('div');
+      h.className = 'help-title';
+      h.textContent = String(heading);
+      inner.appendChild(h);
+    }
+    const body = document.createElement('div');
+    body.className = 'help-body';
+    body.textContent = String(b.text || b.body || '');
+    inner.appendChild(body);
+  }
 
-    const text = String(b.text !== undefined ? b.text : (b.value !== undefined ? b.value : ''));
+  // ---- Template placeholder helpers ----
+  // Parses [placeholder] tokens from a text string, returns unique names in order.
+  function parsePlaceholders(text) {
+    const names = [], seen = new Set();
+    let m;
+    const re = /\[([^\]]+)\]/g;
+    while ((m = re.exec(text)) !== null) {
+      const name = m[1].trim();
+      if (name && !seen.has(name)) { seen.add(name); names.push(name); }
+    }
+    return names;
+  }
+
+  // Builds the row of fill-in inputs and appends them to container. Returns name→input map.
+  function buildTemplateInputs(container, placeholders) {
+    const div = document.createElement('div');
+    div.className = 'template-inputs';
+    const map = {};
+    placeholders.forEach(name => {
+      const field = document.createElement('div');
+      field.className = 'template-field';
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'template-input';
+      inp.placeholder = name;
+      inp.setAttribute('aria-label', name);
+      map[name] = inp;
+      field.appendChild(inp);
+      div.appendChild(field);
+    });
+    container.appendChild(div);
+    return map;
+  }
+
+  // Returns innerHTML that highlights filled vs. unfilled placeholders.
+  function renderTemplateHtml(templateText, inputMap) {
+    let html = '', lastIndex = 0;
+    const re = /\[([^\]]+)\]/g;
+    let m;
+    while ((m = re.exec(templateText)) !== null) {
+      const name = m[1].trim();
+      const val = inputMap[name] ? inputMap[name].value : '';
+      html += escapeHtml(templateText.slice(lastIndex, m.index));
+      html += val
+        ? '<mark class="tmpl-filled">' + escapeHtml(val) + '</mark>'
+        : '<span class="tmpl-empty">' + escapeHtml('[' + name + ']') + '</span>';
+      lastIndex = m.index + m[0].length;
+    }
+    html += escapeHtml(templateText.slice(lastIndex));
+    return html;
+  }
+
+  // Returns plain text with placeholders replaced by input values (empty string if blank).
+  function getFilledText(templateText, inputMap) {
+    return templateText.replace(/\[([^\]]+)\]/g, (_, name) => {
+      const key = name.trim();
+      return (inputMap[key] && inputMap[key].value) ? inputMap[key].value : '';
+    });
+  }
+
+  function fillCopy(inner, b) {
+    const template = String(b.text !== undefined ? b.text : (b.value !== undefined ? b.value : ''));
+    const placeholders = parsePlaceholders(template);
+    let inputMap = {};
+    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders);
 
     const boxBtn = document.createElement('button');
     boxBtn.type = 'button';
     boxBtn.className = 'copy-box';
     boxBtn.title = 'Click to copy';
-
     const textSpan = document.createElement('span');
     textSpan.className = 'copy-text';
-    textSpan.textContent = text;
-
     const hint = document.createElement('span');
     hint.className = 'copy-hint';
     hint.textContent = 'Copy';
-
     boxBtn.appendChild(textSpan);
     boxBtn.appendChild(hint);
-    boxBtn.addEventListener('click', () => copyText(text, boxBtn, hint));
-    wrap.appendChild(boxBtn);
-    return wrap;
+
+    if (placeholders.length > 0) {
+      const update = () => { textSpan.innerHTML = renderTemplateHtml(template, inputMap); };
+      update();
+      placeholders.forEach(name => inputMap[name].addEventListener('input', update));
+      boxBtn.addEventListener('click', () => copyText(getFilledText(template, inputMap), boxBtn, hint));
+    } else {
+      textSpan.textContent = template;
+      boxBtn.addEventListener('click', () => copyText(template, boxBtn, hint));
+    }
+
+    inner.appendChild(boxBtn);
   }
 
-  function blockLink(b) {
-    const wrap = document.createElement('div');
-    wrap.className = 'block block-link';
+  function fillLink(inner, b) {
     const query = b.search ? String(b.search) : '';
     const url = query ? googleURL(query) : String(b.url || b.href || '');
     const btn = document.createElement('button');
@@ -267,79 +385,445 @@
     btn.addEventListener('click', () => {
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     });
-    wrap.appendChild(btn);
+    inner.appendChild(btn);
     if (b.showUrl !== false && url) {
-      wrap.appendChild(urlCaption(query ? 'Google: ' + query : url));
+      inner.appendChild(urlCaption(query ? 'Google: ' + query : url));
     }
-    return wrap;
   }
 
-  function blockWindow(b) {
-    const wrap = document.createElement('div');
-    wrap.className = 'block block-window';
+  function fillWindow(inner, b) {
     const query = b.search ? String(b.search) : '';
     const url = query ? googleURL(query) : String(b.url || b.href || '');
-    const w = parseInt(b.width, 10) || 1024;
-    const h = parseInt(b.height, 10) || 720;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'action-btn';
-    const label = b.label || b.text || (query ? 'Search in new window' : 'Open window');
+    const label = b.label || b.text || (query ? 'Search in window' : 'Open in browser window');
     btn.innerHTML = (query ? searchIcon() : newWindowIcon()) + '<span>' + escapeHtml(label) + '</span>';
+    // Opens (or re-navigates) a named browser window so it gets a real address bar + navigation.
     btn.addEventListener('click', () => {
       if (!url) return;
-      const left = Math.max(0, Math.round((screen.width - w) / 2));
-      const top = Math.max(0, Math.round((screen.height - h) / 2));
-      const feat = 'noopener,noreferrer,popup=yes,width=' + w + ',height=' + h +
-                   ',left=' + left + ',top=' + top;
-      window.open(url, '_blank', feat);
+      window.open(url, 'utmost_ref', 'noopener,noreferrer');
     });
-    wrap.appendChild(btn);
+    inner.appendChild(btn);
     if (b.showUrl !== false && url) {
-      wrap.appendChild(urlCaption(query ? 'Google: ' + query : url));
+      inner.appendChild(urlCaption(query ? 'Google: ' + query : url));
     }
-    return wrap;
   }
 
   // Click-the-box Google search (mirrors the copy box)
-  function blockSearch(b) {
-    const wrap = document.createElement('div');
-    wrap.className = 'block block-search';
-    withLabel(wrap, b.label);
-
-    const query = String(
+  function fillSearch(inner, b) {
+    const template = String(
       b.text !== undefined ? b.text :
       b.query !== undefined ? b.query :
       b.value !== undefined ? b.value : ''
     );
+    const placeholders = parsePlaceholders(template);
+    let inputMap = {};
+    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders);
 
     const boxBtn = document.createElement('button');
     boxBtn.type = 'button';
     boxBtn.className = 'search-box';
     boxBtn.title = 'Click to search Google';
-
     const textSpan = document.createElement('span');
     textSpan.className = 'search-text';
-    textSpan.textContent = query;
-
     const hint = document.createElement('span');
     hint.className = 'search-hint';
     hint.innerHTML = searchIcon() + '<span>Search</span>';
-
     boxBtn.appendChild(textSpan);
     boxBtn.appendChild(hint);
-    boxBtn.addEventListener('click', () => {
-      if (query) window.open(googleURL(query), '_blank', 'noopener,noreferrer');
-    });
-    wrap.appendChild(boxBtn);
-    return wrap;
+
+    if (placeholders.length > 0) {
+      const update = () => { textSpan.innerHTML = renderTemplateHtml(template, inputMap); };
+      update();
+      placeholders.forEach(name => inputMap[name].addEventListener('input', update));
+      boxBtn.addEventListener('click', () => {
+        const q = getFilledText(template, inputMap);
+        if (q) window.open(googleURL(q), '_blank', 'noopener,noreferrer');
+      });
+    } else {
+      textSpan.textContent = template;
+      boxBtn.addEventListener('click', () => {
+        if (template) window.open(googleURL(template), '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    inner.appendChild(boxBtn);
   }
 
-  function blockUnknown(b) {
-    const wrap = document.createElement('div');
-    wrap.className = 'block block-unknown';
-    wrap.textContent = 'Unknown block type: "' + (b.type || '(missing)') + '"';
-    return wrap;
+  function fillUnknown(inner, b) {
+    inner.textContent = 'Unknown block type: "' + (b.type || '(missing)') + '"';
+  }
+
+  // ---- Inline block editor ----
+  function pencilIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>';
+  }
+
+  function getEditorFields(type) {
+    switch (type) {
+      case 'explain':
+        return [
+          { key: 'title', label: 'Title (optional)' },
+          { key: 'text',  label: 'Body text', multiline: true }
+        ];
+      case 'help':
+        return [
+          { key: 'title', label: 'Title (optional)' },
+          { key: 'text',  label: 'Hint text', multiline: true }
+        ];
+      case 'copy':
+        return [
+          { key: 'label', label: 'Label (optional)' },
+          { key: 'text',  label: 'Text to copy', multiline: true }
+        ];
+      case 'link':
+        return [
+          { key: 'label', label: 'Button label' },
+          { key: 'url',   label: 'URL', inputType: 'url' }
+        ];
+      case 'window':
+        return [
+          { key: 'label',  label: 'Button label' },
+          { key: 'url',    label: 'URL', inputType: 'url' },
+          { key: 'width',  label: 'Width (px)', inputType: 'number' },
+          { key: 'height', label: 'Height (px)', inputType: 'number' }
+        ];
+      case 'search':
+        return [
+          { key: 'label', label: 'Label (optional)' },
+          { key: 'text',  label: 'Search query', multiline: true }
+        ];
+      default:
+        return [];
+    }
+  }
+
+  function openEditor(wrap) {
+    if (wrap.querySelector('.block-editor')) return;
+
+    const inner = wrap.querySelector('.block-inner');
+    if (inner) inner.hidden = true;
+    const editBtn = wrap.querySelector('.block-edit-btn');
+    if (editBtn) editBtn.hidden = true;
+
+    const b = wrap._bd;
+    const form = document.createElement('div');
+    form.className = 'block-editor';
+
+    getEditorFields(wrap._bt).forEach(({ key, label, multiline, inputType }) => {
+      const fieldDiv = document.createElement('div');
+      fieldDiv.className = 'editor-field';
+      const lbl = document.createElement('label');
+      lbl.className = 'editor-label';
+      lbl.textContent = label;
+      fieldDiv.appendChild(lbl);
+      let input;
+      if (multiline) {
+        input = document.createElement('textarea');
+        input.className = 'editor-input editor-textarea';
+        input.rows = 3;
+      } else {
+        input = document.createElement('input');
+        input.type = inputType || 'text';
+        input.className = 'editor-input';
+      }
+      input.value = b[key] !== undefined ? String(b[key]) : '';
+      input.dataset.key = key;
+      // Escape cancels the editor
+      input.addEventListener('keydown', e => { if (e.key === 'Escape') closeEditor(wrap, form); });
+      fieldDiv.appendChild(input);
+      form.appendChild(fieldDiv);
+    });
+
+    const btnRow = document.createElement('div');
+    btnRow.className = 'editor-btns';
+    const saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
+    saveBtn.className = 'editor-save';
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', () => saveEditor(wrap, form));
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'editor-cancel';
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', () => closeEditor(wrap, form));
+    btnRow.appendChild(saveBtn);
+    btnRow.appendChild(cancelBtn);
+    form.appendChild(btnRow);
+
+    wrap.appendChild(form);
+    const first = form.querySelector('input, textarea');
+    if (first) first.focus();
+  }
+
+  function saveEditor(wrap, form) {
+    form.querySelectorAll('[data-key]').forEach(input => {
+      wrap._bd[input.dataset.key] = input.value;
+    });
+    closeEditor(wrap, form);
+    renderBlockInner(wrap);
+  }
+
+  function closeEditor(wrap, form) {
+    form.remove();
+    const inner = wrap.querySelector('.block-inner');
+    if (inner) inner.hidden = false;
+    const editBtn = wrap.querySelector('.block-edit-btn');
+    if (editBtn) editBtn.hidden = false;
+  }
+
+  // ====================================================
+  //  Page-level edit mode
+  // ====================================================
+  function togglePageEditMode(index) {
+    if (pageEditIdx === index) {
+      exitPageEditMode(index);
+      pageEditIdx = -1;
+    } else {
+      if (pageEditIdx !== -1) exitPageEditMode(pageEditIdx);
+      enterPageEditMode(index);
+      pageEditIdx = index;
+    }
+  }
+
+  function enterPageEditMode(index) {
+    const p = pages[index];
+    if (!p) return;
+    p.el.classList.add('is-editing');
+    const inner = p.el.querySelector('.page-inner');
+
+    // Open all block editors and add drag handles
+    inner.querySelectorAll(':scope > .block').forEach(wrap => {
+      if (!wrap.querySelector('.block-editor')) openEditor(wrap);
+      addDragHandle(wrap);
+      wrap.draggable = true;
+    });
+
+    // Add block button (inserted before the done-row)
+    if (!inner.querySelector('.add-block-row')) {
+      const addRow = buildAddBlockRow(index);
+      const doneRow = inner.querySelector('.done-row');
+      if (doneRow) inner.insertBefore(addRow, doneRow);
+      else inner.appendChild(addRow);
+    }
+
+    // Wire drag-and-drop on the inner container
+    p._dragCleanup = setupBlockDrag(inner);
+
+    const btn = p.el.querySelector('.page-edit-btn span');
+    if (btn) btn.textContent = 'Done editing';
+    p.el.querySelector('.page-edit-btn').classList.add('active');
+  }
+
+  function exitPageEditMode(index) {
+    const p = pages[index];
+    if (!p) return;
+    p.el.classList.remove('is-editing');
+    const inner = p.el.querySelector('.page-inner');
+
+    // Save all open editors and clean up drag handles
+    inner.querySelectorAll(':scope > .block').forEach(wrap => {
+      const form = wrap.querySelector('.block-editor');
+      if (form) saveEditor(wrap, form);
+      const handle = wrap.querySelector('.block-drag-handle');
+      if (handle) handle.remove();
+      wrap.draggable = false;
+    });
+
+    // Remove the add-block row
+    const addRow = inner.querySelector('.add-block-row');
+    if (addRow) addRow.remove();
+
+    // Tear down drag listeners
+    if (p._dragCleanup) { p._dragCleanup(); p._dragCleanup = null; }
+
+    const btn = p.el.querySelector('.page-edit-btn span');
+    if (btn) btn.textContent = 'Edit page';
+    p.el.querySelector('.page-edit-btn').classList.remove('active');
+  }
+
+  // ---- Drag handle ----
+  function dragIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="currentColor">' +
+      '<circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>' +
+      '<circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>' +
+      '<circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>';
+  }
+
+  function addDragHandle(wrap) {
+    const hdr = wrap.querySelector('.block-hdr');
+    if (!hdr || hdr.querySelector('.block-drag-handle')) return;
+    const handle = document.createElement('span');
+    handle.className = 'block-drag-handle';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.innerHTML = dragIcon();
+    hdr.insertBefore(handle, hdr.firstChild);
+  }
+
+  // ---- Block drag-and-drop ----
+  function setupBlockDrag(inner) {
+    let src = null;
+
+    function onStart(e) {
+      src = e.target.closest('.block');
+      if (!src) return;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', '');
+      setTimeout(() => src && src.classList.add('is-dragging'), 0);
+    }
+    function onOver(e) {
+      if (!src) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      clearDragHints(inner);
+      const tgt = dragDropTarget(inner, src, e.clientY);
+      if (tgt.el) tgt.el.classList.add(tgt.before ? 'drag-hint-before' : 'drag-hint-after');
+    }
+    function onDrop(e) {
+      e.preventDefault();
+      if (!src) return;
+      const tgt = dragDropTarget(inner, src, e.clientY);
+      clearDragHints(inner);
+      if (tgt.el && tgt.el !== src) {
+        if (tgt.before) inner.insertBefore(src, tgt.el);
+        else tgt.el.insertAdjacentElement('afterend', src);
+      }
+      src.classList.remove('is-dragging');
+      src = null;
+    }
+    function onEnd() {
+      clearDragHints(inner);
+      if (src) { src.classList.remove('is-dragging'); src = null; }
+    }
+
+    inner.addEventListener('dragstart', onStart);
+    inner.addEventListener('dragover', onOver);
+    inner.addEventListener('drop', onDrop);
+    inner.addEventListener('dragend', onEnd);
+    return () => {
+      inner.removeEventListener('dragstart', onStart);
+      inner.removeEventListener('dragover', onOver);
+      inner.removeEventListener('drop', onDrop);
+      inner.removeEventListener('dragend', onEnd);
+    };
+  }
+
+  function dragDropTarget(inner, src, clientY) {
+    const blocks = Array.from(inner.querySelectorAll(':scope > .block')).filter(b => b !== src);
+    for (const b of blocks) {
+      const r = b.getBoundingClientRect();
+      if (clientY < r.top + r.height / 2) return { el: b, before: true };
+      if (clientY <= r.bottom) return { el: b, before: false };
+    }
+    return { el: null };
+  }
+
+  function clearDragHints(inner) {
+    inner.querySelectorAll('.drag-hint-before, .drag-hint-after').forEach(el =>
+      el.classList.remove('drag-hint-before', 'drag-hint-after')
+    );
+  }
+
+  // ---- Add block ----
+  function plusIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  }
+
+  function buildAddBlockRow(pageIndex) {
+    const row = document.createElement('div');
+    row.className = 'add-block-row';
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'add-block-btn';
+    addBtn.innerHTML = plusIcon() + '<span>Add block</span>';
+    addBtn.addEventListener('click', () => toggleBlockPicker(pageIndex, row));
+    row.appendChild(addBtn);
+
+    return row;
+  }
+
+  function toggleBlockPicker(pageIndex, row) {
+    const existing = row.querySelector('.block-picker');
+    if (existing) { existing.remove(); return; }
+
+    const picker = document.createElement('div');
+    picker.className = 'block-picker';
+
+    const types = [
+      { type: 'explain', label: 'Note',   icon: notePickIcon() },
+      { type: 'help',    label: 'Hint',   icon: hintPickIcon() },
+      { type: 'copy',    label: 'Copy',   icon: copyPickIcon() },
+      { type: 'link',    label: 'Link',   icon: openTabIcon()  },
+      { type: 'window',  label: 'Window', icon: newWindowIcon()},
+      { type: 'search',  label: 'Search', icon: searchIcon()   },
+    ];
+
+    types.forEach(({ type, label, icon }) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'picker-type-btn';
+      btn.innerHTML = icon + '<span>' + escapeHtml(label) + '</span>';
+      btn.addEventListener('click', () => {
+        picker.remove();
+        addNewBlock(pageIndex, type);
+      });
+      picker.appendChild(btn);
+    });
+
+    row.appendChild(picker);
+  }
+
+  function addNewBlock(pageIndex, type) {
+    const p = pages[pageIndex];
+    if (!p) return;
+    const inner = p.el.querySelector('.page-inner');
+
+    const defaults = {
+      explain: { type: 'explain', title: '', text: '' },
+      help:    { type: 'help',   title: '', text: '' },
+      copy:    { type: 'copy',   label: '', text: '' },
+      link:    { type: 'link',   label: 'Open link', url: '' },
+      window:  { type: 'window', label: 'Open in browser window', url: '' },
+      search:  { type: 'search', label: '', text: '' },
+    };
+
+    const wrap = buildBlock(defaults[type] || { type });
+
+    // Insert before add-block-row
+    const addRow = inner.querySelector('.add-block-row');
+    if (addRow) inner.insertBefore(wrap, addRow);
+    else inner.insertBefore(wrap, inner.querySelector('.done-row'));
+
+    addDragHandle(wrap);
+    wrap.draggable = true;
+    openEditor(wrap);
+
+    const first = wrap.querySelector('.block-editor input, .block-editor textarea');
+    if (first) { first.focus(); first.select(); }
+  }
+
+  // ---- Picker icons (filled, distinct from the stroke icons used in buttons) ----
+  function notePickIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect x="3" y="3" width="18" height="18" rx="2"/>' +
+      '<path d="M7 8h10M7 12h10M7 16h6"/></svg>';
+  }
+  function hintPickIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>';
+  }
+  function copyPickIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect x="8" y="8" width="12" height="12" rx="2"/>' +
+      '<path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
   }
 
   function urlCaption(url) {
@@ -398,10 +882,7 @@
     label.innerHTML = '<span class="dl-num">' + escapeHtml(number) + '</span>' + escapeHtml(title);
     dot.appendChild(label);
 
-    dot.addEventListener('click', () => {
-      if (performance.now() < suppressClickUntil) return; // ignore the click that ends a drag
-      glideTo(index);
-    });
+    dot.addEventListener('click', () => glideTo(index));
     return dot;
   }
 
@@ -435,16 +916,6 @@
   function clampPos(v) { return Math.max(0, Math.min(pages.length - 1, v)); }
   function isActive() { return body.classList.contains('state-active'); }
 
-  // Measure dot size + gap so the rail centering stays exact across breakpoints
-  function measurePitch() {
-    if (!pages.length || !railTrack) return;
-    const base = pages[0].dot.offsetHeight || 18;   // transforms don't change the layout box
-    const cs = getComputedStyle(railTrack);
-    const gap = parseFloat(cs.rowGap || cs.gap) || 10;
-    DOT_BASE = base;
-    DOT_PITCH = base + gap;
-  }
-
   function navigate(index, animate) {
     if (animate === false) jumpTo(index);
     else glideTo(index);
@@ -461,26 +932,11 @@
   }
   function go(delta) { glideTo(Math.round(posF) + delta); }
 
-  // Paint the content deck + the rail picker from posF
+  // Drives the page deck; rail is now a plain scrollable nav so needs no JS transform
   function render() {
     const N = pages.length;
     if (!N) return;
     track.style.transform = 'translateY(' + (-posF * 100) + '%)';
-
-    const railH = rail.clientHeight || 0;
-    if (railTrack) {
-      railTrack.style.transform =
-        'translateY(' + (railH / 2 - posF * DOT_PITCH - DOT_BASE / 2) + 'px)';
-    }
-    // Centered page is largest; neighbours shrink and fade with distance
-    for (let i = 0; i < N; i++) {
-      const dist = Math.abs(i - posF);
-      const s = Math.max(0.5, 1.5 - dist * 0.22);
-      const o = Math.max(0.2, 1 - dist * 0.13);
-      const dot = pages[i].dot;
-      dot.style.transform = 'scale(' + s.toFixed(3) + ')';
-      dot.style.opacity = o.toFixed(3);
-    }
     const ai = Math.round(posF);
     if (ai !== active) { active = ai; onActiveChange(); }
   }
@@ -488,10 +944,16 @@
   function onActiveChange() {
     const p = pages[active];
     if (!p) return;
+    // Exit page edit mode when navigating away
+    if (pageEditIdx !== -1 && pageEditIdx !== active) {
+      exitPageEditMode(pageEditIdx);
+      pageEditIdx = -1;
+    }
     docNumber.textContent = p.number;
     docTitle.textContent = p.title;
     pages.forEach((q, i) => q.dot.classList.toggle('active', i === active));
     p.el.scrollTop = 0;
+    p.dot.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   // Animation loop: apply inertia, then settle onto a page
@@ -499,8 +961,6 @@
   function loop(t) {
     const dt = lastT ? Math.min((t - lastT) / 1000, 0.05) : 0.016;
     lastT = t;
-
-    if (dragging) { render(); rafId = requestAnimationFrame(loop); return; }
 
     let moving = false;
     if (Math.abs(vel) > 0.0001) {
@@ -542,48 +1002,6 @@
     if (!flicking && ((down && !atBottom) || (!down && !atTop))) return; // let the page scroll
     e.preventDefault();
     addImpulse(e.deltaY, e.deltaMode);
-  }
-
-  // Wheel over the rail always flicks pages (no internal scroll there)
-  function onRailWheel(e) {
-    if (!isActive()) return;
-    e.preventDefault();
-    e.stopPropagation();
-    addImpulse(e.deltaY, e.deltaMode);
-  }
-
-  // ---- Drag the rail like a scrollbar, with release momentum ----
-  function railDown(e) {
-    if (!isActive()) return;
-    dragging = true; dragMoved = false;
-    dragLastY = e.clientY; dragLastT = performance.now(); dragVel = 0;
-    vel = 0; snapTarget = null;
-    rail.classList.add('scrubbing');
-    try { rail.setPointerCapture(e.pointerId); } catch (_) {}
-    startLoop();
-  }
-  function railMove(e) {
-    if (!dragging) return;
-    const now = performance.now();
-    const dy = e.clientY - dragLastY;
-    if (Math.abs(dy) > 2) dragMoved = true;
-    posF = clampPos(posF + dy / DOT_PITCH);
-    const dts = (now - dragLastT) / 1000;
-    if (dts > 0) dragVel = (dy / DOT_PITCH) / dts; // pages/sec
-    dragLastY = e.clientY; dragLastT = now;
-    render();
-  }
-  function railUp(e) {
-    if (!dragging) return;
-    dragging = false;
-    rail.classList.remove('scrubbing');
-    try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
-    if (dragMoved) {
-      vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, dragVel * 0.5)); // fling on release
-      snapTarget = null;
-      suppressClickUntil = performance.now() + 250;
-    }
-    startLoop();
   }
 
   // Keyboard
@@ -636,6 +1054,43 @@
   }
   function googleURL(q) {
     return 'https://www.google.com/search?q=' + encodeURIComponent(q);
+  }
+
+  // ====================================================
+  //  Export current workspace state as JSON
+  // ====================================================
+  function serializeWorkspace() {
+    const data = {
+      pages: pages.map(p => {
+        const pageInner = p.el.querySelector('.page-inner');
+        const blocks = [];
+        if (pageInner) {
+          pageInner.querySelectorAll(':scope > .block').forEach(wrap => {
+            if (wrap._bd) {
+              const bd = Object.assign({}, wrap._bd);
+              bd.type = wrap._bt; // use canonical type
+              blocks.push(bd);
+            }
+          });
+        }
+        return { number: p.number, title: p.title, blocks };
+      })
+    };
+    if (workspaceTitle) data.title = workspaceTitle;
+    return data;
+  }
+
+  function downloadWorkspace() {
+    const data = serializeWorkspace();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (workspaceTitle || 'workspace') + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   // ====================================================
@@ -705,20 +1160,19 @@
     body.classList.add('state-empty');
     workspace.hidden = true;
     reloadBtn.hidden = true;
+    saveJsonBtn.hidden = true;
     fileInput.value = '';
     clearError();
   });
+
+  saveJsonBtn.addEventListener('click', downloadWorkspace);
 
   workspace.addEventListener('wheel', onWheel, { passive: false });
   document.addEventListener('keydown', onKey);
   workspace.addEventListener('touchstart', onTouchStart, { passive: true });
   workspace.addEventListener('touchend', onTouchEnd, { passive: true });
 
-  // Rail scrub + wheel + responsive sizing
-  rail.addEventListener('pointerdown', railDown);
-  rail.addEventListener('pointermove', railMove);
-  rail.addEventListener('pointerup', railUp);
-  rail.addEventListener('pointercancel', railUp);
-  rail.addEventListener('wheel', onRailWheel, { passive: false });
-  window.addEventListener('resize', () => { if (pages.length) { measurePitch(); render(); } });
+  // Stop rail wheel events from bubbling to the workspace page-nav handler
+  rail.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  window.addEventListener('resize', () => { if (pages.length) render(); });
 })();
