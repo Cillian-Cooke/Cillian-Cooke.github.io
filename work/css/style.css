@@ -766,57 +766,73 @@ body.state-empty .qc-panel { display: none; }
   .dot-label { font-size: 0.75rem; }
 }
 
-/* ── Narrow / side-panel mode ─────────────────────────────
-   Activated when the window is squished to ~half the screen.
-   Rail collapses to icon dots; QC panel becomes a slide-over.
+/* ── Side-panel / squished mode (~480–700px) ────────────────
+   QC panel stays visible but narrow; rail collapses to dots.
+   Both panels stay on screen so nothing disappears.
 ───────────────────────────────────────────────────────── */
 @media (max-width: 700px) {
-  :root { --rail-w: 44px; --qc-w: 0px; }
+  :root { --rail-w: 44px; --qc-w: 118px; }
 
   /* Topbar */
-  .topbar { padding: 0 0.6rem 0 0.75rem; gap: 0.4rem; }
+  .topbar { padding: 0 0.5rem 0 0.6rem; gap: 0.35rem; }
   .brand-name { display: none; }
-  .doc-number { font-size: 0.7rem; padding: 0.12rem 0.35rem; }
-  .doc-title { font-size: 0.85rem; }
+  .doc-number { font-size: 0.68rem; padding: 0.1rem 0.3rem; }
+  .doc-title { font-size: 0.82rem; }
   .progress { display: none; }
-  .btn.btn-ghost { font-size: 0.76rem; padding: 0.25rem 0.5rem; }
+  .btn.btn-ghost { font-size: 0.74rem; padding: 0.22rem 0.45rem; }
 
-  /* Show QC toggle */
-  body.state-active #qcToggle { display: grid; }
-
-  /* QC panel becomes a slide-over overlay */
-  .qc-panel {
-    width: 230px;
-    transform: translateX(-100%);
-    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 50;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
-  }
-  body.qc-open .qc-panel { transform: translateX(0); }
-  body.qc-open .qc-backdrop { opacity: 1; pointer-events: all; }
+  /* QC panel — narrower but always on screen */
+  .qc-header { font-size: 0.58rem; padding: 6px 8px 3px; letter-spacing: 0.06em; }
+  .qc-slots { padding: 5px 6px 10px; gap: 5px; }
+  .qc-slot { gap: 3px; }
+  .qc-input { height: 26px; font-size: 0.71rem; padding: 0 5px; }
+  .qc-copy-btn { width: 24px; height: 26px; min-width: 24px; }
+  .qc-copy-btn .ico { width: 11px; height: 11px; }
+  .qc-divider { margin: 3px 0; }
 
   /* Rail — tight icon-only circles */
-  .rail { box-shadow: none; border-left-width: 1px; }
+  .rail { box-shadow: none; }
   .rail-track { padding: 8px 4px; gap: 4px; align-items: center; }
-  .dot {
-    padding: 3px; justify-content: center;
-    border-radius: 50%; width: 36px; height: 36px; gap: 0;
-  }
+  .dot { padding: 3px; justify-content: center; border-radius: 50%; width: 36px; height: 36px; gap: 0; }
   .dot.active { border-radius: 50%; }
   .dot-label { display: none; }
   .dot-num { width: 22px; height: 22px; font-size: 7px; border-width: 1px; }
 
   /* Tighter content */
-  .page-inner { padding: 1rem 0.9rem 2.5rem; max-width: none; }
+  .page-inner { padding: 0.9rem 0.8rem 2.5rem; max-width: none; }
   .block-explain .block-inner,
-  .block-help .block-inner { padding: 0.7rem 0.85rem; }
-  .copy-box, .search-box { font-size: 0.82rem; padding: 0.55rem 0.7rem; }
-  .action-btn { font-size: 0.82rem; padding: 0.5rem 0.75rem; }
-  .block { margin-bottom: 0.5rem; }
+  .block-help .block-inner { padding: 0.65rem 0.75rem; }
+  .copy-box, .search-box { font-size: 0.8rem; padding: 0.5rem 0.65rem; }
+  .action-btn { font-size: 0.8rem; padding: 0.45rem 0.65rem; }
+  .block { margin-bottom: 0.45rem; }
 }
 
-/* Very narrow (portrait phone / extreme squish) */
-@media (max-width: 400px) {
+/* ── Very narrow (≤480px): QC hides, toggle opens it as overlay ── */
+@media (max-width: 480px) {
+  :root { --qc-w: 0px; }
+
+  body.state-active #qcToggle { display: grid; }
+
+  .qc-panel {
+    width: 220px;
+    transform: translateX(-100%);
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  }
+  .qc-header { font-size: 0.62rem; padding: 8px 10px 4px; }
+  .qc-slots { padding: 6px 8px 12px; gap: 6px; }
+  .qc-slot { gap: 4px; }
+  .qc-input { height: 28px; font-size: 0.76rem; padding: 0 6px; }
+  .qc-copy-btn { width: 26px; height: 28px; min-width: 26px; }
+  .qc-copy-btn .ico { width: 12px; height: 12px; }
+
+  body.qc-open .qc-panel { transform: translateX(0); }
+  body.qc-open .qc-backdrop { opacity: 1; pointer-events: all; }
+}
+
+/* ── Extreme narrow: hide rail entirely ── */
+@media (max-width: 380px) {
   :root { --rail-w: 0px; }
   .rail { display: none; }
   .page-inner { padding: 0.75rem 0.6rem 2rem; }
