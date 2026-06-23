@@ -28,12 +28,16 @@
 
     <div class="topbar-actions">
       <span class="progress" aria-live="polite"></span>
+      <button type="button" class="btn btn-icon" id="qcToggle" title="Quick copy">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
       <button type="button" class="btn btn-ghost" id="saveJsonBtn" hidden>Save JSON</button>
       <button type="button" class="btn btn-ghost" id="reloadBtn" hidden>Load file</button>
     </div>
   </header>
 
   <!-- ===== Empty / load state ===== -->
+  <div class="qc-backdrop" id="qcBackdrop"></div>
   <section class="loader-screen" id="loaderScreen">
     <div class="loader-card">
       <p class="loader-eyebrow">Workspace configuration</p>

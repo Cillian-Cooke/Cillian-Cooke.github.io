@@ -16,6 +16,8 @@
   const sampleBtn = document.getElementById('sampleBtn');
   const reloadBtn = document.getElementById('reloadBtn');
   const saveJsonBtn = document.getElementById('saveJsonBtn');
+  const qcToggle = document.getElementById('qcToggle');
+  const qcBackdrop = document.getElementById('qcBackdrop');
   const workspace = document.getElementById('workspace');
   const track = document.getElementById('track');
   const rail = document.getElementById('rail');
@@ -973,6 +975,7 @@
 
   // Keyboard
   function onKey(e) {
+    if (e.key === 'Escape') { closeQcPanel(); return; }
     if (!isActive()) return;
     if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); go(1); }
     else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
@@ -1194,7 +1197,7 @@
   sampleBtn.addEventListener('click', downloadSample);
 
   reloadBtn.addEventListener('click', () => {
-    body.classList.remove('state-active');
+    body.classList.remove('state-active', 'qc-open');
     body.classList.add('state-empty');
     workspace.hidden = true;
     reloadBtn.hidden = true;
@@ -1204,6 +1207,10 @@
   });
 
   saveJsonBtn.addEventListener('click', downloadWorkspace);
+
+  function closeQcPanel() { body.classList.remove('qc-open'); }
+  qcToggle.addEventListener('click', () => body.classList.toggle('qc-open'));
+  qcBackdrop.addEventListener('click', closeQcPanel);
 
   workspace.addEventListener('wheel', onWheel, { passive: false });
   document.addEventListener('keydown', onKey);

@@ -81,10 +81,10 @@ code { font-family: var(--mono); font-size: 0.9em; }
   position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-h);
   z-index: 30;
   display: grid;
-  grid-template-columns: 220px 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1rem;
-  padding: 0 1.5rem;
+  gap: 0.75rem;
+  padding: 0 1rem 0 1.2rem;
   background: var(--c-surface);
   border-bottom: 1px solid var(--c-border);
   box-shadow: 0 1px 3px rgba(20, 40, 60, 0.05);
@@ -115,8 +115,34 @@ code { font-family: var(--mono); font-size: 0.9em; }
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-.topbar-actions { display: flex; align-items: center; gap: 1rem; justify-self: end; }
+.topbar-actions { display: flex; align-items: center; gap: 0.5rem; justify-self: end; }
 .progress { font-size: 0.8rem; color: var(--c-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* QC toggle button — hidden in wide layout, shown when panel is an overlay */
+#qcToggle {
+  display: none;
+  width: 30px; height: 30px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  color: var(--c-muted);
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  padding: 0;
+}
+#qcToggle .ico { width: 14px; height: 14px; }
+#qcToggle:hover { background: var(--c-primary-bg); color: var(--c-primary); border-color: var(--c-primary); }
+body.qc-open #qcToggle { background: var(--c-primary-bg); color: var(--c-primary); border-color: var(--c-primary); }
+
+/* Backdrop shown behind the QC overlay panel */
+.qc-backdrop {
+  position: fixed; inset: var(--topbar-h) 0 0 0;
+  z-index: 49;
+  background: rgba(0, 0, 0, 0.28);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.22s;
+}
 
 /* In the empty state, hide doc meta */
 body.state-empty .doc-meta,
@@ -733,31 +759,65 @@ body.state-empty .qc-panel { display: none; }
 .picker-type-btn .ico { width: 13px; height: 13px; }
 
 /* ===== Responsive ===== */
+
+/* Slight condensing for medium screens */
 @media (max-width: 1000px) {
-  :root { --rail-w: 180px; --qc-w: 160px; }
-  .dot-label { font-size: 0.76rem; }
+  :root { --rail-w: 180px; --qc-w: 155px; }
+  .dot-label { font-size: 0.75rem; }
 }
 
-@media (max-width: 720px) {
-  .topbar { grid-template-columns: auto 1fr auto; padding: 0 0.9rem; gap: 0.6rem; }
-  .brand-name { display: none; }
-  .doc-title { font-size: 0.95rem; }
-  :root { --rail-w: 52px; --qc-w: 0px; }
-  .qc-panel { display: none; }
-  .page-inner { padding: 1.75rem 1.1rem 3.5rem; }
+/* ── Narrow / side-panel mode ─────────────────────────────
+   Activated when the window is squished to ~half the screen.
+   Rail collapses to icon dots; QC panel becomes a slide-over.
+───────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  :root { --rail-w: 44px; --qc-w: 0px; }
 
-  /* Collapse to icon-only on mobile */
-  .rail { box-shadow: none; }
-  .rail-track { padding: 8px; gap: 6px; align-items: center; }
-  .dot {
-    padding: 4px;
-    justify-content: center;
-    border-radius: 50%;
-    width: 32px; height: 32px;
-    gap: 0;
-  }
-  .dot-label { display: none; }
-  .dot-num { width: 20px; height: 20px; font-size: 8px; border-width: 1px; }
-  .dot.active { background: var(--c-primary-bg); border-radius: 50%; }
+  /* Topbar */
+  .topbar { padding: 0 0.6rem 0 0.75rem; gap: 0.4rem; }
+  .brand-name { display: none; }
+  .doc-number { font-size: 0.7rem; padding: 0.12rem 0.35rem; }
+  .doc-title { font-size: 0.85rem; }
   .progress { display: none; }
+  .btn.btn-ghost { font-size: 0.76rem; padding: 0.25rem 0.5rem; }
+
+  /* Show QC toggle */
+  body.state-active #qcToggle { display: grid; }
+
+  /* QC panel becomes a slide-over overlay */
+  .qc-panel {
+    width: 230px;
+    transform: translateX(-100%);
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  }
+  body.qc-open .qc-panel { transform: translateX(0); }
+  body.qc-open .qc-backdrop { opacity: 1; pointer-events: all; }
+
+  /* Rail — tight icon-only circles */
+  .rail { box-shadow: none; border-left-width: 1px; }
+  .rail-track { padding: 8px 4px; gap: 4px; align-items: center; }
+  .dot {
+    padding: 3px; justify-content: center;
+    border-radius: 50%; width: 36px; height: 36px; gap: 0;
+  }
+  .dot.active { border-radius: 50%; }
+  .dot-label { display: none; }
+  .dot-num { width: 22px; height: 22px; font-size: 7px; border-width: 1px; }
+
+  /* Tighter content */
+  .page-inner { padding: 1rem 0.9rem 2.5rem; max-width: none; }
+  .block-explain .block-inner,
+  .block-help .block-inner { padding: 0.7rem 0.85rem; }
+  .copy-box, .search-box { font-size: 0.82rem; padding: 0.55rem 0.7rem; }
+  .action-btn { font-size: 0.82rem; padding: 0.5rem 0.75rem; }
+  .block { margin-bottom: 0.5rem; }
+}
+
+/* Very narrow (portrait phone / extreme squish) */
+@media (max-width: 400px) {
+  :root { --rail-w: 0px; }
+  .rail { display: none; }
+  .page-inner { padding: 0.75rem 0.6rem 2rem; }
 }
