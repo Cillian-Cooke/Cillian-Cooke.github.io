@@ -19,6 +19,7 @@
   const workspace = document.getElementById('workspace');
   const track = document.getElementById('track');
   const rail = document.getElementById('rail');
+  const qcPanel = document.getElementById('qcPanel');
   const docNumber = document.querySelector('.doc-number');
   const docTitle = document.querySelector('.doc-title');
   const progressEl = document.querySelector('.progress');
@@ -27,7 +28,6 @@
   let pages = [];           // [{ number, title, blocks, el, dot, done }]
   let active = -1;          // currently centered page (integer)
   let railTrack = null;     // moving strip inside the rail
-  let pageEditIdx = -1;     // which page is in page-level edit mode (-1 = none)
   let workspaceTitle = '';  // top-level title from the loaded JSON
 
   // Continuous position + inertia model
@@ -142,6 +142,7 @@
     workspace.hidden = false;
     reloadBtn.hidden = false;
     saveJsonBtn.hidden = false;
+    buildQuickCopyPanel();
 
     jumpTo(0);
     updateProgress();
@@ -154,6 +155,8 @@
 
     const inner = document.createElement('div');
     inner.className = 'page-inner';
+    const registry = {};  // shared placeholder input registry for this page
+    el._inputRegistry = registry;
 
     if (blocks.length === 0) {
       const empty = document.createElement('p');
@@ -163,7 +166,7 @@
       inner.appendChild(empty);
     } else {
       blocks.forEach(b => {
-        const node = buildBlock(b);
+        const node = buildBlock(b, registry);
         if (node) inner.appendChild(node);
       });
     }
@@ -181,12 +184,9 @@
     doneBtn.addEventListener('click', () => toggleDone(index));
     doneRow.appendChild(doneBtn);
 
-    const editPageBtn = document.createElement('button');
-    editPageBtn.type = 'button';
-    editPageBtn.className = 'page-edit-btn';
-    editPageBtn.innerHTML = pencilIcon() + '<span>Edit page</span>';
-    editPageBtn.addEventListener('click', () => togglePageEditMode(index));
-    doneRow.appendChild(editPageBtn);
+    // Permanent "Add block" button — always visible, not tied to an edit mode
+    const addRow = buildAddBlockRow(index);
+    inner.appendChild(addRow);
 
     inner.appendChild(doneRow);
 
@@ -195,7 +195,7 @@
   }
 
   // ---- Blocks ----
-  function buildBlock(b) {
+  function buildBlock(b, registry) {
     if (!b || typeof b !== 'object') return null;
     const type = TYPE_ALIASES[String(b.type || '').toLowerCase().trim()] || 'unknown';
 
@@ -203,6 +203,7 @@
     wrap.className = 'block block-' + type;
     wrap._bd = Object.assign({}, b);
     wrap._bt = type;
+    wrap._registry = registry || {};
 
     // Header row: label (left) + pencil edit button (right, shows on hover)
     const hdr = document.createElement('div');
@@ -220,6 +221,14 @@
       editBtn.innerHTML = pencilIcon();
       editBtn.addEventListener('click', e => { e.stopPropagation(); openEditor(wrap); });
       hdr.appendChild(editBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'block-delete-btn';
+      delBtn.setAttribute('aria-label', 'Delete block');
+      delBtn.innerHTML = trashIcon();
+      delBtn.addEventListener('click', e => { e.stopPropagation(); deleteBlock(wrap); });
+      hdr.appendChild(delBtn);
     }
 
     wrap.appendChild(hdr);
@@ -234,14 +243,15 @@
     const inner = document.createElement('div');
     inner.className = 'block-inner';
     const b = wrap._bd;
+    const reg = wrap._registry;
 
     switch (wrap._bt) {
       case 'explain': fillExplain(inner, b); break;
       case 'help':    fillHelp(inner, b); break;
-      case 'copy':    fillCopy(inner, b); break;
+      case 'copy':    fillCopy(inner, b, reg); break;
       case 'link':    fillLink(inner, b); break;
-      case 'window':  fillWindow(inner, b); break;
-      case 'search':  fillSearch(inner, b); break;
+      case 'window':  fillWindow(inner, b, reg); break;
+      case 'search':  fillSearch(inner, b, reg); break;
       default:        fillUnknown(inner, b); break;
     }
 
@@ -296,24 +306,34 @@
     return names;
   }
 
-  // Builds the row of fill-in inputs and appends them to container. Returns name→input map.
-  function buildTemplateInputs(container, placeholders) {
+  // Builds fill-in inputs and appends them to container. Returns name→input map.
+  // registry is a page-level object; if a name already exists in it, the existing
+  // input is reused (no new DOM node) so all blocks sharing [name] stay in sync.
+  function buildTemplateInputs(container, placeholders, registry) {
+    registry = registry || {};
     const div = document.createElement('div');
     div.className = 'template-inputs';
     const map = {};
+    let hasNew = false;
     placeholders.forEach(name => {
-      const field = document.createElement('div');
-      field.className = 'template-field';
-      const inp = document.createElement('input');
-      inp.type = 'text';
-      inp.className = 'template-input';
-      inp.placeholder = name;
-      inp.setAttribute('aria-label', name);
-      map[name] = inp;
-      field.appendChild(inp);
-      div.appendChild(field);
+      if (registry[name]) {
+        map[name] = registry[name]; // reuse — no new input rendered here
+      } else {
+        const field = document.createElement('div');
+        field.className = 'template-field';
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'template-input';
+        inp.placeholder = name;
+        inp.setAttribute('aria-label', name);
+        map[name] = inp;
+        registry[name] = inp;
+        field.appendChild(inp);
+        div.appendChild(field);
+        hasNew = true;
+      }
     });
-    container.appendChild(div);
+    if (hasNew) container.appendChild(div);
     return map;
   }
 
@@ -343,11 +363,11 @@
     });
   }
 
-  function fillCopy(inner, b) {
+  function fillCopy(inner, b, registry) {
     const template = String(b.text !== undefined ? b.text : (b.value !== undefined ? b.value : ''));
     const placeholders = parsePlaceholders(template);
     let inputMap = {};
-    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders);
+    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders, registry);
 
     const boxBtn = document.createElement('button');
     boxBtn.type = 'button';
@@ -391,27 +411,34 @@
     }
   }
 
-  function fillWindow(inner, b) {
-    const query = b.search ? String(b.search) : '';
-    const url = query ? googleURL(query) : String(b.url || b.href || '');
+  function fillWindow(inner, b, registry) {
+    const isSearch = !!b.search;
+    const template = isSearch ? String(b.search) : String(b.url || b.href || '');
+    const placeholders = parsePlaceholders(template);
+    let inputMap = {};
+    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders, registry);
+
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'action-btn';
-    const label = b.label || b.text || (query ? 'Search in window' : 'Open in browser window');
-    btn.innerHTML = (query ? searchIcon() : newWindowIcon()) + '<span>' + escapeHtml(label) + '</span>';
-    // Opens (or re-navigates) a named browser window so it gets a real address bar + navigation.
+    const label = b.label || b.text || (isSearch ? 'Search in window' : 'Open in browser window');
+    btn.innerHTML = (isSearch ? searchIcon() : newWindowIcon()) + '<span>' + escapeHtml(label) + '</span>';
+
     btn.addEventListener('click', () => {
-      if (!url) return;
-      window.open(url, 'utmost_ref', 'noopener,noreferrer');
+      const filled = placeholders.length > 0 ? getFilledText(template, inputMap) : template;
+      if (!filled) return;
+      const target = isSearch ? googleURL(filled) : filled;
+      window.open(target, 'utmost_ref', 'noopener,noreferrer');
     });
+
     inner.appendChild(btn);
-    if (b.showUrl !== false && url) {
-      inner.appendChild(urlCaption(query ? 'Google: ' + query : url));
+    if (b.showUrl !== false && template && placeholders.length === 0) {
+      inner.appendChild(urlCaption(isSearch ? 'Google: ' + template : template));
     }
   }
 
   // Click-the-box Google search (mirrors the copy box)
-  function fillSearch(inner, b) {
+  function fillSearch(inner, b, registry) {
     const template = String(
       b.text !== undefined ? b.text :
       b.query !== undefined ? b.query :
@@ -419,7 +446,7 @@
     );
     const placeholders = parsePlaceholders(template);
     let inputMap = {};
-    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders);
+    if (placeholders.length > 0) inputMap = buildTemplateInputs(inner, placeholders, registry);
 
     const boxBtn = document.createElement('button');
     boxBtn.type = 'button';
@@ -460,6 +487,19 @@
     return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
       '<path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>';
+  }
+  function trashIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>' +
+      '<path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
+  }
+
+  function deleteBlock(wrap) {
+    if (!confirm('Delete this block?')) return;
+    const form = wrap.querySelector('.block-editor');
+    if (form) closeEditor(wrap, form);
+    wrap.remove();
   }
 
   function getEditorFields(type) {
@@ -575,158 +615,6 @@
     if (editBtn) editBtn.hidden = false;
   }
 
-  // ====================================================
-  //  Page-level edit mode
-  // ====================================================
-  function togglePageEditMode(index) {
-    if (pageEditIdx === index) {
-      exitPageEditMode(index);
-      pageEditIdx = -1;
-    } else {
-      if (pageEditIdx !== -1) exitPageEditMode(pageEditIdx);
-      enterPageEditMode(index);
-      pageEditIdx = index;
-    }
-  }
-
-  function enterPageEditMode(index) {
-    const p = pages[index];
-    if (!p) return;
-    p.el.classList.add('is-editing');
-    const inner = p.el.querySelector('.page-inner');
-
-    // Open all block editors and add drag handles
-    inner.querySelectorAll(':scope > .block').forEach(wrap => {
-      if (!wrap.querySelector('.block-editor')) openEditor(wrap);
-      addDragHandle(wrap);
-      wrap.draggable = true;
-    });
-
-    // Add block button (inserted before the done-row)
-    if (!inner.querySelector('.add-block-row')) {
-      const addRow = buildAddBlockRow(index);
-      const doneRow = inner.querySelector('.done-row');
-      if (doneRow) inner.insertBefore(addRow, doneRow);
-      else inner.appendChild(addRow);
-    }
-
-    // Wire drag-and-drop on the inner container
-    p._dragCleanup = setupBlockDrag(inner);
-
-    const btn = p.el.querySelector('.page-edit-btn span');
-    if (btn) btn.textContent = 'Done editing';
-    p.el.querySelector('.page-edit-btn').classList.add('active');
-  }
-
-  function exitPageEditMode(index) {
-    const p = pages[index];
-    if (!p) return;
-    p.el.classList.remove('is-editing');
-    const inner = p.el.querySelector('.page-inner');
-
-    // Save all open editors and clean up drag handles
-    inner.querySelectorAll(':scope > .block').forEach(wrap => {
-      const form = wrap.querySelector('.block-editor');
-      if (form) saveEditor(wrap, form);
-      const handle = wrap.querySelector('.block-drag-handle');
-      if (handle) handle.remove();
-      wrap.draggable = false;
-    });
-
-    // Remove the add-block row
-    const addRow = inner.querySelector('.add-block-row');
-    if (addRow) addRow.remove();
-
-    // Tear down drag listeners
-    if (p._dragCleanup) { p._dragCleanup(); p._dragCleanup = null; }
-
-    const btn = p.el.querySelector('.page-edit-btn span');
-    if (btn) btn.textContent = 'Edit page';
-    p.el.querySelector('.page-edit-btn').classList.remove('active');
-  }
-
-  // ---- Drag handle ----
-  function dragIcon() {
-    return '<svg class="ico" viewBox="0 0 24 24" fill="currentColor">' +
-      '<circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>' +
-      '<circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>' +
-      '<circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>';
-  }
-
-  function addDragHandle(wrap) {
-    const hdr = wrap.querySelector('.block-hdr');
-    if (!hdr || hdr.querySelector('.block-drag-handle')) return;
-    const handle = document.createElement('span');
-    handle.className = 'block-drag-handle';
-    handle.setAttribute('aria-hidden', 'true');
-    handle.innerHTML = dragIcon();
-    hdr.insertBefore(handle, hdr.firstChild);
-  }
-
-  // ---- Block drag-and-drop ----
-  function setupBlockDrag(inner) {
-    let src = null;
-
-    function onStart(e) {
-      src = e.target.closest('.block');
-      if (!src) return;
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', '');
-      setTimeout(() => src && src.classList.add('is-dragging'), 0);
-    }
-    function onOver(e) {
-      if (!src) return;
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      clearDragHints(inner);
-      const tgt = dragDropTarget(inner, src, e.clientY);
-      if (tgt.el) tgt.el.classList.add(tgt.before ? 'drag-hint-before' : 'drag-hint-after');
-    }
-    function onDrop(e) {
-      e.preventDefault();
-      if (!src) return;
-      const tgt = dragDropTarget(inner, src, e.clientY);
-      clearDragHints(inner);
-      if (tgt.el && tgt.el !== src) {
-        if (tgt.before) inner.insertBefore(src, tgt.el);
-        else tgt.el.insertAdjacentElement('afterend', src);
-      }
-      src.classList.remove('is-dragging');
-      src = null;
-    }
-    function onEnd() {
-      clearDragHints(inner);
-      if (src) { src.classList.remove('is-dragging'); src = null; }
-    }
-
-    inner.addEventListener('dragstart', onStart);
-    inner.addEventListener('dragover', onOver);
-    inner.addEventListener('drop', onDrop);
-    inner.addEventListener('dragend', onEnd);
-    return () => {
-      inner.removeEventListener('dragstart', onStart);
-      inner.removeEventListener('dragover', onOver);
-      inner.removeEventListener('drop', onDrop);
-      inner.removeEventListener('dragend', onEnd);
-    };
-  }
-
-  function dragDropTarget(inner, src, clientY) {
-    const blocks = Array.from(inner.querySelectorAll(':scope > .block')).filter(b => b !== src);
-    for (const b of blocks) {
-      const r = b.getBoundingClientRect();
-      if (clientY < r.top + r.height / 2) return { el: b, before: true };
-      if (clientY <= r.bottom) return { el: b, before: false };
-    }
-    return { el: null };
-  }
-
-  function clearDragHints(inner) {
-    inner.querySelectorAll('.drag-hint-before, .drag-hint-after').forEach(el =>
-      el.classList.remove('drag-hint-before', 'drag-hint-after')
-    );
-  }
-
   // ---- Add block ----
   function plusIcon() {
     return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
@@ -792,17 +680,14 @@
       search:  { type: 'search', label: '', text: '' },
     };
 
-    const wrap = buildBlock(defaults[type] || { type });
+    const wrap = buildBlock(defaults[type] || { type }, p.el._inputRegistry || {});
 
     // Insert before add-block-row
     const addRow = inner.querySelector('.add-block-row');
     if (addRow) inner.insertBefore(wrap, addRow);
     else inner.insertBefore(wrap, inner.querySelector('.done-row'));
 
-    addDragHandle(wrap);
-    wrap.draggable = true;
     openEditor(wrap);
-
     const first = wrap.querySelector('.block-editor input, .block-editor textarea');
     if (first) { first.focus(); first.select(); }
   }
@@ -944,11 +829,6 @@
   function onActiveChange() {
     const p = pages[active];
     if (!p) return;
-    // Exit page edit mode when navigating away
-    if (pageEditIdx !== -1 && pageEditIdx !== active) {
-      exitPageEditMode(pageEditIdx);
-      pageEditIdx = -1;
-    }
     docNumber.textContent = p.number;
     docTitle.textContent = p.title;
     pages.forEach((q, i) => q.dot.classList.toggle('active', i === active));
@@ -990,24 +870,28 @@
     startLoop();
   }
 
-  // Wheel over content: scroll a tall page internally, otherwise flick through pages
+  // One wheel gesture = one page. Lock out further events until the snap lands.
+  let wheelLock = false;
   function onWheel(e) {
     if (!isActive()) return;
     const page = pages[active] && pages[active].el;
     if (!page) return;
+    const down = e.deltaY > 0;
     const atTop = page.scrollTop <= 0;
     const atBottom = page.scrollTop + page.clientHeight >= page.scrollHeight - 1;
-    const down = e.deltaY > 0;
-    const flicking = Math.abs(vel) > 0.15;
-    if (!flicking && ((down && !atBottom) || (!down && !atTop))) return; // let the page scroll
+    if ((down && !atBottom) || (!down && !atTop)) return; // let the page scroll internally
     e.preventDefault();
-    addImpulse(e.deltaY, e.deltaMode);
+    if (wheelLock) return;
+    if (e.deltaMode === 0 && Math.abs(e.deltaY) < 8) return; // ignore trackpad micro-ticks
+    wheelLock = true;
+    go(down ? 1 : -1);
+    setTimeout(() => { wheelLock = false; }, 500);
   }
 
   // Keyboard
   function onKey(e) {
     if (!isActive()) return;
-    if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
+    if (['ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); go(1); }
     else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
     else if (e.key === 'Home') { e.preventDefault(); glideTo(0); }
     else if (e.key === 'End') { e.preventDefault(); glideTo(pages.length - 1); }
@@ -1135,6 +1019,77 @@
     a.click();
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  // ====================================================
+  //  Quick-copy panel
+  // ====================================================
+  function buildQuickCopyPanel() {
+    qcPanel.innerHTML = '';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'qc-header';
+    hdr.textContent = 'Quick Copy';
+    qcPanel.appendChild(hdr);
+
+    const slots = document.createElement('div');
+    slots.className = 'qc-slots';
+    qcPanel.appendChild(slots);
+
+    // Today's date — read-only, pre-filled
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const yyyy = now.getFullYear();
+    const todayStr = dd + '-' + mm + '-' + yyyy;
+    slots.appendChild(buildQcSlot(todayStr, true));
+
+    const divider = document.createElement('div');
+    divider.className = 'qc-divider';
+    slots.appendChild(divider);
+
+    // 5 blank editable slots
+    for (let i = 0; i < 5; i++) {
+      slots.appendChild(buildQcSlot('', false));
+    }
+  }
+
+  function buildQcSlot(value, readOnly) {
+    const row = document.createElement('div');
+    row.className = 'qc-slot';
+
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'qc-input' + (readOnly ? ' qc-date' : '');
+    inp.value = value;
+    inp.readOnly = readOnly;
+    if (!readOnly) inp.placeholder = 'Type something…';
+    row.appendChild(inp);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'qc-copy-btn';
+    btn.setAttribute('aria-label', 'Copy');
+    btn.innerHTML = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+      '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    btn.addEventListener('click', () => {
+      const text = inp.value;
+      if (!text) return;
+      navigator.clipboard.writeText(text).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+      });
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1200);
+    });
+    row.appendChild(btn);
+
+    return row;
   }
 
   // ====================================================
