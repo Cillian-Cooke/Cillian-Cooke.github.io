@@ -672,17 +672,20 @@ body.state-empty .qc-panel { display: none; }
 
 /* ===== Page-level edit mode ===== */
 
-/* Drag handle (6-dot grip, shown in block-hdr when page is in edit mode) */
+/* Drag handle — always present, fades in on block hover */
 .block-drag-handle {
   flex: 0 0 auto;
   width: 22px; height: 22px;
   display: grid; place-items: center;
   cursor: grab; color: var(--c-faint);
   border-radius: 3px;
-  transition: color 0.12s, background 0.12s;
+  opacity: 0;
+  transition: color 0.12s, background 0.12s, opacity 0.15s;
   margin-right: 2px;
   user-select: none;
 }
+.block:hover .block-drag-handle,
+.block:focus-within .block-drag-handle { opacity: 1; }
 .block-drag-handle:hover { color: var(--c-text); background: var(--c-surface-2); }
 .block-drag-handle:active { cursor: grabbing; }
 .block-drag-handle .ico { width: 14px; height: 14px; }

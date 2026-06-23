@@ -157,6 +157,7 @@
     inner.className = 'page-inner';
     const registry = {};  // shared placeholder input registry for this page
     el._inputRegistry = registry;
+    setupPageDrag(inner);
 
     if (blocks.length === 0) {
       const empty = document.createElement('p');
@@ -205,9 +206,16 @@
     wrap._bt = type;
     wrap._registry = registry || {};
 
-    // Header row: label (left) + pencil edit button (right, shows on hover)
+    // Header row: drag handle (left) + label + edit/delete buttons (right, on hover)
     const hdr = document.createElement('div');
     hdr.className = 'block-hdr';
+
+    const handle = document.createElement('span');
+    handle.className = 'block-drag-handle';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.innerHTML = dragIcon();
+    hdr.appendChild(handle);
+
     const lbl = document.createElement('span');
     lbl.className = 'block-label';
     if (b.label) { lbl.textContent = String(b.label); } else { lbl.hidden = true; }
@@ -231,6 +239,7 @@
       hdr.appendChild(delBtn);
     }
 
+    wrap.draggable = true;
     wrap.appendChild(hdr);
     renderBlockInner(wrap);
     return wrap;
@@ -596,7 +605,7 @@
 
     wrap.appendChild(form);
     const first = form.querySelector('input, textarea');
-    if (first) first.focus();
+    if (first) first.focus({ preventScroll: true });
   }
 
   function saveEditor(wrap, form) {
@@ -613,6 +622,65 @@
     if (inner) inner.hidden = false;
     const editBtn = wrap.querySelector('.block-edit-btn');
     if (editBtn) editBtn.hidden = false;
+  }
+
+  // ---- Block drag-to-reorder (always on, no edit mode needed) ----
+  function dragIcon() {
+    return '<svg class="ico" viewBox="0 0 24 24" fill="currentColor">' +
+      '<circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>' +
+      '<circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>' +
+      '<circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>';
+  }
+
+  function setupPageDrag(inner) {
+    let src = null;
+    function onStart(e) {
+      src = e.target.closest('.block');
+      if (!src) return;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', '');
+      setTimeout(() => src && src.classList.add('is-dragging'), 0);
+    }
+    function onOver(e) {
+      if (!src) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      clearDropHints(inner);
+      const tgt = dropTarget(inner, src, e.clientY);
+      if (tgt.el) tgt.el.classList.add(tgt.before ? 'drag-hint-before' : 'drag-hint-after');
+    }
+    function onDrop(e) {
+      e.preventDefault();
+      if (!src) return;
+      const tgt = dropTarget(inner, src, e.clientY);
+      clearDropHints(inner);
+      if (tgt.el && tgt.el !== src) {
+        if (tgt.before) inner.insertBefore(src, tgt.el);
+        else tgt.el.insertAdjacentElement('afterend', src);
+      }
+      src.classList.remove('is-dragging');
+      src = null;
+    }
+    function onEnd() { clearDropHints(inner); if (src) { src.classList.remove('is-dragging'); src = null; } }
+    inner.addEventListener('dragstart', onStart);
+    inner.addEventListener('dragover', onOver);
+    inner.addEventListener('drop', onDrop);
+    inner.addEventListener('dragend', onEnd);
+  }
+
+  function dropTarget(inner, src, clientY) {
+    const blocks = Array.from(inner.querySelectorAll(':scope > .block')).filter(b => b !== src);
+    for (const b of blocks) {
+      const r = b.getBoundingClientRect();
+      if (clientY < r.top + r.height / 2) return { el: b, before: true };
+      if (clientY <= r.bottom) return { el: b, before: false };
+    }
+    return { el: null };
+  }
+
+  function clearDropHints(inner) {
+    inner.querySelectorAll('.drag-hint-before, .drag-hint-after')
+      .forEach(el => el.classList.remove('drag-hint-before', 'drag-hint-after'));
   }
 
   // ---- Add block ----
@@ -689,7 +757,7 @@
 
     openEditor(wrap);
     const first = wrap.querySelector('.block-editor input, .block-editor textarea');
-    if (first) { first.focus(); first.select(); }
+    if (first) { first.focus({ preventScroll: true }); first.select(); }
   }
 
   // ---- Picker icons (filled, distinct from the stroke icons used in buttons) ----
@@ -833,7 +901,22 @@
     docTitle.textContent = p.title;
     pages.forEach((q, i) => q.dot.classList.toggle('active', i === active));
     p.el.scrollTop = 0;
-    p.dot.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    railScrollToActive();
+  }
+
+  // Scroll the rail so the active dot is visible — uses scrollTop directly
+  // rather than scrollIntoView() to avoid propagating scroll to workspace.
+  function railScrollToActive() {
+    const dot = pages[active] && pages[active].dot;
+    if (!dot) return;
+    const dotRect = dot.getBoundingClientRect();
+    const railRect = rail.getBoundingClientRect();
+    const pad = 8;
+    if (dotRect.top < railRect.top + pad) {
+      rail.scrollTop += dotRect.top - railRect.top - pad;
+    } else if (dotRect.bottom > railRect.bottom - pad) {
+      rail.scrollTop += dotRect.bottom - railRect.bottom + pad;
+    }
   }
 
   // Animation loop: apply inertia, then settle onto a page
@@ -1129,5 +1212,8 @@
 
   // Stop rail wheel events from bubbling to the workspace page-nav handler
   rail.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  // Workspace has overflow:hidden but browsers can still scroll it via focus/scrollIntoView.
+  // Reset immediately so the transform-based paging never gets knocked off by a rogue scroll.
+  workspace.addEventListener('scroll', () => { workspace.scrollTop = 0; workspace.scrollLeft = 0; });
   window.addEventListener('resize', () => { if (pages.length) render(); });
 })();
