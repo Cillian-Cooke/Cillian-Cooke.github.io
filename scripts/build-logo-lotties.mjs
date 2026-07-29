@@ -218,7 +218,7 @@ function shapeLayer({ name, ind, path, trimStart = 0, trimEnd = 45, width = 6, i
   return layer;
 }
 
-function textLayer({ name, ind, text, size, pos, ip, op, delayAppear = 0 }) {
+function textLayer({ name, ind, text, size, pos, ip, op, delayAppear = 0, tracking = 0 }) {
   const start = delayAppear;
   return {
     ddd: 0,
@@ -231,19 +231,13 @@ function textLayer({ name, ind, text, size, pos, ip, op, delayAppear = 0 }) {
         a: 1,
         k: [
           kf(start, 0),
-          kf(start + 12, 100, ease),
+          kf(start + 10, 100, ease),
         ],
       },
       r: { a: 0, k: 0 },
       p: { a: 0, k: [pos[0], pos[1], 0] },
       a: { a: 0, k: [0, 0, 0] },
-      s: {
-        a: 1,
-        k: [
-          { ...kf(start, [88, 88, 100]), i: { x: [0.22], y: [1] }, o: { x: [0.36], y: [1] } },
-          kf(start + 14, [100, 100, 100], ease),
-        ],
-      },
+      s: { a: 0, k: [100, 100, 100] },
     },
     ao: 0,
     t: {
@@ -255,8 +249,8 @@ function textLayer({ name, ind, text, size, pos, ip, op, delayAppear = 0 }) {
               f: 'Syne',
               t: text,
               j: 0,
-              tr: 0,
-              lh: size * 1.05,
+              tr: tracking,
+              lh: size,
               ls: 0,
               fc: [INK[0], INK[1], INK[2]],
             },
@@ -533,7 +527,7 @@ function buildLogoFun() {
 function buildLogoName() {
   const W = 920;
   const H = 300;
-  const op = 360; // ~6s then hold
+  const op = 360;
   const scale = 1.05;
   const markCX = W / 2;
   const markCY = H / 2;
@@ -568,21 +562,22 @@ function buildLogoName() {
   }
 
   const fontSize = 64;
-  const nameY = markCY;
-  const textY = nameY + fontSize * 0.34;
+  // One shared baseline for every glyph; C strokes share the same optical center
+  const baseline = markCY + 22;
+  const opticalY = baseline - fontSize * 0.36;
 
-  // Centered two-word lockup
-  const illianAdv = [0, 26, 50, 74, 100, 152];
-  const ookeAdv = [0, 38, 78, 118];
-  const cLead = 34; // gap from C stroke center to first trailing letter
-  const lastGlyph = 38;
-  const wordGap = 52;
-  const cillianW = cLead + illianAdv[illianAdv.length - 1] + lastGlyph;
-  const cookeW = cLead + ookeAdv[ookeAdv.length - 1] + lastGlyph;
+  // Syne Bold–ish advances (left edge of each trailing glyph)
+  const illianAdv = [0, 22, 44, 66, 90, 142]; // extra room before a and before n
+  const ookeAdv = [0, 46, 94, 138]; // keep oo from merging
+  const cLead = 32;
+  const lastW = 42;
+  const wordGap = 56;
+  const cillianW = cLead + illianAdv[illianAdv.length - 1] + lastW;
+  const cookeW = cLead + ookeAdv[ookeAdv.length - 1] + lastW;
   const lockupW = cillianW + wordGap + cookeW;
   const lockupLeft = (W - lockupW) / 2;
-  const cillianCX = lockupLeft + 22;
-  const cookeCX = lockupLeft + cillianW + wordGap + 22;
+  const cillianCX = lockupLeft + 20;
+  const cookeCX = lockupLeft + cillianW + wordGap + 20;
   const illianX = illianAdv.map((x) => cillianCX + cLead + x);
   const ookeX = ookeAdv.map((x) => cookeCX + cLead + x);
   const nameLeft = lockupLeft;
@@ -597,22 +592,21 @@ function buildLogoName() {
   const bIL = pathBounds(mIL);
   const bIR = pathBounds(mIR);
 
-  // Outer arcs: hug the lockup — height ~ name, nestled to each end
-  const outerScalePct = 72;
+  // Outer arcs: no tilt; same optical Y; equal nest via inner-edge placement
+  const outerScalePct = 70;
   const outerS = outerScalePct / 100;
-  const nest = 22; // air between arc inner edge and name
-  // Final layer positions (anchor = path center): place arc centers so inner edges nestle
-  const leftInnerEdge = nameLeft - nest;
-  const rightInnerEdge = nameRight + nest;
-  // With scale around path center, half-width stays proportional
+  const nest = 28;
+  // Path shapes are asymmetric — tiny opposite Y nudges so they read level
   const outerAPos = [
-    leftInnerEdge - (bOL.w * outerS) / 2,
-    nameY,
+    nameLeft - nest - (bOL.maxX - bOL.cx) * outerS,
+    opticalY + 6,
   ];
   const outerBPos = [
-    rightInnerEdge + (bOR.w * outerS) / 2,
-    nameY,
+    nameRight + nest - (bOR.minX - bOR.cx) * outerS,
+    opticalY - 6,
   ];
+
+  const cScalePct = 108;
 
   function strokeLayer({
     name,
@@ -711,14 +705,6 @@ function buildLogoName() {
           kf(op, [outerScalePct, outerScalePct, 100]),
         ],
       },
-      rotKeys: {
-        a: 1,
-        k: [
-          kf(75, 0),
-          kf(210, -6, ease),
-          kf(op, -6),
-        ],
-      },
     }),
     strokeLayer({
       name: 'Outer B',
@@ -748,14 +734,6 @@ function buildLogoName() {
           kf(op, [outerScalePct, outerScalePct, 100]),
         ],
       },
-      rotKeys: {
-        a: 1,
-        k: [
-          kf(75, 0),
-          kf(210, 6, ease),
-          kf(op, 6),
-        ],
-      },
     }),
     strokeLayer({
       name: 'Inner L → Cillian C',
@@ -768,16 +746,16 @@ function buildLogoName() {
         a: 1,
         k: [
           kf(85, [bIL.cx, bIL.cy, 0]),
-          kf(200, [cillianCX, nameY, 0], ease),
-          kf(op, [cillianCX, nameY, 0]),
+          kf(200, [cillianCX, opticalY, 0], ease),
+          kf(op, [cillianCX, opticalY, 0]),
         ],
       },
       scaleKeys: {
         a: 1,
         k: [
           kf(85, [100, 100, 100]),
-          kf(200, [118, 118, 100], ease),
-          kf(op, [118, 118, 100]),
+          kf(200, [cScalePct, cScalePct, 100], ease),
+          kf(op, [cScalePct, cScalePct, 100]),
         ],
       },
     }),
@@ -792,52 +770,46 @@ function buildLogoName() {
         a: 1,
         k: [
           kf(85, [bIR.cx, bIR.cy, 0]),
-          kf(200, [cookeCX, nameY, 0], ease),
-          kf(op, [cookeCX, nameY, 0]),
+          kf(200, [cookeCX, opticalY, 0], ease),
+          kf(op, [cookeCX, opticalY, 0]),
         ],
       },
       scaleKeys: {
         a: 1,
         k: [
           kf(85, [100, 100, 100]),
-          kf(200, [118, 118, 100], ease),
-          kf(op, [118, 118, 100]),
+          kf(200, [cScalePct, cScalePct, 100], ease),
+          kf(op, [cScalePct, cScalePct, 100]),
         ],
       },
     }),
   ];
 
-  const illian = 'illian'.split('');
-  const ooke = 'ooke'.split('');
-  let ind = 4;
-  illian.forEach((ch, i) => {
-    layers.push(
-      textLayer({
-        name: `illian-${ch}`,
-        ind: ind--,
-        text: ch,
-        size: fontSize,
-        pos: [illianX[i], textY],
-        ip: 0,
-        op,
-        delayAppear: 175 + i * 8,
-      })
-    );
-  });
-  ooke.forEach((ch, i) => {
-    layers.push(
-      textLayer({
-        name: `ooke-${ch}`,
-        ind: ind--,
-        text: ch,
-        size: fontSize,
-        pos: [ookeX[i], textY],
-        ip: 0,
-        op,
-        delayAppear: 185 + i * 8,
-      })
-    );
-  });
+  // Whole-word layers for true Syne kerning + one baseline
+  layers.push(
+    textLayer({
+      name: 'illian',
+      ind: 4,
+      text: 'illian',
+      size: fontSize,
+      pos: [illianX[0], baseline],
+      ip: 0,
+      op,
+      delayAppear: 175,
+      tracking: 40,
+    }),
+    textLayer({
+      name: 'ooke',
+      ind: 3,
+      text: 'ooke',
+      size: fontSize,
+      pos: [ookeX[0], baseline],
+      ip: 0,
+      op,
+      delayAppear: 190,
+      tracking: 40,
+    })
+  );
 
   return wrapAnim(W, H, 'logo-name', op, layers);
 }
