@@ -4,17 +4,18 @@ Export JSON (or convert to the expected filename) and place files here. The site
 
 ## Priority order
 
-1. `logo.json` — hero + nav (400×400 artboard; intro then idle loop)
-2. Section marks (200×200):
+1. `logo.json` — nav mark (400×400; intro then idle loop)
+2. Home name expand is implemented in SVG/CSS (`#name-expand`): two C strokes draw, then open into **Cillian Cooke**. A future Lottie can replace that block if you export an equivalent; keep artboard ~760×240 and match Syne letter spacing.
+3. Section marks (200×200):
    - `mark-work.json`
    - `mark-opinions.json`
    - `mark-poetry.json`
    - `mark-books.json`
    - `mark-podcasts.json`
-3. Empty states:
+4. Empty states:
    - `empty-opinions.json`
    - `empty-podcasts.json`
-4. Project emblems (optional, ≤96px display):
+5. Project emblems (optional, ≤96px display):
    - `emblem-atlas.json`
    - `emblem-lockup.json`
    - `emblem-metricare.json`

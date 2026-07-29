@@ -366,43 +366,131 @@ h3 { font-size: 1.2rem; }
 }
 .mark-fallback .dot { fill: var(--accent); }
 
-/* ---------- Home ---------- */
-.hero {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(2rem, 5vw, 4rem);
+/* ---------- Home / name expand ---------- */
+.hero--expand {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 2.75rem;
   min-height: calc(100vh - var(--nav-h));
   padding-block: 2rem 3rem;
   width: min(100% - 2.5rem, var(--max));
   margin-inline: auto;
 }
-.hero-copy .brand-word {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5.2rem);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-  margin: 0 0 1.5rem;
-}
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
 }
-.hero-stage {
+
+.name-expand {
+  position: relative;
+  width: min(94vw, 760px);
+  min-height: clamp(150px, 30vw, 240px);
   display: grid;
   place-items: center;
-  aspect-ratio: 1;
-  max-width: 560px;
-  width: 100%;
-  margin-inline: auto;
-  background: transparent;
-  border: none;
 }
-.hero-stage .lottie-slot {
-  width: min(100%, 520px);
-  aspect-ratio: 1;
+.name-expand-arcs {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: clamp(170px, 34vw, 300px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.55s var(--ease), transform 0.85s var(--ease);
+}
+.name-expand.is-open .name-expand-arcs {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.4);
+}
+
+.name-expand-lockup {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: gap 0.95s var(--ease);
+}
+.name-expand.is-open .name-expand-lockup {
+  gap: clamp(0.85rem, 2.8vw, 1.75rem);
+}
+
+.name-expand-word {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.name-expand-c {
+  width: clamp(2.35rem, 6.2vw, 4.35rem);
+  height: auto;
+  flex-shrink: 0;
+  overflow: visible;
+}
+.name-expand-c .stroke {
+  stroke-width: 7;
+}
+.name-expand-rest {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 6.2vw, 4.35rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-0.35rem);
+  transition:
+    max-width 0.95s var(--ease),
+    opacity 0.55s 0.28s var(--ease),
+    transform 0.75s 0.2s var(--ease);
+}
+.name-expand.is-open .name-expand-rest {
+  max-width: 10ch;
+  opacity: 1;
+  transform: none;
+}
+
+.name-expand .stroke {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: drawStroke 1.35s var(--ease) forwards;
+}
+.name-expand .stroke-letter {
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+}
+.name-expand-arcs .stroke:nth-child(2) { animation-delay: 0.12s; }
+.name-expand-word--first .stroke-letter { animation-delay: 0.22s; }
+.name-expand-word--second .stroke-letter { animation-delay: 0.34s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .name-expand .stroke {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .name-expand-arcs { display: none; }
+  .name-expand-rest {
+    max-width: 10ch;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .name-expand-lockup {
+    gap: clamp(0.85rem, 2.8vw, 1.75rem);
+    transition: none;
+  }
 }
 
 .selected-strip {
@@ -1126,14 +1214,9 @@ a.about-card:hover {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
+  .hero--expand {
     min-height: auto;
-    padding-top: 2.5rem;
-  }
-  .hero-stage {
-    order: -1;
-    max-width: 360px;
+    padding-top: 3.5rem;
   }
   .project-featured {
     grid-template-columns: 1fr;
@@ -1184,7 +1267,7 @@ a.about-card:hover {
 
 @media (max-width: 560px) {
   .section { width: min(100% - 1.5rem, var(--max)); }
-  .hero { width: min(100% - 1.5rem, var(--max)); }
+  .hero--expand { width: min(100% - 1.5rem, var(--max)); }
   .detail-photo-grid { grid-template-columns: 1fr; }
   .camp-posters { grid-template-columns: 1fr; }
   .episode-row { grid-template-columns: auto 1fr; }
