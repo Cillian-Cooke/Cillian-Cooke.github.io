@@ -531,7 +531,7 @@ function buildLogoFun() {
 
 // --- logo-name.json: mark draws, opens into Cillian Cooke ---
 function buildLogoName() {
-  const W = 900;
+  const W = 980;
   const H = 320;
   const op = 360; // ~6s then hold (player loop=false) — slower expand
   const scale = 1.15;
@@ -562,27 +562,55 @@ function buildLogoName() {
   // Per-glyph x offsets after each C (Syne Bold–ish advances; a→n given extra room)
   const illianX = [0, 26, 50, 74, 100, 152].map((x) => cillianCX + 36 + x);
   const ookeX = [0, 40, 82, 124].map((x) => cookeCX + 36 + x);
-  const nameLeft = cillianCX - 48;
-  const nameRight = ookeX[ookeX.length - 1] + 48;
+  const nameLeft = cillianCX - 52;
+  const nameRight = ookeX[ookeX.length - 1] + 52;
+  // Clear air between name glyphs and outer-arc bookends
+  const namePad = 96;
+  const outerScalePct = 90;
+  const outerS = outerScalePct / 100;
 
-  function pathCenter(p) {
+  function pathBounds(p) {
     const xs = p.v.map((v) => v[0]);
     const ys = p.v.map((v) => v[1]);
-    return [(Math.min(...xs) + Math.max(...xs)) / 2, (Math.min(...ys) + Math.max(...ys)) / 2];
+    return {
+      minX: Math.min(...xs),
+      maxX: Math.max(...xs),
+      minY: Math.min(...ys),
+      maxY: Math.max(...ys),
+      cx: (Math.min(...xs) + Math.max(...xs)) / 2,
+      cy: (Math.min(...ys) + Math.max(...ys)) / 2,
+    };
   }
 
   const mOL = map(OUTER_A);
   const mOR = map(OUTER_B);
   const mIL = map(INNER_L);
   const mIR = map(INNER_R);
-  const [olx, oly] = pathCenter(mOL);
-  const [orx, ory] = pathCenter(mOR);
-  const [ilx, ily] = pathCenter(mIL);
-  const [irx, iry] = pathCenter(mIR);
+  const bOL = pathBounds(mOL);
+  const bOR = pathBounds(mOR);
+  const bIL = pathBounds(mIL);
+  const bIR = pathBounds(mIR);
+  const [ilx, ily] = [bIL.cx, bIL.cy];
+  const [irx, iry] = [bIR.cx, bIR.cy];
 
-  // Outer arcs bookend the full name and stay (no fade)
-  const outerAFinal = [nameLeft - olx, nameY - oly - 6];
-  const outerBFinal = [nameRight - orx, nameY - ory + 6];
+  // Place by inner edge so arcs sit outside the name with readable padding
+  // (shape scale is from [0,0], so edges scale with outerS)
+  const outerAFinal = [
+    nameLeft - namePad - bOL.maxX * outerS,
+    nameY - bOL.cy * outerS,
+  ];
+  const outerBFinal = [
+    nameRight + namePad - bOR.minX * outerS,
+    nameY - bOR.cy * outerS,
+  ];
+  const outerScaleKeys = {
+    a: 1,
+    k: [
+      kf(75, [100, 100]),
+      kf(210, [outerScalePct, outerScalePct], ease),
+      kf(op, [outerScalePct, outerScalePct]),
+    ],
+  };
 
   function strokeLayer(name, ind, mapped, t0, t1, posKeys, scaleKeys) {
     return {
@@ -657,14 +685,7 @@ function buildLogoName() {
           kf(op, outerAFinal),
         ],
       },
-      {
-        a: 1,
-        k: [
-          kf(75, [100, 100]),
-          kf(210, [88, 88], ease),
-          kf(op, [88, 88]),
-        ],
-      }
+      outerScaleKeys
     ),
     strokeLayer(
       'Outer B',
@@ -681,14 +702,7 @@ function buildLogoName() {
           kf(op, outerBFinal),
         ],
       },
-      {
-        a: 1,
-        k: [
-          kf(75, [100, 100]),
-          kf(210, [88, 88], ease),
-          kf(op, [88, 88]),
-        ],
-      }
+      outerScaleKeys
     ),
     strokeLayer(
       'Inner L → Cillian C',

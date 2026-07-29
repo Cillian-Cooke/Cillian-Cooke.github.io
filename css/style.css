@@ -386,8 +386,8 @@ h3 { font-size: 1.2rem; }
 }
 
 .name-hero {
-  width: min(94vw, 900px);
-  aspect-ratio: 900 / 320;
+  width: min(94vw, 980px);
+  aspect-ratio: 980 / 320;
   max-height: min(42vh, 320px);
   position: relative;
 }
