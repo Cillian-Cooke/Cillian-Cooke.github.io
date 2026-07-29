@@ -531,12 +531,12 @@ function buildLogoFun() {
 
 // --- logo-name.json: mark draws, opens into Cillian Cooke ---
 function buildLogoName() {
-  const W = 980;
-  const H = 320;
-  const op = 360; // ~6s then hold (player loop=false) — slower expand
-  const scale = 1.15;
+  const W = 920;
+  const H = 300;
+  const op = 360; // ~6s then hold
+  const scale = 1.05;
   const markCX = W / 2;
-  const markCY = H / 2 - 10;
+  const markCY = H / 2;
   const ox = markCX - 100 * scale;
   const oy = markCY - 100 * scale;
 
@@ -552,23 +552,6 @@ function buildLogoName() {
       oy
     );
 
-  const fontSize = 68;
-  // Lockup: Cillian · Cooke centered on artboard
-  const cillianCX = 248;
-  const cookeCX = 548;
-  const nameY = markCY;
-  const textY = nameY + fontSize * 0.34;
-
-  // Per-glyph x offsets after each C (Syne Bold–ish advances; a→n given extra room)
-  const illianX = [0, 26, 50, 74, 100, 152].map((x) => cillianCX + 36 + x);
-  const ookeX = [0, 40, 82, 124].map((x) => cookeCX + 36 + x);
-  const nameLeft = cillianCX - 52;
-  const nameRight = ookeX[ookeX.length - 1] + 52;
-  // Clear air between name glyphs and outer-arc bookends
-  const namePad = 48;
-  const outerScalePct = 90;
-  const outerS = outerScalePct / 100;
-
   function pathBounds(p) {
     const xs = p.v.map((v) => v[0]);
     const ys = p.v.map((v) => v[1]);
@@ -579,8 +562,31 @@ function buildLogoName() {
       maxY: Math.max(...ys),
       cx: (Math.min(...xs) + Math.max(...xs)) / 2,
       cy: (Math.min(...ys) + Math.max(...ys)) / 2,
+      w: Math.max(...xs) - Math.min(...xs),
+      h: Math.max(...ys) - Math.min(...ys),
     };
   }
+
+  const fontSize = 64;
+  const nameY = markCY;
+  const textY = nameY + fontSize * 0.34;
+
+  // Centered two-word lockup
+  const illianAdv = [0, 26, 50, 74, 100, 152];
+  const ookeAdv = [0, 38, 78, 118];
+  const cLead = 34; // gap from C stroke center to first trailing letter
+  const lastGlyph = 38;
+  const wordGap = 52;
+  const cillianW = cLead + illianAdv[illianAdv.length - 1] + lastGlyph;
+  const cookeW = cLead + ookeAdv[ookeAdv.length - 1] + lastGlyph;
+  const lockupW = cillianW + wordGap + cookeW;
+  const lockupLeft = (W - lockupW) / 2;
+  const cillianCX = lockupLeft + 22;
+  const cookeCX = lockupLeft + cillianW + wordGap + 22;
+  const illianX = illianAdv.map((x) => cillianCX + cLead + x);
+  const ookeX = ookeAdv.map((x) => cookeCX + cLead + x);
+  const nameLeft = lockupLeft;
+  const nameRight = lockupLeft + lockupW;
 
   const mOL = map(OUTER_A);
   const mOR = map(OUTER_B);
@@ -590,29 +596,36 @@ function buildLogoName() {
   const bOR = pathBounds(mOR);
   const bIL = pathBounds(mIL);
   const bIR = pathBounds(mIR);
-  const [ilx, ily] = [bIL.cx, bIL.cy];
-  const [irx, iry] = [bIR.cx, bIR.cy];
 
-  // Place by inner edge so arcs sit outside the name with readable padding
-  // (shape scale is from [0,0], so edges scale with outerS)
-  const outerAFinal = [
-    nameLeft - namePad - bOL.maxX * outerS,
-    nameY - bOL.cy * outerS,
+  // Outer arcs: hug the lockup — height ~ name, nestled to each end
+  const outerScalePct = 72;
+  const outerS = outerScalePct / 100;
+  const nest = 22; // air between arc inner edge and name
+  // Final layer positions (anchor = path center): place arc centers so inner edges nestle
+  const leftInnerEdge = nameLeft - nest;
+  const rightInnerEdge = nameRight + nest;
+  // With scale around path center, half-width stays proportional
+  const outerAPos = [
+    leftInnerEdge - (bOL.w * outerS) / 2,
+    nameY,
   ];
-  const outerBFinal = [
-    nameRight + namePad - bOR.minX * outerS,
-    nameY - bOR.cy * outerS,
+  const outerBPos = [
+    rightInnerEdge + (bOR.w * outerS) / 2,
+    nameY,
   ];
-  const outerScaleKeys = {
-    a: 1,
-    k: [
-      kf(75, [100, 100]),
-      kf(210, [outerScalePct, outerScalePct], ease),
-      kf(op, [outerScalePct, outerScalePct]),
-    ],
-  };
 
-  function strokeLayer(name, ind, mapped, t0, t1, posKeys, scaleKeys) {
+  function strokeLayer({
+    name,
+    ind,
+    mapped,
+    t0,
+    t1,
+    bounds,
+    posKeys,
+    scaleKeys,
+    rotKeys,
+  }) {
+    const b = bounds || pathBounds(mapped);
     return {
       ddd: 0,
       ind,
@@ -621,10 +634,10 @@ function buildLogoName() {
       sr: 1,
       ks: {
         o: { a: 0, k: 100 },
-        r: { a: 0, k: 0 },
-        p: { a: 0, k: [0, 0, 0] },
-        a: { a: 0, k: [0, 0, 0] },
-        s: { a: 0, k: [100, 100, 100] },
+        r: rotKeys || { a: 0, k: 0 },
+        p: posKeys || { a: 0, k: [b.cx, b.cy, 0] },
+        a: { a: 0, k: [b.cx, b.cy, 0] },
+        s: scaleKeys || { a: 0, k: [100, 100, 100] },
       },
       ao: 0,
       shapes: [
@@ -636,7 +649,7 @@ function buildLogoName() {
               ty: 'st',
               c: { a: 0, k: INK },
               o: { a: 0, k: 100 },
-              w: { a: 0, k: 7 },
+              w: { a: 0, k: 6.5 },
               lc: 2,
               lj: 2,
               ml: 4,
@@ -651,9 +664,9 @@ function buildLogoName() {
             },
             {
               ty: 'tr',
-              p: posKeys || { a: 0, k: [0, 0] },
+              p: { a: 0, k: [0, 0] },
               a: { a: 0, k: [0, 0] },
-              s: scaleKeys || { a: 0, k: [100, 100] },
+              s: { a: 0, k: [100, 100] },
               r: { a: 0, k: 0 },
               o: { a: 0, k: 100 },
               sk: { a: 0, k: 0 },
@@ -670,70 +683,128 @@ function buildLogoName() {
   }
 
   const layers = [
-    strokeLayer(
-      'Outer A',
-      8,
-      mOL,
-      0,
-      55,
-      {
+    strokeLayer({
+      name: 'Outer A',
+      ind: 8,
+      mapped: mOL,
+      t0: 0,
+      t1: 55,
+      bounds: bOL,
+      posKeys: {
         a: 1,
         k: [
-          kf(75, [0, 0]),
-          kf(140, [outerAFinal[0] * 0.55, outerAFinal[1] * 0.55], ease),
-          kf(210, outerAFinal, ease),
-          kf(op, outerAFinal),
+          kf(75, [bOL.cx, bOL.cy, 0]),
+          kf(140, [
+            bOL.cx + (outerAPos[0] - bOL.cx) * 0.5,
+            bOL.cy + (outerAPos[1] - bOL.cy) * 0.5,
+            0,
+          ], ease),
+          kf(210, [outerAPos[0], outerAPos[1], 0], ease),
+          kf(op, [outerAPos[0], outerAPos[1], 0]),
         ],
       },
-      outerScaleKeys
-    ),
-    strokeLayer(
-      'Outer B',
-      7,
-      mOR,
-      12,
-      68,
-      {
+      scaleKeys: {
         a: 1,
         k: [
-          kf(75, [0, 0]),
-          kf(140, [outerBFinal[0] * 0.55, outerBFinal[1] * 0.55], ease),
-          kf(210, outerBFinal, ease),
-          kf(op, outerBFinal),
+          kf(75, [100, 100, 100]),
+          kf(210, [outerScalePct, outerScalePct, 100], ease),
+          kf(op, [outerScalePct, outerScalePct, 100]),
         ],
       },
-      outerScaleKeys
-    ),
-    strokeLayer(
-      'Inner L → Cillian C',
-      6,
-      mIL,
-      28,
-      78,
-      {
+      rotKeys: {
         a: 1,
         k: [
-          kf(85, [0, 0]),
-          kf(200, [cillianCX - ilx, nameY - ily], ease),
-          kf(op, [cillianCX - ilx, nameY - ily]),
+          kf(75, 0),
+          kf(210, -6, ease),
+          kf(op, -6),
         ],
-      }
-    ),
-    strokeLayer(
-      'Inner R → Cooke C',
-      5,
-      mIR,
-      40,
-      88,
-      {
+      },
+    }),
+    strokeLayer({
+      name: 'Outer B',
+      ind: 7,
+      mapped: mOR,
+      t0: 12,
+      t1: 68,
+      bounds: bOR,
+      posKeys: {
         a: 1,
         k: [
-          kf(85, [0, 0]),
-          kf(200, [cookeCX - irx, nameY - iry], ease),
-          kf(op, [cookeCX - irx, nameY - iry]),
+          kf(75, [bOR.cx, bOR.cy, 0]),
+          kf(140, [
+            bOR.cx + (outerBPos[0] - bOR.cx) * 0.5,
+            bOR.cy + (outerBPos[1] - bOR.cy) * 0.5,
+            0,
+          ], ease),
+          kf(210, [outerBPos[0], outerBPos[1], 0], ease),
+          kf(op, [outerBPos[0], outerBPos[1], 0]),
         ],
-      }
-    ),
+      },
+      scaleKeys: {
+        a: 1,
+        k: [
+          kf(75, [100, 100, 100]),
+          kf(210, [outerScalePct, outerScalePct, 100], ease),
+          kf(op, [outerScalePct, outerScalePct, 100]),
+        ],
+      },
+      rotKeys: {
+        a: 1,
+        k: [
+          kf(75, 0),
+          kf(210, 6, ease),
+          kf(op, 6),
+        ],
+      },
+    }),
+    strokeLayer({
+      name: 'Inner L → Cillian C',
+      ind: 6,
+      mapped: mIL,
+      t0: 28,
+      t1: 78,
+      bounds: bIL,
+      posKeys: {
+        a: 1,
+        k: [
+          kf(85, [bIL.cx, bIL.cy, 0]),
+          kf(200, [cillianCX, nameY, 0], ease),
+          kf(op, [cillianCX, nameY, 0]),
+        ],
+      },
+      scaleKeys: {
+        a: 1,
+        k: [
+          kf(85, [100, 100, 100]),
+          kf(200, [118, 118, 100], ease),
+          kf(op, [118, 118, 100]),
+        ],
+      },
+    }),
+    strokeLayer({
+      name: 'Inner R → Cooke C',
+      ind: 5,
+      mapped: mIR,
+      t0: 40,
+      t1: 88,
+      bounds: bIR,
+      posKeys: {
+        a: 1,
+        k: [
+          kf(85, [bIR.cx, bIR.cy, 0]),
+          kf(200, [cookeCX, nameY, 0], ease),
+          kf(op, [cookeCX, nameY, 0]),
+        ],
+      },
+      scaleKeys: {
+        a: 1,
+        k: [
+          kf(85, [100, 100, 100]),
+          kf(200, [118, 118, 100], ease),
+          kf(op, [118, 118, 100]),
+        ],
+      },
+    }),
   ];
 
   const illian = 'illian'.split('');
