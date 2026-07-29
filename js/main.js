@@ -1,122 +1,114 @@
 /* ============================================
-   CILLIAN COOKE · PORTFOLIO JS
-   Loading, routing, animations
+   Cillian Cooke · Portfolio JS
+   Routing, font toggle, reveals, hubs
    ============================================ */
 
 (function () {
   'use strict';
 
-  // --- Loader ---
-  function initLoader() {
-    const loader = document.querySelector('.loader');
-    if (!loader) return;
+  const pages = {};
+  const WRITING_PAGES = new Set(['writing', 'opinions', 'poetry']);
+  const MEDIA_PAGES = new Set(['media', 'books', 'podcasts']);
 
-    // Animate loader text letters
-    const textEl = loader.querySelector('.loader-text');
-    if (textEl) {
-      const text = textEl.textContent.trim();
-      textEl.innerHTML = '';
-      [...text].forEach((char, i) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.animationDelay = `${i * 0.05}s`;
-        textEl.appendChild(span);
+  function initFontToggle() {
+    const saved = localStorage.getItem('font') || 'default';
+    applyFont(saved);
+
+    document.querySelectorAll('.font-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-font') === 'dyslexic'
+          ? 'default'
+          : 'dyslexic';
+        applyFont(next);
+        localStorage.setItem('font', next);
       });
-    }
-
-    // Hide loader after bar animation
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      // Trigger hero entrance animations
-      animateHeroEntrance();
-    }, 2200);
-  }
-
-  // --- Hero entrance ---
-  function animateHeroEntrance() {
-    const els = document.querySelectorAll('.hero-label, .hero-title, .hero-subtitle, .hero-cta');
-    els.forEach((el, i) => {
-      setTimeout(() => {
-        el.style.transition = 'opacity 0.6s var(--transition), transform 0.6s var(--transition)';
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }, i * 150);
     });
   }
 
-  // --- SPA Router ---
-  const pages = {};
+  function applyFont(mode) {
+    if (mode === 'dyslexic') {
+      document.documentElement.setAttribute('data-font', 'dyslexic');
+    } else {
+      document.documentElement.removeAttribute('data-font');
+    }
+    document.querySelectorAll('.font-toggle').forEach((btn) => {
+      const on = mode === 'dyslexic';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      const label = btn.querySelector('.font-toggle-label');
+      if (label) {
+        label.textContent = on ? 'Dyslexia-friendly on' : 'Dyslexia-friendly';
+      }
+    });
+  }
 
   function initRouter() {
-    document.querySelectorAll('.page').forEach(p => {
+    document.querySelectorAll('.page').forEach((p) => {
       pages[p.id] = p;
     });
 
-    // Handle nav link clicks
-    document.querySelectorAll('[data-page]').forEach(link => {
+    document.querySelectorAll('[data-page]').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = link.getAttribute('data-page');
-        navigateTo(target);
+        navigateTo(link.getAttribute('data-page'));
         closeMobileMenu();
       });
     });
 
-    // Handle browser back/forward
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1) || 'home';
-      showPage(hash, false);
+      showPage(hash);
     });
 
-    // Initial page
-    const initial = window.location.hash.slice(1) || 'home';
-    showPage(initial, false);
+    showPage(window.location.hash.slice(1) || 'home');
   }
 
   function navigateTo(pageId) {
     window.location.hash = pageId === 'home' ? '' : pageId;
-    showPage(pageId, true);
+    showPage(pageId);
   }
 
-  function showPage(pageId, animate) {
-    // Update nav active states
-    document.querySelectorAll('[data-page]').forEach(link => {
+  function showPage(pageId) {
+    if (!pages[pageId]) pageId = 'home';
+
+    document.querySelectorAll('.nav-links [data-page]').forEach((link) => {
+      const target = link.getAttribute('data-page');
+      let active = target === pageId;
+      if (target === 'writing' && WRITING_PAGES.has(pageId)) active = true;
+      if (target === 'media' && MEDIA_PAGES.has(pageId)) active = true;
+      if (target === 'projects' && (pageId === 'projects' || pageId.startsWith('detail-'))) active = true;
+      link.classList.toggle('active', active);
+    });
+
+    document.querySelectorAll('.subnav [data-page]').forEach((link) => {
       link.classList.toggle('active', link.getAttribute('data-page') === pageId);
     });
 
-    // Hide all pages
-    Object.values(pages).forEach(page => {
+    Object.values(pages).forEach((page) => {
       page.classList.remove('active', 'visible');
     });
 
-    // Show target page
     const target = pages[pageId];
     if (!target) return;
 
     window.scrollTo(0, 0);
     target.classList.add('active', 'visible');
 
-    // Immediately reveal elements already in the viewport
-    target.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) el.classList.add('revealed');
-    });
-    target.querySelectorAll('.timeline-item:not(.revealed)').forEach((el, i) => {
-      if (i % 2 !== 0) el.classList.add('tl-from-right');
+    target.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach((el) => {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight) el.classList.add('revealed');
     });
 
-    // Register observer for off-screen reveals
     initReveals();
+
+    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
+      window.CillianLottie.refresh(target);
+    }
   }
 
-  // --- Mobile Menu ---
   function initMobileMenu() {
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
     const overlay = document.querySelector('.nav-overlay');
-
     if (!toggle || !links) return;
 
     toggle.addEventListener('click', () => {
@@ -125,188 +117,69 @@
       if (overlay) overlay.classList.toggle('active', isOpen);
     });
 
-    if (overlay) {
-      overlay.addEventListener('click', () => closeMobileMenu());
-    }
+    if (overlay) overlay.addEventListener('click', () => closeMobileMenu());
   }
 
   function closeMobileMenu() {
-    const toggle = document.querySelector('.nav-toggle');
-    const links = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.nav-overlay');
-    if (toggle) toggle.classList.remove('open');
-    if (links) links.classList.remove('open');
-    if (overlay) overlay.classList.remove('active');
+    document.querySelector('.nav-toggle')?.classList.remove('open');
+    document.querySelector('.nav-links')?.classList.remove('open');
+    document.querySelector('.nav-overlay')?.classList.remove('active');
   }
 
-  // --- Theme Toggle ---
-  function initThemeToggle() {
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      document.documentElement.setAttribute('data-theme', saved);
-    }
-
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.theme-toggle-hero');
-      if (!btn) return;
-      const current = document.documentElement.getAttribute('data-theme');
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = current === 'dark' || (!current && systemDark);
-      const next = isDark ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-  }
-
-  // --- Nav scroll style ---
   function initNavScroll() {
     const nav = document.querySelector('.nav');
     if (!nav) return;
-
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
+      nav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
   }
 
-  // --- About left-side timeline nav ---
-  function initAboutNav() {
-    const items = document.querySelectorAll('.about-tl-item');
-    const panels = document.querySelectorAll('.about-panel');
-    if (!items.length || !panels.length) return;
-
-    items.forEach((item) => {
-      item.addEventListener('click', () => {
-        const panel = item.getAttribute('data-panel');
-        items.forEach(i => i.classList.toggle('active', i === item));
-        panels.forEach(p => p.classList.toggle('active', p.id === `panel-${panel}`));
-      });
-    });
-  }
-
-  // --- Clickable timeline items ---
-  function initTimelineLinks() {
-    document.querySelectorAll('.tl-clickable').forEach(item => {
-      item.addEventListener('click', () => {
-        const target = item.getAttribute('data-page');
-        if (target) navigateTo(target);
-      });
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          const target = item.getAttribute('data-page');
-          if (target) navigateTo(target);
-        }
-      });
-    });
-  }
-
-  // --- Poetry accordion ---
   function initPoemAccordion() {
     const poems = document.querySelectorAll('.poem-item');
-    if (!poems.length) return;
-
-    poems.forEach(poem => {
-      poem.addEventListener('toggle', (e) => {
-        if (e.target.open) {
-          poems.forEach(other => {
-            if (other !== poem && other.open) {
-              other.open = false;
-            }
-          });
-        }
+    poems.forEach((poem) => {
+      poem.addEventListener('toggle', () => {
+        if (!poem.open) return;
+        poems.forEach((other) => {
+          if (other !== poem && other.open) other.open = false;
+        });
       });
     });
   }
 
-  // --- Cursor Glow ---
-  function initCursorGlow() {
-    const glow = document.querySelector('.cursor-glow');
-    if (!glow || window.innerWidth < 768) return;
-
-    document.addEventListener('mousemove', (e) => {
-      glow.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
-    });
-  }
-
-  // --- Scroll Reveal ---
   function initReveals() {
     const reveals = document.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)');
-
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach((el) => observer.observe(el));
+  }
 
-    // Alternating timeline item animations
-    const tlObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          tlObserver.unobserve(entry.target);
+  function initBrandKeyboard() {
+    document.querySelectorAll('.nav-brand[data-page]').forEach((el) => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navigateTo(el.getAttribute('data-page'));
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-
-    document.querySelectorAll('.timeline-item:not(.revealed)').forEach((item, i) => {
-      if (i % 2 !== 0) item.classList.add('tl-from-right');
-      tlObserver.observe(item);
     });
   }
 
-  // --- Counter animation ---
-  function animateCounters() {
-    const counters = document.querySelectorAll('[data-count]');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.getAttribute('data-count'), 10);
-          const suffix = el.getAttribute('data-suffix') || '';
-          let current = 0;
-          const step = Math.max(1, Math.floor(target / 40));
-          const interval = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              current = target;
-              clearInterval(interval);
-            }
-            el.textContent = current + suffix;
-          }, 30);
-          observer.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(el => observer.observe(el));
-  }
-
-  // --- Init ---
   document.addEventListener('DOMContentLoaded', () => {
-    initThemeToggle();
-    initLoader();
+    initFontToggle();
     initRouter();
     initMobileMenu();
     initNavScroll();
-    initAboutNav();
-    initTimelineLinks();
     initPoemAccordion();
-    initCursorGlow();
+    initBrandKeyboard();
     initReveals();
-    animateCounters();
   });
 
+  window.navigateTo = navigateTo;
 })();
-
-window.handleContactSubmit = function (e) {
-  e.preventDefault();
-  const form = e.target;
-  const success = form.nextElementSibling;
-  form.hidden = true;
-  if (success) success.hidden = false;
-};

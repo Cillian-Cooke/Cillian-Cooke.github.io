@@ -4,32 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cillian Cooke · CS Student & Developer | Trinity College Dublin</title>
-
-  <!-- Primary SEO -->
-  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin building real-world apps and software. Projects include Atlas (social media platform), Lockup, Metricare, and more. Based in Dublin, Ireland.">
-  <meta name="keywords" content="Cillian Cooke, Computer Science, Trinity College Dublin, TCD, software developer, app developer, Flutter, Dart, React, TypeScript, Python, Firebase, Atlas app, Lockup, Metricare, Digishelf, Dublin, Ireland, student developer, portfolio">
+  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin building real-world apps and software. Projects include Atlas, Lockup, Metricare, and more.">
   <meta name="author" content="Cillian Cooke">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://cilliancooke.com/">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cilliancooke.com/">
   <meta property="og:title" content="Cillian Cooke · CS Student & Developer">
-  <meta property="og:description" content="Computer Science student at Trinity College Dublin. Building apps, social platforms, and real-world software. Founder of a D&D summer camp, hackathon winner, and more.">
+  <meta property="og:description" content="Computer Science student at Trinity College Dublin. Building apps, social platforms, and real-world software.">
   <meta property="og:locale" content="en_IE">
   <meta property="og:site_name" content="Cillian Cooke">
 
-  <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Cillian Cooke · CS Student & Developer">
-  <meta name="twitter:description" content="Computer Science student at Trinity College Dublin building real-world apps and software. Dublin, Ireland.">
+  <meta name="twitter:description" content="Computer Science student at Trinity College Dublin building real-world apps and software.">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="alternate icon" href="/favicon.svg">
 
-  <!-- Structured Data: Person -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,362 +37,591 @@
       "https://www.linkedin.com/in/cillian-cooke-15155939a/"
     ],
     "jobTitle": "Computer Science Student",
-    "worksFor": {
-      "@type": "EducationalOrganization",
-      "name": "Trinity College Dublin"
-    },
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "St Conleth's College"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Dublin",
-      "addressCountry": "IE"
-    },
-    "knowsAbout": [
-      "Flutter", "Dart", "React", "TypeScript", "Python", "Firebase",
-      "Software Engineering", "App Development", "Backend Design",
-      "Bluetooth Low Energy", "FastAPI", "Figma", "Git"
-    ],
-    "description": "Computer Science student at Trinity College Dublin (2025–2030). Founder of a D&D summer camp, independent app developer, and hackathon winner (Most Creative Use of AI, Best Teamwork at Claude Hackathon, Trinity College Dublin). Projects include Atlas, a proximity-based social media platform built in Flutter, and Lockup, an app that fights phone addiction at social gatherings.",
-    "award": [
-      "Most Creative Use of AI, Claude Hackathon, Trinity College Dublin (2026)",
-      "Best Teamwork, Claude Hackathon, Trinity College Dublin (2026)",
-      "Student of The Year, St Conleth's College (x5)",
-      "Centre for Talented Youth Ireland, Engineering Programme (avg 90%)"
-    ],
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "Software Developer",
-      "description": "Building mobile and web applications using Flutter, React, and Python"
-    }
+    "worksFor": { "@type": "EducationalOrganization", "name": "Trinity College Dublin" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Dublin", "addressCountry": "IE" },
+    "knowsAbout": ["Flutter", "Dart", "React", "TypeScript", "Python", "Firebase", "Software Engineering"],
+    "description": "Computer Science student at Trinity College Dublin building apps and software including Atlas and Lockup."
   }
   </script>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ========== LOADER ========== -->
-  <div class="loader">
-    <div class="loader-inner">
-      <div class="loader-text">Cillian Cooke</div>
-      <div class="loader-bar-track">
-        <div class="loader-bar"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== NAV ========== -->
   <nav class="nav">
-    <div class="nav-logo" data-page="home">cillian cooke</div>
+    <div class="nav-brand" data-page="home" role="link" tabindex="0" aria-label="Home">
+      <div class="nav-brand-mark lottie-slot" data-lottie="lottie/logo.json" data-loop="true">
+        <svg class="logo-fallback" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="orbit" cx="100" cy="100" r="78"/>
+          <path class="stroke" d="M128 62c-28-18-68-8-78 28s18 72 54 78"/>
+          <path class="stroke" d="M72 138c28 18 68 8 78-28s-18-72-54-78" style="animation-delay:0.15s"/>
+          <text class="fill-c" x="100" y="112" text-anchor="middle" font-size="42" font-family="Syne, sans-serif" font-weight="700">CC</text>
+        </svg>
+      </div>
+      <span class="nav-brand-name">cillian</span>
+    </div>
 
-    <button class="nav-toggle" aria-label="Toggle menu">
+    <button class="nav-toggle" aria-label="Toggle menu" type="button">
       <span></span><span></span><span></span>
     </button>
 
     <ul class="nav-links">
-      <li><a data-page="home">Home</a></li>
-      <li><a data-page="projects">Projects</a></li>
+      <li><a data-page="projects">Work</a></li>
+      <li><a data-page="writing">Writing</a></li>
+      <li><a data-page="media">Media</a></li>
       <li><a data-page="about">About</a></li>
       <li><a data-page="cv">CV</a></li>
     </ul>
+
+    <div class="nav-actions">
+      <button class="font-toggle" type="button" aria-pressed="false" title="Toggle dyslexia-friendly font">
+        <span class="font-toggle-badge" aria-hidden="true">Aa</span>
+        <span class="font-toggle-label">Dyslexia-friendly</span>
+      </button>
+    </div>
     <div class="nav-overlay" aria-hidden="true"></div>
   </nav>
 
-  <!-- ========================================
-       PAGE: HOME
-       ======================================== -->
+  <!-- ========== HOME ========== -->
   <div id="home" class="page active visible">
-    <section class="hero section">
-      <div class="hero-content">
-        <p class="hero-label">CS @ Trinity College Dublin</p>
-        <h1 class="hero-title">Hey, I'm Cillian.</h1>
-        <p class="hero-subtitle">I build apps and software that solve real problems. Right now that's Atlas, a social platform with no ads or algorithms.</p>
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">CS @ Trinity College Dublin</p>
+        <p class="brand-word">cillian</p>
+        <h1>Building software that brings people closer to the real world.</h1>
+        <p class="hero-sub">Apps, systems, and experiments — from Atlas, a proximity-based social platform, to Lockup, a tool for being present together.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" data-page="projects">
-            See my work
+            View work
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="btn" href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">
-            GitHub
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </a>
-          <a class="btn" data-page="cv">
-            CV
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </a>
-          <button class="btn theme-toggle-hero" aria-label="Toggle dark mode" title="Toggle dark mode">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
-            </svg>
-          </button>
+          <a class="btn" data-page="writing">Writing</a>
         </div>
       </div>
-      <div class="hero-line"></div>
-    </section>
-
-    <!-- Selected Work Preview -->
-    <section class="section selected-work reveal">
-      <div class="selected-work-header">
-        <h2>Recent stuff</h2>
-        <a data-page="projects">See all &rarr;</a>
-      </div>
-      <div class="projects-grid stagger">
-        <!-- Project: Lockup -->
-        <a class="project-card" href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
-          <h3>Lockup</h3>
-          <p>An app that fights phone addiction at social gatherings. Guests join and distracting apps get locked so everyone actually talks to each other. Built with friends from college.</p>
-          <div class="project-tags">
-            <span class="project-tag">Mobile</span>
-            <span class="project-tag">Team Project</span>
-          </div>
-        </a>
-
-        <!-- Project: Atlas -->
-        <a class="project-card" href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
-          <h3>Atlas</h3>
-          <p>A social media platform built from scratch. No ads, no algorithms, no bots. Bluetooth proximity means you see content from people near you. My most ambitious project.</p>
-          <div class="project-tags">
-            <span class="project-tag">Dart</span>
-            <span class="project-tag">Flutter</span>
-            <span class="project-tag">Backend</span>
-            <span class="project-tag">BLE</span>
-          </div>
-        </a>
+      <div class="hero-stage reveal">
+        <div class="lottie-slot" data-lottie="lottie/logo.json" data-loop="true" aria-hidden="true">
+          <svg class="logo-fallback" viewBox="0 0 200 200">
+            <circle class="orbit" cx="100" cy="100" r="78"/>
+            <path class="stroke" d="M128 62c-28-18-68-8-78 28s18 72 54 78"/>
+            <path class="stroke" d="M72 138c28 18 68 8 78-28s-18-72-54-78" style="animation-delay:0.15s"/>
+            <text class="fill-c" x="100" y="118" text-anchor="middle" font-size="52" font-family="Syne, sans-serif" font-weight="700">CC</text>
+          </svg>
+        </div>
       </div>
     </section>
 
-    <!-- Footer -->
+    <div class="selected-strip reveal">
+      <div class="selected-strip-header">
+        <h2>Selected work</h2>
+        <a data-page="projects">All projects →</a>
+      </div>
+      <div class="selected-links">
+        <a data-page="detail-lockup">Lockup<span>Presence at gatherings</span></a>
+        <a data-page="detail-atlas">Atlas<span>Proximity social · Flutter</span></a>
+        <a data-page="detail-metricare">Metricare<span>Clinical dashboard</span></a>
+      </div>
+    </div>
+
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
-  <!-- ========================================
-       PAGE: PROJECTS
-       ======================================== -->
+  <!-- ========== WORK / PROJECTS ========== -->
   <div id="projects" class="page">
-    <section class="projects-page section" style="position:relative; overflow:hidden;">
-      <!-- Diagonal decorative timeline (projects) -->
-      <svg class="page-bg-tl" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <line x1="0" y1="92" x2="100" y2="5" stroke="currentColor" stroke-width="0.12" opacity="0.18"/>
-        <circle cx="12" cy="81.6" r="0.9" fill="currentColor" opacity="0.22"/>
-        <circle cx="28" cy="67.6" r="0.65" fill="currentColor" opacity="0.16"/>
-        <circle cx="48" cy="50.0" r="1.1" fill="currentColor" opacity="0.24"/>
-        <circle cx="65" cy="35.7" r="0.65" fill="currentColor" opacity="0.16"/>
-        <circle cx="82" cy="20.5" r="0.9" fill="currentColor" opacity="0.22"/>
-      </svg>
-      <div class="page-header reveal">
-        <h1>Projects</h1>
-        <p>Stuff I've built and contributed to.</p>
+    <section class="section">
+      <div class="page-header page-header-row reveal">
+        <div class="section-mark lottie-slot" data-lottie="lottie/mark-work.json" data-loop="true" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <circle class="dot" cx="22" cy="40" r="5"/>
+            <circle class="dot" cx="40" cy="22" r="5"/>
+            <circle class="dot" cx="58" cy="40" r="5"/>
+            <circle class="dot" cx="40" cy="58" r="5"/>
+            <path class="line" d="M22 40L40 22M40 22L58 40M58 40L40 58M40 58L22 40"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">Work</p>
+          <p class="lede">Selected builds — product experiments, team software, and solo systems.</p>
+        </div>
       </div>
 
-      <div class="projects-grid stagger">
-
-        <!-- Project: Lockup -->
-        <a class="project-card" href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      <a class="project-featured reveal" data-page="detail-lockup">
+        <div>
+          <p class="eyebrow">Product</p>
+          <h2>Lockup</h2>
+          <p>A team app that helps people stay present at social gatherings — guests join and distracting apps get out of the way so conversation can happen.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-lockup.json" data-loop="false" aria-hidden="true">
+            <svg class="mark-fallback" viewBox="0 0 80 80">
+              <rect class="line" x="28" y="34" width="24" height="28" rx="3"/>
+              <path class="line" d="M34 34v-6a6 6 0 0 1 12 0v6"/>
+            </svg>
           </div>
-          <h3>Lockup</h3>
-          <p>A team app to fight phone addiction at social gatherings. Guests join and the app temporarily restricts distracting apps so everyone actually talks to each other. Apple's restrictions on app control made us rethink the whole approach, and the team disagreements about design ended up being the most valuable part.</p>
           <div class="project-tags">
-            <span class="project-tag">Mobile</span>
-            <span class="project-tag">Team Project</span>
-            <span class="project-tag">UX</span>
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">Firebase</span>
+            <span class="project-tag">Team</span>
           </div>
-        </a>
+        </div>
+      </a>
 
-        <!-- Project: Atlas -->
-        <a class="project-card" href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      <a class="project-featured reveal" data-page="detail-atlas">
+        <div>
+          <p class="eyebrow">Product</p>
+          <h2>Atlas</h2>
+          <p>A not-for-profit social platform with no ads or algorithms. Discovery is a map; Bluetooth proximity means you mostly see people you’ve actually been near.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-atlas.json" data-loop="false" aria-hidden="true">
+            <svg class="mark-fallback" viewBox="0 0 80 80">
+              <circle class="line" cx="40" cy="40" r="28"/>
+              <circle class="line" cx="40" cy="40" r="16"/>
+              <circle class="dot" cx="40" cy="40" r="4"/>
+            </svg>
           </div>
-          <h3>Atlas</h3>
-          <p>A not-for-profit social app I've been building solo for 4+ months. No ads, no algorithmic feed, no bots. Discovery is a map of posts. Bluetooth Low Energy means you mostly see content from people you've actually been near, nudging real-world connection over doomscrolling. About halfway done, and it's eaten most of my free time. My most ambitious project by far.</p>
           <div class="project-tags">
-            <span class="project-tag">Dart</span>
             <span class="project-tag">Flutter</span>
-            <span class="project-tag">Backend Design</span>
             <span class="project-tag">BLE</span>
-            <span class="project-tag">Solo Project</span>
+            <span class="project-tag">Solo</span>
           </div>
-        </a>
+        </div>
+      </a>
 
-        <!-- Project: Metricare -->
-        <a class="project-card" href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
+      <div class="project-rows stagger">
+        <a class="project-row" data-page="detail-metricare">
           <h3>Metricare</h3>
-          <p>Medical patient dashboard that pulls together patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into one clean interface. React + Vite frontend, FastAPI Python backend.</p>
+          <p>Medical patient dashboard with FDA drug data and Gemini summaries.</p>
           <div class="project-tags">
-            <span class="project-tag">TypeScript</span>
             <span class="project-tag">React</span>
-            <span class="project-tag">Vite</span>
             <span class="project-tag">FastAPI</span>
-            <span class="project-tag">Python</span>
-            <span class="project-tag">Gemini AI</span>
+            <span class="project-tag">Gemini</span>
           </div>
         </a>
-
-        <!-- Project: Digishelf -->
-        <a class="project-card" href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
+        <a class="project-row" data-page="detail-digishelf">
           <h3>Digishelf</h3>
-          <p>A cross-platform digital bookshelf app. Scan barcodes to quickly add books, organise your collection, and keep track of your reading. Built in Flutter for iOS, Android, web, and desktop.</p>
+          <p>Cross-platform digital bookshelf with barcode scanning.</p>
           <div class="project-tags">
-            <span class="project-tag">Dart</span>
             <span class="project-tag">Flutter</span>
             <span class="project-tag">Mobile</span>
-            <span class="project-tag">Cross-Platform</span>
           </div>
         </a>
-
-        <!-- Project: Claude Hackathon -->
-        <a class="project-card" href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
+        <a class="project-row" data-page="detail-hackathon">
           <h3>Claude Hackathon</h3>
-          <p>A command-line tool for chatting with Claude. Ask questions, start interactive chats, and analyse files. Built at the Claude Hackathon at Trinity.</p>
+          <p>AI-powered D&amp;D campaign tool — Most Creative Use of AI &amp; Best Teamwork.</p>
           <div class="project-tags">
             <span class="project-tag">Python</span>
-            <span class="project-tag">Claude API</span>
-            <span class="project-tag">CLI</span>
-            <span class="project-tag">Hackathon</span>
+            <span class="project-tag">Claude</span>
+            <span class="project-tag">24h</span>
           </div>
         </a>
-
-        <!-- Project: Mars Food Simulation -->
-        <a class="project-card" href="https://github.com/mcrowley19/mars-food-simulation" target="_blank" rel="noopener noreferrer">
-          <div class="project-card-header">
-            <span class="project-card-number"></span>
-            <svg class="project-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </div>
+        <a class="project-row" data-page="detail-mars">
           <h3>Mars Food Simulation</h3>
-          <p>Simulation modelling food production and resource management for a Mars colony. Exploring sustainable agriculture in extraterrestrial environments.</p>
+          <p>Modelling food production and resources for a Mars colony.</p>
           <div class="project-tags">
             <span class="project-tag">Simulation</span>
             <span class="project-tag">Collaborative</span>
           </div>
         </a>
-
-      </div>
-
-      <!-- Project timeline -->
-      <div class="timeline reveal" style="margin-top: 4rem;">
-        <h2>Build history</h2>
-        <div class="timeline-items">
-          <div class="timeline-item tl-featured tl-clickable" data-page="detail-lockup">
-            <div class="timeline-date">Apr 2026 – Present</div>
-            <div class="timeline-title">Lockup</div>
-            <div class="timeline-desc">React Native + Firebase. Group focus app.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-featured tl-clickable" data-page="detail-hackathon">
-            <div class="timeline-date">Apr 2026</div>
-            <div class="timeline-title">Claude Hackathon</div>
-            <div class="timeline-desc">A D&amp;D app powered by AI. Won Most Creative Use of AI and Best Teamwork, built in 24 hours.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-metricare">
-            <div class="timeline-date">Mar 2026</div>
-            <div class="timeline-title">Metricare</div>
-            <div class="timeline-desc">Full-stack medical dashboard. React + FastAPI + Gemini AI.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2026</div>
-            <div class="timeline-title">Digishelf</div>
-            <div class="timeline-desc">Cross-platform bookshelf app. Flutter + barcode scanning.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2026</div>
-            <div class="timeline-title">Mars Food Simulation</div>
-            <div class="timeline-desc">Resource management simulation for Mars colony agriculture.</div>
-          </div>
-          <div class="timeline-item tl-featured tl-clickable" data-page="detail-atlas">
-            <div class="timeline-date">Oct 2025 – ongoing</div>
-            <div class="timeline-title">Atlas</div>
-            <div class="timeline-desc">Solo social media platform. Flutter + Firebase + Bluetooth LE. My biggest project.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-        </div>
       </div>
     </section>
-
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
-  <!-- ========================================
-       PAGE: ABOUT
-       ======================================== -->
-  <div id="about" class="page">
-    <section class="about-page section" style="position:relative; overflow:hidden;">
-      <!-- Diagonal decorative timeline (life events) -->
-      <svg class="page-bg-tl page-bg-tl--right" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <line x1="100" y1="95" x2="0" y2="8" stroke="currentColor" stroke-width="0.12" opacity="0.18"/>
-        <circle cx="88" cy="84.3" r="0.65" fill="currentColor" opacity="0.16"/>
-        <circle cx="72" cy="70.3" r="1.0" fill="currentColor" opacity="0.24"/>
-        <circle cx="55" cy="55.9" r="0.65" fill="currentColor" opacity="0.16"/>
-        <circle cx="38" cy="41.5" r="0.9" fill="currentColor" opacity="0.22"/>
-        <circle cx="20" cy="25.7" r="0.65" fill="currentColor" opacity="0.16"/>
-      </svg>
+  <!-- ========== WRITING HUB ========== -->
+  <div id="writing" class="page">
+    <section class="section">
       <div class="page-header reveal">
-        <h1>About me</h1>
-        <p>Who I am, what I care about, and what I get up to.</p>
+        <p class="eyebrow">Writing</p>
+        <h1>Words on the page</h1>
+        <p class="lede">Opinion pieces and poetry — two rooms, one practice of paying attention.</p>
+      </div>
+      <div class="hub-grid stagger">
+        <a class="hub-tile" data-page="opinions">
+          <p class="eyebrow">Essays</p>
+          <h2>Opinions</h2>
+          <p>Longer thoughts in HTML — arguments, notes, and pieces I’m still shaping.</p>
+          <span class="hub-go">Enter →</span>
+        </a>
+        <a class="hub-tile" data-page="poetry">
+          <p class="eyebrow">Verse</p>
+          <h2>Poetry</h2>
+          <p>Poems written alongside campaigns and quieter stretches of life.</p>
+          <span class="hub-go">Enter →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== OPINIONS ========== -->
+  <div id="opinions" class="page">
+    <section class="section">
+      <div class="subnav reveal">
+        <a data-page="writing">Writing</a>
+        <a data-page="opinions">Opinions</a>
+        <a data-page="poetry">Poetry</a>
+      </div>
+      <div class="page-header reveal">
+        <p class="eyebrow">Opinions</p>
+        <p class="lede">Essays and arguments. Click a card to read the full piece.</p>
+      </div>
+
+      <div class="piece-grid stagger">
+        <a class="piece-card" href="essays/sample.html">
+          <p class="piece-meta">Sample</p>
+          <h3>On building software that stays human</h3>
+          <p>Proximity, presence, and craft — a starter essay you can rewrite.</p>
+          <span class="piece-go">Read →</span>
+        </a>
+        <a class="piece-card" href="essays/placeholder-two.html">
+          <p class="piece-meta">Placeholder</p>
+          <h3>Untitled essay</h3>
+          <p>Replace this card’s title, lede, and linked HTML when you have the piece.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="essays/placeholder-three.html">
+          <p class="piece-meta">Placeholder</p>
+          <h3>Untitled essay</h3>
+          <p>Another slot for a finished opinion piece.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== POETRY ========== -->
+  <div id="poetry" class="page">
+    <section class="section reading">
+      <div class="subnav reveal">
+        <a data-page="writing">Writing</a>
+        <a data-page="opinions">Opinions</a>
+        <a data-page="poetry">Poetry</a>
+      </div>
+      <div class="page-header page-header-row reveal">
+        <div class="section-mark lottie-slot" data-lottie="lottie/mark-poetry.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <path class="line" d="M18 28h36"/>
+            <path class="line" d="M22 40h28"/>
+            <path class="line" d="M26 52h20"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">Poetry</p>
+          <h1>Verse</h1>
+          <p class="lede">Poems from Campaign II and quieter pages — open one at a time.</p>
+        </div>
+      </div>
+
+      <div class="poetry-section reveal">
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Overture I</span>
+            <span class="poem-subtitle">Every note is born equal</span>
+          </summary>
+          <div class="poem-content">
+            <p>Every note is born equal, yet<br>An artist must decide what note comes next.<br>A choice that should never rest with one alone.<br>Equality does not mean perfection.</p>
+            <p>Across this universe, infinite lives begin.<br>Infinite lives end.<br>And I, as an artist, as a lover, must choose but one.<br>A choice made infinitely impossible.</p>
+            <p>With the concept of infinity,<br>With a gesture most romantic, I will<br>Divide infinity to reach you,<br>Until infinity becomes one.</p>
+            <p>And with that,<br>Multiply one to infinity.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Undying Note III</span>
+            <span class="poem-subtitle">War is coming, maybe not in this life</span>
+          </summary>
+          <div class="poem-content">
+            <p>War is coming, maybe not in this life,<br>but definitely in the next.</p>
+            <p>Living is to fight; dying is to move on.<br>Each stage grows, while you shrink.</p>
+            <p>A war shouldn’t be won with a thousand soldiers,<br>but rather one right leader,<br>one who unites,<br>one who plays the perfect harmony<br>between pain and growth.</p>
+            <p>War isn’t won with sticks and stones,<br>but rather a series of notes,<br>a chord juxtaposed with a lullaby.</p>
+            <p>So this fight may be over,<br>but the war has just begun.<br>To fight and die is the greatest sacrifice;<br>to fight and live is to fight again.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Singularity IV</span>
+            <span class="poem-subtitle">Weightless in the eyes of progress</span>
+          </summary>
+          <div class="poem-content">
+            <p>Weightless in the eyes of progress,<br>Progress found in the event of no return.</p>
+            <p>Beyond the cliff of moments.<br>For a God does not fear<br>The concept of time.</p>
+            <p>The other side awaits. Patiently<br>Aging the mortals.<br>Like a clock ticking down its own demise.<br>So shall you. A warrior with no urgency.</p>
+            <p>Is a hero with no purpose.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">The Final Chapter XII</span>
+            <span class="poem-subtitle">It begins and ends with you</span>
+          </summary>
+          <div class="poem-content">
+            <p>It begins and ends with you,<br>My fallen angel bearing the golden ticket.<br>A war to end all wars is not worth the blade<br>If your soul wasn’t left to save.</p>
+            <p>This ticket to omnipotence is priceless,<br>Yet exemption from battle is granted<br>Along with the greatest honour.<br>For you and you alone must choose,</p>
+            <p>A single champion.</p>
+            <p>A champion to lead us into war.<br>And the war comes for us now,<br>For a plague has taken root,<br>Defence will only buy us time.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Questioning V</span>
+            <span class="poem-subtitle">Walking in circles; running from memories</span>
+          </summary>
+          <div class="poem-content">
+            <p>Walking in circles; running from memories.<br>Memories of nightmares.<br>Nightmares that manifest to reality.</p>
+            <p>An endless cycle, building upon itself.</p>
+            <p>I never got to the heart of the problem,<br>As I never learned to hold my breath.</p>
+            <p>How I apologise to myself with empty words.<br>“Sorry” isn’t enough to put out a fire.</p>
+            <p>Stop looking in the eyes of others,<br>As you share different worlds.</p>
+            <p>By walking through old memories,<br>Each one slightly wrong.</p>
+            <p>A mirror placed in front of me,<br>Still doesn’t reflect how I feel.<br>In a world of good and evil.<br>I feel left out.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== MEDIA HUB ========== -->
+  <div id="media" class="page">
+    <section class="section">
+      <div class="page-header reveal">
+        <p class="eyebrow">Media</p>
+        <h1>What I’m taking in</h1>
+        <p class="lede">Books on the shelf and podcasts in the queue.</p>
+      </div>
+      <div class="hub-grid stagger">
+        <a class="hub-tile" data-page="books">
+          <p class="eyebrow">Reading</p>
+          <h2>Books</h2>
+          <p>Comics, non-fiction, and the technical books that shape how I build.</p>
+          <span class="hub-go">Browse →</span>
+        </a>
+        <a class="hub-tile" data-page="podcasts">
+          <p class="eyebrow">Listening</p>
+          <h2>Podcasts</h2>
+          <p>Episodes and shows — placeholders until the real feed lands.</p>
+          <span class="hub-go">Listen →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== BOOKS ========== -->
+  <div id="books" class="page">
+    <section class="section">
+      <div class="subnav reveal">
+        <a data-page="media">Media</a>
+        <a data-page="books">Books</a>
+        <a data-page="podcasts">Podcasts</a>
+      </div>
+      <div class="page-header page-header-row reveal">
+        <div class="section-mark lottie-slot" data-lottie="lottie/mark-books.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <path class="line" d="M24 20h28v40H24z"/>
+            <path class="line" d="M28 20c8 6 16 6 24 0"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">Books</p>
+          <h1>On the shelf</h1>
+          <p class="lede">A working shelf — comics, ideas, and engineering references.</p>
+        </div>
+      </div>
+
+      <div class="books-grid stagger">
+        <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1" loading="lazy">
+          <h3>Invincible Compendium 1</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2" loading="lazy">
+          <h3>Invincible Compendium 2</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3" loading="lazy">
+          <h3>Invincible Compendium 3</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys" loading="lazy">
+          <h3>The Boys</h3>
+          <p class="book-author">Garth Ennis</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta" loading="lazy">
+          <h3>V for Vendetta</h3>
+          <p class="book-author">Alan Moore</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History" loading="lazy">
+          <h3>Sapiens: A Graphic History</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus" loading="lazy">
+          <h3>Nexus</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World" loading="lazy">
+          <h3>Hello World</h3>
+          <p class="book-author">Hannah Fry</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies" loading="lazy">
+          <h3>If Anyone Builds It, Everyone Dies</h3>
+          <p class="book-author">Yudkowsky &amp; Soares</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action" loading="lazy">
+          <h3>Flutter in Action</h3>
+          <p class="book-author">Eric Windmill</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications" loading="lazy">
+          <h3>Designing Data-Intensive Applications</h3>
+          <p class="book-author">Martin Kleppmann</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts" loading="lazy">
+          <h3>Smartcuts</h3>
+          <p class="book-author">Shane Snow</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test" loading="lazy">
+          <h3>The Mom Test</h3>
+          <p class="book-author">Rob Fitzpatrick</p>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PODCASTS ========== -->
+  <div id="podcasts" class="page">
+    <section class="section">
+      <div class="subnav reveal">
+        <a data-page="media">Media</a>
+        <a data-page="books">Books</a>
+        <a data-page="podcasts">Podcasts</a>
+      </div>
+      <div class="page-header reveal">
+        <p class="eyebrow">Podcasts</p>
+        <p class="lede">Episodes and notes. Click a card to open the episode page.</p>
+      </div>
+
+      <div class="piece-grid stagger">
+        <a class="piece-card" href="podcasts/ep-01.html">
+          <p class="piece-meta">Ep. 01 · Placeholder</p>
+          <h3>Why proximity beats the feed</h3>
+          <p>On discovery without the infinite scroll.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="podcasts/ep-02.html">
+          <p class="piece-meta">Ep. 02 · Placeholder</p>
+          <h3>Shipping alone without disappearing</h3>
+          <p>Solo builds, pace, and staying human while you ship.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="podcasts/ep-03.html">
+          <p class="piece-meta">Ep. 03 · Placeholder</p>
+          <h3>Tabletop worlds and product design</h3>
+          <p>What campaigns teach about systems people actually inhabit.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== ABOUT ========== -->
+  <div id="about" class="page">
+    <section class="section">
+      <div class="page-header reveal">
+        <p class="eyebrow">About</p>
+        <h1>Cillian Cooke</h1>
+        <p class="lede">Computer Science at Trinity College Dublin. I build software that solves real problems — and I care how it feels to use.</p>
       </div>
 
       <div class="about-grid reveal">
         <div class="about-text">
           <p>
-            I'm <strong>Cillian Cooke</strong>, a Computer Science student at
-            <strong>Trinity College Dublin</strong>. I'm also dyslexic (hence the font).
-            I don't write code for its own sake. I build real solutions to real problems,
-            and if I spot something worth making, I make it.
+            I’m a first-year CS student focused on shipping real products: Atlas, a proximity-based social platform built solo in Flutter; Lockup, a team app for presence at gatherings; and collaborative work like Metricare and hackathon tools.
           </p>
           <p>
-            Outside of tech: I founded a <strong>D&D summer camp</strong> at 17, play football
-            for <strong>Leinster Celtic</strong>, juggle with Trinity's Circus Society, and spent
-            three weeks volunteering at rural schools in <strong>Tanzania</strong>.
-            I was also selected for the <strong>Centre for Talented Youth Ireland</strong> programme.
+            Outside of code I play football for Leinster Celtic, juggle with Trinity’s Circus Society, and spent three weeks volunteering at rural schools in Tanzania.
           </p>
+          <div class="about-note">
+            I’m dyslexic. Use the <strong>Dyslexia-friendly</strong> control in the navigation to switch the whole site to OpenDyslexic — it’s optional, obvious, and remembered for your next visit.
+          </div>
         </div>
-
         <div class="about-details">
           <div class="detail-block">
             <h3>Location</h3>
@@ -404,613 +629,217 @@
           </div>
           <div class="detail-block">
             <h3>Education</h3>
-            <p>BSc/MSc Computer Science, Trinity College Dublin (2025–2030)</p>
+            <p>MAI Integrated Computer Science, Trinity College Dublin (2025–2030)</p>
           </div>
           <div class="detail-block">
-            <h3>Languages & Tools</h3>
+            <h3>Tools</h3>
             <ul>
               <li>Python</li>
               <li>TypeScript</li>
               <li>Dart</li>
-              <li>JavaScript</li>
-              <li>HTML/CSS</li>
               <li>React</li>
               <li>Flutter</li>
               <li>FastAPI</li>
+              <li>Firebase</li>
               <li>Git</li>
               <li>Figma</li>
             </ul>
           </div>
           <div class="detail-block">
             <h3>CV</h3>
-            <p><a data-page="cv" style="color: var(--accent); font-weight: 600; cursor: pointer;">View my CV &rarr;</a></p>
+            <p><a data-page="cv" style="color:var(--accent);font-weight:650;cursor:pointer">View CV →</a></p>
           </div>
         </div>
       </div>
 
-      <div class="about-sections reveal">
-        <nav class="about-tl-nav">
-          <ul class="about-tl-list">
-            <li><button class="about-tl-item active" data-panel="books">Books</button></li>
-            <li><button class="about-tl-item" data-panel="dnd">D&amp;D</button></li>
-            <li><button class="about-tl-item" data-panel="poetry">Poetry</button></li>
-            <li><button class="about-tl-item" data-panel="travel">Travel</button></li>
-          </ul>
-        </nav>
-
-        <div class="about-panels">
-          <div class="about-panel active" id="panel-books">
-            <div class="books-grid">
-              <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1 cover" loading="lazy">
-                <h3>Invincible Compendium 1</h3>
-                <p class="book-author">Robert Kirkman</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2 cover" loading="lazy">
-                <h3>Invincible Compendium 2</h3>
-                <p class="book-author">Robert Kirkman</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3 cover" loading="lazy">
-                <h3>Invincible Compendium 3</h3>
-                <p class="book-author">Robert Kirkman</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys cover" loading="lazy">
-                <h3>The Boys</h3>
-                <p class="book-author">Garth Ennis</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta cover" loading="lazy">
-                <h3>V for Vendetta</h3>
-                <p class="book-author">Alan Moore</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History cover" loading="lazy">
-                <h3>Sapiens: A Graphic History</h3>
-                <p class="book-author">Yuval Noah Harari</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus cover" loading="lazy">
-                <h3>Nexus</h3>
-                <p class="book-author">Yuval Noah Harari</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World cover" loading="lazy">
-                <h3>Hello World</h3>
-                <p class="book-author">Hannah Fry</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies cover" loading="lazy">
-                <h3>If Anyone Builds It, Everyone Dies</h3>
-                <p class="book-author">Eliezer Yudkowsky &amp; Nate Soares</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action cover" loading="lazy">
-                <h3>Flutter in Action</h3>
-                <p class="book-author">Eric Windmill</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications cover" loading="lazy">
-                <h3>Designing Data-Intensive Applications</h3>
-                <p class="book-author">Martin Kleppmann</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts cover" loading="lazy">
-                <h3>Smartcuts</h3>
-                <p class="book-author">Shane Snow</p>
-              </a>
-              <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
-                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test cover" loading="lazy">
-                <h3>The Mom Test</h3>
-                <p class="book-author">Rob Fitzpatrick</p>
-              </a>
-            </div>
-          </div>
-
-          <div class="about-panel" id="panel-dnd">
-            <div class="dnd-intro">
-              <p><strong>Dungeons & Dragons</strong> is one of my favourite creative outlets. I've been a Dungeon Master for three years and founded a D&D summer camp, which I designed, advertised, and ran solo at 17.</p>
-            </div>
-
-            <div class="dnd-camp-card">
-              <div class="camp-card-header">
-                <h3>D&D Summer Camp</h3>
-                <p>Run independently at 17</p>
-              </div>
-              <div class="camp-card-body">
-                <p>A multi-week camp for new and experienced players. Guided campaigns, character workshops, and collaborative storytelling, all planned and run by me.</p>
-              </div>
-              <div class="camp-poster-stack">
-                <img class="camp-poster" src="images/DnD_poster1.png" alt="Dungeons & Dragons camp poster 1">
-                <img class="camp-poster" src="images/DnD_poster2.png" alt="Dungeons & Dragons camp poster 2">
-              </div>
-            </div>
-
-            <div class="campaigns-section">
-              <h2>Campaigns I'm proud of</h2>
-              <div class="poetry-section">
-                <details class="poem-item">
-                  <summary>
-                    <span class="poem-title">Campaign I · The Living Canvas</span>
-                    <span class="poem-subtitle">A world dreamed into being · 8 months</span>
-                  </summary>
-                  <div class="poem-content">
-                    <p>Step inside the mind of a Sacred Artist, a god who paints reality itself. Inspired by the hauntingly beautiful post-apocalyptic visions of Simon Stålenhag, this world is one where rusting machines breathe and move with something disturbingly close to life. Organic circuitry pulses beneath metal flesh. Wetlands hum with forgotten technology.</p>
-                    <p>But the landscape is never fixed. The world shifts with the artist's mood: storm-grey desolation when he despairs, amber warmth when wonder stirs in him again. To navigate it, players must learn to read not the terrain, but the soul behind it.</p>
-                    <div class="campaign-tags">
-                      <span>Sacred Artist Class</span>
-                      <span>Post-Apocalyptic</span>
-                      <span>Biomechanical</span>
-                      <span>Surrealist</span>
-                    </div>
-                  </div>
-                </details>
-
-                <details class="poem-item">
-                  <summary>
-                    <span class="poem-title">Campaign II · The Next Stage</span>
-                    <span class="poem-subtitle">A race through the poetry of dying · 7 months</span>
-                  </summary>
-                  <div class="poem-content">
-                    <p>Death, in the world of Norman Alperson, is not a wall. It's a door. A poet of extraordinary power, Norman grants new stages of existence to those whose lives have reached their natural fullness. Not an ending, but a transformation into something richer.</p>
-                    <p>Players raced toward the Final Life, a heaven beyond all heavens, but the path demanded more than strength or cunning. Every trial was woven into verse. To advance, they had to feel the meaning hidden within the language, to move through metaphor as though it were terrain.</p>
-                    <p class="campaign-note">Original poems from this campaign live in the Poetry tab →</p>
-                    <div class="campaign-tags">
-                      <span>Poetic Puzzles</span>
-                      <span>Afterlife Mythology</span>
-                      <span>Literary</span>
-                      <span>Philosophical</span>
-                    </div>
-                  </div>
-                </details>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="about-panel" id="panel-poetry">
-            <div class="poetry-section">
-              <details class="poem-item">
-                <summary>
-                  <span class="poem-title">Overture I</span>
-                  <span class="poem-subtitle">Every note is born equal</span>
-                </summary>
-                <div class="poem-content">
-                  <p>Every note is born equal, yet
-                  An artist must decide what note comes next.
-                  A choice that should never rest with one alone.
-                  Equality does not mean perfection.</p>
-                  <p>Across this universe, infinite lives begin.
-                  Infinite lives end.
-                  And I, as an artist, as a lover, must choose but one.
-                  A choice made infinitely impossible.</p>
-                  <p>With the concept of infinity,
-                  With a gesture most romantic, I will
-                  Divide infinity to reach you,
-                  Until infinity becomes one.</p>
-                  <p>And with that,
-                  Multiply one to infinity.</p>
-                </div>
-              </details>
-
-              <details class="poem-item">
-                <summary>
-                  <span class="poem-title">Undying Note III</span>
-                  <span class="poem-subtitle">War is coming, maybe not in this life</span>
-                </summary>
-                <div class="poem-content">
-                  <p>War is coming, maybe not in this life,
-                  but definitely in the next.</p>
-                  <p>Living is to fight; dying is to move on.
-                  Each stage grows, while you shrink.</p>
-                  <p>A war shouldn’t be won with a thousand soldiers,
-                  but rather one right leader,
-                  one who unites,
-                  one who plays the perfect harmony
-                  between pain and growth.</p>
-                  <p>War isn’t won with sticks and stones,
-                  but rather a series of notes,
-                  a chord juxtaposed with a lullaby.</p>
-                  <p>So this fight may be over,
-                  but the war has just begun.
-                  To fight and die is the greatest sacrifice;
-                  to fight and live is to fight again.</p>
-                </div>
-              </details>
-
-              <details class="poem-item">
-                <summary>
-                  <span class="poem-title">Singularity IV</span>
-                  <span class="poem-subtitle">Weightless in the eyes of progress</span>
-                </summary>
-                <div class="poem-content">
-                  <p>Weightless in the eyes of progress,
-                  Progress found in the event of no return.</p>
-                  <p>Beyond the cliff of moments.
-                  For a God does not fear
-                  The concept of time.</p>
-                  <p>The other side awaits. Patiently
-                  Aging the mortals.
-                  Like a clock ticking down its own demise.
-                  So shall you. A warrior with no urgency.</p>
-                  <p>Is a hero with no purpose.</p>
-                </div>
-              </details>
-
-              <details class="poem-item">
-                <summary>
-                  <span class="poem-title">The Final Chapter XII</span>
-                  <span class="poem-subtitle">It begins and ends with you</span>
-                </summary>
-                <div class="poem-content">
-                  <p>It begins and ends with you,
-                  My fallen angel bearing the golden ticket.
-                  A war to end all wars is not worth the blade
-                  If your soul wasn’t left to save.</p>
-                  <p>This ticket to omnipotence is priceless,
-                  Yet exemption from battle is granted
-                  Along with the greatest honour.
-                  For you and you alone must choose,</p>
-                  <p>A single champion.</p>
-                  <p>A champion to lead us into war.
-                  And the war comes for us now,
-                  For a plague has taken root,
-                  Defence will only buy us time.</p>
-                </div>
-              </details>
-
-              <details class="poem-item">
-                <summary>
-                  <span class="poem-title">Questioning V</span>
-                  <span class="poem-subtitle">Walking in circles; running from memories</span>
-                </summary>
-                <div class="poem-content">
-                  <p>Walking in circles; running from memories.
-                  Memories of nightmares.
-                  Nightmares that manifest to reality.</p>
-                  <p>An endless cycle, building upon itself.</p>
-                  <p>I never got to the heart of the problem,
-                  As I never learned to hold my breath.</p>
-                  <p>How I apologise to myself with empty words.
-                  “Sorry” isn’t enough to put out a fire.</p>
-                  <p>Stop looking in the eyes of others,
-                  As you share different worlds.</p>
-                  <p>By walking through old memories,
-                  Each one slightly wrong.</p>
-                  <p>A mirror placed in front of me,
-                  Still doesn’t reflect how I feel.
-                  In a world of good and evil.
-                  I feel left out.</p>
-                </div>
-              </details>
-            </div>
-          </div>
-
-          <div class="about-panel" id="panel-travel">
-            <h2 class="travel-heading">Countries I've visited</h2>
-            <div class="country-grid">
-              <div class="country-card"><div class="country-flag">🇮🇪</div><div class="country-name">Ireland</div></div>
-              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="country-name">England</div></div>
-              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</div><div class="country-name">Scotland</div></div>
-              <div class="country-card"><div class="country-flag">🏴󠁧󠁢󠁮󠁩󠁲󠁿</div><div class="country-name">Northern Ireland</div></div>
-              <div class="country-card"><div class="country-flag">🇪🇸</div><div class="country-name">Spain</div></div>
-              <div class="country-card"><div class="country-flag">🇵🇹</div><div class="country-name">Portugal</div></div>
-              <div class="country-card"><div class="country-flag">🇮🇹</div><div class="country-name">Italy</div></div>
-              <div class="country-card"><div class="country-flag">🇩🇪</div><div class="country-name">Germany</div></div>
-              <div class="country-card"><div class="country-flag">🇨🇭</div><div class="country-name">Switzerland</div></div>
-              <div class="country-card"><div class="country-flag">🇫🇮</div><div class="country-name">Finland</div></div>
-              <div class="country-card"><div class="country-flag">🇮🇸</div><div class="country-name">Iceland</div></div>
-              <div class="country-card"><div class="country-flag">🇵🇱</div><div class="country-name">Poland</div></div>
-              <div class="country-card"><div class="country-flag">🇨🇿</div><div class="country-name">Czech Republic</div></div>
-              <div class="country-card"><div class="country-flag">🇸🇮</div><div class="country-name">Slovenia</div></div>
-              <div class="country-card"><div class="country-flag">🇭🇷</div><div class="country-name">Croatia</div></div>
-              <div class="country-card"><div class="country-flag">🇧🇦</div><div class="country-name">Bosnia &amp; Herzegovina</div></div>
-              <div class="country-card"><div class="country-flag">🇪🇪</div><div class="country-name">Estonia</div></div>
-              <div class="country-card"><div class="country-flag">🇹🇿</div><div class="country-name">Tanzania</div></div>
-              <div class="country-card"><div class="country-flag">🇹🇭</div><div class="country-name">Thailand</div></div>
-              <div class="country-card"><div class="country-flag">🇺🇸</div><div class="country-name">USA</div></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Timeline -->
-      <div class="timeline reveal">
-        <h2>What I've been up to</h2>
-        <div class="timeline-items">
-          <div class="timeline-item tl-clickable" data-page="detail-lockup" role="button" tabindex="0">
-            <div class="timeline-date">Apr 2026</div>
-            <div class="timeline-title">Lockup</div>
-            <div class="timeline-desc">An app that locks distracting apps to keep people present at social gatherings. Built with friends from college.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-hackathon" role="button" tabindex="0">
-            <div class="timeline-date">Apr 2026</div>
-            <div class="timeline-title">Claude Hackathon</div>
-            <div class="timeline-desc">A D&D campaign app powered by AI, built at Trinity. Won two awards.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-metricare" role="button" tabindex="0">
-            <div class="timeline-date">Mar 2026</div>
-            <div class="timeline-title">Metricare</div>
-            <div class="timeline-desc">A full-stack patient dashboard with React, FastAPI, and Gemini AI. Team project.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-atlas" role="button" tabindex="0">
-            <div class="timeline-date">Oct 2025 – ongoing</div>
-            <div class="timeline-title">Atlas</div>
-            <div class="timeline-desc">Teaching myself backend design and Dart to build a social platform from scratch. No ads, no algorithms.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-trinity" role="button" tabindex="0">
-            <div class="timeline-date">Sep 2025</div>
-            <div class="timeline-title">Started at Trinity College Dublin</div>
-            <div class="timeline-desc">Computer Science. Current average 72%.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-tanzania" role="button" tabindex="0">
-            <div class="timeline-date">Summer 2024</div>
-            <div class="timeline-title">Tanzania</div>
-            <div class="timeline-desc">Three weeks volunteering at rural schools, camping, and hiking mountains.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
-          <div class="timeline-item tl-clickable" data-page="detail-dnd-camp" role="button" tabindex="0">
-            <div class="timeline-date">Summer 2024</div>
-            <div class="timeline-title">Founded D&D Summer Camp</div>
-            <div class="timeline-desc">Planned and ran the whole thing independently at 17.</div>
-            <div class="tl-goto">View more &rarr;</div>
-          </div>
+      <div class="about-aside reveal">
+        <h2>Places I’ve been</h2>
+        <div class="country-list">
+          <span class="country-chip">Ireland</span>
+          <span class="country-chip">England</span>
+          <span class="country-chip">Scotland</span>
+          <span class="country-chip">Northern Ireland</span>
+          <span class="country-chip">Spain</span>
+          <span class="country-chip">Portugal</span>
+          <span class="country-chip">Italy</span>
+          <span class="country-chip">Germany</span>
+          <span class="country-chip">Switzerland</span>
+          <span class="country-chip">Finland</span>
+          <span class="country-chip">Iceland</span>
+          <span class="country-chip">Poland</span>
+          <span class="country-chip">Czech Republic</span>
+          <span class="country-chip">Slovenia</span>
+          <span class="country-chip">Croatia</span>
+          <span class="country-chip">Bosnia &amp; Herzegovina</span>
+          <span class="country-chip">Estonia</span>
+          <span class="country-chip">Tanzania</span>
+          <span class="country-chip">Thailand</span>
+          <span class="country-chip">USA</span>
         </div>
       </div>
     </section>
-
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
-  <!-- ========================================
-       PAGE: CV
-       ======================================== -->
+  <!-- ========== CV ========== -->
   <div id="cv" class="page">
-    <section class="cv-page section" style="position:relative; overflow:hidden;">
-
-      <!-- Decorative jobs timeline behind the CV -->
-      <div class="cv-bg-timeline" aria-hidden="true">
-        <div class="cv-bg-line"></div>
-        <div class="cv-bg-node" style="left:3%">
-          <div class="cv-bg-dot"></div>
-          <div class="cv-bg-label cv-bg-below">2019<br>Leinster Rugby</div>
-        </div>
-        <div class="cv-bg-node" style="left:22%">
-          <div class="cv-bg-dot"></div>
-          <div class="cv-bg-label cv-bg-above">2022<br>Gardening</div>
-        </div>
-        <div class="cv-bg-node" style="left:42%">
-          <div class="cv-bg-dot"></div>
-          <div class="cv-bg-label cv-bg-below">2024<br>D&amp;D Camp</div>
-        </div>
-        <div class="cv-bg-node" style="left:62%">
-          <div class="cv-bg-dot"></div>
-          <div class="cv-bg-label cv-bg-above">2025<br>Happy Days</div>
-        </div>
-        <div class="cv-bg-node" style="left:82%">
-          <div class="cv-bg-dot"></div>
-          <div class="cv-bg-label cv-bg-below">2026<br>Lockup</div>
-        </div>
+    <section class="section">
+      <div class="page-header reveal">
+        <p class="eyebrow">CV</p>
+        <h1>Curriculum vitae</h1>
+        <p class="lede">Education, experience, and projects — download the DOCX for applications.</p>
       </div>
-
-      <div class="cv-container reveal" style="position:relative; z-index:1;">
-        <div class="cv-sheet">
-
-          <!-- Header -->
-          <div class="cv-header">
-            <h2>Cillian Cooke</h2>
-            <p class="cv-subtitle">23 Moyne Road, Ranelagh, Dublin 6 &bull; +353 83 354 6599</p>
-            <div class="cv-contact-row">
-              <a href="mailto:cilliancooke876@gmail.com">cilliancooke876@gmail.com</a>
-              <span>&bull;</span>
-              <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <span>&bull;</span>
-              <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </div>
-          </div>
-
-          <p class="cv-summary">Motivated First Year Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software projects, leading teams, and running independent ventures.</p>
-
-          <!-- Education -->
-          <div class="cv-section">
-            <h3>Education</h3>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Trinity College Dublin</strong>
-                <span class="cv-date">09/2025 &ndash; Present</span>
-              </div>
-              <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
-              <ul>
-                <li>Developing proficiency in multiple programming languages and the ability to quickly learn new technologies</li>
-                <li>Expected graduation: 05/2030</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>CTYI Engineering Programme</strong>
-                <span class="cv-date">09/2022 &ndash; 05/2023</span>
-              </div>
-              <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
-              <ul>
-                <li>Selected for competitive engineering programme focused on problem-solving, design and analytical thinking</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>St Conleth&rsquo;s College</strong>
-                <span class="cv-date">09/2019 &ndash; 05/2025</span>
-              </div>
-              <p class="cv-place">Secondary School Education</p>
-            </div>
-          </div>
-
-          <!-- Employment Experience -->
-          <div class="cv-section">
-            <h3>Employment Experience</h3>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Lockup</strong>
-                <span class="cv-date">04/2026 &ndash; Present</span>
-              </div>
-              <p class="cv-place">Group Focus Startup &middot; Team Project &middot; React Native, Firebase</p>
-              <ul>
-                <li>Building an application that encourages healthier phone habits in groups</li>
-                <li>Led backend and app design, collaborating with teammates using Git-based workflows</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Gardening</strong>
-                <span class="cv-date">06/2022 &ndash; Present</span>
-              </div>
-              <ul>
-                <li>Managed an independent business serving 10+ recurring clients, handling scheduling, customer relations, pricing and service delivery</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Dungeons and Dragons Summer Camp</strong>
-                <span class="cv-date">Summer 2024 &amp; Summer 2025</span>
-              </div>
-              <p class="cv-place">Founder and Organiser</p>
-              <ul>
-                <li>Designed, marketed and ran a multi-year summer camp</li>
-                <li>Managed client communication, planning and group facilitation</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Happy Days Preschool and Afterschool</strong>
-                <span class="cv-date">07/2025 &ndash; 01/2026</span>
-              </div>
-              <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
-              <ul>
-                <li>Developed responsibility, communication and teamwork skills</li>
-                <li>Designed and built the Happy Days Preschool &amp; Afterschool website, delivering a clear, user-friendly online presence</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Leinster Rugby Ball Boy</strong>
-                <span class="cv-date">09/2019 &ndash; 04/2025</span>
-              </div>
-              <ul>
-                <li>Selected to support professional-level matches, requiring discipline, teamwork and performance under pressure</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Projects -->
-          <div class="cv-section">
-            <h3>Projects</h3>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Atlas</strong>
-                <span class="cv-date">10/2025 &ndash; 04/2026</span>
-              </div>
-              <p class="cv-place">Social Media Startup &middot; Solo Project &middot; Flutter, Firebase</p>
-              <ul>
-                <li>Independent project designing and building a social media application</li>
-                <li>Responsible for full stack development, UI/UX and system architecture</li>
-              </ul>
-            </div>
-
-            <div class="cv-entry">
-              <div class="cv-entry-header">
-                <strong>Claude Hackathon</strong>
-                <span class="cv-date">04/2026</span>
-              </div>
-              <p class="cv-place">Winning Team Project &middot; D&amp;D Game</p>
-              <ul>
-                <li>Won Most Creative Use of AI &amp; Best Teamwork</li>
-                <li>Built a collaborative Dungeons &amp; Dragons campaign app powered by generative AI</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Skills & Interests -->
-          <div class="cv-section">
-            <h3>Skills &amp; Interests</h3>
-            <div class="cv-skills-list">
-              <p><strong>Coding Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
-              <p><strong>Technical Skills:</strong> Firebase (Authentication, Firestore, Hosting) [advanced], VS Code [advanced], GitHub [intermediate]</p>
-              <p><strong>Interests:</strong> Football, Circus &amp; Juggling, Dungeons &amp; Dragons, App Development, Reading non-fiction</p>
-            </div>
-          </div>
-
-          <!-- Awards & Leadership -->
-          <div class="cv-section">
-            <h3>Awards &amp; Leadership</h3>
-            <ul>
-              <li><strong>Student of The Year</strong>: awarded at St Conleth&rsquo;s College five times for academic excellence, commitment and leadership</li>
-              <li><strong>Rugby Team Captain</strong>: led on discipline, teamwork and coordination</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Download CV Button -->
-      <div class="cv-download reveal">
+      <div class="cv-actions reveal">
         <a href="/cv/Cillian_Cooke_CV.docx" download class="btn btn-primary">
           Download CV (DOCX)
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </a>
       </div>
-    </section>
 
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
+      <div class="cv-sheet reveal">
+        <div class="cv-header">
+          <h2>Cillian Cooke</h2>
+          <p class="cv-subtitle">23 Moyne Road, Ranelagh, Dublin 6 · +353 83 354 6599</p>
+          <div class="cv-contact-row">
+            <a href="mailto:cilliancooke876@gmail.com">cilliancooke876@gmail.com</a>
+            <span>·</span>
+            <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
 
-  <!-- ========================================
-       DETAIL PAGES
-       ======================================== -->
+        <p class="cv-summary">Motivated Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software, leading teams, and running independent ventures.</p>
 
-  <div id="detail-tanzania" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Summer 2024</p>
-        <h1>Tanzania</h1>
-        <p>Three weeks completely disconnected from home.</p>
-      </div>
-      <div class="detail-body reveal">
-        <p>In summer 2024, I spent three weeks in Tanzania volunteering at rural schools, camping, and hiking in the mountains. No Wi-Fi, no social media. Just the work, the people, and the landscape. It shifted how I see everything.</p>
-        <p>We camped at schools that had very little, helped where we could, and spent time with communities who had a very different relationship with life than anything I'd known. One of the most important experiences of my life.</p>
-        <div class="detail-photo-grid">
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
+        <div class="cv-section">
+          <h3>Education</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Trinity College Dublin</strong>
+              <span class="cv-date">09/2025 – Present</span>
+            </div>
+            <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
+            <ul>
+              <li>Developing proficiency across languages and the ability to learn new technologies quickly</li>
+              <li>Expected graduation: 05/2030</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>CTYI Engineering Programme</strong>
+              <span class="cv-date">09/2022 – 05/2023</span>
+            </div>
+            <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>St Conleth’s College</strong>
+              <span class="cv-date">09/2019 – 05/2025</span>
+            </div>
+            <p class="cv-place">Secondary School Education</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Employment Experience</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Lockup</strong>
+              <span class="cv-date">04/2026 – Present</span>
+            </div>
+            <p class="cv-place">Group Focus Startup · Team Project · React Native, Firebase</p>
+            <ul>
+              <li>Building an application that encourages healthier phone habits in groups</li>
+              <li>Led backend and app design, collaborating via Git-based workflows</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Gardening</strong>
+              <span class="cv-date">06/2022 – Present</span>
+            </div>
+            <ul>
+              <li>Independent business serving 10+ recurring clients — scheduling, relations, pricing, delivery</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Dungeons and Dragons Summer Camp</strong>
+              <span class="cv-date">Summer 2024 &amp; 2025</span>
+            </div>
+            <p class="cv-place">Founder and Organiser</p>
+            <ul>
+              <li>Designed, marketed and ran a multi-year summer camp</li>
+              <li>Managed client communication, planning and group facilitation</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Happy Days Preschool and Afterschool</strong>
+              <span class="cv-date">07/2025 – 01/2026</span>
+            </div>
+            <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
+            <ul>
+              <li>Designed and built the Happy Days website</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Leinster Rugby Ball Boy</strong>
+              <span class="cv-date">09/2019 – 04/2025</span>
+            </div>
+            <ul>
+              <li>Supported professional-level matches — discipline, teamwork, performance under pressure</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Projects</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Atlas</strong>
+              <span class="cv-date">10/2025 – Present</span>
+            </div>
+            <p class="cv-place">Social Media · Solo · Flutter, Firebase, BLE</p>
+            <ul>
+              <li>Full-stack design and build of a proximity-based social application</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Claude Hackathon</strong>
+              <span class="cv-date">04/2026</span>
+            </div>
+            <p class="cv-place">Winning Team Project · D&amp;D + AI</p>
+            <ul>
+              <li>Won Most Creative Use of AI &amp; Best Teamwork</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Skills &amp; Interests</h3>
+          <div class="cv-skills-list">
+            <p><strong>Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
+            <p><strong>Technical:</strong> Firebase [advanced], VS Code [advanced], GitHub [intermediate]</p>
+            <p><strong>Interests:</strong> Football, Circus &amp; Juggling, Dungeons &amp; Dragons, App Development, Non-fiction</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Awards &amp; Leadership</h3>
+          <ul style="list-style:disc;padding-left:1.15rem;color:var(--ink-muted)">
+            <li><strong>Student of The Year</strong> — St Conleth’s College, five times</li>
+            <li><strong>Rugby Team Captain</strong> — discipline, teamwork, coordination</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -1018,159 +847,72 @@
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
-  <div id="detail-dnd-camp" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Summer 2024 &amp; Summer 2025</p>
-        <h1>D&amp;D Summer Camp</h1>
-        <p>Designed, advertised, and ran independently at 17.</p>
-      </div>
-      <div class="detail-body reveal">
-        <p>I founded and ran a multi-week Dungeons &amp; Dragons summer camp, handling everything solo: session design, marketing, bookings, registration, payments, and facilitation.</p>
-        <p>The camp welcomed new and experienced players. Sessions ranged from character creation workshops to full 15+ hour guided campaigns. I managed group dynamics and made sure everyone felt included.</p>
-        <p>I ran it again the following summer. The whole thing came from a simple idea: D&amp;D should be accessible to anyone, not just those who already know the rules.</p>
-        <div class="detail-photo-grid">
-          <img src="images/DnD_poster1.png" alt="D&D Camp poster 1" style="border-radius: var(--radius); object-fit: contain; background: #fff; border: 1px solid var(--border);">
-          <img src="images/DnD_poster2.png" alt="D&D Camp poster 2" style="border-radius: var(--radius); object-fit: contain; background: #fff; border: 1px solid var(--border);">
-        </div>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
-
-  <div id="detail-trinity" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Sep 2025 &ndash; Present</p>
-        <h1>Trinity College Dublin</h1>
-        <p>BSc/MSc Integrated Computer Science (2025&ndash;2030).</p>
-      </div>
-      <div class="detail-body reveal">
-        <p>I'm studying Computer Science at Trinity College Dublin, currently averaging 72% in first year. The five-year integrated programme leads to both a BSc and MSc.</p>
-        <p>Before starting, I was selected for the Centre for Talented Youth Ireland Engineering Programme, where I averaged 90%.</p>
-        <p>At Trinity I'm also Captain of the 5-a-side football team, a member of the Juggling &amp; Circus Society, and competed at the National Juggling Festival of Ireland.</p>
-        <div class="detail-photo-grid">
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-          <div class="detail-photo-placeholder">Photo coming soon</div>
-        </div>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
-
+  <!-- ========== PROJECT DETAILS ========== -->
   <div id="detail-atlas" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Oct 2025 &ndash; ongoing</p>
-        <h1>Atlas</h1>
-        <p>A not-for-profit social media platform built solo.</p>
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Oct 2025 – ongoing</p>
+          <h1>Atlas</h1>
+          <p class="lede">A not-for-profit social platform built solo.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-atlas.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <circle class="line" cx="40" cy="40" r="28"/><circle class="line" cx="40" cy="40" r="16"/><circle class="dot" cx="40" cy="40" r="4"/>
+          </svg>
+        </div>
       </div>
       <div class="detail-body reveal">
-        <p>Atlas is a social media app I've been building alone for over four months. No ads, no algorithmic feed, no bots. Content discovery works as a map of posts. Bluetooth Low Energy means you mostly see content from people you've actually been near, nudging real-world connection over doomscrolling.</p>
-        <p>About halfway done. It's consumed most of my free time and taught me backend architecture, state management, BLE, and what it actually takes to build something from scratch with no team.</p>
+        <p>Atlas is a social media app I’ve been building alone for over four months. No ads, no algorithmic feed, no bots. Content discovery works as a map of posts. Bluetooth Low Energy means you mostly see content from people you’ve actually been near.</p>
+        <p>Drag the interest tags — the coloured bubbles follow, the same interaction model as the Atlas map.</p>
         <ul>
           <li>Stack: Flutter (Dart), Firebase, Bluetooth Low Energy</li>
-          <li>Solo project: design, backend, frontend, architecture</li>
+          <li>Solo: design, backend, frontend, architecture</li>
           <li>Not-for-profit concept</li>
         </ul>
-        <p><a href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View Figma design &rarr;</a></p>
+        <p><a href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">View Figma design →</a></p>
       </div>
     </section>
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
-    </footer>
-  </div>
-
-  <div id="detail-metricare" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Mar 2026</p>
-        <h1>Metricare</h1>
-        <p>A full-stack medical patient dashboard.</p>
-      </div>
-      <div class="detail-body reveal">
-        <p>Metricare pulls together patient history, medications, drug interactions via the FDA API, and AI-generated summaries (Gemini) into one clean interface for healthcare providers.</p>
-        <p>Built as a team project. I worked on the backend (FastAPI, Python) and frontend integration.</p>
-        <ul>
-          <li>Frontend: React + TypeScript + Vite</li>
-          <li>Backend: FastAPI (Python)</li>
-          <li>AI: Gemini API for clinical summaries</li>
-          <li>Drug data: FDA Open API</li>
-        </ul>
-        <p><a href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View on GitHub &rarr;</a></p>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </footer>
-  </div>
-
-  <div id="detail-hackathon" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Apr 2026 &middot; Trinity College Dublin</p>
-        <h1>Claude Hackathon</h1>
-        <p>Won Most Creative Use of AI &amp; Best Teamwork.</p>
-      </div>
-      <div class="detail-body reveal">
-        <p>At the Claude Hackathon at Trinity, our team built a collaborative Dungeons &amp; Dragons campaign app powered by generative AI. The AI acted as a dynamic Dungeon Master, responding to players' choices and generating rich narrative in real time.</p>
-        <p>We won two awards: Most Creative Use of AI and Best Teamwork. Built in a single day.</p>
-        <ul>
-          <li>Stack: Python, Claude API</li>
-          <li>Team project, 24-hour build</li>
-          <li>Awards: Most Creative Use of AI, Best Teamwork</li>
-        </ul>
-        <p><a href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">View on GitHub &rarr;</a></p>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
   <div id="detail-lockup" class="page">
-    <section class="detail-page section">
-      <button class="detail-back" data-page="about">&#8592; Back</button>
-      <div class="page-header reveal">
-        <p class="detail-meta">Apr 2026 &ndash; Present</p>
-        <h1>Lockup</h1>
-        <p>An app that fights phone addiction at social gatherings.</p>
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Apr 2026 – Present</p>
+          <h1>Lockup</h1>
+          <p class="lede">Fighting phone addiction at social gatherings.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-lockup.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <rect class="line" x="28" y="34" width="24" height="28" rx="3"/>
+            <path class="line" d="M34 34v-6a6 6 0 0 1 12 0v6"/>
+          </svg>
+        </div>
       </div>
       <div class="detail-body reveal">
-        <p>Lockup is a team project I built with friends from college. Guests join a session and the app restricts distracting apps so everyone actually talks to each other at social gatherings.</p>
-        <p>Apple's restrictions on app control made us rethink the technical approach entirely. The design disagreements within the team turned out to be the most valuable part. They forced us to think harder about what the product actually needed to be.</p>
+        <p>Lockup is a team project with friends from college. Guests join a session and the app restricts distracting apps so people actually talk to each other.</p>
+        <p>Apple’s restrictions on app control forced a rethink of the technical approach. Design disagreements within the team turned out to be the most valuable part.</p>
         <ul>
           <li>Stack: React Native, Firebase</li>
           <li>Team project</li>
-          <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">lockup-app.com</a></li>
+          <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a></li>
         </ul>
       </div>
     </section>
@@ -1178,12 +920,155 @@
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
       </div>
+      <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
 
-  <!-- Scripts -->
+  <div id="detail-metricare" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Mar 2026</p>
+          <h1>Metricare</h1>
+          <p class="lede">Full-stack medical patient dashboard.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-metricare.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <path class="line" d="M18 50l14-18 12 10 18-24"/>
+            <circle class="dot" cx="62" cy="18" r="3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-body reveal">
+        <p>Metricare pulls together patient history, medications, FDA drug interactions, and Gemini AI summaries into one interface for healthcare providers.</p>
+        <ul>
+          <li>Frontend: React + TypeScript + Vite</li>
+          <li>Backend: FastAPI (Python)</li>
+          <li>AI: Gemini API · Drug data: FDA Open API</li>
+        </ul>
+        <p><a href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <div id="detail-digishelf" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">2026</p>
+          <h1>Digishelf</h1>
+          <p class="lede">Cross-platform digital bookshelf.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-digishelf.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <path class="line" d="M20 58h40M24 58V28h10v30M38 58V22h10v36M52 58V32h8v26"/>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-body reveal">
+        <p>A digital bookshelf app — scan barcodes to add books, organise your collection, and track reading. Built in Flutter for iOS, Android, web, and desktop.</p>
+        <ul>
+          <li>Dart / Flutter</li>
+          <li>Barcode scanning</li>
+          <li>Cross-platform</li>
+        </ul>
+        <p><a href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <div id="detail-hackathon" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Apr 2026 · Trinity College Dublin</p>
+          <h1>Claude Hackathon</h1>
+          <p class="lede">Most Creative Use of AI &amp; Best Teamwork.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-hackathon.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <path class="line" d="M28 28l-10 12 10 12M52 28l10 12-10 12"/>
+            <circle class="dot" cx="40" cy="40" r="4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-body reveal">
+        <p>At the Claude Hackathon at Trinity, our team built a collaborative D&amp;D campaign app powered by generative AI — a dynamic Dungeon Master responding to player choices in real time.</p>
+        <p>Built in a single day. Two awards.</p>
+        <ul>
+          <li>Python, Claude API</li>
+          <li>24-hour team build</li>
+        </ul>
+        <p><a href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <div id="detail-mars" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Work</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">2026</p>
+          <h1>Mars Food Simulation</h1>
+          <p class="lede">Resource management for a Mars colony.</p>
+        </div>
+        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-mars.json" data-loop="false" aria-hidden="true">
+          <svg class="mark-fallback" viewBox="0 0 80 80">
+            <circle class="line" cx="40" cy="40" r="16"/>
+            <ellipse class="line" cx="40" cy="40" rx="34" ry="12"/>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-body reveal">
+        <p>Simulation modelling food production and resource management for a Mars colony — exploring sustainable agriculture in extraterrestrial environments.</p>
+        <ul>
+          <li>Collaborative simulation project</li>
+        </ul>
+        <p><a href="https://github.com/mcrowley19/mars-food-simulation" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
   <script src="js/main.js"></script>
+  <script src="js/lottie.js"></script>
   <script src="js/bubbles.js"></script>
 </body>
 </html>

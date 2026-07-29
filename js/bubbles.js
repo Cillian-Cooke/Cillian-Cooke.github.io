@@ -1,55 +1,42 @@
 /* ============================================
-   INTEREST BUBBLES · ported from the Atlas app
-   (lib/Map_And_Bubbles/bubble_simulation.dart)
-
-   Per page: two draggable interest tags float
-   above everything; ~20 coloured bubbles drift in
-   the background and steer toward the tag that
-   matches their group. Drag a tag and its bubbles
-   follow, exactly like the Atlas map.
+   INTEREST BUBBLES · Atlas-style (project details)
    ============================================ */
 
 (function () {
   'use strict';
 
-  /* ---- Per-page interests (edit freely) ----
-     Each page gets two tags. Colours are taken from
-     the Atlas Material palette. Tweak the labels to
-     whatever interests you want shown on each tab. */
+  /* Bubbles + interest tags only on Atlas detail */
   const PAGE_CONFIG = {
-    home:     [{ name: 'Coding',   color: '#ff9800' }, { name: 'Juggling',    color: '#009688' }],
-    projects: [{ name: 'Football',  color: '#2196f3' }, { name: 'Startups',  color: '#9c27b0' }],
-    about:    [{ name: 'Books',    color: '#4caf50' }, { name: 'D&D',        color: '#e91e63' }],
-    cv:       [{ name: 'Travel',   color: '#f44336' }, { name: 'Poetry',     color: '#2196f3' }],
+    'detail-atlas': [
+      { name: 'Proximity', color: '#0f6b6b' },
+      { name: 'Map', color: '#e8913a' },
+    ],
   };
 
   const ROGUE_COLOR = '#9e9e9e';
-
-  // Physics constants (matching the Atlas simulation)
-  const MAX_SPEED = 160;     // px/sec
-  const ACCEL = 300;         // px/sec^2
+  const MAX_SPEED = 160;
+  const ACCEL = 300;
   const DRAG = 0.9;
-  const DRIFT_SPEED = 15;    // px/sec for untargeted bubbles
+  const DRIFT_SPEED = 15;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let field, tagLayer;            // DOM containers (fixed, full viewport)
-  let bubbles = [];               // active bubble objects for current page
-  let tags = [];                  // active tag objects for current page
+  let field, tagLayer;
+  let bubbles = [];
+  let tags = [];
   let lastTime = 0;
   let rafId = null;
   let currentPage = null;
 
   function rand(min, max) { return min + Math.random() * (max - min); }
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
   function bubbleCount() {
-    // ~20 on desktop, fewer on small screens so it stays out of the way
     if (window.innerWidth < 600) return 11;
     if (window.innerWidth < 900) return 16;
     return 20;
   }
 
-  // --- Build the persistent layers once ---
   function ensureLayers() {
     if (field) return;
     field = document.createElement('div');
@@ -60,12 +47,10 @@
     tagLayer.className = 'tag-layer';
     tagLayer.setAttribute('aria-hidden', 'true');
 
-    // Bubble field first so it paints behind page content; tag layer can go anywhere (fixed, high z-index)
     document.body.insertBefore(field, document.body.firstChild);
     document.body.appendChild(tagLayer);
   }
 
-  // --- Create a tag (draggable label) ---
   function makeTag(config, x, y) {
     const el = document.createElement('div');
     el.className = 'interest-tag';
@@ -76,12 +61,10 @@
     const tag = { el, name: config.name, color: config.color, x, y };
     el.style.left = x + 'px';
     el.style.top = y + 'px';
-
     attachDrag(tag);
     return tag;
   }
 
-  // --- Pointer dragging for tags ---
   function attachDrag(tag) {
     let offsetX = 0, offsetY = 0;
 
@@ -118,9 +101,6 @@
     tag.el.addEventListener('touchstart', onDown, { passive: false });
   }
 
-  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-
-  // --- Collect on-screen rects to avoid (text + important elements) ---
   function collectAvoidRects() {
     const rects = [];
     const push = (el) => {
@@ -134,8 +114,7 @@
     const active = document.querySelector('.page.active');
     if (active) {
       active.querySelectorAll(
-        'h1, h2, h3, h4, p, li, .btn, .project-card, .book-card, .timeline-item, ' +
-        '.about-tl-item, .about-panel, .page-header, .stat, table, details, img'
+        'h1, h2, h3, p, li, .btn, .detail-body, .page-header, .detail-header, img, .detail-back'
       ).forEach(push);
     }
     return rects;
@@ -144,10 +123,9 @@
   function hits(x, y, w, h, rects, pad) {
     const L = x - w / 2 - pad, R = x + w / 2 + pad;
     const T = y - h / 2 - pad, B = y + h / 2 + pad;
-    return rects.some(r => !(R < r.left || L > r.right || B < r.top || T > r.bottom));
+    return rects.some((r) => !(R < r.left || L > r.right || B < r.top || T > r.bottom));
   }
 
-  // Rejection-sample a random spot that doesn't land on any avoided rect
   function findFreeSpot(w, h, rects) {
     const W = window.innerWidth, H = window.innerHeight;
     const edgeX = w / 2 + 16, topPad = 80, botPad = 40, pad = 14;
@@ -156,11 +134,9 @@
       const y = rand(topPad + h / 2, H - botPad - h / 2);
       if (!hits(x, y, w, h, rects, pad)) return { x, y };
     }
-    // Fallback: drop it into whichever side margin is emptier
     return { x: Math.random() < 0.5 ? edgeX : W - edgeX, y: rand(topPad + h / 2, H - botPad - h / 2) };
   }
 
-  // --- Create a bubble ---
   function makeBubble(group, color) {
     const size = rand(16, 60);
     const el = document.createElement('div');
@@ -171,33 +147,24 @@
     field.appendChild(el);
 
     return {
-      el,
-      size,
-      r: size / 2,
-      group,                                  // index of target tag, or -1 for rogue
+      el, size, r: size / 2, group,
       x: rand(0, window.innerWidth),
       y: rand(0, window.innerHeight),
-      vx: 0,
-      vy: 0,
-      driftPhase: Math.random(),
+      vx: 0, vy: 0, driftPhase: Math.random(),
     };
   }
 
-  // --- Build everything for a given page ---
   function buildPage(pageId) {
     const config = PAGE_CONFIG[pageId];
 
-    // Tear down previous page
-    bubbles.forEach(b => b.el.remove());
-    tags.forEach(t => t.el.remove());
+    bubbles.forEach((b) => b.el.remove());
+    tags.forEach((t) => t.el.remove());
     bubbles = [];
     tags = [];
     currentPage = pageId;
 
-    if (!config) return;   // pages without interests (e.g. detail pages) stay clean
+    if (!config) return;
 
-    // On mobile the draggable tag pills crowd the screen, so we skip them
-    // entirely and just drift a few colourful bubbles in the background.
     if (window.innerWidth < 768) {
       const total = bubbleCount();
       const palette = [config[0].color, config[1].color, ROGUE_COLOR];
@@ -206,13 +173,9 @@
       return;
     }
 
-    // Tags spawn at random spots, but never on top of the text or any
-    // important element: collect the on-screen content rects and
-    // rejection-sample a clear position for each pill (its bubbles cluster
-    // there too, so they stay off the text as well).
     const placed = collectAvoidRects();
-    config.forEach(c => {
-      const tag = makeTag(c, -9999, -9999);   // append off-screen so we can measure it
+    config.forEach((c) => {
+      const tag = makeTag(c, -9999, -9999);
       const w = tag.el.offsetWidth, h = tag.el.offsetHeight;
       const spot = findFreeSpot(w, h, placed);
       tag.x = spot.x;
@@ -223,7 +186,6 @@
       tags.push(tag);
     });
 
-    // Bubbles: split between the two tags, plus a few rogue grey ones
     const total = bubbleCount();
     const rogue = Math.round(total * 0.3);
     const perTag = Math.round((total - rogue) / 2);
@@ -232,13 +194,9 @@
     for (let i = 0; i < perTag; i++) bubbles.push(makeBubble(1, config[1].color));
     for (let i = 0; i < rogue; i++) bubbles.push(makeBubble(-1, ROGUE_COLOR));
 
-    if (reduceMotion) {
-      // No animation: just place them statically
-      bubbles.forEach(render);
-    }
+    if (reduceMotion) bubbles.forEach(render);
   }
 
-  // --- One physics step (ported from bubble_simulation.dart) ---
   function step(dt) {
     const W = window.innerWidth, H = window.innerHeight;
 
@@ -246,7 +204,6 @@
       const target = b.group >= 0 ? tags[b.group] : null;
 
       if (target) {
-        // Steer toward the matching tag
         const dx = target.x - b.x;
         const dy = target.y - b.y;
         const dist = Math.hypot(dx, dy);
@@ -265,7 +222,6 @@
           b.vy += steerY;
         }
       } else {
-        // Rogue: gentle random drift
         b.driftPhase += dt * 0.5;
         if (b.driftPhase > 1.0) {
           b.driftPhase = 0;
@@ -275,24 +231,20 @@
         }
       }
 
-      // Drag
       const d = Math.pow(DRAG, dt);
       b.vx *= d;
       b.vy *= d;
 
-      // Clamp speed
       const speed = Math.hypot(b.vx, b.vy);
       if (speed > MAX_SPEED) {
         b.vx = (b.vx / speed) * MAX_SPEED;
         b.vy = (b.vy / speed) * MAX_SPEED;
       }
 
-      // Integrate
       b.x += b.vx * dt;
       b.y += b.vy * dt;
     }
 
-    // Collision push between bubbles
     for (let i = 0; i < bubbles.length; i++) {
       for (let j = i + 1; j < bubbles.length; j++) {
         const a = bubbles[i], b = bubbles[j];
@@ -308,7 +260,6 @@
       }
     }
 
-    // Clamp inside the viewport
     for (const b of bubbles) {
       b.x = clamp(b.x, b.r, W - b.r);
       b.y = clamp(b.y, b.r, H - b.r);
@@ -319,7 +270,6 @@
     b.el.style.transform = `translate(${b.x - b.r}px, ${b.y - b.r}px)`;
   }
 
-  // --- Animation loop ---
   function loop(now) {
     const dt = lastTime === 0 ? 0.016 : Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
@@ -328,7 +278,6 @@
     rafId = requestAnimationFrame(loop);
   }
 
-  // --- Watch for page changes via the .page.active class ---
   function watchPages() {
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -338,7 +287,7 @@
         }
       }
     });
-    document.querySelectorAll('.page').forEach(p => {
+    document.querySelectorAll('.page').forEach((p) => {
       observer.observe(p, { attributes: true, attributeFilter: ['class'] });
     });
 
@@ -346,8 +295,6 @@
     buildPage(active ? active.id : 'home');
   }
 
-  // Reclamp positions on resize; rebuild if we cross the mobile breakpoint
-  // (so tags get dropped/restored when the viewport flips past 768px).
   let wasMobile = window.innerWidth < 768;
   window.addEventListener('resize', () => {
     const W = window.innerWidth, H = window.innerHeight;
@@ -357,7 +304,7 @@
       if (currentPage) buildPage(currentPage);
       return;
     }
-    tags.forEach(t => {
+    tags.forEach((t) => {
       t.x = clamp(t.x, 0, W);
       t.y = clamp(t.y, 60, H);
       t.el.style.left = t.x + 'px';
