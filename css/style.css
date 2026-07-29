@@ -347,6 +347,10 @@ h3 { font-size: 1.2rem; }
   stroke-dashoffset: 260;
   animation: drawStroke 1.4s var(--ease) forwards;
 }
+.logo-fallback .stroke-letter {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
 .logo-fallback .stroke:nth-child(2) { animation-delay: 0.12s; }
 .logo-fallback .stroke:nth-child(3) { animation-delay: 0.28s; }
 .logo-fallback .stroke:nth-child(4) { animation-delay: 0.4s; }
@@ -379,7 +383,12 @@ h3 { font-size: 1.2rem; }
   font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 0.95;
-  margin: 0;
+  margin: 0 0 1.5rem;
+}
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 .hero-stage {
   display: grid;
