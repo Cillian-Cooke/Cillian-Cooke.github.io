@@ -255,7 +255,7 @@ function textLayer({ name, ind, text, size, pos, ip, op, delayAppear = 0 }) {
               f: 'Syne',
               t: text,
               j: 0,
-              tr: -45,
+              tr: 0,
               lh: size * 1.05,
               ls: 0,
               fc: [INK[0], INK[1], INK[2]],
@@ -533,7 +533,7 @@ function buildLogoFun() {
 function buildLogoName() {
   const W = 900;
   const H = 320;
-  const op = 210; // ~3.5s then hold (player loop=false)
+  const op = 360; // ~6s then hold (player loop=false) — slower expand
   const scale = 1.15;
   const markCX = W / 2;
   const markCY = H / 2 - 10;
@@ -552,11 +552,18 @@ function buildLogoName() {
       oy
     );
 
-  const fontSize = 72;
-  // Final positions for name C's (approximate Syne Bold)
-  const cillianCX = 210;
-  const cookeCX = 520;
+  const fontSize = 68;
+  // Lockup: Cillian · Cooke centered on artboard
+  const cillianCX = 248;
+  const cookeCX = 548;
   const nameY = markCY;
+  const textY = nameY + fontSize * 0.34;
+
+  // Per-glyph x offsets after each C (Syne Bold–ish advances; a→n given extra room)
+  const illianX = [0, 26, 50, 74, 100, 152].map((x) => cillianCX + 36 + x);
+  const ookeX = [0, 40, 82, 124].map((x) => cookeCX + 36 + x);
+  const nameLeft = cillianCX - 48;
+  const nameRight = ookeX[ookeX.length - 1] + 48;
 
   function pathCenter(p) {
     const xs = p.v.map((v) => v[0]);
@@ -568,10 +575,16 @@ function buildLogoName() {
   const mOR = map(OUTER_B);
   const mIL = map(INNER_L);
   const mIR = map(INNER_R);
+  const [olx, oly] = pathCenter(mOL);
+  const [orx, ory] = pathCenter(mOR);
   const [ilx, ily] = pathCenter(mIL);
   const [irx, iry] = pathCenter(mIR);
 
-  function strokeLayer(name, ind, mapped, t0, t1, posKeys, opacityKeys) {
+  // Outer arcs bookend the full name and stay (no fade)
+  const outerAFinal = [nameLeft - olx, nameY - oly - 6];
+  const outerBFinal = [nameRight - orx, nameY - ory + 6];
+
+  function strokeLayer(name, ind, mapped, t0, t1, posKeys, scaleKeys) {
     return {
       ddd: 0,
       ind,
@@ -579,7 +592,7 @@ function buildLogoName() {
       nm: name,
       sr: 1,
       ks: {
-        o: opacityKeys || { a: 0, k: 100 },
+        o: { a: 0, k: 100 },
         r: { a: 0, k: 0 },
         p: { a: 0, k: [0, 0, 0] },
         a: { a: 0, k: [0, 0, 0] },
@@ -612,7 +625,7 @@ function buildLogoName() {
               ty: 'tr',
               p: posKeys || { a: 0, k: [0, 0] },
               a: { a: 0, k: [0, 0] },
-              s: { a: 0, k: [100, 100] },
+              s: scaleKeys || { a: 0, k: [100, 100] },
               r: { a: 0, k: 0 },
               o: { a: 0, k: 100 },
               sk: { a: 0, k: 0 },
@@ -628,59 +641,67 @@ function buildLogoName() {
     };
   }
 
-  // Outer arcs: after draw, drift out then fade
-  const outerOut = 55;
   const layers = [
     strokeLayer(
       'Outer A',
       8,
       mOL,
       0,
-      38,
+      55,
       {
         a: 1,
         k: [
-          kf(50, [0, 0]),
-          kf(90, [-70, -18], ease),
-          kf(130, [-110, -28], ease),
+          kf(75, [0, 0]),
+          kf(140, [outerAFinal[0] * 0.55, outerAFinal[1] * 0.55], ease),
+          kf(210, outerAFinal, ease),
+          kf(op, outerAFinal),
         ],
       },
       {
         a: 1,
-        k: [kf(50, 100), kf(100, 55, easeIO), kf(140, 0, easeIO), kf(210, 0)],
+        k: [
+          kf(75, [100, 100]),
+          kf(210, [88, 88], ease),
+          kf(op, [88, 88]),
+        ],
       }
     ),
     strokeLayer(
       'Outer B',
       7,
       mOR,
-      8,
-      46,
+      12,
+      68,
       {
         a: 1,
         k: [
-          kf(50, [0, 0]),
-          kf(90, [70, 18], ease),
-          kf(130, [110, 28], ease),
+          kf(75, [0, 0]),
+          kf(140, [outerBFinal[0] * 0.55, outerBFinal[1] * 0.55], ease),
+          kf(210, outerBFinal, ease),
+          kf(op, outerBFinal),
         ],
       },
       {
         a: 1,
-        k: [kf(50, 100), kf(100, 55, easeIO), kf(140, 0, easeIO), kf(210, 0)],
+        k: [
+          kf(75, [100, 100]),
+          kf(210, [88, 88], ease),
+          kf(op, [88, 88]),
+        ],
       }
     ),
     strokeLayer(
       'Inner L → Cillian C',
       6,
       mIL,
-      20,
-      52,
+      28,
+      78,
       {
         a: 1,
         k: [
-          kf(55, [0, 0]),
-          kf(100, [cillianCX - ilx, nameY - ily], ease),
-          kf(210, [cillianCX - ilx, nameY - ily]),
+          kf(85, [0, 0]),
+          kf(200, [cillianCX - ilx, nameY - ily], ease),
+          kf(op, [cillianCX - ilx, nameY - ily]),
         ],
       }
     ),
@@ -688,20 +709,19 @@ function buildLogoName() {
       'Inner R → Cooke C',
       5,
       mIR,
-      28,
-      58,
+      40,
+      88,
       {
         a: 1,
         k: [
-          kf(55, [0, 0]),
-          kf(100, [cookeCX - irx, nameY - iry], ease),
-          kf(210, [cookeCX - irx, nameY - iry]),
+          kf(85, [0, 0]),
+          kf(200, [cookeCX - irx, nameY - iry], ease),
+          kf(op, [cookeCX - irx, nameY - iry]),
         ],
       }
     ),
   ];
 
-  // Cascade letters — positions after the C stroke
   const illian = 'illian'.split('');
   const ooke = 'ooke'.split('');
   let ind = 4;
@@ -712,10 +732,10 @@ function buildLogoName() {
         ind: ind--,
         text: ch,
         size: fontSize,
-        pos: [cillianCX + 28 + i * 38, nameY + fontSize * 0.35],
+        pos: [illianX[i], textY],
         ip: 0,
         op,
-        delayAppear: 95 + i * 5,
+        delayAppear: 175 + i * 8,
       })
     );
   });
@@ -726,10 +746,10 @@ function buildLogoName() {
         ind: ind--,
         text: ch,
         size: fontSize,
-        pos: [cookeCX + 28 + i * 42, nameY + fontSize * 0.35],
+        pos: [ookeX[i], textY],
         ip: 0,
         op,
-        delayAppear: 100 + i * 5,
+        delayAppear: 185 + i * 8,
       })
     );
   });
