@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, '..', 'lottie');
 mkdirSync(OUT, { recursive: true });
 
-const INK = [0.071, 0.094, 0.106, 1]; // #12181b
+const INK = [0, 0, 0, 1]; // #000000 — solid black mark
 const FR = 60;
 
 // --- helpers ---
@@ -324,8 +324,8 @@ function buildLogo() {
   const W = 400;
   const H = 400;
   const op = 240; // 4s
-  // Scale paths from 200 viewBox to sit in center of 400 with padding
-  const scale = 1.55;
+  // Scale paths from 200 viewBox — fill the artboard tightly
+  const scale = 1.72;
   const ox = (W - 200 * scale) / 2;
   const oy = (H - 200 * scale) / 2;
   const map = (p) =>
@@ -431,7 +431,7 @@ function buildLogo() {
               ty: 'st',
               c: { a: 0, k: INK },
               o: { a: 0, k: 100 },
-              w: { a: 0, k: 7 },
+              w: { a: 0, k: 8 },
               lc: 2,
               lj: 2,
               ml: 4,
@@ -449,12 +449,12 @@ function buildLogo() {
               p: {
                 a: 1,
                 k: [
-                  // after draw, gentle hug: drift slightly toward center
-                  kf(60, [0, 0]),
-                  kf(100, [(cx - (mapped.v[0][0] + mapped.v[mapped.v.length - 1][0]) / 2) * 0.04, (cy - (mapped.v[0][1] + mapped.v[mapped.v.length - 1][1]) / 2) * 0.04], easeIO),
-                  kf(140, [0, 0], easeIO),
-                  kf(180, [(cx - (mapped.v[0][0] + mapped.v[mapped.v.length - 1][0]) / 2) * 0.025, (cy - (mapped.v[0][1] + mapped.v[mapped.v.length - 1][1]) / 2) * 0.025], easeIO),
-                  kf(220, [0, 0], easeIO),
+                  // idle hug squeeze — starts after draw completes (~frame 70)
+                  kf(70, [0, 0]),
+                  kf(105, [(cx - (mapped.v[0][0] + mapped.v[mapped.v.length - 1][0]) / 2) * 0.05, (cy - (mapped.v[0][1] + mapped.v[mapped.v.length - 1][1]) / 2) * 0.05], easeIO),
+                  kf(145, [0, 0], easeIO),
+                  kf(185, [(cx - (mapped.v[0][0] + mapped.v[mapped.v.length - 1][0]) / 2) * 0.03, (cy - (mapped.v[0][1] + mapped.v[mapped.v.length - 1][1]) / 2) * 0.03], easeIO),
+                  kf(225, [0, 0], easeIO),
                   kf(240, [0, 0]),
                 ],
               },
@@ -463,10 +463,10 @@ function buildLogo() {
                 a: 1,
                 k: [
                   kf(70, [100, 100]),
-                  kf(105, [97, 97], easeIO),
-                  kf(140, [100, 100], easeIO),
-                  kf(175, [98, 98], easeIO),
-                  kf(210, [100, 100], easeIO),
+                  kf(110, [96.5, 96.5], easeIO),
+                  kf(145, [100, 100], easeIO),
+                  kf(180, [97.5, 97.5], easeIO),
+                  kf(220, [100, 100], easeIO),
                   kf(240, [100, 100]),
                 ],
               },

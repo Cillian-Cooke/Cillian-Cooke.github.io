@@ -32,6 +32,31 @@
     return libPromise;
   }
 
+  function bindHoverPlay(slot, anim, holdFrame) {
+    const trigger = slot.closest('[data-lottie-hover]') || slot;
+    if (trigger.dataset.lottieHoverBound === 'true') return;
+    trigger.dataset.lottieHoverBound = 'true';
+
+    const rest = () => {
+      anim.loop = false;
+      anim.goToAndStop(holdFrame, true);
+    };
+
+    trigger.addEventListener('pointerenter', () => {
+      if (reduceMotion) return;
+      anim.loop = slot.getAttribute('data-loop') !== 'false';
+      anim.goToAndPlay(holdFrame, true);
+    });
+
+    trigger.addEventListener('pointerleave', rest);
+    trigger.addEventListener('focusin', () => {
+      if (reduceMotion) return;
+      anim.loop = slot.getAttribute('data-loop') !== 'false';
+      anim.goToAndPlay(holdFrame, true);
+    });
+    trigger.addEventListener('focusout', rest);
+  }
+
   async function tryLoadAnimation(slot, { force = false } = {}) {
     const src = slot.getAttribute('data-lottie');
     if (!src || reduceMotion) return false;
@@ -44,6 +69,8 @@
       slot.removeAttribute('data-loaded');
       const old = slot.querySelector('.lottie-canvas');
       if (old) old.innerHTML = '';
+      const trigger = slot.closest('[data-lottie-hover]');
+      if (trigger) delete trigger.dataset.lottieHoverBound;
     }
 
     if (loaded.has(slot)) return true;
@@ -63,14 +90,27 @@
       }
       canvas.innerHTML = '';
 
-      const loop = slot.getAttribute('data-loop') !== 'false';
+      const playMode = slot.getAttribute('data-play');
+      const hover = playMode === 'hover';
+      const loop = !hover && slot.getAttribute('data-loop') !== 'false';
+      const holdFrame = Number(slot.getAttribute('data-hold-frame') || 70);
+
       const anim = lib.loadAnimation({
         container: canvas,
         renderer: 'svg',
-        loop,
-        autoplay: true,
+        loop: hover ? false : loop,
+        autoplay: !hover,
         animationData: data,
       });
+
+      if (hover) {
+        anim.addEventListener('DOMLoaded', () => {
+          anim.goToAndStop(holdFrame, true);
+        });
+        anim.goToAndStop(holdFrame, true);
+        bindHoverPlay(slot, anim, holdFrame);
+      }
+
       loaded.set(slot, anim);
       slot.setAttribute('data-loaded', 'true');
       return true;

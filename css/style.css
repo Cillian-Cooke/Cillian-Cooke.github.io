@@ -150,8 +150,19 @@ code {
   flex-shrink: 0;
 }
 .nav-brand-mark {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+.nav-brand-mark .logo-fallback .stroke {
+  stroke: #000;
+  stroke-width: 7;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  animation: none;
+}
+.nav-brand-mark .lottie-canvas svg path {
+  stroke: #000 !important;
 }
 .nav-brand-name {
   font-family: var(--font-display);
