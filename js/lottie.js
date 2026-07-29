@@ -11,27 +11,6 @@
   let lottieLib = null;
   let libPromise = null;
 
-  /**
-   * Expected files (optional — site works without them):
-   *   lottie/logo.json
-   *   lottie/mark-work.json
-   *   lottie/mark-opinions.json
-   *   lottie/mark-poetry.json
-   *   lottie/mark-books.json
-   *   lottie/mark-podcasts.json
-   *   lottie/empty-opinions.json
-   *   lottie/empty-podcasts.json
-   *   lottie/emblem-atlas.json
-   *   lottie/emblem-lockup.json
-   *   lottie/emblem-metricare.json
-   *   lottie/emblem-digishelf.json
-   *   lottie/emblem-hackathon.json
-   *   lottie/emblem-mars.json
-   *
-   * Artboard: logo 400×400; marks/empties/emblems 200×200.
-   * Intro ~1.2–1.8s then optional idle loop for logo/marks.
-   */
-
   function loadLottieLib() {
     if (lottieLib) return Promise.resolve(lottieLib);
     if (libPromise) return libPromise;
@@ -53,9 +32,20 @@
     return libPromise;
   }
 
-  async function tryLoadAnimation(slot) {
+  async function tryLoadAnimation(slot, { force = false } = {}) {
     const src = slot.getAttribute('data-lottie');
     if (!src || reduceMotion) return false;
+
+    if (force && loaded.has(slot)) {
+      try {
+        loaded.get(slot).destroy();
+      } catch (_) { /* ignore */ }
+      loaded.delete(slot);
+      slot.removeAttribute('data-loaded');
+      const old = slot.querySelector('.lottie-canvas');
+      if (old) old.innerHTML = '';
+    }
+
     if (loaded.has(slot)) return true;
 
     try {
@@ -71,6 +61,7 @@
         canvas.className = 'lottie-canvas';
         slot.appendChild(canvas);
       }
+      canvas.innerHTML = '';
 
       const loop = slot.getAttribute('data-loop') !== 'false';
       const anim = lib.loadAnimation({
@@ -96,11 +87,18 @@
       }
       tryLoadAnimation(slot);
     });
-    // Always try nav/hero slots
-    document.querySelectorAll('.nav .lottie-slot[data-lottie], .hero .lottie-slot[data-lottie]').forEach(tryLoadAnimation);
+    document.querySelectorAll('.nav .lottie-slot[data-lottie], .hero .lottie-slot[data-lottie]').forEach((slot) => {
+      tryLoadAnimation(slot);
+    });
+  }
+
+  function replay(selector) {
+    const slot = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    if (!slot) return Promise.resolve(false);
+    return tryLoadAnimation(slot, { force: true });
   }
 
   document.addEventListener('DOMContentLoaded', () => refresh());
 
-  window.CillianLottie = { refresh };
+  window.CillianLottie = { refresh, replay };
 })();

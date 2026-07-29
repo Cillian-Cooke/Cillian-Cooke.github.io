@@ -74,33 +74,6 @@
     showPage(target);
   }
 
-  function initNameExpand() {
-    const el = document.getElementById('name-expand');
-    if (!el) return;
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let timer = null;
-
-    const replayStrokes = () => {
-      el.querySelectorAll('.stroke').forEach((path) => {
-        path.style.animation = 'none';
-        void path.getBoundingClientRect();
-        path.style.animation = '';
-      });
-    };
-
-    el._play = () => {
-      if (reduce) {
-        el.classList.add('is-open');
-        return;
-      }
-      el.classList.remove('is-open');
-      replayStrokes();
-      clearTimeout(timer);
-      timer = setTimeout(() => el.classList.add('is-open'), 1550);
-    };
-  }
-
   function showPage(pageId) {
     pageId = REDIRECTS[pageId] || pageId;
     if (!pages[pageId]) pageId = 'home';
@@ -134,9 +107,8 @@
       window.CillianLottie.refresh(target);
     }
 
-    if (pageId === 'home') {
-      const stage = document.getElementById('name-expand');
-      if (stage && typeof stage._play === 'function') stage._play();
+    if (pageId === 'home' && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
+      window.CillianLottie.replay('#name-hero');
     }
   }
 
@@ -208,7 +180,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     initFontToggle();
-    initNameExpand();
     initRouter();
     initMobileMenu();
     initNavScroll();
