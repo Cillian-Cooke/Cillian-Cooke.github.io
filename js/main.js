@@ -1,14 +1,20 @@
 /* ============================================
    Cillian Cooke · Portfolio JS
-   Routing, font toggle, reveals, hubs
+   Routing, font toggle, reveals
    ============================================ */
 
 (function () {
   'use strict';
 
   const pages = {};
-  const WRITING_PAGES = new Set(['writing', 'opinions', 'poetry']);
-  const MEDIA_PAGES = new Set(['media', 'books', 'podcasts']);
+  const ABOUT_PAGES = new Set([
+    'about', 'opinions', 'poetry', 'books', 'podcasts', 'photos',
+    'writing', 'media',
+  ]);
+  const REDIRECTS = {
+    writing: 'about',
+    media: 'about',
+  };
 
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
@@ -63,24 +69,21 @@
   }
 
   function navigateTo(pageId) {
-    window.location.hash = pageId === 'home' ? '' : pageId;
-    showPage(pageId);
+    const target = REDIRECTS[pageId] || pageId;
+    window.location.hash = target === 'home' ? '' : target;
+    showPage(target);
   }
 
   function showPage(pageId) {
+    pageId = REDIRECTS[pageId] || pageId;
     if (!pages[pageId]) pageId = 'home';
 
     document.querySelectorAll('.nav-links [data-page]').forEach((link) => {
       const target = link.getAttribute('data-page');
       let active = target === pageId;
-      if (target === 'writing' && WRITING_PAGES.has(pageId)) active = true;
-      if (target === 'media' && MEDIA_PAGES.has(pageId)) active = true;
+      if (target === 'about' && ABOUT_PAGES.has(pageId)) active = true;
       if (target === 'projects' && (pageId === 'projects' || pageId.startsWith('detail-'))) active = true;
       link.classList.toggle('active', active);
-    });
-
-    document.querySelectorAll('.subnav [data-page]').forEach((link) => {
-      link.classList.toggle('active', link.getAttribute('data-page') === pageId);
     });
 
     Object.values(pages).forEach((page) => {

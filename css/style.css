@@ -838,81 +838,123 @@ h3 { font-size: 1.2rem; }
   color: var(--ink-faint);
 }
 
-/* ---------- About ---------- */
-.about-grid {
+/* ---------- About hub cards ---------- */
+.about-card-grid {
   display: grid;
-  grid-template-columns: 1.4fr 0.8fr;
-  gap: 2.5rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
 }
-.about-text p + p { margin-top: 1rem; }
-.about-text strong { font-weight: 700; }
-.about-note {
-  margin-top: 1.5rem;
-  padding: 1rem 1.15rem;
-  background: var(--accent-soft);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-size: 0.95rem;
-  color: var(--ink-muted);
-}
-.about-details {
+.about-card {
   display: flex;
   flex-direction: column;
-  gap: 1.35rem;
-}
-.detail-block h3 {
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 0.35rem;
-  font-family: var(--font-body);
-  font-weight: 650;
-}
-.detail-block ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-.detail-block li {
-  font-size: 0.82rem;
-  padding: 0.25rem 0.55rem;
+  gap: 0.55rem;
+  padding: 1.6rem 1.4rem;
   background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-}
-
-.about-aside {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
-}
-.about-aside h2 { margin-bottom: 1rem; }
-.camp-posters {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.camp-posters img {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fff;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  min-height: 180px;
 }
-.country-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
+a.about-card {
+  cursor: pointer;
+}
+a.about-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.about-card h2 {
+  font-size: 1.55rem;
+}
+.about-card p {
+  color: var(--ink-muted);
+  font-size: 0.98rem;
+}
+.about-card .hub-go {
+  margin-top: auto;
+  color: var(--accent);
+  font-weight: 650;
+}
+.about-card--bio {
+  grid-column: 1 / -1;
+  min-height: 0;
+}
+.about-card--bio h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin-bottom: 0.25rem;
+}
+.about-card--bio p {
+  color: var(--ink);
+  max-width: 48rem;
+}
+.about-card--bio p + p {
   margin-top: 0.75rem;
 }
-.country-chip {
-  font-size: 0.82rem;
-  padding: 0.3rem 0.65rem;
+.bio-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--border);
+}
+.bio-facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.95rem;
+}
+.bio-facts span {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.bio-facts a {
+  color: var(--accent);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+/* ---------- Photos ---------- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.1rem;
+}
+.photo-card {
+  margin: 0;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.photo-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: #fff;
+}
+.photo-placeholder {
+  aspect-ratio: 4/3;
+  display: grid;
+  place-items: center;
+  background: var(--bg-soft);
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+}
+.photo-card figcaption {
+  padding: 0.75rem 0.9rem;
+  font-size: 0.88rem;
   color: var(--ink-muted);
+}
+
+@media (max-width: 720px) {
+  .about-card-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------- CV ---------- */
@@ -1145,7 +1187,6 @@ h3 { font-size: 1.2rem; }
     gap: 0.5rem;
   }
   .project-tags { justify-content: flex-start; }
-  .about-grid { grid-template-columns: 1fr; }
   .hub-grid { grid-template-columns: 1fr; }
 }
 
