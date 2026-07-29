@@ -565,7 +565,7 @@ function buildLogoName() {
   const nameLeft = cillianCX - 52;
   const nameRight = ookeX[ookeX.length - 1] + 52;
   // Clear air between name glyphs and outer-arc bookends
-  const namePad = 96;
+  const namePad = 48;
   const outerScalePct = 90;
   const outerS = outerScalePct / 100;
 
