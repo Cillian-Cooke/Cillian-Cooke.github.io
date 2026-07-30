@@ -49,7 +49,7 @@
 <body>
 
   <nav class="nav">
-    <div class="nav-brand" data-page="home" data-lottie-hover role="link" tabindex="0" aria-label="Home">
+    <div class="nav-brand" data-scroll="home" data-lottie-hover role="link" tabindex="0" aria-label="Home">
       <div
         class="nav-brand-mark lottie-slot"
         data-lottie="lottie/logo.json"
@@ -72,9 +72,9 @@
     </button>
 
     <ul class="nav-links">
-      <li><a data-page="projects">Projects</a></li>
-      <li><a data-page="about">About</a></li>
-      <li><a data-page="cv">CV</a></li>
+      <li><a href="#projects" data-scroll="projects">Projects</a></li>
+      <li><a href="#about" data-scroll="about">About</a></li>
+      <li><a href="#cv" data-scroll="cv">CV</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -86,8 +86,9 @@
     <div class="nav-overlay" aria-hidden="true"></div>
   </nav>
 
+  <main id="site-main" class="site-main">
   <!-- ========== HOME ========== -->
-  <div id="home" class="page active visible">
+  <section id="home" class="section-block">
     <section class="hero hero--expand">
       <div
         class="name-hero lottie-slot"
@@ -108,23 +109,14 @@
       </div>
 
       <div class="hero-cta">
-        <a class="btn btn-primary" data-page="about">About</a>
-        <a class="btn" data-page="cv">CV</a>
+        <a class="btn btn-primary" href="#about" data-scroll="about">About</a>
+        <a class="btn" href="#cv" data-scroll="cv">CV</a>
       </div>
     </section>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
+  </section>
 
   <!-- ========== WORK / PROJECTS ========== -->
-  <div id="projects" class="page">
+  <section id="projects" class="section-block">
     <section class="section">
       <div class="page-header page-header-row reveal">
         <div class="section-mark lottie-slot" data-lottie="lottie/mark-work.json" data-loop="true" aria-hidden="true">
@@ -149,12 +141,7 @@
           <p class="project-go">Open project →</p>
         </div>
         <div class="project-featured-side">
-          <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-lockup.json" data-loop="false" aria-hidden="true">
-            <svg class="mark-fallback" viewBox="0 0 80 80">
-              <rect class="line" x="28" y="34" width="24" height="28" rx="3"/>
-              <path class="line" d="M34 34v-6a6 6 0 0 1 12 0v6"/>
-            </svg>
-          </div>
+          <img class="project-app-icon" src="images/lockup-icon.png" alt="" width="88" height="88">
           <div class="project-tags">
             <span class="project-tag">React Native</span>
             <span class="project-tag">Firebase</span>
@@ -181,6 +168,204 @@
       </a>
 
     </section>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section-block">
+    <section class="section">
+      <div class="about-card-grid stagger">
+        <div class="about-card about-card--bio">
+          <p class="eyebrow">Who I am</p>
+          <h2>Cillian Cooke</h2>
+          <p>
+            I’m a Computer Science student at Trinity College Dublin focused on shipping real products: Atlas, a proximity-based social platform built solo in Flutter; and Lockup, a team app for presence at gatherings.
+          </p>
+          <p>
+            Outside of code I play football for Leinster Celtic, juggle with Trinity’s Circus Society, and spent three weeks volunteering at rural schools in Tanzania.
+          </p>
+          <div class="bio-facts">
+            <div><span>Location</span>Dublin, Ireland</div>
+            <div><span>Education</span>MAI Computer Science, TCD</div>
+            <div><span>CV</span><a href="#cv" data-scroll="cv">View CV →</a></div>
+          </div>
+        </div>
+
+        <a class="about-card" data-page="opinions">
+          <p class="eyebrow">Writing</p>
+          <h2>Opinions</h2>
+          <p>Essays and longer arguments.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="poetry">
+          <p class="eyebrow">Writing</p>
+          <h2>Poetry</h2>
+          <p>Verse from campaigns and quieter pages.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="books">
+          <p class="eyebrow">Media</p>
+          <h2>Books</h2>
+          <p>Comics, non-fiction, and engineering reads.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="podcasts">
+          <p class="eyebrow">Media</p>
+          <h2>Podcasts</h2>
+          <p>Episodes and show notes.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="photos">
+          <p class="eyebrow">Life</p>
+          <h2>Photos</h2>
+          <p>Places, posters, and moments.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========== CV ========== -->
+  <section id="cv" class="section-block">
+    <section class="section">
+      <div class="cv-sheet reveal">
+        <div class="cv-header">
+          <h2>Cillian Cooke</h2>
+          <p class="cv-subtitle">23 Moyne Road, Ranelagh, Dublin 6 · +353 83 354 6599</p>
+          <div class="cv-contact-row">
+            <a href="mailto:cilliancooke876@gmail.com">cilliancooke876@gmail.com</a>
+            <span>·</span>
+            <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+
+        <p class="cv-summary">Motivated Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software, leading teams, and running independent ventures.</p>
+
+        <div class="cv-section">
+          <h3>Education</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Trinity College Dublin</strong>
+              <span class="cv-date">09/2025 – Present</span>
+            </div>
+            <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
+            <ul>
+              <li>Developing proficiency across languages and the ability to learn new technologies quickly</li>
+              <li>Expected graduation: 05/2030</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>CTYI Engineering Programme</strong>
+              <span class="cv-date">09/2022 – 05/2023</span>
+            </div>
+            <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>St Conleth’s College</strong>
+              <span class="cv-date">09/2019 – 05/2025</span>
+            </div>
+            <p class="cv-place">Secondary School Education</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Employment Experience</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Lockup</strong>
+              <span class="cv-date">04/2026 – Present</span>
+            </div>
+            <p class="cv-place">Group Focus Startup · Team Project · React Native, Firebase</p>
+            <ul>
+              <li>Building an application that encourages healthier phone habits in groups</li>
+              <li>Led backend and app design, collaborating via Git-based workflows</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Gardening</strong>
+              <span class="cv-date">06/2022 – Present</span>
+            </div>
+            <ul>
+              <li>Independent business serving 10+ recurring clients — scheduling, relations, pricing, delivery</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Dungeons and Dragons Summer Camp</strong>
+              <span class="cv-date">Summer 2024 &amp; 2025</span>
+            </div>
+            <p class="cv-place">Founder and Organiser</p>
+            <ul>
+              <li>Designed, marketed and ran a multi-year summer camp</li>
+              <li>Managed client communication, planning and group facilitation</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Happy Days Preschool and Afterschool</strong>
+              <span class="cv-date">07/2025 – 01/2026</span>
+            </div>
+            <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
+            <ul>
+              <li>Designed and built the Happy Days website</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Leinster Rugby Ball Boy</strong>
+              <span class="cv-date">09/2019 – 04/2025</span>
+            </div>
+            <ul>
+              <li>Supported professional-level matches — discipline, teamwork, performance under pressure</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Projects</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Atlas</strong>
+              <span class="cv-date">10/2025 – Present</span>
+            </div>
+            <p class="cv-place">Social Media · Solo · Flutter, Firebase, BLE</p>
+            <ul>
+              <li>Full-stack design and build of a proximity-based social application</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Skills &amp; Interests</h3>
+          <div class="cv-skills-list">
+            <p><strong>Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
+            <p><strong>Technical:</strong> Firebase [advanced], VS Code [advanced], GitHub [intermediate]</p>
+            <p><strong>Interests:</strong> Football, Circus &amp; Juggling, Dungeons &amp; Dragons, App Development, Non-fiction</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Awards &amp; Leadership</h3>
+          <ul style="list-style:disc;padding-left:1.15rem;color:var(--ink-muted)">
+            <li><strong>Student of The Year</strong> — St Conleth’s College, five times</li>
+            <li><strong>Rugby Team Captain</strong> — discipline, teamwork, coordination</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-actions reveal">
+        <a href="/cv/Cillian_Cooke_CV.docx" download class="btn btn-primary">
+          Download CV (DOCX)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+    </section>
+  </section>
+
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -189,7 +374,7 @@
       </div>
       <p class="footer-copy">Dublin, Ireland</p>
     </footer>
-  </div>
+  </main>
 
   <!-- ========== OPINIONS ========== -->
   <div id="opinions" class="page">
@@ -488,218 +673,6 @@
     </footer>
   </div>
 
-  <!-- ========== ABOUT ========== -->
-  <div id="about" class="page">
-    <section class="section">
-      <div class="about-card-grid stagger">
-        <div class="about-card about-card--bio">
-          <p class="eyebrow">Who I am</p>
-          <h2>Cillian Cooke</h2>
-          <p>
-            I’m a Computer Science student at Trinity College Dublin focused on shipping real products: Atlas, a proximity-based social platform built solo in Flutter; and Lockup, a team app for presence at gatherings.
-          </p>
-          <p>
-            Outside of code I play football for Leinster Celtic, juggle with Trinity’s Circus Society, and spent three weeks volunteering at rural schools in Tanzania.
-          </p>
-          <div class="bio-facts">
-            <div><span>Location</span>Dublin, Ireland</div>
-            <div><span>Education</span>MAI Computer Science, TCD</div>
-            <div><span>CV</span><a data-page="cv">View CV →</a></div>
-          </div>
-        </div>
-
-        <a class="about-card" data-page="opinions">
-          <p class="eyebrow">Writing</p>
-          <h2>Opinions</h2>
-          <p>Essays and longer arguments.</p>
-          <span class="hub-go">Open →</span>
-        </a>
-        <a class="about-card" data-page="poetry">
-          <p class="eyebrow">Writing</p>
-          <h2>Poetry</h2>
-          <p>Verse from campaigns and quieter pages.</p>
-          <span class="hub-go">Open →</span>
-        </a>
-        <a class="about-card" data-page="books">
-          <p class="eyebrow">Media</p>
-          <h2>Books</h2>
-          <p>Comics, non-fiction, and engineering reads.</p>
-          <span class="hub-go">Open →</span>
-        </a>
-        <a class="about-card" data-page="podcasts">
-          <p class="eyebrow">Media</p>
-          <h2>Podcasts</h2>
-          <p>Episodes and show notes.</p>
-          <span class="hub-go">Open →</span>
-        </a>
-        <a class="about-card" data-page="photos">
-          <p class="eyebrow">Life</p>
-          <h2>Photos</h2>
-          <p>Places, posters, and moments.</p>
-          <span class="hub-go">Open →</span>
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== CV ========== -->
-  <div id="cv" class="page">
-    <section class="section">
-      <div class="cv-sheet reveal">
-        <div class="cv-header">
-          <h2>Cillian Cooke</h2>
-          <p class="cv-subtitle">23 Moyne Road, Ranelagh, Dublin 6 · +353 83 354 6599</p>
-          <div class="cv-contact-row">
-            <a href="mailto:cilliancooke876@gmail.com">cilliancooke876@gmail.com</a>
-            <span>·</span>
-            <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <span>·</span>
-            <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-        </div>
-
-        <p class="cv-summary">Motivated Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software, leading teams, and running independent ventures.</p>
-
-        <div class="cv-section">
-          <h3>Education</h3>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Trinity College Dublin</strong>
-              <span class="cv-date">09/2025 – Present</span>
-            </div>
-            <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
-            <ul>
-              <li>Developing proficiency across languages and the ability to learn new technologies quickly</li>
-              <li>Expected graduation: 05/2030</li>
-            </ul>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>CTYI Engineering Programme</strong>
-              <span class="cv-date">09/2022 – 05/2023</span>
-            </div>
-            <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>St Conleth’s College</strong>
-              <span class="cv-date">09/2019 – 05/2025</span>
-            </div>
-            <p class="cv-place">Secondary School Education</p>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Employment Experience</h3>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Lockup</strong>
-              <span class="cv-date">04/2026 – Present</span>
-            </div>
-            <p class="cv-place">Group Focus Startup · Team Project · React Native, Firebase</p>
-            <ul>
-              <li>Building an application that encourages healthier phone habits in groups</li>
-              <li>Led backend and app design, collaborating via Git-based workflows</li>
-            </ul>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Gardening</strong>
-              <span class="cv-date">06/2022 – Present</span>
-            </div>
-            <ul>
-              <li>Independent business serving 10+ recurring clients — scheduling, relations, pricing, delivery</li>
-            </ul>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Dungeons and Dragons Summer Camp</strong>
-              <span class="cv-date">Summer 2024 &amp; 2025</span>
-            </div>
-            <p class="cv-place">Founder and Organiser</p>
-            <ul>
-              <li>Designed, marketed and ran a multi-year summer camp</li>
-              <li>Managed client communication, planning and group facilitation</li>
-            </ul>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Happy Days Preschool and Afterschool</strong>
-              <span class="cv-date">07/2025 – 01/2026</span>
-            </div>
-            <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
-            <ul>
-              <li>Designed and built the Happy Days website</li>
-            </ul>
-          </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Leinster Rugby Ball Boy</strong>
-              <span class="cv-date">09/2019 – 04/2025</span>
-            </div>
-            <ul>
-              <li>Supported professional-level matches — discipline, teamwork, performance under pressure</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Projects</h3>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Atlas</strong>
-              <span class="cv-date">10/2025 – Present</span>
-            </div>
-            <p class="cv-place">Social Media · Solo · Flutter, Firebase, BLE</p>
-            <ul>
-              <li>Full-stack design and build of a proximity-based social application</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Skills &amp; Interests</h3>
-          <div class="cv-skills-list">
-            <p><strong>Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
-            <p><strong>Technical:</strong> Firebase [advanced], VS Code [advanced], GitHub [intermediate]</p>
-            <p><strong>Interests:</strong> Football, Circus &amp; Juggling, Dungeons &amp; Dragons, App Development, Non-fiction</p>
-          </div>
-        </div>
-
-        <div class="cv-section">
-          <h3>Awards &amp; Leadership</h3>
-          <ul style="list-style:disc;padding-left:1.15rem;color:var(--ink-muted)">
-            <li><strong>Student of The Year</strong> — St Conleth’s College, five times</li>
-            <li><strong>Rugby Team Captain</strong> — discipline, teamwork, coordination</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="cv-actions reveal">
-        <a href="/cv/Cillian_Cooke_CV.docx" download class="btn btn-primary">
-          Download CV (DOCX)
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
   <!-- ========== PROJECT DETAILS ========== -->
   <div id="detail-atlas" class="page">
     <section class="section detail-page">
@@ -742,12 +715,7 @@
           <h1>Lockup</h1>
           <p class="lede">Fighting phone addiction at social gatherings.</p>
         </div>
-        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-lockup.json" data-loop="false" aria-hidden="true">
-          <svg class="mark-fallback" viewBox="0 0 80 80">
-            <rect class="line" x="28" y="34" width="24" height="28" rx="3"/>
-            <path class="line" d="M34 34v-6a6 6 0 0 1 12 0v6"/>
-          </svg>
-        </div>
+        <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup app icon" width="88" height="88">
       </div>
       <div class="detail-body reveal">
         <p>Lockup is a team project with friends from college. Guests join a session and the app restricts distracting apps so people actually talk to each other.</p>
@@ -768,10 +736,6 @@
       <p class="footer-copy">Dublin, Ireland</p>
     </footer>
   </div>
-
-
-
-
 
   <script src="js/main.js"></script>
   <script src="js/lottie.js"></script>

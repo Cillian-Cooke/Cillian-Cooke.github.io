@@ -41,7 +41,7 @@ Empty states:
 
 Project emblems (optional, ≤96px display):
 
-- `emblem-lockup.json`
+Project emblems (optional): use real app icons under `images/` (e.g. `atlas-icon.png`, `lockup-icon.png`).
 
 ## Behaviour
 
