@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cillian Cooke · CS Student & Developer | Trinity College Dublin</title>
-  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin building real-world apps and software. Projects include Atlas, Lockup, Metricare, and more.">
+  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin building real-world apps and software. Projects include Atlas and Lockup.">
   <meta name="author" content="Cillian Cooke">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://cilliancooke.com/">
@@ -49,7 +49,7 @@
 <body>
 
   <nav class="nav">
-    <div class="nav-brand" data-page="home" data-lottie-hover role="link" tabindex="0" aria-label="Home">
+    <div class="nav-brand" data-scroll="home" data-lottie-hover role="link" tabindex="0" aria-label="Home">
       <div
         class="nav-brand-mark lottie-slot"
         data-lottie="lottie/logo.json"
@@ -72,9 +72,9 @@
     </button>
 
     <ul class="nav-links">
-      <li><a data-page="projects">Projects</a></li>
-      <li><a data-page="about">About</a></li>
-      <li><a data-page="cv">CV</a></li>
+      <li><a href="#projects" data-scroll="projects">Projects</a></li>
+      <li><a href="#about" data-scroll="about">About</a></li>
+      <li><a href="#cv" data-scroll="cv">CV</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -86,8 +86,9 @@
     <div class="nav-overlay" aria-hidden="true"></div>
   </nav>
 
+  <main id="site-main" class="site-main">
   <!-- ========== HOME ========== -->
-  <div id="home" class="page active visible">
+<section id="home" class="section-block">
     <section class="hero hero--expand">
       <div
         class="name-hero lottie-slot"
@@ -108,23 +109,14 @@
       </div>
 
       <div class="hero-cta">
-        <a class="btn btn-primary" data-page="about">About</a>
-        <a class="btn" data-page="cv">CV</a>
+        <a class="btn btn-primary" href="#about" data-scroll="about">About</a>
+        <a class="btn" href="#cv" data-scroll="cv">CV</a>
       </div>
     </section>
-
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
+  </section>
 
   <!-- ========== WORK / PROJECTS ========== -->
-  <div id="projects" class="page">
+<section id="projects" class="section-block">
     <section class="section">
       <div class="page-header page-header-row reveal">
         <div class="section-mark lottie-slot" data-lottie="lottie/mark-work.json" data-loop="true" aria-hidden="true">
@@ -186,359 +178,18 @@
         </div>
       </a>
 
-      <div class="project-rows stagger">
-        <a class="project-row" data-page="detail-metricare">
-          <h3>Metricare</h3>
-          <p>Medical patient dashboard with FDA drug data and clinical summaries.</p>
-          <div class="project-tags">
-            <span class="project-tag">React</span>
-            <span class="project-tag">FastAPI</span>
-            <span class="project-tag">Python</span>
-          </div>
-        </a>
-        <a class="project-row" data-page="detail-digishelf">
-          <h3>Digishelf</h3>
-          <p>Cross-platform digital bookshelf with barcode scanning.</p>
-          <div class="project-tags">
-            <span class="project-tag">Flutter</span>
-            <span class="project-tag">Mobile</span>
-          </div>
-        </a>
-        <a class="project-row" data-page="detail-hackathon">
-          <h3>Trinity Hackathon</h3>
-          <p>Collaborative D&amp;D campaign tool — built in 24 hours; won Best Teamwork.</p>
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">Team</span>
-            <span class="project-tag">24h</span>
-          </div>
-        </a>
-        <a class="project-row" data-page="detail-mars">
-          <h3>Mars Food Simulation</h3>
-          <p>Modelling food production and resources for a Mars colony.</p>
-          <div class="project-tags">
-            <span class="project-tag">Simulation</span>
-            <span class="project-tag">Collaborative</span>
-          </div>
-        </a>
-      </div>
     </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== OPINIONS ========== -->
-  <div id="opinions" class="page">
-    <section class="section">
-      <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Opinions</p>
-      </div>
-
-      <div class="piece-grid stagger">
-        <a class="piece-card" href="essays/sample.html">
-          <p class="piece-meta">Sample</p>
-          <h3>On building software that stays human</h3>
-          <p>Proximity, presence, and craft — a starter essay you can rewrite.</p>
-          <span class="piece-go">Read →</span>
-        </a>
-        <a class="piece-card" href="essays/placeholder-two.html">
-          <p class="piece-meta">Placeholder</p>
-          <h3>Untitled essay</h3>
-          <p>Replace this card’s title, lede, and linked HTML when you have the piece.</p>
-          <span class="piece-go">Open →</span>
-        </a>
-        <a class="piece-card" href="essays/placeholder-three.html">
-          <p class="piece-meta">Placeholder</p>
-          <h3>Untitled essay</h3>
-          <p>Another slot for a finished opinion piece.</p>
-          <span class="piece-go">Open →</span>
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== POETRY ========== -->
-  <div id="poetry" class="page">
-    <section class="section reading">
-      <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Poetry</p>
-      </div>
-
-      <div class="poetry-section reveal">
-        <details class="poem-item">
-          <summary>
-            <span class="poem-title">Overture I</span>
-            <span class="poem-subtitle">Every note is born equal</span>
-          </summary>
-          <div class="poem-content">
-            <p>Every note is born equal, yet<br>An artist must decide what note comes next.<br>A choice that should never rest with one alone.<br>Equality does not mean perfection.</p>
-            <p>Across this universe, infinite lives begin.<br>Infinite lives end.<br>And I, as an artist, as a lover, must choose but one.<br>A choice made infinitely impossible.</p>
-            <p>With the concept of infinity,<br>With a gesture most romantic, I will<br>Divide infinity to reach you,<br>Until infinity becomes one.</p>
-            <p>And with that,<br>Multiply one to infinity.</p>
-          </div>
-        </details>
-
-        <details class="poem-item">
-          <summary>
-            <span class="poem-title">Undying Note III</span>
-            <span class="poem-subtitle">War is coming, maybe not in this life</span>
-          </summary>
-          <div class="poem-content">
-            <p>War is coming, maybe not in this life,<br>but definitely in the next.</p>
-            <p>Living is to fight; dying is to move on.<br>Each stage grows, while you shrink.</p>
-            <p>A war shouldn’t be won with a thousand soldiers,<br>but rather one right leader,<br>one who unites,<br>one who plays the perfect harmony<br>between pain and growth.</p>
-            <p>War isn’t won with sticks and stones,<br>but rather a series of notes,<br>a chord juxtaposed with a lullaby.</p>
-            <p>So this fight may be over,<br>but the war has just begun.<br>To fight and die is the greatest sacrifice;<br>to fight and live is to fight again.</p>
-          </div>
-        </details>
-
-        <details class="poem-item">
-          <summary>
-            <span class="poem-title">Singularity IV</span>
-            <span class="poem-subtitle">Weightless in the eyes of progress</span>
-          </summary>
-          <div class="poem-content">
-            <p>Weightless in the eyes of progress,<br>Progress found in the event of no return.</p>
-            <p>Beyond the cliff of moments.<br>For a God does not fear<br>The concept of time.</p>
-            <p>The other side awaits. Patiently<br>Aging the mortals.<br>Like a clock ticking down its own demise.<br>So shall you. A warrior with no urgency.</p>
-            <p>Is a hero with no purpose.</p>
-          </div>
-        </details>
-
-        <details class="poem-item">
-          <summary>
-            <span class="poem-title">The Final Chapter XII</span>
-            <span class="poem-subtitle">It begins and ends with you</span>
-          </summary>
-          <div class="poem-content">
-            <p>It begins and ends with you,<br>My fallen angel bearing the golden ticket.<br>A war to end all wars is not worth the blade<br>If your soul wasn’t left to save.</p>
-            <p>This ticket to omnipotence is priceless,<br>Yet exemption from battle is granted<br>Along with the greatest honour.<br>For you and you alone must choose,</p>
-            <p>A single champion.</p>
-            <p>A champion to lead us into war.<br>And the war comes for us now,<br>For a plague has taken root,<br>Defence will only buy us time.</p>
-          </div>
-        </details>
-
-        <details class="poem-item">
-          <summary>
-            <span class="poem-title">Questioning V</span>
-            <span class="poem-subtitle">Walking in circles; running from memories</span>
-          </summary>
-          <div class="poem-content">
-            <p>Walking in circles; running from memories.<br>Memories of nightmares.<br>Nightmares that manifest to reality.</p>
-            <p>An endless cycle, building upon itself.</p>
-            <p>I never got to the heart of the problem,<br>As I never learned to hold my breath.</p>
-            <p>How I apologise to myself with empty words.<br>“Sorry” isn’t enough to put out a fire.</p>
-            <p>Stop looking in the eyes of others,<br>As you share different worlds.</p>
-            <p>By walking through old memories,<br>Each one slightly wrong.</p>
-            <p>A mirror placed in front of me,<br>Still doesn’t reflect how I feel.<br>In a world of good and evil.<br>I feel left out.</p>
-          </div>
-        </details>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== BOOKS ========== -->
-  <div id="books" class="page">
-    <section class="section">
-      <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Books</p>
-      </div>
-
-      <div class="books-grid stagger">
-        <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1" loading="lazy">
-          <h3>Invincible Compendium 1</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2" loading="lazy">
-          <h3>Invincible Compendium 2</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3" loading="lazy">
-          <h3>Invincible Compendium 3</h3>
-          <p class="book-author">Robert Kirkman</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys" loading="lazy">
-          <h3>The Boys</h3>
-          <p class="book-author">Garth Ennis</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta" loading="lazy">
-          <h3>V for Vendetta</h3>
-          <p class="book-author">Alan Moore</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History" loading="lazy">
-          <h3>Sapiens: A Graphic History</h3>
-          <p class="book-author">Yuval Noah Harari</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus" loading="lazy">
-          <h3>Nexus</h3>
-          <p class="book-author">Yuval Noah Harari</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World" loading="lazy">
-          <h3>Hello World</h3>
-          <p class="book-author">Hannah Fry</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies" loading="lazy">
-          <h3>If Anyone Builds It, Everyone Dies</h3>
-          <p class="book-author">Yudkowsky &amp; Soares</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action" loading="lazy">
-          <h3>Flutter in Action</h3>
-          <p class="book-author">Eric Windmill</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications" loading="lazy">
-          <h3>Designing Data-Intensive Applications</h3>
-          <p class="book-author">Martin Kleppmann</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts" loading="lazy">
-          <h3>Smartcuts</h3>
-          <p class="book-author">Shane Snow</p>
-        </a>
-        <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
-          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test" loading="lazy">
-          <h3>The Mom Test</h3>
-          <p class="book-author">Rob Fitzpatrick</p>
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== PODCASTS ========== -->
-  <div id="podcasts" class="page">
-    <section class="section">
-      <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Podcasts</p>
-      </div>
-
-      <div class="piece-grid stagger">
-        <a class="piece-card" href="podcasts/ep-01.html">
-          <p class="piece-meta">Ep. 01 · Placeholder</p>
-          <h3>Why proximity beats the feed</h3>
-          <p>On discovery without the infinite scroll.</p>
-          <span class="piece-go">Open →</span>
-        </a>
-        <a class="piece-card" href="podcasts/ep-02.html">
-          <p class="piece-meta">Ep. 02 · Placeholder</p>
-          <h3>Shipping alone without disappearing</h3>
-          <p>Solo builds, pace, and staying human while you ship.</p>
-          <span class="piece-go">Open →</span>
-        </a>
-        <a class="piece-card" href="podcasts/ep-03.html">
-          <p class="piece-meta">Ep. 03 · Placeholder</p>
-          <h3>Tabletop worlds and product design</h3>
-          <p>What campaigns teach about systems people actually inhabit.</p>
-          <span class="piece-go">Open →</span>
-        </a>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <!-- ========== PHOTOS ========== -->
-  <div id="photos" class="page">
-    <section class="section">
-      <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Photos</p>
-      </div>
-      <div class="photo-grid stagger">
-        <figure class="photo-card">
-          <img src="images/DnD_poster1.png" alt="D&amp;D camp poster">
-          <figcaption>D&amp;D camp poster</figcaption>
-        </figure>
-        <figure class="photo-card">
-          <img src="images/DnD_poster2.png" alt="D&amp;D camp poster">
-          <figcaption>D&amp;D camp poster</figcaption>
-        </figure>
-        <figure class="photo-card photo-card--placeholder">
-          <div class="photo-placeholder">Photo coming soon</div>
-          <figcaption>Tanzania</figcaption>
-        </figure>
-        <figure class="photo-card photo-card--placeholder">
-          <div class="photo-placeholder">Photo coming soon</div>
-          <figcaption>Trinity</figcaption>
-        </figure>
-        <figure class="photo-card photo-card--placeholder">
-          <div class="photo-placeholder">Photo coming soon</div>
-          <figcaption>Travel</figcaption>
-        </figure>
-        <figure class="photo-card photo-card--placeholder">
-          <div class="photo-placeholder">Photo coming soon</div>
-          <figcaption>Life</figcaption>
-        </figure>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
+  </section>
 
   <!-- ========== ABOUT ========== -->
-  <div id="about" class="page">
+<section id="about" class="section-block">
     <section class="section">
       <div class="about-card-grid stagger">
         <div class="about-card about-card--bio">
           <p class="eyebrow">Who I am</p>
           <h2>Cillian Cooke</h2>
           <p>
-            I’m a Computer Science student at Trinity College Dublin focused on shipping real products: Atlas, a proximity-based social platform built solo in Flutter; Lockup, a team app for presence at gatherings; and collaborative work like Metricare and hackathon tools.
+            I’m a Computer Science student at Trinity College Dublin focused on shipping real products: Atlas, a proximity-based social platform built solo in Flutter; and Lockup, a team app for presence at gatherings.
           </p>
           <p>
             Outside of code I play football for Leinster Celtic, juggle with Trinity’s Circus Society, and spent three weeks volunteering at rural schools in Tanzania.
@@ -546,7 +197,7 @@
           <div class="bio-facts">
             <div><span>Location</span>Dublin, Ireland</div>
             <div><span>Education</span>MAI Computer Science, TCD</div>
-            <div><span>CV</span><a data-page="cv">View CV →</a></div>
+            <div><span>CV</span><a href="#cv" data-scroll="cv">View CV →</a></div>
           </div>
         </div>
 
@@ -582,18 +233,10 @@
         </a>
       </div>
     </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
+  </section>
 
   <!-- ========== CV ========== -->
-  <div id="cv" class="page">
+<section id="cv" class="section-block">
     <section class="section">
       <div class="cv-sheet reveal">
         <div class="cv-header">
@@ -705,16 +348,6 @@
               <li>Full-stack design and build of a proximity-based social application</li>
             </ul>
           </div>
-          <div class="cv-entry">
-            <div class="cv-entry-header">
-              <strong>Trinity Hackathon</strong>
-              <span class="cv-date">04/2026</span>
-            </div>
-            <p class="cv-place">Winning Team Project · D&amp;D campaign tool</p>
-            <ul>
-              <li>Won Best Teamwork; built a collaborative Dungeons &amp; Dragons campaign app in 24 hours</li>
-            </ul>
-          </div>
         </div>
 
         <div class="cv-section">
@@ -742,6 +375,305 @@
         </a>
       </div>
     </section>
+  </section>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </main>
+
+  <!-- ========== OPINIONS ========== -->
+<div id="opinions" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Opinions</p>
+      </div>
+
+      <div class="piece-grid stagger">
+        <a class="piece-card" href="essays/sample.html">
+          <p class="piece-meta">Sample</p>
+          <h3>On building software that stays human</h3>
+          <p>Proximity, presence, and craft — a starter essay you can rewrite.</p>
+          <span class="piece-go">Read →</span>
+        </a>
+        <a class="piece-card" href="essays/placeholder-two.html">
+          <p class="piece-meta">Placeholder</p>
+          <h3>Untitled essay</h3>
+          <p>Replace this card’s title, lede, and linked HTML when you have the piece.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="essays/placeholder-three.html">
+          <p class="piece-meta">Placeholder</p>
+          <h3>Untitled essay</h3>
+          <p>Another slot for a finished opinion piece.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== POETRY ========== -->
+<div id="poetry" class="page">
+    <section class="section reading">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Poetry</p>
+      </div>
+
+      <div class="poetry-section reveal">
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Overture I</span>
+            <span class="poem-subtitle">Every note is born equal</span>
+          </summary>
+          <div class="poem-content">
+            <p>Every note is born equal, yet<br>An artist must decide what note comes next.<br>A choice that should never rest with one alone.<br>Equality does not mean perfection.</p>
+            <p>Across this universe, infinite lives begin.<br>Infinite lives end.<br>And I, as an artist, as a lover, must choose but one.<br>A choice made infinitely impossible.</p>
+            <p>With the concept of infinity,<br>With a gesture most romantic, I will<br>Divide infinity to reach you,<br>Until infinity becomes one.</p>
+            <p>And with that,<br>Multiply one to infinity.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Undying Note III</span>
+            <span class="poem-subtitle">War is coming, maybe not in this life</span>
+          </summary>
+          <div class="poem-content">
+            <p>War is coming, maybe not in this life,<br>but definitely in the next.</p>
+            <p>Living is to fight; dying is to move on.<br>Each stage grows, while you shrink.</p>
+            <p>A war shouldn’t be won with a thousand soldiers,<br>but rather one right leader,<br>one who unites,<br>one who plays the perfect harmony<br>between pain and growth.</p>
+            <p>War isn’t won with sticks and stones,<br>but rather a series of notes,<br>a chord juxtaposed with a lullaby.</p>
+            <p>So this fight may be over,<br>but the war has just begun.<br>To fight and die is the greatest sacrifice;<br>to fight and live is to fight again.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Singularity IV</span>
+            <span class="poem-subtitle">Weightless in the eyes of progress</span>
+          </summary>
+          <div class="poem-content">
+            <p>Weightless in the eyes of progress,<br>Progress found in the event of no return.</p>
+            <p>Beyond the cliff of moments.<br>For a God does not fear<br>The concept of time.</p>
+            <p>The other side awaits. Patiently<br>Aging the mortals.<br>Like a clock ticking down its own demise.<br>So shall you. A warrior with no urgency.</p>
+            <p>Is a hero with no purpose.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">The Final Chapter XII</span>
+            <span class="poem-subtitle">It begins and ends with you</span>
+          </summary>
+          <div class="poem-content">
+            <p>It begins and ends with you,<br>My fallen angel bearing the golden ticket.<br>A war to end all wars is not worth the blade<br>If your soul wasn’t left to save.</p>
+            <p>This ticket to omnipotence is priceless,<br>Yet exemption from battle is granted<br>Along with the greatest honour.<br>For you and you alone must choose,</p>
+            <p>A single champion.</p>
+            <p>A champion to lead us into war.<br>And the war comes for us now,<br>For a plague has taken root,<br>Defence will only buy us time.</p>
+          </div>
+        </details>
+
+        <details class="poem-item">
+          <summary>
+            <span class="poem-title">Questioning V</span>
+            <span class="poem-subtitle">Walking in circles; running from memories</span>
+          </summary>
+          <div class="poem-content">
+            <p>Walking in circles; running from memories.<br>Memories of nightmares.<br>Nightmares that manifest to reality.</p>
+            <p>An endless cycle, building upon itself.</p>
+            <p>I never got to the heart of the problem,<br>As I never learned to hold my breath.</p>
+            <p>How I apologise to myself with empty words.<br>“Sorry” isn’t enough to put out a fire.</p>
+            <p>Stop looking in the eyes of others,<br>As you share different worlds.</p>
+            <p>By walking through old memories,<br>Each one slightly wrong.</p>
+            <p>A mirror placed in front of me,<br>Still doesn’t reflect how I feel.<br>In a world of good and evil.<br>I feel left out.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== BOOKS ========== -->
+<div id="books" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Books</p>
+      </div>
+
+      <div class="books-grid stagger">
+        <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible Compendium 1" loading="lazy">
+          <h3>Invincible Compendium 1</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781607067726" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607067726-L.jpg" alt="Invincible Compendium 2" loading="lazy">
+          <h3>Invincible Compendium 2</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781534306868" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781534306868-L.jpg" alt="Invincible Compendium 3" loading="lazy">
+          <h3>Invincible Compendium 3</h3>
+          <p class="book-author">Robert Kirkman</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys" loading="lazy">
+          <h3>The Boys</h3>
+          <p class="book-author">Garth Ennis</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta" loading="lazy">
+          <h3>V for Vendetta</h3>
+          <p class="book-author">Alan Moore</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History" loading="lazy">
+          <h3>Sapiens: A Graphic History</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus" loading="lazy">
+          <h3>Nexus</h3>
+          <p class="book-author">Yuval Noah Harari</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World" loading="lazy">
+          <h3>Hello World</h3>
+          <p class="book-author">Hannah Fry</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies" loading="lazy">
+          <h3>If Anyone Builds It, Everyone Dies</h3>
+          <p class="book-author">Yudkowsky &amp; Soares</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action" loading="lazy">
+          <h3>Flutter in Action</h3>
+          <p class="book-author">Eric Windmill</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications" loading="lazy">
+          <h3>Designing Data-Intensive Applications</h3>
+          <p class="book-author">Martin Kleppmann</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts" loading="lazy">
+          <h3>Smartcuts</h3>
+          <p class="book-author">Shane Snow</p>
+        </a>
+        <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
+          <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test" loading="lazy">
+          <h3>The Mom Test</h3>
+          <p class="book-author">Rob Fitzpatrick</p>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PODCASTS ========== -->
+<div id="podcasts" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Podcasts</p>
+      </div>
+
+      <div class="piece-grid stagger">
+        <a class="piece-card" href="podcasts/ep-01.html">
+          <p class="piece-meta">Ep. 01 · Placeholder</p>
+          <h3>Why proximity beats the feed</h3>
+          <p>On discovery without the infinite scroll.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="podcasts/ep-02.html">
+          <p class="piece-meta">Ep. 02 · Placeholder</p>
+          <h3>Shipping alone without disappearing</h3>
+          <p>Solo builds, pace, and staying human while you ship.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+        <a class="piece-card" href="podcasts/ep-03.html">
+          <p class="piece-meta">Ep. 03 · Placeholder</p>
+          <h3>Tabletop worlds and product design</h3>
+          <p>What campaigns teach about systems people actually inhabit.</p>
+          <span class="piece-go">Open →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PHOTOS ========== -->
+<div id="photos" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Photos</p>
+      </div>
+      <div class="photo-grid stagger">
+        <figure class="photo-card">
+          <img src="images/DnD_poster1.png" alt="D&amp;D camp poster">
+          <figcaption>D&amp;D camp poster</figcaption>
+        </figure>
+        <figure class="photo-card">
+          <img src="images/DnD_poster2.png" alt="D&amp;D camp poster">
+          <figcaption>D&amp;D camp poster</figcaption>
+        </figure>
+        <figure class="photo-card photo-card--placeholder">
+          <div class="photo-placeholder">Photo coming soon</div>
+          <figcaption>Tanzania</figcaption>
+        </figure>
+        <figure class="photo-card photo-card--placeholder">
+          <div class="photo-placeholder">Photo coming soon</div>
+          <figcaption>Trinity</figcaption>
+        </figure>
+        <figure class="photo-card photo-card--placeholder">
+          <div class="photo-placeholder">Photo coming soon</div>
+          <figcaption>Travel</figcaption>
+        </figure>
+        <figure class="photo-card photo-card--placeholder">
+          <div class="photo-placeholder">Photo coming soon</div>
+          <figcaption>Life</figcaption>
+        </figure>
+      </div>
+    </section>
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -753,7 +685,7 @@
   </div>
 
   <!-- ========== PROJECT DETAILS ========== -->
-  <div id="detail-atlas" class="page">
+<div id="detail-atlas" class="page">
     <section class="section detail-page">
       <button class="detail-back" data-page="projects" type="button">← Projects</button>
       <div class="detail-header reveal">
@@ -789,7 +721,7 @@
     </footer>
   </div>
 
-  <div id="detail-lockup" class="page">
+<div id="detail-lockup" class="page">
     <section class="section detail-page">
       <button class="detail-back" data-page="projects" type="button">← Projects</button>
       <div class="detail-header reveal">
@@ -813,147 +745,6 @@
           <li>Team project</li>
           <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a></li>
         </ul>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <div id="detail-metricare" class="page">
-    <section class="section detail-page">
-      <button class="detail-back" data-page="projects" type="button">← Projects</button>
-      <div class="detail-header reveal">
-        <div>
-          <p class="detail-meta">Mar 2026</p>
-          <h1>Metricare</h1>
-          <p class="lede">Full-stack medical patient dashboard.</p>
-        </div>
-        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-metricare.json" data-loop="false" aria-hidden="true">
-          <svg class="mark-fallback" viewBox="0 0 80 80">
-            <path class="line" d="M18 50l14-18 12 10 18-24"/>
-            <circle class="dot" cx="62" cy="18" r="3"/>
-          </svg>
-        </div>
-      </div>
-      <div class="detail-body reveal">
-        <p>Metricare pulls together patient history, medications, FDA drug interactions, and clinical summaries into one interface for healthcare providers.</p>
-        <ul>
-          <li>Frontend: React + TypeScript + Vite</li>
-          <li>Backend: FastAPI (Python)</li>
-          <li>Drug data: FDA Open API</li>
-        </ul>
-        <p><a href="https://github.com/mcrowley19/dashboard" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <div id="detail-digishelf" class="page">
-    <section class="section detail-page">
-      <button class="detail-back" data-page="projects" type="button">← Projects</button>
-      <div class="detail-header reveal">
-        <div>
-          <p class="detail-meta">2026</p>
-          <h1>Digishelf</h1>
-          <p class="lede">Cross-platform digital bookshelf.</p>
-        </div>
-        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-digishelf.json" data-loop="false" aria-hidden="true">
-          <svg class="mark-fallback" viewBox="0 0 80 80">
-            <path class="line" d="M20 58h40M24 58V28h10v30M38 58V22h10v36M52 58V32h8v26"/>
-          </svg>
-        </div>
-      </div>
-      <div class="detail-body reveal">
-        <p>A digital bookshelf app — scan barcodes to add books, organise your collection, and track reading. Built in Flutter for iOS, Android, web, and desktop.</p>
-        <ul>
-          <li>Dart / Flutter</li>
-          <li>Barcode scanning</li>
-          <li>Cross-platform</li>
-        </ul>
-        <p><a href="https://github.com/jagoda-ks/Digishelf" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <div id="detail-hackathon" class="page">
-    <section class="section detail-page">
-      <button class="detail-back" data-page="projects" type="button">← Projects</button>
-      <div class="detail-header reveal">
-        <div>
-          <p class="detail-meta">Apr 2026 · Trinity College Dublin</p>
-          <h1>Trinity Hackathon</h1>
-          <p class="lede">Best Teamwork — built in 24 hours.</p>
-        </div>
-        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-hackathon.json" data-loop="false" aria-hidden="true">
-          <svg class="mark-fallback" viewBox="0 0 80 80">
-            <path class="line" d="M28 28l-10 12 10 12M52 28l10 12-10 12"/>
-            <circle class="dot" cx="40" cy="40" r="4"/>
-          </svg>
-        </div>
-      </div>
-      <div class="detail-body reveal">
-        <p>At a hackathon at Trinity, our team built a collaborative D&amp;D campaign app — a dynamic Dungeon Master responding to player choices in real time.</p>
-        <p>Built in a single day. Awarded Best Teamwork.</p>
-        <ul>
-          <li>Python</li>
-          <li>24-hour team build</li>
-        </ul>
-        <p><a href="https://github.com/Cillian-Cooke/claude-hackathon-project" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
-      </div>
-    </section>
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-      </div>
-      <p class="footer-copy">Dublin, Ireland</p>
-    </footer>
-  </div>
-
-  <div id="detail-mars" class="page">
-    <section class="section detail-page">
-      <button class="detail-back" data-page="projects" type="button">← Projects</button>
-      <div class="detail-header reveal">
-        <div>
-          <p class="detail-meta">2026</p>
-          <h1>Mars Food Simulation</h1>
-          <p class="lede">Resource management for a Mars colony.</p>
-        </div>
-        <div class="emblem-slot lottie-slot" data-lottie="lottie/emblem-mars.json" data-loop="false" aria-hidden="true">
-          <svg class="mark-fallback" viewBox="0 0 80 80">
-            <circle class="line" cx="40" cy="40" r="16"/>
-            <ellipse class="line" cx="40" cy="40" rx="34" ry="12"/>
-          </svg>
-        </div>
-      </div>
-      <div class="detail-body reveal">
-        <p>Simulation modelling food production and resource management for a Mars colony — exploring sustainable agriculture in extraterrestrial environments.</p>
-        <ul>
-          <li>Collaborative simulation project</li>
-        </ul>
-        <p><a href="https://github.com/mcrowley19/mars-food-simulation" target="_blank" rel="noopener noreferrer">View on GitHub →</a></p>
       </div>
     </section>
     <footer class="footer">

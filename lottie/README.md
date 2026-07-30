@@ -43,10 +43,6 @@ Project emblems (optional, ≤96px display):
 
 - `emblem-atlas.json`
 - `emblem-lockup.json`
-- `emblem-metricare.json`
-- `emblem-digishelf.json`
-- `emblem-hackathon.json`
-- `emblem-mars.json`
 
 ## Behaviour
 
