@@ -154,12 +154,13 @@
   function refresh(root) {
     const scope = root || document;
     scope.querySelectorAll('.lottie-slot[data-lottie]').forEach((slot) => {
-      if (slot.closest('.page') && !slot.closest('.page.active') && !slot.closest('.nav')) {
+      const panel = slot.closest('.panel');
+      if (panel && !panel.classList.contains('active') && !slot.closest('.nav')) {
         return;
       }
       tryLoadAnimation(slot);
     });
-    document.querySelectorAll('.nav .lottie-slot[data-lottie], .hero .lottie-slot[data-lottie]').forEach((slot) => {
+    document.querySelectorAll('.nav .lottie-slot[data-lottie], .spine-home .lottie-slot[data-lottie]').forEach((slot) => {
       tryLoadAnimation(slot);
     });
   }
