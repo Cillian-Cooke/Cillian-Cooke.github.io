@@ -319,7 +319,7 @@ function buildLogo() {
   const H = 400;
   const op = 240; // 4s
   // Scale paths from 200 viewBox — fill the artboard tightly
-  const scale = 1.72;
+  const scale = 1.78;
   const ox = (W - 200 * scale) / 2;
   const oy = (H - 200 * scale) / 2;
   const map = (p) =>
@@ -333,6 +333,8 @@ function buildLogo() {
       ox,
       oy
     );
+  // Nudge the inner Cs slightly left relative to the outer hug arms
+  const mapInner = (p) => offsetPath(map(p), -8 * scale, 0);
 
   const cx = W / 2;
   const cy = H / 2;
@@ -399,8 +401,8 @@ function buildLogo() {
   };
 
   // Recreate with shape transform offset instead of layer anchor hack
-  function stroked(name, ind, path, t0, t1) {
-    const mapped = map(path);
+  function stroked(name, ind, path, t0, t1, shiftInner = false) {
+    const mapped = shiftInner ? mapInner(path) : map(path);
     return {
       ddd: 0,
       ind,
@@ -482,8 +484,8 @@ function buildLogo() {
   return wrapAnim(W, H, 'logo', op, [
     stroked('Outer A', 4, OUTER_A, 0, 40),
     stroked('Outer B', 3, OUTER_B, 8, 48),
-    stroked('Inner L', 2, INNER_L, 22, 55),
-    stroked('Inner R', 1, INNER_R, 30, 62),
+    stroked('Inner L', 2, INNER_L, 22, 55, true),
+    stroked('Inner R', 1, INNER_R, 30, 62, true),
   ]);
 }
 
