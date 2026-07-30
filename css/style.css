@@ -844,28 +844,26 @@ h3 { font-size: 1.2rem; }
 
 /* ---------- Piece cards (opinions / podcasts) ---------- */
 .piece-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.15rem;
 }
 .piece-card {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  padding: 1.5rem 0;
-  background: transparent;
-  border: none;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  transition: none;
-  min-height: 0;
+  padding: 1.5rem 1.35rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  min-height: 200px;
 }
 .piece-card:hover {
-  border-color: var(--border);
-  transform: none;
-  box-shadow: none;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
-.piece-card:hover h3 { color: var(--accent); }
 .piece-meta {
   font-size: 0.78rem;
   font-weight: 650;
