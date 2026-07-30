@@ -333,8 +333,8 @@ function buildLogo() {
       ox,
       oy
     );
-  // Nudge the inner Cs slightly left relative to the outer hug arms
-  const mapInner = (p) => offsetPath(map(p), -8 * scale, 0);
+  // Keep inner Cs on the same mapped coords as the mark (visually centered in the hug)
+  const mapInner = (p) => map(p);
 
   const cx = W / 2;
   const cy = H / 2;
