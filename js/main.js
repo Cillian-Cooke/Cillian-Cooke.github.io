@@ -74,6 +74,8 @@
     showPage(target);
   }
 
+  let homeVisited = false;
+
   function showPage(pageId) {
     pageId = REDIRECTS[pageId] || pageId;
     if (!pages[pageId]) pageId = 'home';
@@ -107,9 +109,11 @@
       window.CillianLottie.refresh(target);
     }
 
-    if (pageId === 'home' && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
+    // Soft-replay only when returning to home — initial load is handled by lottie.js once
+    if (pageId === 'home' && homeVisited && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
       window.CillianLottie.replay('#name-hero');
     }
+    if (pageId === 'home') homeVisited = true;
   }
 
   function initMobileMenu() {

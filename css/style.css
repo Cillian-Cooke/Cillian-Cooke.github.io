@@ -335,12 +335,19 @@ h3 { font-size: 1.2rem; }
   width: 100%;
   height: 100%;
 }
+.lottie-slot .lottie-canvas {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
 .lottie-slot[data-loaded='true'] .logo-fallback,
 .lottie-slot[data-loaded='true'] .mark-fallback {
   display: none;
 }
 .lottie-slot .lottie-canvas:empty { display: none; }
-.lottie-slot[data-loaded='true'] .lottie-canvas { display: block; }
+.lottie-slot[data-loaded='true'] .lottie-canvas {
+  display: block;
+  opacity: 1;
+}
 
 .logo-fallback,
 .mark-fallback {

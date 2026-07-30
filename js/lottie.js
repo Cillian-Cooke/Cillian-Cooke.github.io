@@ -32,6 +32,18 @@
     return libPromise;
   }
 
+  function waitFonts(families) {
+    if (!document.fonts || !families.length) return Promise.resolve();
+    return Promise.all(
+      families.map((f) => document.fonts.load(f).catch(() => null))
+    ).then(() => document.fonts.ready.catch(() => null));
+  }
+
+  function revealSlot(slot, canvas) {
+    canvas.style.opacity = '1';
+    slot.setAttribute('data-loaded', 'true');
+  }
+
   function bindHoverPlay(slot, anim, holdFrame) {
     const trigger = slot.closest('[data-lottie-hover]') || slot;
     if (trigger.dataset.lottieHoverBound === 'true') return;
@@ -68,7 +80,10 @@
       loaded.delete(slot);
       slot.removeAttribute('data-loaded');
       const old = slot.querySelector('.lottie-canvas');
-      if (old) old.innerHTML = '';
+      if (old) {
+        old.innerHTML = '';
+        old.style.opacity = '0';
+      }
       const trigger = slot.closest('[data-lottie-hover]');
       if (trigger) delete trigger.dataset.lottieHoverBound;
     }
@@ -79,6 +94,12 @@
       const res = await fetch(src, { method: 'GET' });
       if (!res.ok) return false;
       const data = await res.json();
+
+      // Avoid Syne FOUT / glyph pop on the home name Lottie
+      if (slot.id === 'name-hero' || (data.fonts && data.fonts.list && data.fonts.list.length)) {
+        await waitFonts(['700 64px Syne', '700 1em Syne']);
+      }
+
       const lib = await loadLottieLib();
       if (!lib) return false;
 
@@ -89,6 +110,7 @@
         slot.appendChild(canvas);
       }
       canvas.innerHTML = '';
+      canvas.style.opacity = '0';
 
       const playMode = slot.getAttribute('data-play');
       const hover = playMode === 'hover';
@@ -99,20 +121,30 @@
         container: canvas,
         renderer: 'svg',
         loop: hover ? false : loop,
-        autoplay: !hover,
+        autoplay: false,
         animationData: data,
       });
 
-      if (hover) {
-        anim.addEventListener('DOMLoaded', () => {
+      const arm = () => {
+        if (hover) {
           anim.goToAndStop(holdFrame, true);
+          bindHoverPlay(slot, anim, holdFrame);
+        } else {
+          anim.goToAndPlay(0, true);
+        }
+        // Next frame so the SVG is painted before we hide the fallback
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => revealSlot(slot, canvas));
         });
-        anim.goToAndStop(holdFrame, true);
-        bindHoverPlay(slot, anim, holdFrame);
+      };
+
+      if (anim.isLoaded) {
+        arm();
+      } else {
+        anim.addEventListener('DOMLoaded', arm);
       }
 
       loaded.set(slot, anim);
-      slot.setAttribute('data-loaded', 'true');
       return true;
     } catch (_) {
       return false;
@@ -132,10 +164,20 @@
     });
   }
 
+  /** Soft replay — seek to start without destroy (avoids fallback flash). */
   function replay(selector) {
     const slot = typeof selector === 'string' ? document.querySelector(selector) : selector;
     if (!slot) return Promise.resolve(false);
-    return tryLoadAnimation(slot, { force: true });
+    if (loaded.has(slot)) {
+      const anim = loaded.get(slot);
+      try {
+        anim.goToAndPlay(0, true);
+        return Promise.resolve(true);
+      } catch (_) {
+        return tryLoadAnimation(slot, { force: true });
+      }
+    }
+    return tryLoadAnimation(slot);
   }
 
   document.addEventListener('DOMContentLoaded', () => refresh());
