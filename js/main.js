@@ -1,20 +1,24 @@
 /* ============================================
    Cillian Cooke · Portfolio JS
-   Routing, font toggle, reveals
+   One-page scroll nav, secondary overlays, font toggle, reveals
    ============================================ */
 
 (function () {
   'use strict';
 
   const pages = {};
-  const ABOUT_PAGES = new Set([
-    'about', 'opinions', 'poetry', 'books', 'podcasts', 'photos',
+  const MAIN_SECTIONS = new Set(['home', 'projects', 'about', 'cv']);
+  const ABOUT_OVERLAYS = new Set([
+    'opinions', 'poetry', 'books', 'podcasts', 'photos',
     'writing', 'media',
   ]);
   const REDIRECTS = {
     writing: 'about',
     media: 'about',
   };
+
+  let homeVisited = false;
+  let scrollingProgrammatically = false;
 
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
@@ -38,55 +42,39 @@
       document.documentElement.removeAttribute('data-font');
     }
     document.querySelectorAll('.font-toggle').forEach((btn) => {
-      const on = mode === 'dyslexic';
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      const label = btn.querySelector('.font-toggle-label');
-      if (label) {
-        label.textContent = on ? 'Dyslexia-friendly on' : 'Dyslexia-friendly';
-      }
+      btn.setAttribute('aria-pressed', mode === 'dyslexic' ? 'true' : 'false');
     });
   }
 
-  function initRouter() {
-    document.querySelectorAll('.page').forEach((p) => {
-      pages[p.id] = p;
-    });
-
-    document.querySelectorAll('[data-page]').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigateTo(link.getAttribute('data-page'));
-        closeMobileMenu();
-      });
-    });
-
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1) || 'home';
-      showPage(hash);
-    });
-
-    showPage(window.location.hash.slice(1) || 'home');
+  function siteMain() {
+    return document.getElementById('site-main');
   }
 
-  function navigateTo(pageId) {
-    const target = REDIRECTS[pageId] || pageId;
-    window.location.hash = target === 'home' ? '' : target;
-    showPage(target);
+  function isOverlay(id) {
+    return Boolean(pages[id]);
   }
 
-  let homeVisited = false;
-
-  function showPage(pageId) {
-    pageId = REDIRECTS[pageId] || pageId;
-    if (!pages[pageId]) pageId = 'home';
-
-    document.querySelectorAll('.nav-links [data-page]').forEach((link) => {
-      const target = link.getAttribute('data-page');
-      let active = target === pageId;
-      if (target === 'about' && ABOUT_PAGES.has(pageId)) active = true;
-      if (target === 'projects' && (pageId === 'projects' || pageId.startsWith('detail-'))) active = true;
+  function setNavActive(sectionId) {
+    document.querySelectorAll('.nav-links [data-scroll]').forEach((link) => {
+      const target = link.getAttribute('data-scroll');
+      let active = target === sectionId;
+      if (target === 'about' && ABOUT_OVERLAYS.has(sectionId)) active = true;
+      if (target === 'projects' && sectionId.startsWith('detail-')) active = true;
       link.classList.toggle('active', active);
     });
+  }
+
+  function showMain() {
+    const main = siteMain();
+    if (main) main.classList.remove('is-hidden');
+    Object.values(pages).forEach((page) => {
+      page.classList.remove('active', 'visible');
+    });
+  }
+
+  function showOverlay(pageId) {
+    const main = siteMain();
+    if (main) main.classList.add('is-hidden');
 
     Object.values(pages).forEach((page) => {
       page.classList.remove('active', 'visible');
@@ -108,12 +96,136 @@
     if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
       window.CillianLottie.refresh(target);
     }
+  }
 
-    // Soft-replay only when returning to home — initial load is handled by lottie.js once
-    if (pageId === 'home' && homeVisited && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
+  function scrollToSection(sectionId, { updateHash = true } = {}) {
+    showMain();
+
+    const id = MAIN_SECTIONS.has(sectionId) ? sectionId : 'home';
+    const el = document.getElementById(id);
+
+    setNavActive(id);
+
+    if (updateHash) {
+      const nextHash = id === 'home' ? '' : id;
+      const current = window.location.hash.slice(1);
+      if (current !== nextHash) {
+        scrollingProgrammatically = true;
+        if (nextHash) {
+          history.replaceState(null, '', `#${nextHash}`);
+        } else {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        scrollingProgrammatically = false;
+      }
+    }
+
+    if (!el || id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    initReveals();
+
+    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
+      window.CillianLottie.refresh(siteMain());
+    }
+
+    if (id === 'home' && homeVisited && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
       window.CillianLottie.replay('#name-hero');
     }
-    if (pageId === 'home') homeVisited = true;
+    if (id === 'home') homeVisited = true;
+  }
+
+  function navigateTo(pageId) {
+    const target = REDIRECTS[pageId] || pageId;
+
+    if (MAIN_SECTIONS.has(target) || target === '' || !target) {
+      scrollToSection(target || 'home');
+      return;
+    }
+
+    if (!isOverlay(target)) {
+      scrollToSection('home');
+      return;
+    }
+
+    scrollingProgrammatically = true;
+    window.location.hash = target;
+    scrollingProgrammatically = false;
+    setNavActive(target);
+    showOverlay(target);
+  }
+
+  function handleRoute(hash) {
+    const raw = REDIRECTS[hash] || hash || 'home';
+
+    if (MAIN_SECTIONS.has(raw)) {
+      scrollToSection(raw, { updateHash: false });
+      return;
+    }
+
+    if (isOverlay(raw)) {
+      setNavActive(raw);
+      showOverlay(raw);
+      return;
+    }
+
+    scrollToSection('home', { updateHash: false });
+  }
+
+  function initRouter() {
+    document.querySelectorAll('.page').forEach((p) => {
+      pages[p.id] = p;
+    });
+
+    document.querySelectorAll('[data-scroll]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.getAttribute('data-scroll'));
+        closeMobileMenu();
+      });
+    });
+
+    document.querySelectorAll('[data-page]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.getAttribute('data-page'));
+        closeMobileMenu();
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      if (scrollingProgrammatically) return;
+      handleRoute(window.location.hash.slice(1));
+    });
+
+    handleRoute(window.location.hash.slice(1));
+  }
+
+  function initSectionObserver() {
+    const sections = [...MAIN_SECTIONS]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (siteMain()?.classList.contains('is-hidden')) return;
+
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (!visible.length) return;
+      setNavActive(visible[0].target.id);
+    }, {
+      rootMargin: `-${Math.round(window.innerHeight * 0.25)}px 0px -45% 0px`,
+      threshold: [0.1, 0.35, 0.6],
+    });
+
+    sections.forEach((section) => observer.observe(section));
   }
 
   function initMobileMenu() {
@@ -172,11 +284,11 @@
   }
 
   function initBrandKeyboard() {
-    document.querySelectorAll('.nav-brand[data-page]').forEach((el) => {
+    document.querySelectorAll('.nav-brand[data-scroll], .nav-brand[data-page]').forEach((el) => {
       el.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          navigateTo(el.getAttribute('data-page'));
+          navigateTo(el.getAttribute('data-scroll') || el.getAttribute('data-page'));
         }
       });
     });
@@ -185,6 +297,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initFontToggle();
     initRouter();
+    initSectionObserver();
     initMobileMenu();
     initNavScroll();
     initPoemAccordion();

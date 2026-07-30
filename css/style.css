@@ -160,30 +160,22 @@ body.viewing-overlay {
 .nav-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
   cursor: pointer;
   flex-shrink: 0;
 }
 .nav-brand-mark {
-  width: 68px;
-  height: 68px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
+  display: block;
 }
-.nav-brand-mark .logo-fallback .stroke {
-  stroke: #000;
-  stroke-width: 7;
-  stroke-dasharray: none;
-  stroke-dashoffset: 0;
-  animation: none;
-}
-.nav-brand-mark .lottie-canvas svg path {
-  stroke: #000 !important;
-}
-.nav-brand-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .nav-links {
@@ -210,27 +202,19 @@ body.viewing-overlay {
   background: var(--accent);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  flex-shrink: 0;
-}
-
 .font-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.75rem;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
   border: 1.5px solid var(--border-strong);
   border-radius: 999px;
   background: var(--bg-elevated);
-  font-size: 0.78rem;
-  font-weight: 650;
-  letter-spacing: 0.01em;
   color: var(--ink);
   transition: border-color var(--transition), background var(--transition), color var(--transition);
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 .font-toggle:hover {
   border-color: var(--accent);
@@ -242,8 +226,9 @@ body.viewing-overlay {
 }
 .font-toggle-badge {
   font-family: var(--font-dyslexic);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   line-height: 1;
+  font-weight: 700;
 }
 
 .nav-toggle {
@@ -1241,8 +1226,7 @@ a.about-card:hover {
     border-bottom: 1px solid var(--border);
   }
   .nav-links a.active::after { display: none; }
-  .font-toggle-label { display: none; }
-  .font-toggle { padding: 0.5rem 0.65rem; }
+  .nav-end { gap: 0.75rem; }
 }
 
 @media (max-width: 560px) {
