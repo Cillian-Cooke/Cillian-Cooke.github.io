@@ -1,23 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Cillian Cooke">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2a3238"/>
-      <stop offset="100%" stop-color="#0e1214"/>
-    </linearGradient>
-  </defs>
-  <!-- App-icon squircle + dual-C hug mark (same geometry as the Lottie logo) -->
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <g
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="18"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    transform="translate(56 56) scale(2)"
-  >
-    <path d="M128 62c-28-18-68-8-78 28s18 72 54 78"/>
-    <path d="M72 138c28 18 68 8 78-28s-18-72-54-78"/>
-    <path d="M86 82a20 22 0 1 0 0 36"/>
-    <path d="M126 82a20 22 0 1 0 0 36"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-label="Cillian Cooke">
+  <!-- Same hug mark as the nav logo: black thin strokes, transparent background -->
+  <path d="M128 62c-28-18-68-8-78 28s18 72 54 78" stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M72 138c28 18 68 8 78-28s-18-72-54-78" stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M86 82a20 22 0 1 0 0 36" stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M126 82a20 22 0 1 0 0 36" stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
