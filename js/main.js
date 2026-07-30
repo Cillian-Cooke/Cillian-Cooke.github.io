@@ -1,22 +1,25 @@
 /* ============================================
    Cillian Cooke · Portfolio JS
-   Scroll spine + detail/hub panels
+   Routing, font toggle, reveals
    ============================================ */
 
 (function () {
   'use strict';
 
-  const SPINE = new Set(['home', 'projects', 'about', 'cv']);
-  const HUBS = new Set(['opinions', 'poetry', 'books', 'podcasts', 'photos']);
-  const REDIRECTS = { writing: 'about', media: 'about' };
-
-  const panels = {};
-  let activePanel = null;
-  let scrollTicking = false;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pages = {};
+  const ABOUT_PAGES = new Set([
+    'about', 'opinions', 'poetry', 'books', 'podcasts', 'photos',
+    'writing', 'media',
+  ]);
+  const REDIRECTS = {
+    writing: 'about',
+    media: 'about',
+  };
 
   function initFontToggle() {
-    applyFont(localStorage.getItem('font') || 'default');
+    const saved = localStorage.getItem('font') || 'default';
+    applyFont(saved);
+
     document.querySelectorAll('.font-toggle').forEach((btn) => {
       btn.addEventListener('click', () => {
         const next = document.documentElement.getAttribute('data-font') === 'dyslexic'
@@ -44,104 +47,9 @@
     });
   }
 
-  function navOffset() {
-    const nav = document.querySelector('.nav');
-    return (nav ? nav.offsetHeight : 72) + 8;
-  }
-
-  function setNavActive(id) {
-    document.querySelectorAll('.nav-links [data-page]').forEach((link) => {
-      const target = link.getAttribute('data-page');
-      let active = target === id;
-      if (target === 'projects' && id && id.startsWith('detail-')) active = true;
-      if (target === 'about' && HUBS.has(id)) active = true;
-      link.classList.toggle('active', active);
-    });
-  }
-
-  function closePanel() {
-    if (!activePanel) return;
-    activePanel.classList.remove('active');
-    activePanel = null;
-    document.body.classList.remove('panel-open');
-  }
-
-  function openPanel(id) {
-    const panel = panels[id];
-    if (!panel) return false;
-
-    Object.values(panels).forEach((p) => p.classList.remove('active'));
-    panel.classList.add('active');
-    activePanel = panel;
-    document.body.classList.add('panel-open');
-    panel.scrollTop = 0;
-    setNavActive(id);
-
-    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
-      window.CillianLottie.refresh(panel);
-    }
-    return true;
-  }
-
-  function scrollToSection(id, { updateHash = true } = {}) {
-    closePanel();
-    const el = document.getElementById(id) || document.getElementById('home');
-    const top = el.getBoundingClientRect().top + window.scrollY - navOffset();
-    window.scrollTo({ top: Math.max(0, top), behavior: reduceMotion ? 'auto' : 'smooth' });
-    setNavActive(id === 'home' ? 'home' : id);
-    if (updateHash) {
-      const next = id === 'home' ? '' : id;
-      if ((window.location.hash.slice(1) || '') !== next) {
-        history.replaceState(null, '', next ? `#${next}` : window.location.pathname + window.location.search);
-      }
-    }
-  }
-
-  function navigateTo(pageId) {
-    pageId = REDIRECTS[pageId] || pageId || 'home';
-
-    if (SPINE.has(pageId)) {
-      scrollToSection(pageId, { updateHash: true });
-      return;
-    }
-
-    if (pageId.startsWith('detail-') || HUBS.has(pageId)) {
-      const next = `#${pageId}`;
-      if (window.location.hash !== next) {
-        window.location.hash = pageId;
-      } else {
-        openPanel(pageId);
-      }
-      return;
-    }
-
-    scrollToSection('home');
-  }
-
-  function routeFromHash() {
-    const raw = window.location.hash.slice(1);
-    const hash = REDIRECTS[raw] || raw || 'home';
-    if (SPINE.has(hash)) {
-      closePanel();
-      const el = document.getElementById(hash);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - navOffset();
-        window.scrollTo(0, Math.max(0, top));
-      }
-      setNavActive(hash);
-      return;
-    }
-    if (hash.startsWith('detail-') || HUBS.has(hash)) {
-      openPanel(hash);
-      return;
-    }
-    closePanel();
-    setNavActive('home');
-  }
-
   function initRouter() {
-    document.querySelectorAll('.panel').forEach((p) => {
-      panels[p.id] = p;
+    document.querySelectorAll('.page').forEach((p) => {
+      pages[p.id] = p;
     });
 
     document.querySelectorAll('[data-page]').forEach((link) => {
@@ -152,60 +60,60 @@
       });
     });
 
-    window.addEventListener('hashchange', routeFromHash);
-    routeFromHash();
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.slice(1) || 'home';
+      showPage(hash);
+    });
+
+    showPage(window.location.hash.slice(1) || 'home');
   }
 
-  function initSectionObserver() {
-    const sections = ['home', 'projects', 'about', 'cv']
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (activePanel) return;
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (!visible.length) return;
-        const id = visible[0].target.id;
-        setNavActive(id);
-        const next = id === 'home' ? '' : id;
-        if ((window.location.hash.slice(1) || '') !== next) {
-          history.replaceState(null, '', next ? `#${next}` : window.location.pathname + window.location.search);
-        }
-      },
-      { rootMargin: '-80px 0px -45% 0px', threshold: [0.15, 0.35, 0.6] }
-    );
-
-    sections.forEach((s) => observer.observe(s));
+  function navigateTo(pageId) {
+    const target = REDIRECTS[pageId] || pageId;
+    window.location.hash = target === 'home' ? '' : target;
+    showPage(target);
   }
 
-  function initNameParallax() {
-    const hero = document.getElementById('name-hero');
-    const home = document.getElementById('home');
-    if (!hero || !home || reduceMotion) return;
+  let homeVisited = false;
 
-    const update = () => {
-      scrollTicking = false;
-      if (activePanel) return;
-      const rect = home.getBoundingClientRect();
-      const travel = Math.min(1, Math.max(0, -rect.top / Math.max(rect.height * 0.65, 1)));
-      hero.style.transform = `translate3d(0, ${travel * 72}px, 0) scale(${1 - travel * 0.12})`;
-      hero.style.opacity = String(1 - travel * 0.92);
-      home.classList.toggle('is-leaving', travel > 0.08);
-    };
+  function showPage(pageId) {
+    pageId = REDIRECTS[pageId] || pageId;
+    if (!pages[pageId]) pageId = 'home';
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (scrollTicking) return;
-        scrollTicking = true;
-        requestAnimationFrame(update);
-      },
-      { passive: true }
-    );
-    update();
+    document.querySelectorAll('.nav-links [data-page]').forEach((link) => {
+      const target = link.getAttribute('data-page');
+      let active = target === pageId;
+      if (target === 'about' && ABOUT_PAGES.has(pageId)) active = true;
+      if (target === 'projects' && (pageId === 'projects' || pageId.startsWith('detail-'))) active = true;
+      link.classList.toggle('active', active);
+    });
+
+    Object.values(pages).forEach((page) => {
+      page.classList.remove('active', 'visible');
+    });
+
+    const target = pages[pageId];
+    if (!target) return;
+
+    window.scrollTo(0, 0);
+    target.classList.add('active', 'visible');
+
+    target.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('revealed');
+    });
+
+    initReveals();
+
+    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
+      window.CillianLottie.refresh(target);
+    }
+
+    // Soft-replay only when returning to home — initial load is handled by lottie.js once
+    if (pageId === 'home' && homeVisited && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
+      window.CillianLottie.replay('#name-hero');
+    }
+    if (pageId === 'home') homeVisited = true;
   }
 
   function initMobileMenu() {
@@ -219,6 +127,7 @@
       toggle.classList.toggle('open', isOpen);
       if (overlay) overlay.classList.toggle('active', isOpen);
     });
+
     if (overlay) overlay.addEventListener('click', () => closeMobileMenu());
   }
 
@@ -228,25 +137,38 @@
     document.querySelector('.nav-overlay')?.classList.remove('active');
   }
 
-  function initNavChrome() {
+  function initNavScroll() {
     const nav = document.querySelector('.nav');
     if (!nav) return;
-    window.addEventListener(
-      'scroll',
-      () => nav.classList.toggle('scrolled', window.scrollY > 40),
-      { passive: true }
-    );
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
   }
 
   function initPoemAccordion() {
-    document.querySelectorAll('.poem-item').forEach((poem) => {
+    const poems = document.querySelectorAll('.poem-item');
+    poems.forEach((poem) => {
       poem.addEventListener('toggle', () => {
         if (!poem.open) return;
-        document.querySelectorAll('.poem-item').forEach((other) => {
+        poems.forEach((other) => {
           if (other !== poem && other.open) other.open = false;
         });
       });
     });
+  }
+
+  function initReveals() {
+    const reveals = document.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach((el) => observer.observe(el));
   }
 
   function initBrandKeyboard() {
@@ -263,12 +185,11 @@
   document.addEventListener('DOMContentLoaded', () => {
     initFontToggle();
     initRouter();
-    initSectionObserver();
-    initNameParallax();
     initMobileMenu();
-    initNavChrome();
+    initNavScroll();
     initPoemAccordion();
     initBrandKeyboard();
+    initReveals();
   });
 
   window.navigateTo = navigateTo;

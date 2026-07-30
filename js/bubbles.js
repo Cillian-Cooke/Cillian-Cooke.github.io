@@ -111,7 +111,7 @@
       }
     };
     push(document.querySelector('.nav'));
-    const active = document.querySelector('.panel.active');
+    const active = document.querySelector('.page.active');
     if (active) {
       active.querySelectorAll(
         'h1, h2, h3, p, li, .btn, .detail-body, .page-header, .detail-header, img, .detail-back'
@@ -282,17 +282,17 @@
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
         const el = m.target;
-        if (el.classList && el.classList.contains('panel') && el.classList.contains('active')) {
+        if (el.classList && el.classList.contains('page') && el.classList.contains('active')) {
           if (el.id !== currentPage) buildPage(el.id);
         }
       }
     });
-    document.querySelectorAll('.panel').forEach((p) => {
+    document.querySelectorAll('.page').forEach((p) => {
       observer.observe(p, { attributes: true, attributeFilter: ['class'] });
     });
 
-    const active = document.querySelector('.panel.active');
-    buildPage(active ? active.id : null);
+    const active = document.querySelector('.page.active');
+    buildPage(active ? active.id : 'home');
   }
 
   let wasMobile = window.innerWidth < 768;
