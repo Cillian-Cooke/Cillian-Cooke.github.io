@@ -154,14 +154,18 @@
     };
   }
 
-  function buildPage(pageId) {
-    const config = PAGE_CONFIG[pageId];
-
+  function clearField() {
     bubbles.forEach((b) => b.el.remove());
     tags.forEach((t) => t.el.remove());
     bubbles = [];
     tags = [];
-    currentPage = pageId;
+  }
+
+  function buildPage(pageId) {
+    const config = pageId ? PAGE_CONFIG[pageId] : null;
+
+    clearField();
+    currentPage = config ? pageId : null;
 
     if (!config) return;
 
@@ -282,9 +286,16 @@
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
         const el = m.target;
-        if (el.classList && el.classList.contains('page') && el.classList.contains('active')) {
+        if (!el.classList || !el.classList.contains('page')) continue;
+
+        if (el.classList.contains('active')) {
           if (el.id !== currentPage) buildPage(el.id);
+          continue;
         }
+
+        // Leaving Atlas (or any bubbles page) back to the scroll main —
+        // nothing else becomes .page.active, so clear explicitly.
+        if (el.id === currentPage) buildPage(null);
       }
     });
     document.querySelectorAll('.page').forEach((p) => {
@@ -292,7 +303,7 @@
     });
 
     const active = document.querySelector('.page.active');
-    buildPage(active ? active.id : 'home');
+    buildPage(active ? active.id : null);
   }
 
   let wasMobile = window.innerWidth < 768;
