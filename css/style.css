@@ -536,55 +536,30 @@ h3 { font-size: 1.2rem; }
 
 /* ---------- Projects ---------- */
 .project-feature {
-  display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
-  gap: 2rem;
-  align-items: center;
-  padding: 2.25rem 0;
+  display: block;
+  padding: 2rem 0 2.25rem;
   border-top: 1px solid var(--border);
   cursor: pointer;
+  transition: color var(--transition);
 }
-.project-feature--atlas {
-  grid-template-columns: 0.55fr 1.45fr;
+.project-feature:last-of-type {
+  margin-bottom: 0.5rem;
 }
-.project-feature-copy h3 {
+.project-feature h3 {
   font-size: clamp(1.85rem, 3.5vw, 2.6rem);
   margin-bottom: 0.65rem;
 }
-.project-feature-copy p {
+.project-feature p {
   color: var(--ink-muted);
   max-width: 38rem;
   font-size: 1.05rem;
 }
-.project-feature:hover .project-feature-copy h3 { color: var(--accent); }
+.project-feature:hover h3 { color: var(--accent); }
 .project-go {
   display: inline-block;
   margin-top: 1rem;
   color: var(--accent);
   font-weight: 650;
-}
-.project-feature-visual {
-  width: min(100%, 140px);
-  justify-self: end;
-  opacity: 0.9;
-}
-.project-feature--atlas .project-feature-visual {
-  justify-self: start;
-}
-.project-feature-visual svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.project-feature-visual .line {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.project-feature-visual .dot {
-  fill: var(--accent);
 }
 
 .project-list {
@@ -1345,16 +1320,6 @@ a.about-card:hover {
   .spine-home {
     min-height: auto;
     padding-top: 3.5rem;
-  }
-  .project-feature,
-  .project-feature--atlas {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-  .project-feature-visual,
-  .project-feature--atlas .project-feature-visual {
-    justify-self: start;
-    width: 96px;
   }
   .project-item {
     grid-template-columns: 1fr auto;
