@@ -581,6 +581,20 @@ h3 { font-size: 1.2rem; }
   width: 88px;
   height: 88px;
 }
+.project-app-icon {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(16, 20, 23, 0.08);
+}
+.project-app-icon--detail {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
 .project-go {
   color: var(--accent);
   font-weight: 650;

@@ -41,7 +41,6 @@ Empty states:
 
 Project emblems (optional, ≤96px display):
 
-- `emblem-atlas.json`
 - `emblem-lockup.json`
 
 ## Behaviour
