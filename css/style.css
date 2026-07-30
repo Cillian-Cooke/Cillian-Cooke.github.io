@@ -100,7 +100,18 @@ code {
   border-radius: 3px;
 }
 
-/* ---------- Pages ---------- */
+/* ---------- One-page spine + secondary overlays ---------- */
+.site-main {
+  padding-top: var(--nav-h);
+}
+.site-main.is-hidden {
+  display: none;
+}
+
+.section-block {
+  scroll-margin-top: var(--nav-h);
+}
+
 .page {
   display: none;
   min-height: 100vh;
@@ -113,6 +124,10 @@ code {
 @keyframes pageIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
+}
+
+body.viewing-overlay {
+  overflow: hidden;
 }
 
 .section {
