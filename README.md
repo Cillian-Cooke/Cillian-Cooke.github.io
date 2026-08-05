@@ -4,19 +4,17 @@ Static site for [cilliancooke.com](https://cilliancooke.com) (GitHub Pages).
 
 ## Structure
 
-- `index.html` — SPA shell (Work, Writing, Media, About, CV + project details)
+- `index.html` — one-page site (Projects, About, CV + secondary overlays)
 - `css/style.css` — design system
-- `js/main.js` — routing, OpenDyslexic toggle, reveals
-- `js/lottie.js` — Lottie drop-in slots with SVG fallbacks
+- `js/main.js` — scroll nav, overlays, OpenDyslexic toggle, reveals
 - `js/bubbles.js` — Atlas-style tags/bubbles on project detail pages
-- `essays/` — HTML opinion pieces (`_template.html`, `sample.html`)
-- `lottie/` — drop JSON animations here (see README in that folder)
+- `essays/` — HTML opinion pieces (`_template.html`)
 - `cv/` — downloadable CV
 - `fonts/` — OpenDyslexic (optional toggle in nav)
 
 ## Local preview
 
-Serve the root over HTTP (needed for essay links and optional Lottie fetch):
+Serve the root over HTTP:
 
 ```bash
 python3 -m http.server 8080

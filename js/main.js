@@ -17,8 +17,8 @@
     media: 'about',
   };
 
-  let homeVisited = false;
   let scrollingProgrammatically = false;
+  let revealObserver = null;
 
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
@@ -72,6 +72,15 @@
     });
   }
 
+  function revealInView(root) {
+    const scope = root || document;
+    scope.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92) el.classList.add('revealed');
+    });
+    initReveals();
+  }
+
   function showOverlay(pageId) {
     const main = siteMain();
     if (main) main.classList.add('is-hidden');
@@ -85,17 +94,7 @@
 
     window.scrollTo(0, 0);
     target.classList.add('active', 'visible');
-
-    target.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) el.classList.add('revealed');
-    });
-
-    initReveals();
-
-    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
-      window.CillianLottie.refresh(target);
-    }
+    requestAnimationFrame(() => revealInView(target));
   }
 
   function scrollToSection(sectionId, { updateHash = true } = {}) {
@@ -126,16 +125,7 @@
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    initReveals();
-
-    if (window.CillianLottie && typeof window.CillianLottie.refresh === 'function') {
-      window.CillianLottie.refresh(siteMain());
-    }
-
-    if (id === 'home' && homeVisited && window.CillianLottie && typeof window.CillianLottie.replay === 'function') {
-      window.CillianLottie.replay('#name-hero');
-    }
-    if (id === 'home') homeVisited = true;
+    requestAnimationFrame(() => revealInView(siteMain()));
   }
 
   function navigateTo(pageId) {
@@ -257,30 +247,23 @@
     }, { passive: true });
   }
 
-  function initPoemAccordion() {
-    const poems = document.querySelectorAll('.poem-item');
-    poems.forEach((poem) => {
-      poem.addEventListener('toggle', () => {
-        if (!poem.open) return;
-        poems.forEach((other) => {
-          if (other !== poem && other.open) other.open = false;
-        });
-      });
-    });
-  }
-
   function initReveals() {
-    const reveals = document.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
           entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
+          revealObserver.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -12% 0px',
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }
 
-    reveals.forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal:not(.revealed), .stagger:not(.revealed)').forEach((el) => {
+      revealObserver.observe(el);
+    });
   }
 
   function initBrandKeyboard() {
@@ -300,9 +283,10 @@
     initSectionObserver();
     initMobileMenu();
     initNavScroll();
-    initPoemAccordion();
     initBrandKeyboard();
     initReveals();
+    // Hero should appear immediately on load
+    document.querySelectorAll('.reveal--hero').forEach((el) => el.classList.add('revealed'));
   });
 
   window.navigateTo = navigateTo;

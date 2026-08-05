@@ -324,124 +324,48 @@ h3 { font-size: 1.2rem; }
   color: #fff;
 }
 
-/* ---------- Logo / Lottie slots ---------- */
-.lottie-slot {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-.lottie-slot .lottie-canvas,
-.lottie-slot svg.logo-fallback {
-  width: 100%;
-  height: 100%;
-}
-.lottie-slot .lottie-canvas {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.lottie-slot[data-loaded='true'] .logo-fallback,
-.lottie-slot[data-loaded='true'] .mark-fallback {
-  display: none;
-}
-.lottie-slot .lottie-canvas:empty { display: none; }
-.lottie-slot[data-loaded='true'] .lottie-canvas {
-  display: block;
-  opacity: 1;
-}
-
-.logo-fallback,
-.mark-fallback {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.logo-fallback .stroke {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 260;
-  stroke-dashoffset: 260;
-  animation: drawStroke 1.4s var(--ease) forwards;
-}
-.logo-fallback .stroke-letter {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
-}
-.logo-fallback .stroke:nth-child(2) { animation-delay: 0.12s; }
-.logo-fallback .stroke:nth-child(3) { animation-delay: 0.28s; }
-.logo-fallback .stroke:nth-child(4) { animation-delay: 0.4s; }
-@keyframes drawStroke {
-  to { stroke-dashoffset: 0; }
-}
-
-.mark-fallback .line {
-  stroke: var(--accent);
-  stroke-width: 3;
-  stroke-linecap: round;
-  fill: none;
-}
-.mark-fallback .dot { fill: var(--accent); }
-
-/* ---------- Home / name hero Lottie ---------- */
+/* ---------- Home / identity ---------- */
 .hero--expand {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.75rem;
   min-height: calc(100vh - var(--nav-h));
   padding-block: 2rem 3rem;
   width: min(100% - 2.5rem, var(--max));
   margin-inline: auto;
 }
-.hero-cta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-}
 
-.name-hero {
-  width: min(94vw, 920px);
-  aspect-ratio: 920 / 300;
-  max-height: min(42vh, 300px);
-  position: relative;
-}
-.name-hero .lottie-canvas {
-  width: 100%;
-  height: 100%;
-}
-.name-hero[data-loaded='true'] .name-hero-fallback {
-  display: none;
-}
-.name-hero-fallback {
-  width: 100%;
-  height: 100%;
+.hero-identity {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-}
-.name-hero-mark {
-  width: min(42%, 180px);
-  height: auto;
-}
-.name-hero-static {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--ink);
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  flex-wrap: wrap;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .name-hero .logo-fallback .stroke {
-    stroke-dashoffset: 0;
-    animation: none;
-  }
+.hero-logo {
+  width: clamp(96px, 18vw, 160px);
+  height: clamp(96px, 18vw, 160px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0;
+}
+
+.empty-note {
+  color: var(--ink-faint);
+  font-size: 1rem;
+  padding: 1.5rem 0 0.5rem;
+  grid-column: 1 / -1;
 }
 
 .selected-strip {
@@ -1139,27 +1063,60 @@ a.about-card:hover {
 /* ---------- Reveal ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s var(--ease),
+    transform 0.75s var(--ease),
+    filter 0.75s var(--ease);
+  filter: blur(2px);
+  will-change: opacity, transform;
 }
 .reveal.revealed {
   opacity: 1;
   transform: none;
+  filter: none;
 }
+.reveal--hero {
+  transition-duration: 0.9s;
+  transition-delay: 0.08s;
+  transform: translateY(16px) scale(0.98);
+  filter: none;
+}
+.reveal--hero.revealed {
+  transform: none;
+}
+
 .stagger > * {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s var(--ease),
+    transform 0.65s var(--ease);
+  will-change: opacity, transform;
 }
-.stagger.revealed > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger.revealed > *:nth-child(1) { transition-delay: 0.04s; }
 .stagger.revealed > *:nth-child(2) { transition-delay: 0.1s; }
-.stagger.revealed > *:nth-child(3) { transition-delay: 0.15s; }
-.stagger.revealed > *:nth-child(4) { transition-delay: 0.2s; }
-.stagger.revealed > *:nth-child(5) { transition-delay: 0.25s; }
-.stagger.revealed > *:nth-child(6) { transition-delay: 0.3s; }
+.stagger.revealed > *:nth-child(3) { transition-delay: 0.16s; }
+.stagger.revealed > *:nth-child(4) { transition-delay: 0.22s; }
+.stagger.revealed > *:nth-child(5) { transition-delay: 0.28s; }
+.stagger.revealed > *:nth-child(6) { transition-delay: 0.34s; }
+.stagger.revealed > *:nth-child(7) { transition-delay: 0.4s; }
+.stagger.revealed > *:nth-child(8) { transition-delay: 0.46s; }
 .stagger.revealed > * {
   opacity: 1;
   transform: none;
+}
+
+.project-featured,
+.about-card,
+.cv-sheet {
+  transition:
+    opacity 0.75s var(--ease),
+    transform 0.75s var(--ease),
+    filter 0.75s var(--ease),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1171,17 +1128,20 @@ a.about-card:hover {
   .reveal, .stagger > * {
     opacity: 1;
     transform: none;
-  }
-  .logo-fallback .stroke {
-    stroke-dashoffset: 0;
+    filter: none;
   }
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hero--expand {
-    min-height: auto;
-    padding-top: 3.5rem;
+    min-height: calc(100vh - var(--nav-h));
+    padding-top: 2rem;
+  }
+  .hero-identity {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
   }
   .project-featured {
     grid-template-columns: 1fr;
