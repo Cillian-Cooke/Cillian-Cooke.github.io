@@ -277,6 +277,32 @@
     });
   }
 
+  function initPoetryNav() {
+    const list = document.querySelector('.poetry-list');
+    if (!list) return;
+
+    const items = [...list.querySelectorAll('.poetry-list-item')];
+    const panels = [...document.querySelectorAll('.poem-panel')];
+
+    function showPoem(id) {
+      items.forEach((btn) => {
+        const on = btn.getAttribute('data-poem') === id;
+        btn.classList.toggle('active', on);
+        btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach((panel) => {
+        const on = panel.id === `poem-${id}`;
+        panel.classList.toggle('active', on);
+        if (on) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+    }
+
+    items.forEach((btn) => {
+      btn.addEventListener('click', () => showPoem(btn.getAttribute('data-poem')));
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initFontToggle();
     initRouter();
@@ -284,6 +310,7 @@
     initMobileMenu();
     initNavScroll();
     initBrandKeyboard();
+    initPoetryNav();
     initReveals();
     // Hero should appear immediately on load
     document.querySelectorAll('.reveal--hero').forEach((el) => el.classList.add('revealed'));
