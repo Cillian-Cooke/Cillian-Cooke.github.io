@@ -30,7 +30,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
@@ -52,7 +52,11 @@
 
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="is-booting">
+
+  <div class="boot" id="boot" aria-hidden="true">
+    <img class="boot-logo" src="images/site-icon.png" alt="" width="72" height="72">
+  </div>
 
   <nav class="nav">
     <div class="nav-brand" data-scroll="home" role="link" tabindex="0" aria-label="Home">
@@ -81,10 +85,16 @@
   <!-- ========== HOME ========== -->
   <section id="home" class="section-block">
     <section class="hero hero--expand">
-      <div class="hero-identity reveal reveal--hero">
-        <img class="hero-logo" src="images/site-icon.png" alt="" width="160" height="160">
-        <h1 class="hero-name">Cillian Cooke</h1>
+      <div class="hero-stage">
+        <div class="hero-orb" aria-hidden="true"></div>
+        <div class="hero-identity reveal reveal--hero">
+          <div class="hero-logo-wrap">
+            <img class="hero-logo" src="images/site-icon.png" alt="" width="160" height="160">
+          </div>
+          <h1 class="hero-name">Cillian Cooke</h1>
+        </div>
       </div>
+      <p class="hero-scroll" aria-hidden="true">Scroll</p>
     </section>
   </section>
 
@@ -134,50 +144,52 @@
   <!-- ========== ABOUT ========== -->
   <section id="about" class="section-block">
     <section class="section">
-      <div class="about-card-grid stagger">
-        <div class="about-card about-card--bio">
-          <p class="eyebrow">Who I am</p>
-          <h2>Cillian Cooke</h2>
+      <div class="about-bio reveal">
+        <p class="eyebrow">Who I am</p>
+        <h2>Cillian Cooke</h2>
+        <div class="about-bio-copy">
           <p>
             I’m a Computer Science student at Trinity College Dublin and co-founder of Lockup — phone-free classroom software for schools, now signing schools for the 2026/27 term. I also build Atlas, a proximity-based social platform in Flutter.
           </p>
           <p>
             Outside of code I play football for Leinster Celtic and juggle with Trinity’s Circus Society.
           </p>
-          <div class="bio-facts">
-            <div><span>Location</span>Dublin, Ireland</div>
-            <div><span>Education</span>MAI Computer Science, TCD</div>
-            <div><span>CV</span><a href="#cv" data-scroll="cv">View CV →</a></div>
-          </div>
         </div>
+        <div class="bio-facts">
+          <div><span>Location</span>Dublin, Ireland</div>
+          <div><span>Education</span>MAI Computer Science, TCD</div>
+          <div><span>CV</span><a href="#cv" data-scroll="cv">View CV →</a></div>
+        </div>
+      </div>
 
-        <a class="about-card" data-page="opinions">
+      <div class="about-links stagger">
+        <a class="about-link" data-page="opinions">
           <p class="eyebrow">Writing</p>
-          <h2>Opinions</h2>
+          <h3>Opinions</h3>
           <p>Essays and longer arguments.</p>
           <span class="hub-go">Open →</span>
         </a>
-        <a class="about-card" data-page="poetry">
+        <a class="about-link" data-page="poetry">
           <p class="eyebrow">Writing</p>
-          <h2>Poetry</h2>
+          <h3>Poetry</h3>
           <p>Verse from campaigns and quieter pages.</p>
           <span class="hub-go">Open →</span>
         </a>
-        <a class="about-card" data-page="books">
+        <a class="about-link" data-page="books">
           <p class="eyebrow">Media</p>
-          <h2>Books</h2>
+          <h3>Books</h3>
           <p>Comics, non-fiction, and engineering reads.</p>
           <span class="hub-go">Open →</span>
         </a>
-        <a class="about-card" data-page="podcasts">
+        <a class="about-link" data-page="podcasts">
           <p class="eyebrow">Media</p>
-          <h2>Podcasts</h2>
+          <h3>Podcasts</h3>
           <p>Episodes and show notes.</p>
           <span class="hub-go">Open →</span>
         </a>
-        <a class="about-card" data-page="photos">
+        <a class="about-link" data-page="photos">
           <p class="eyebrow">Life</p>
-          <h2>Photos</h2>
+          <h3>Photos</h3>
           <p>Places, posters, and moments.</p>
           <span class="hub-go">Open →</span>
         </a>
@@ -550,51 +562,41 @@
         <p class="eyebrow">Podcasts</p>
       </div>
 
-      <div class="podcast-group reveal">
-        <a class="piece-card show-lead" href="https://80000hours.org/podcast/" target="_blank" rel="noopener noreferrer">
-          <p class="piece-meta">Career advice · AI · longtermism</p>
-          <h3>80,000 Hours Podcast</h3>
-          <p>Long interviews on the world’s most pressing problems, with Rob Wiblin and the 80,000 Hours team.</p>
-          <span class="piece-go">Listen →</span>
-        </a>
+      <article class="podcast-show reveal">
+        <header class="podcast-show-head">
+          <h2><a href="https://80000hours.org/podcast/" target="_blank" rel="noopener noreferrer">80,000 Hours Podcast</a></h2>
+          <p>Long interviews on the world’s most pressing problems.</p>
+        </header>
 
-        <h2 class="podcast-group-title">Favourite episodes</h2>
-        <div class="episode-list stagger">
-          <a class="episode-row" href="https://80000hours.org/podcast/episodes/will-macaskill-ai-character-viatopia/" target="_blank" rel="noopener noreferrer">
-            <span class="episode-num">242</span>
-            <div>
-              <h3>Will MacAskill on how we survive the ‘intelligence explosion,’ AI character, and the case for ‘viatopia’</h3>
-              <p class="meta">Will MacAskill</p>
-            </div>
-            <span class="episode-link">Open →</span>
-          </a>
-          <a class="episode-row" href="https://80000hours.org/podcast/episodes/robert-long-eleos-ai-welfare-research/" target="_blank" rel="noopener noreferrer">
-            <span class="episode-num">237</span>
-            <div>
-              <h3>Robert Long on how we’re not ready for AI consciousness</h3>
-              <p class="meta">Robert Long</p>
-            </div>
-            <span class="episode-link">Open →</span>
-          </a>
-          <a class="episode-row" href="https://80000hours.org/podcast/episodes/will-macaskill-century-in-a-decade-navigating-intelligence-explosion/" target="_blank" rel="noopener noreferrer">
-            <span class="episode-num">213</span>
-            <div>
-              <h3>Will MacAskill on AI causing a “century in a decade” — and how we’re completely unprepared</h3>
-              <p class="meta">Will MacAskill</p>
-            </div>
-            <span class="episode-link">Open →</span>
-          </a>
-        </div>
-      </div>
+        <h3 class="podcast-fav-label">Favourite episodes</h3>
+        <ul class="podcast-eps">
+          <li>
+            <a href="https://80000hours.org/podcast/episodes/will-macaskill-ai-character-viatopia/" target="_blank" rel="noopener noreferrer">
+              <span class="podcast-ep-num">242</span>
+              <span class="podcast-ep-title">Will MacAskill on how we survive the ‘intelligence explosion,’ AI character, and the case for ‘viatopia’</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://80000hours.org/podcast/episodes/robert-long-eleos-ai-welfare-research/" target="_blank" rel="noopener noreferrer">
+              <span class="podcast-ep-num">237</span>
+              <span class="podcast-ep-title">Robert Long on how we’re not ready for AI consciousness</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://80000hours.org/podcast/episodes/will-macaskill-century-in-a-decade-navigating-intelligence-explosion/" target="_blank" rel="noopener noreferrer">
+              <span class="podcast-ep-num">213</span>
+              <span class="podcast-ep-title">Will MacAskill on AI causing a “century in a decade” — and how we’re completely unprepared</span>
+            </a>
+          </li>
+        </ul>
+      </article>
 
-      <div class="podcast-group reveal">
-        <a class="piece-card show-lead" href="https://open.spotify.com/show/6AzaIexPNKUrdg5NYxhGqa" target="_blank" rel="noopener noreferrer">
-          <p class="piece-meta">TommyInnit · Tom Simons</p>
-          <h3>100 Questions with Tom Simons</h3>
-          <p>Exactly 100 questions to get to know a guest — when the questions run out, the episode ends.</p>
-          <span class="piece-go">Listen →</span>
-        </a>
-      </div>
+      <article class="podcast-show reveal">
+        <header class="podcast-show-head">
+          <h2><a href="https://open.spotify.com/show/6AzaIexPNKUrdg5NYxhGqa" target="_blank" rel="noopener noreferrer">100 Questions with Tom Simons</a></h2>
+          <p>TommyInnit asks each guest exactly 100 questions — when they run out, the episode ends.</p>
+        </header>
+      </article>
     </section>
     <footer class="footer">
       <div class="footer-links">

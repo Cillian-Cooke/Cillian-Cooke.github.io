@@ -22,6 +22,28 @@
   let savedMainScroll = 0;
   let onOverlay = false;
 
+  function instantScroll(y) {
+    const root = document.documentElement;
+    root.classList.add('instant-scroll');
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    // Keep class until paint settles; caller removes after re-asserts
+  }
+
+  function endInstantScroll() {
+    const root = document.documentElement;
+    root.style.scrollBehavior = '';
+    root.classList.remove('instant-scroll');
+  }
+
+  function isMainHidden() {
+    return Boolean(siteMain()?.classList.contains('is-hidden'));
+  }
+
+  function leavingOverlay() {
+    return onOverlay || isMainHidden();
+  }
+
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
     applyFont(saved);
@@ -84,7 +106,7 @@
   }
 
   function showOverlay(pageId) {
-    if (!onOverlay) {
+    if (!leavingOverlay()) {
       savedMainScroll = window.scrollY;
     }
 
@@ -99,12 +121,15 @@
     if (!target) return;
 
     onOverlay = true;
-    window.scrollTo(0, 0);
+    instantScroll(0);
     target.classList.add('active', 'visible');
     requestAnimationFrame(() => revealInView(target));
   }
 
   function returnToMain(sectionId, { updateHash = true } = {}) {
+    const y = savedMainScroll;
+
+    document.documentElement.classList.add('instant-scroll');
     showMain();
     onOverlay = false;
 
@@ -125,14 +150,25 @@
       }
     }
 
-    // Jump straight back — no animated scroll from the top
-    window.scrollTo({ top: savedMainScroll, behavior: 'auto' });
-    requestAnimationFrame(() => revealInView(siteMain()));
+    // Triple-assert after unhide so CSS smooth-scroll / layout cannot animate from top
+    instantScroll(y);
+    requestAnimationFrame(() => {
+      instantScroll(y);
+      requestAnimationFrame(() => {
+        instantScroll(y);
+        endInstantScroll();
+        revealInView(siteMain());
+      });
+    });
+    setTimeout(() => {
+      instantScroll(y);
+      endInstantScroll();
+    }, 50);
   }
 
   function scrollToSection(sectionId, { updateHash = true } = {}) {
-    // Leaving an overlay: restore position instead of scrolling from top
-    if (onOverlay) {
+    // Leaving an overlay: jump back — never smooth-scroll from the top
+    if (leavingOverlay()) {
       returnToMain(sectionId, { updateHash });
       return;
     }
@@ -181,7 +217,7 @@
     }
 
     scrollingProgrammatically = true;
-    window.location.hash = target;
+    history.pushState(null, '', `#${target}`);
     scrollingProgrammatically = false;
     setNavActive(target);
     showOverlay(target);
@@ -340,7 +376,30 @@
     });
   }
 
+  function initBoot() {
+    const boot = document.getElementById('boot');
+    const minMs = 700;
+    const started = performance.now();
+
+    function finish() {
+      const wait = Math.max(0, minMs - (performance.now() - started));
+      setTimeout(() => {
+        document.body.classList.add('is-ready');
+        document.body.classList.remove('is-booting');
+        if (boot) {
+          boot.addEventListener('transitionend', () => boot.remove(), { once: true });
+          // Fallback if transitionend never fires (reduced motion / already hidden)
+          setTimeout(() => boot.remove(), 700);
+        }
+      }, wait);
+    }
+
+    if (document.readyState === 'complete') finish();
+    else window.addEventListener('load', finish, { once: true });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    initBoot();
     initFontToggle();
     initRouter();
     initSectionObserver();
