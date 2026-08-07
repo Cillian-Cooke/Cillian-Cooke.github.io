@@ -777,6 +777,16 @@ h3 { font-size: 1.2rem; }
 }
 
 /* ---------- Books ---------- */
+.book-group + .book-group {
+  margin-top: 2.75rem;
+}
+.book-group-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.15rem;
+}
 .books-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -807,37 +817,67 @@ h3 { font-size: 1.2rem; }
 }
 
 /* ---------- Podcasts ---------- */
-.show-header {
-  padding: 1.75rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 2rem;
+.podcast-group + .podcast-group {
+  margin-top: 2.75rem;
 }
-.show-header h2 { margin-bottom: 0.5rem; }
-.show-header p { color: var(--ink-muted); max-width: 40rem; }
+.podcast-group-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 1.75rem 0 0.85rem;
+}
+.show-lead {
+  max-width: 36rem;
+  min-height: 0;
+}
+.podcast-group .piece-grid {
+  margin-top: 1rem;
+}
 
 .episode-list { display: flex; flex-direction: column; }
 .episode-row {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 1rem;
-  align-items: center;
+  align-items: start;
   padding: 1.25rem 0;
   border-bottom: 1px solid var(--border);
+  transition: color var(--transition);
+}
+.episode-row:hover h3,
+.episode-row:hover .episode-link {
+  color: var(--accent);
 }
 .episode-num {
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--accent);
-  width: 2rem;
+  width: 2.5rem;
+  padding-top: 0.15rem;
 }
-.episode-row h3 { font-size: 1.1rem; margin-bottom: 0.15rem; }
+.episode-row h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.15rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
 .episode-row .meta { font-size: 0.85rem; color: var(--ink-faint); }
 .episode-link {
   font-size: 0.85rem;
   font-weight: 650;
   color: var(--ink-faint);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .episode-row {
+    grid-template-columns: auto 1fr;
+  }
+  .episode-link {
+    display: none;
+  }
 }
 
 /* ---------- About hub cards ---------- */

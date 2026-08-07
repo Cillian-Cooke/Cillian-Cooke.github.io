@@ -19,6 +19,8 @@
 
   let scrollingProgrammatically = false;
   let revealObserver = null;
+  let savedMainScroll = 0;
+  let onOverlay = false;
 
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
@@ -82,6 +84,10 @@
   }
 
   function showOverlay(pageId) {
+    if (!onOverlay) {
+      savedMainScroll = window.scrollY;
+    }
+
     const main = siteMain();
     if (main) main.classList.add('is-hidden');
 
@@ -92,12 +98,45 @@
     const target = pages[pageId];
     if (!target) return;
 
+    onOverlay = true;
     window.scrollTo(0, 0);
     target.classList.add('active', 'visible');
     requestAnimationFrame(() => revealInView(target));
   }
 
+  function returnToMain(sectionId, { updateHash = true } = {}) {
+    showMain();
+    onOverlay = false;
+
+    const id = MAIN_SECTIONS.has(sectionId) ? sectionId : 'home';
+    setNavActive(id);
+
+    if (updateHash) {
+      const nextHash = id === 'home' ? '' : id;
+      const current = window.location.hash.slice(1);
+      if (current !== nextHash) {
+        scrollingProgrammatically = true;
+        if (nextHash) {
+          history.replaceState(null, '', `#${nextHash}`);
+        } else {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        scrollingProgrammatically = false;
+      }
+    }
+
+    // Jump straight back — no animated scroll from the top
+    window.scrollTo({ top: savedMainScroll, behavior: 'auto' });
+    requestAnimationFrame(() => revealInView(siteMain()));
+  }
+
   function scrollToSection(sectionId, { updateHash = true } = {}) {
+    // Leaving an overlay: restore position instead of scrolling from top
+    if (onOverlay) {
+      returnToMain(sectionId, { updateHash });
+      return;
+    }
+
     showMain();
 
     const id = MAIN_SECTIONS.has(sectionId) ? sectionId : 'home';
