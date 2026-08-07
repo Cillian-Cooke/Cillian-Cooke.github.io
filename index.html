@@ -107,7 +107,6 @@
           <img class="project-app-icon" src="images/lockup-icon.png" alt="" width="88" height="88">
           <div class="project-tags">
             <span class="project-tag">React Native</span>
-            <span class="project-tag">Firebase</span>
             <span class="project-tag">Schools</span>
           </div>
         </div>
@@ -241,7 +240,7 @@
               <strong>Lockup</strong>
               <span class="cv-date">04/2026 – Present</span>
             </div>
-            <p class="cv-place">Co-founder · Lockup Technologies Limited · React Native, Firebase</p>
+            <p class="cv-place">Co-founder · Lockup Technologies Limited · React Native</p>
             <ul>
               <li>Building phone-free classroom software so schools can lock student phones for the school day</li>
               <li>Student check-in app plus teacher/admin dashboard for live compliance, unlock codes, and timetables</li>
@@ -364,41 +363,24 @@
 
   <!-- ========== POETRY ========== -->
   <div id="poetry" class="page">
-    <section class="section reading">
+    <section class="section poetry-page">
       <button class="detail-back" data-page="about" type="button">← About</button>
-      <div class="page-header reveal">
-        <p class="eyebrow">Poetry</p>
-      </div>
 
-      <div class="poetry-layout reveal">
-        <nav class="poetry-list" aria-label="Poem list" role="tablist">
-          <button type="button" class="poetry-list-item active" role="tab" aria-selected="true" data-poem="overture">
-            <span class="poem-title">Overture I</span>
-            <span class="poem-subtitle">Every note is born equal</span>
-          </button>
-          <button type="button" class="poetry-list-item" role="tab" aria-selected="false" data-poem="undying">
-            <span class="poem-title">Undying Note III</span>
-            <span class="poem-subtitle">War is coming, maybe not in this life</span>
-          </button>
-          <button type="button" class="poetry-list-item" role="tab" aria-selected="false" data-poem="singularity">
-            <span class="poem-title">Singularity IV</span>
-            <span class="poem-subtitle">Weightless in the eyes of progress</span>
-          </button>
-          <button type="button" class="poetry-list-item" role="tab" aria-selected="false" data-poem="final">
-            <span class="poem-title">The Final Chapter XII</span>
-            <span class="poem-subtitle">It begins and ends with you</span>
-          </button>
-          <button type="button" class="poetry-list-item" role="tab" aria-selected="false" data-poem="questioning">
-            <span class="poem-title">Questioning V</span>
-            <span class="poem-subtitle">Walking in circles; running from memories</span>
-          </button>
-        </nav>
+      <div class="poetry-shell">
+        <aside class="poetry-nav" aria-label="Poems">
+          <p class="eyebrow">Poetry</p>
+          <button type="button" class="poetry-nav-link is-active" data-poem="overture">Overture I</button>
+          <button type="button" class="poetry-nav-link" data-poem="undying">Undying Note III</button>
+          <button type="button" class="poetry-nav-link" data-poem="singularity">Singularity IV</button>
+          <button type="button" class="poetry-nav-link" data-poem="final">The Final Chapter XII</button>
+          <button type="button" class="poetry-nav-link" data-poem="questioning">Questioning V</button>
+        </aside>
 
-        <div class="poetry-display">
-          <article class="poem-panel active" id="poem-overture" role="tabpanel">
-            <h2 class="poem-panel-title">Overture I</h2>
-            <p class="poem-panel-sub">Every note is born equal</p>
-            <div class="poem-content">
+        <div class="poetry-stage">
+          <article class="poem-view is-active" id="poem-overture">
+            <h1>Overture I</h1>
+            <p class="poem-lead">Every note is born equal</p>
+            <div class="poem-body">
               <p>Every note is born equal, yet<br>An artist must decide what note comes next.<br>A choice that should never rest with one alone.<br>Equality does not mean perfection.</p>
               <p>Across this universe, infinite lives begin.<br>Infinite lives end.<br>And I, as an artist, as a lover, must choose but one.<br>A choice made infinitely impossible.</p>
               <p>With the concept of infinity,<br>With a gesture most romantic, I will<br>Divide infinity to reach you,<br>Until infinity becomes one.</p>
@@ -406,10 +388,10 @@
             </div>
           </article>
 
-          <article class="poem-panel" id="poem-undying" role="tabpanel" hidden>
-            <h2 class="poem-panel-title">Undying Note III</h2>
-            <p class="poem-panel-sub">War is coming, maybe not in this life</p>
-            <div class="poem-content">
+          <article class="poem-view" id="poem-undying" hidden>
+            <h1>Undying Note III</h1>
+            <p class="poem-lead">War is coming, maybe not in this life</p>
+            <div class="poem-body">
               <p>War is coming, maybe not in this life,<br>but definitely in the next.</p>
               <p>Living is to fight; dying is to move on.<br>Each stage grows, while you shrink.</p>
               <p>A war shouldn’t be won with a thousand soldiers,<br>but rather one right leader,<br>one who unites,<br>one who plays the perfect harmony<br>between pain and growth.</p>
@@ -418,10 +400,10 @@
             </div>
           </article>
 
-          <article class="poem-panel" id="poem-singularity" role="tabpanel" hidden>
-            <h2 class="poem-panel-title">Singularity IV</h2>
-            <p class="poem-panel-sub">Weightless in the eyes of progress</p>
-            <div class="poem-content">
+          <article class="poem-view" id="poem-singularity" hidden>
+            <h1>Singularity IV</h1>
+            <p class="poem-lead">Weightless in the eyes of progress</p>
+            <div class="poem-body">
               <p>Weightless in the eyes of progress,<br>Progress found in the event of no return.</p>
               <p>Beyond the cliff of moments.<br>For a God does not fear<br>The concept of time.</p>
               <p>The other side awaits. Patiently<br>Aging the mortals.<br>Like a clock ticking down its own demise.<br>So shall you. A warrior with no urgency.</p>
@@ -429,10 +411,10 @@
             </div>
           </article>
 
-          <article class="poem-panel" id="poem-final" role="tabpanel" hidden>
-            <h2 class="poem-panel-title">The Final Chapter XII</h2>
-            <p class="poem-panel-sub">It begins and ends with you</p>
-            <div class="poem-content">
+          <article class="poem-view" id="poem-final" hidden>
+            <h1>The Final Chapter XII</h1>
+            <p class="poem-lead">It begins and ends with you</p>
+            <div class="poem-body">
               <p>It begins and ends with you,<br>My fallen angel bearing the golden ticket.<br>A war to end all wars is not worth the blade<br>If your soul wasn’t left to save.</p>
               <p>This ticket to omnipotence is priceless,<br>Yet exemption from battle is granted<br>Along with the greatest honour.<br>For you and you alone must choose,</p>
               <p>A single champion.</p>
@@ -440,10 +422,10 @@
             </div>
           </article>
 
-          <article class="poem-panel" id="poem-questioning" role="tabpanel" hidden>
-            <h2 class="poem-panel-title">Questioning V</h2>
-            <p class="poem-panel-sub">Walking in circles; running from memories</p>
-            <div class="poem-content">
+          <article class="poem-view" id="poem-questioning" hidden>
+            <h1>Questioning V</h1>
+            <p class="poem-lead">Walking in circles; running from memories</p>
+            <div class="poem-body">
               <p>Walking in circles; running from memories.<br>Memories of nightmares.<br>Nightmares that manifest to reality.</p>
               <p>An endless cycle, building upon itself.</p>
               <p>I never got to the heart of the problem,<br>As I never learned to hold my breath.</p>
@@ -643,7 +625,7 @@
         <p>Lockup is the startup I co-founded with friends from college. Instead of pouches and confiscation, students check in each morning and their phone stays locked for the school day — teachers watch compliance live from a web dashboard.</p>
         <p>We’ve incorporated Lockup Technologies Limited, shipped the student app, and signed schools for the 2026/27 term.</p>
         <ul>
-          <li>Stack: React Native, Firebase</li>
+          <li>Stack: React Native</li>
           <li>Student app + teacher/admin dashboard</li>
           <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a></li>
         </ul>
@@ -661,6 +643,5 @@
 
   <script src="js/main.js"></script>
   <script src="js/bubbles.js"></script>
-  <script src="js/lockup-visual.js"></script>
 </body>
 </html>

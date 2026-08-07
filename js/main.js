@@ -278,27 +278,25 @@
   }
 
   function initPoetryNav() {
-    const list = document.querySelector('.poetry-list');
-    if (!list) return;
+    const nav = document.querySelector('.poetry-nav');
+    if (!nav) return;
 
-    const items = [...list.querySelectorAll('.poetry-list-item')];
-    const panels = [...document.querySelectorAll('.poem-panel')];
+    const links = [...nav.querySelectorAll('.poetry-nav-link')];
+    const views = [...document.querySelectorAll('.poem-view')];
 
     function showPoem(id) {
-      items.forEach((btn) => {
-        const on = btn.getAttribute('data-poem') === id;
-        btn.classList.toggle('active', on);
-        btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      links.forEach((btn) => {
+        btn.classList.toggle('is-active', btn.getAttribute('data-poem') === id);
       });
-      panels.forEach((panel) => {
-        const on = panel.id === `poem-${id}`;
-        panel.classList.toggle('active', on);
-        if (on) panel.removeAttribute('hidden');
-        else panel.setAttribute('hidden', '');
+      views.forEach((view) => {
+        const on = view.id === `poem-${id}`;
+        view.classList.toggle('is-active', on);
+        if (on) view.removeAttribute('hidden');
+        else view.setAttribute('hidden', '');
       });
     }
 
-    items.forEach((btn) => {
+    links.forEach((btn) => {
       btn.addEventListener('click', () => showPoem(btn.getAttribute('data-poem')));
     });
   }
