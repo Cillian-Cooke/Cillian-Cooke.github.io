@@ -1060,7 +1060,7 @@ a.about-card:hover {
 
 /* ---------- Essay pages ---------- */
 .essay-shell {
-  max-width: 760px;
+  max-width: 850px;
   margin: 0 auto;
   padding: calc(var(--nav-h) + 2.5rem) 1.25rem 4rem;
 }
