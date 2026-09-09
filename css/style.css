@@ -741,9 +741,9 @@ h3 { font-size: 1.2rem; }
 
 /* ---------- Lockup detail ---------- */
 .detail-page--lockup {
-  --lockup-teal: #164941;
-  --lockup-green: #22c05a;
-  --lockup-phone-bg: #f2f2f4;
+  --lockup-teal: #104f7d;
+  --lockup-green: #1878bd;
+  --lockup-phone-bg: #f0f9ff;
 }
 
 .detail-body--lockup {
@@ -764,543 +764,247 @@ h3 { font-size: 1.2rem; }
   color: var(--lockup-teal);
 }
 
-.lockup-showcase {
-  margin: 1.75rem 0;
-  padding: 1.5rem 1.25rem 1.35rem;
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(22, 73, 65, 0.07) 0%, rgba(22, 73, 65, 0.02) 100%);
-  border: 1px solid rgba(22, 73, 65, 0.14);
+/* Two-column layout: copy left, phone right */
+.lockup-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
 }
 
-.lockup-showcase-hint {
-  font-size: 0.92rem;
-  color: var(--ink-muted);
-  margin-bottom: 1.25rem;
-  line-height: 1.55;
+.lockup-copy {
+  min-width: 0;
 }
 
-.lockup-stage {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(0.75rem, 3vw, 1.75rem);
-  min-height: 260px;
-  padding: 0.5rem 0;
+/* iPhone 15 Pro logical size: 393 × 852 pt, scaled to 280px wide */
+.lockup-phone-aside {
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+  padding-top: 0.5rem;
+  animation: lockup-phone-float 5s ease-in-out infinite;
 }
 
-/* Three iPhone mockups */
-.lockup-phones {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(0.35rem, 2vw, 0.85rem);
-  flex: 0 1 auto;
+@keyframes lockup-phone-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.iphone {
-  flex: 0 0 auto;
-  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
-}
-
-.iphone-shell {
+.lockup-iphone {
   position: relative;
-  width: clamp(72px, 14vw, 96px);
-  aspect-ratio: 9 / 19.5;
+  width: 280px;
+  aspect-ratio: 393 / 852;
   padding: 3px;
-  border-radius: clamp(14px, 3vw, 20px);
-  background: linear-gradient(145deg, #3a3a3c 0%, #1c1c1e 45%, #2c2c2e 100%);
+  border-radius: 44px;
+  background: linear-gradient(155deg, #48484a 0%, #1c1c1e 38%, #2c2c2e 100%);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 14px 36px rgba(18, 24, 27, 0.18),
-    0 2px 6px rgba(18, 24, 27, 0.08);
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 24px 48px rgba(16, 79, 125, 0.22),
+    0 8px 16px rgba(18, 24, 27, 0.12);
 }
 
-.iphone-bezel {
+.lockup-iphone-bezel {
   position: relative;
   height: 100%;
-  border-radius: clamp(11px, 2.4vw, 17px);
-  padding: 5px 4px 4px;
-  background: #0a0a0b;
+  border-radius: 41px;
+  padding: 10px 8px 8px;
+  background: #000;
   overflow: hidden;
 }
 
-.iphone-island {
+.lockup-iphone-island {
   position: absolute;
-  top: 7px;
+  top: 14px;
   left: 50%;
-  z-index: 2;
-  width: 28%;
-  height: 5px;
+  z-index: 3;
+  width: 96px;
+  height: 28px;
   border-radius: 999px;
   background: #000;
   transform: translateX(-50%);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-.iphone-screen {
+.lockup-iphone-screen {
   position: relative;
   height: 100%;
-  border-radius: clamp(8px, 1.8vw, 13px);
+  border-radius: 34px;
   overflow: hidden;
-  background: #fff;
+  container-type: inline-size;
 }
 
-.iphone-btn {
+.lockup-iphone-btn {
   position: absolute;
-  background: #2c2c2e;
+  background: #3a3a3c;
   border-radius: 1px;
-  z-index: 1;
+  z-index: 2;
 }
 
-.iphone-btn--silent {
+.lockup-iphone-btn--silent {
   left: -2px;
-  top: 18%;
-  width: 2px;
-  height: 14px;
+  top: 17%;
+  width: 3px;
+  height: 18px;
 }
 
-.iphone-btn--vol-up {
+.lockup-iphone-btn--vol-up {
   left: -2px;
-  top: 28%;
-  width: 2px;
-  height: 22px;
-}
-
-.iphone-btn--vol-down {
-  left: -2px;
-  top: 38%;
-  width: 2px;
-  height: 22px;
-}
-
-.iphone-btn--power {
-  right: -2px;
   top: 26%;
-  width: 2px;
-  height: 32px;
+  width: 3px;
+  height: 28px;
 }
 
-/* Active phone lifts slightly during its step */
-.lockup-stage[data-step="0"] .iphone[data-phone="0"],
-.lockup-stage[data-step="1"] .iphone[data-phone="1"],
-.lockup-stage[data-step="2"] .iphone[data-phone="2"] {
-  transform: translateY(-4px);
+.lockup-iphone-btn--vol-down {
+  left: -2px;
+  top: 35%;
+  width: 3px;
+  height: 28px;
 }
 
-.lockup-stage[data-step="1"] .iphone[data-phone="0"],
-.lockup-stage[data-step="2"] .iphone[data-phone="0"],
-.lockup-stage[data-step="2"] .iphone[data-phone="1"],
-.lockup-stage[data-step="3"] .iphone[data-phone="0"],
-.lockup-stage[data-step="3"] .iphone[data-phone="1"],
-.lockup-stage[data-step="3"] .iphone[data-phone="2"] {
-  opacity: 0.88;
+.lockup-iphone-btn--power {
+  right: -2px;
+  top: 24%;
+  width: 3px;
+  height: 44px;
 }
 
-.lockup-screen--wait {
-  background: #f6f7f8;
-  color: #9ca3af;
-}
-
-.lockup-screen {
-  position: absolute;
-  inset: 0;
+/*
+ * School lock overlay — matches activity_blocking_overlay.xml +
+ * BlockingService.applySchoolPalette / ShieldConfigurationExtension schoolPalette.
+ * Proportions from 393 × 852 pt (iPhone 15 Pro), scaled via cqw inside the screen.
+ */
+.lockup-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 10px 8px;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
-  pointer-events: none;
-}
-
-.lockup-screen-label {
-  font-size: 0.55rem;
-  font-weight: 600;
-  color: #6b7280;
-  margin-bottom: 8px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.lockup-code {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 10px;
-}
-
-.lockup-code span {
-  width: 14px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3px;
-  background: #eef1f3;
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: var(--lockup-teal);
-}
-
-.lockup-screen-btn {
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--lockup-teal);
-  color: #fff;
-  font-size: 0.55rem;
-  font-weight: 650;
-}
-
-.lockup-screen--locked {
-  background: var(--lockup-teal);
-  color: #fff;
-}
-
-.lockup-lock-icon {
-  width: 22px;
-  height: 26px;
-  margin-bottom: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-radius: 4px 4px 2px 2px;
-  position: relative;
-}
-
-.lockup-lock-icon::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -10px;
-  width: 12px;
-  height: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  transform: translateX(-50%);
-}
-
-.lockup-screen-locked-text {
-  font-size: 0.65rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.lockup-screen-sub {
-  font-size: 0.52rem;
-  opacity: 0.75;
-}
-
-.lockup-screen--out {
-  background: #f6f7f8;
-  color: var(--lockup-teal);
-}
-
-.lockup-out-icon {
-  width: 22px;
-  height: 22px;
-  margin-bottom: 8px;
-  border-radius: 50%;
-  border: 2px solid var(--lockup-green);
-  position: relative;
-}
-
-.lockup-out-icon::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 3px;
-  width: 5px;
-  height: 9px;
-  border: solid var(--lockup-green);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.lockup-device--dash {
-  flex: 1 1 auto;
-  max-width: 320px;
-  min-width: 180px;
-}
-
-.lockup-dash-frame {
-  border-radius: 10px;
-  border: 1px solid rgba(22, 73, 65, 0.12);
-  background: #fff;
-  padding: 12px 12px 10px;
-  box-shadow: 0 8px 24px rgba(18, 24, 27, 0.08);
-}
-
-.lockup-dash-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.lockup-dash-title {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--lockup-teal);
-  flex: 1;
-}
-
-.lockup-dash-pill {
-  font-size: 0.52rem;
-  font-weight: 650;
-  padding: 2px 7px;
-  border-radius: 999px;
-  letter-spacing: 0.02em;
-  opacity: 0;
-  transform: scale(0.92);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
-}
-
-.lockup-dash-pill--idle {
-  background: #eef1f3;
-  color: #6b7280;
-}
-
-.lockup-dash-pill--live {
-  background: rgba(34, 192, 90, 0.15);
-  color: #128a3a;
-}
-
-.lockup-dash-stats {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.lockup-dash-stat {
-  flex: 1;
-  padding: 8px;
-  border-radius: 6px;
-  background: #f6f7f8;
-  font-size: 0.5rem;
-  color: #6b7280;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 9.4% 8.14% 4.7%;
+  background: #104f7d;
+  font-family: "Archivo", system-ui, sans-serif;
+  color: #f0f9ff;
   text-align: center;
 }
 
-.lockup-dash-stat-num {
-  display: block;
-  font-size: 1rem;
-  font-weight: 750;
-  color: var(--lockup-teal);
-  line-height: 1.1;
-  margin-bottom: 2px;
-  transition: color 0.35s var(--ease);
+.lockup-overlay-logo {
+  width: 24.4cqw;
+  height: auto;
+  aspect-ratio: 1;
+  margin-bottom: 2.8%;
+  border-radius: 5.6cqw;
+  object-fit: cover;
 }
 
-.lockup-dash-stat-num--b {
-  color: #128a3a;
+.lockup-overlay-title {
+  margin: 0 0 1.4%;
+  font-size: 5.6cqw;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: 0.01em;
+  color: #f0f9ff;
 }
 
-.lockup-dash-rows {
-  list-style: none;
+.lockup-overlay-subtitle {
+  margin: 0 0 3.75%;
+  font-size: 3.56cqw;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: rgba(240, 249, 255, 0.86);
+}
+
+.lockup-overlay-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5.1%;
+  margin-bottom: 1.9%;
+  border-radius: 3.05cqw;
+  border: 1px solid rgba(255, 249, 238, 0.25);
+  background: #0b3453;
+}
+
+.lockup-overlay-crest {
+  width: 58.4%;
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 1.65%;
+  border-radius: 6.1cqw;
+  object-fit: cover;
+}
+
+.lockup-overlay-class {
   margin: 0;
-  padding: 0;
+  font-size: 4.07cqw;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f0f9ff;
 }
 
-.lockup-dash-row {
-  display: flex;
+.lockup-overlay-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 0;
-  border-top: 1px solid #eef1f3;
-  font-size: 0.58rem;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  justify-content: center;
+  padding: 1.4% 5.1%;
+  margin-bottom: 1.9%;
+  border-radius: 6.1cqw;
+  border: 1px solid rgba(255, 249, 238, 0.25);
+  background: #0b3453;
 }
 
-.lockup-dash-row--ghost {
-  opacity: 0.35;
+.lockup-overlay-pill-text {
+  font-size: 3.31cqw;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #dcf0fd;
 }
 
-.lockup-dash-avatar {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #d8dce0, #eef1f3);
-  flex-shrink: 0;
-}
-
-.lockup-dash-name {
+.lockup-overlay-spacer {
   flex: 1;
+  min-height: 0.9%;
+}
+
+.lockup-overlay-button {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.9% 6.1%;
+  border-radius: 8.14cqw;
+  background: #f0f9ff;
+  font-size: 3.82cqw;
   font-weight: 600;
-  color: #374151;
+  letter-spacing: 0.03em;
+  color: #104f7d;
 }
 
-.lockup-dash-status {
-  font-size: 0.52rem;
-  font-weight: 650;
-  color: var(--lockup-teal);
+.lockup-overlay-footer {
+  margin: 1.4% 0 0;
+  font-size: 2.8cqw;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: rgba(240, 249, 255, 0.72);
 }
 
-.lockup-dash-status--warn {
-  color: #b45309;
-}
-
-.lockup-steps {
-  list-style: none;
-  margin: 1.15rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.35rem;
-}
-
-.lockup-step {
-  font-size: 0.82rem;
-  color: var(--ink-muted);
-  padding-left: 1.1rem;
-  position: relative;
-  transition: color 0.35s var(--ease);
-}
-
-.lockup-step::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #d0d5da;
-  transition: background 0.35s var(--ease), transform 0.35s var(--ease);
-}
-
-.lockup-step.is-active {
-  color: var(--lockup-teal);
-  font-weight: 600;
-}
-
-.lockup-step.is-active::before {
-  background: var(--lockup-green);
-  transform: scale(1.2);
-}
-
-/* Phone 0: first to join */
-.lockup-stage[data-step="0"] .iphone[data-phone="0"] .lockup-screen--join,
-.lockup-stage[data-step="1"] .iphone[data-phone="0"] .lockup-screen--locked,
-.lockup-stage[data-step="2"] .iphone[data-phone="0"] .lockup-screen--locked,
-.lockup-stage[data-step="3"] .iphone[data-phone="0"] .lockup-screen--out {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Phone 1: joins second */
-.lockup-stage[data-step="0"] .iphone[data-phone="1"] .lockup-screen--wait,
-.lockup-stage[data-step="1"] .iphone[data-phone="1"] .lockup-screen--join,
-.lockup-stage[data-step="2"] .iphone[data-phone="1"] .lockup-screen--locked,
-.lockup-stage[data-step="3"] .iphone[data-phone="1"] .lockup-screen--out {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Phone 2: joins third */
-.lockup-stage[data-step="0"] .iphone[data-phone="2"] .lockup-screen--wait,
-.lockup-stage[data-step="1"] .iphone[data-phone="2"] .lockup-screen--wait,
-.lockup-stage[data-step="2"] .iphone[data-phone="2"] .lockup-screen--locked,
-.lockup-stage[data-step="3"] .iphone[data-phone="2"] .lockup-screen--out {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Dashboard: step 0 waiting */
-.lockup-stage[data-step="0"] .lockup-dash-pill--idle {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Dashboard: step 1 one checked in */
-.lockup-stage[data-step="1"] .lockup-dash-pill--live {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.lockup-stage[data-step="1"] .lockup-dash-stat-num:first-child {
-  color: #128a3a;
-}
-
-.lockup-stage[data-step="1"] .lockup-dash-row:nth-child(1) {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Dashboard: step 2 full class */
-.lockup-stage[data-step="2"] .lockup-dash-pill--live {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.lockup-stage[data-step="2"] .lockup-dash-stat-num:first-child {
-  color: #128a3a;
-}
-
-.lockup-stage[data-step="2"] .lockup-dash-row:nth-child(1),
-.lockup-stage[data-step="2"] .lockup-dash-row:nth-child(2),
-.lockup-stage[data-step="2"] .lockup-dash-row:nth-child(3) {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.lockup-stage[data-step="2"] .lockup-dash-row--ghost {
-  opacity: 0.35;
-}
-
-/* Dashboard: step 3 checkout */
-.lockup-stage[data-step="3"] .lockup-dash-pill--idle {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.lockup-stage[data-step="3"] .lockup-dash-stat-num:first-child {
-  color: var(--lockup-teal);
-}
-
-.lockup-stage[data-step="3"] .lockup-dash-row {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.lockup-stage[data-step="3"] .lockup-dash-status {
-  color: #6b7280;
-  font-size: 0;
-}
-
-.lockup-stage[data-step="3"] .lockup-dash-status::after {
-  content: "Out";
-  font-size: 0.52rem;
-  font-weight: 650;
-  color: #6b7280;
-}
-
-@media (max-width: 640px) {
-  .lockup-stage {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 900px) {
+  .lockup-layout {
+    grid-template-columns: 1fr;
   }
 
-  .lockup-phones {
-    gap: 0.25rem;
+  .lockup-phone-aside {
+    position: static;
+    display: flex;
+    justify-content: center;
+    order: -1;
+    margin-bottom: 0.5rem;
   }
 
-  .iphone-shell {
-    width: clamp(64px, 20vw, 80px);
-  }
-
-  .lockup-device--dash {
-    width: 100%;
-    max-width: 280px;
+  .lockup-iphone {
+    width: min(260px, 72vw);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lockup-screen,
-  .lockup-dash-pill,
-  .lockup-dash-row,
-  .iphone {
-    transition: none;
+  .lockup-phone-aside {
+    animation: none;
   }
 }
 
