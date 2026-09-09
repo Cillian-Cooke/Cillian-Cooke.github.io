@@ -11,10 +11,6 @@
       { name: 'Proximity', color: '#0f6b6b' },
       { name: 'Map', color: '#e8913a' },
     ],
-    'detail-lockup': [
-      { name: 'Education', color: '#164941' },
-      { name: 'Sessions', color: '#22c05a' },
-    ],
   };
 
   const ROGUE_COLOR = '#9e9e9e';

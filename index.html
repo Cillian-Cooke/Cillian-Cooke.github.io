@@ -712,32 +712,112 @@
         <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
       </div>
       <div class="detail-body detail-body--lockup reveal">
-        <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley. We replace phone pouches and confiscation with software: students check in with a code, their phone locks, and staff see live compliance on a dashboard.</p>
-        <p>Two products. <strong>Lockup for Schools</strong> ties into the school timetable with attendance, tamper alerts, parent accounts, and an admin dashboard. <strong>Phone Free Sessions</strong> is free for anyone: share a five-letter code and every phone that joins stays locked until the session ends.</p>
+        <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley. We built software that replaces phone pouches: a teacher shares a five-letter code, students join on the app, and every phone in the room locks until the session ends. Staff see who is in, who is out, and who needs attention on a live dashboard.</p>
+        <p>There are two products. <strong>Lockup for Schools</strong> connects to a school’s timetable and MIS, with attendance, tamper alerts, parent accounts, and an admin platform built for daily use. <strong>Phone Free Sessions</strong> is free for anyone: run a lock session in a classroom, meeting, or at home without the full school stack.</p>
 
         <div class="lockup-showcase" aria-label="How Lockup works">
-          <p class="lockup-showcase-hint">The demo cycles through a session automatically. Drag the <strong>Education</strong> and <strong>Sessions</strong> tags around the page.</p>
+          <p class="lockup-showcase-hint">Three students join the same session. The demo cycles through check-in, lock, live compliance, and checkout automatically.</p>
           <div class="lockup-stage" data-step="0">
-            <div class="lockup-device lockup-device--phone" aria-hidden="true">
-              <div class="lockup-device-frame">
-                <div class="lockup-device-notch"></div>
-                <div class="lockup-phone-screen">
-                  <div class="lockup-screen lockup-screen--join">
-                    <p class="lockup-screen-label">Enter code</p>
-                    <div class="lockup-code">
-                      <span>H</span><span>O</span><span>U</span><span>S</span><span>E</span>
+            <div class="lockup-phones" aria-hidden="true">
+              <div class="iphone" data-phone="0">
+                <div class="iphone-shell">
+                  <span class="iphone-btn iphone-btn--silent"></span>
+                  <span class="iphone-btn iphone-btn--vol-up"></span>
+                  <span class="iphone-btn iphone-btn--vol-down"></span>
+                  <span class="iphone-btn iphone-btn--power"></span>
+                  <div class="iphone-bezel">
+                    <div class="iphone-island"></div>
+                    <div class="iphone-screen">
+                      <div class="lockup-screen lockup-screen--join">
+                        <p class="lockup-screen-label">Enter code</p>
+                        <div class="lockup-code">
+                          <span>H</span><span>O</span><span>U</span><span>S</span><span>E</span>
+                        </div>
+                        <span class="lockup-screen-btn">Join session</span>
+                      </div>
+                      <div class="lockup-screen lockup-screen--locked">
+                        <span class="lockup-lock-icon"></span>
+                        <p class="lockup-screen-locked-text">Phone locked</p>
+                        <p class="lockup-screen-sub">Session active</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--out">
+                        <span class="lockup-out-icon"></span>
+                        <p class="lockup-screen-locked-text">Checked out</p>
+                        <p class="lockup-screen-sub">Phone unlocked</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--wait">
+                        <p class="lockup-screen-locked-text">Waiting</p>
+                        <p class="lockup-screen-sub">Not in session</p>
+                      </div>
                     </div>
-                    <span class="lockup-screen-btn">Join session</span>
                   </div>
-                  <div class="lockup-screen lockup-screen--locked">
-                    <span class="lockup-lock-icon"></span>
-                    <p class="lockup-screen-locked-text">Phone locked</p>
-                    <p class="lockup-screen-sub">Session active</p>
+                </div>
+              </div>
+              <div class="iphone" data-phone="1">
+                <div class="iphone-shell">
+                  <span class="iphone-btn iphone-btn--silent"></span>
+                  <span class="iphone-btn iphone-btn--vol-up"></span>
+                  <span class="iphone-btn iphone-btn--vol-down"></span>
+                  <span class="iphone-btn iphone-btn--power"></span>
+                  <div class="iphone-bezel">
+                    <div class="iphone-island"></div>
+                    <div class="iphone-screen">
+                      <div class="lockup-screen lockup-screen--join">
+                        <p class="lockup-screen-label">Enter code</p>
+                        <div class="lockup-code">
+                          <span>H</span><span>O</span><span>U</span><span>S</span><span>E</span>
+                        </div>
+                        <span class="lockup-screen-btn">Join session</span>
+                      </div>
+                      <div class="lockup-screen lockup-screen--locked">
+                        <span class="lockup-lock-icon"></span>
+                        <p class="lockup-screen-locked-text">Phone locked</p>
+                        <p class="lockup-screen-sub">Session active</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--out">
+                        <span class="lockup-out-icon"></span>
+                        <p class="lockup-screen-locked-text">Checked out</p>
+                        <p class="lockup-screen-sub">Phone unlocked</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--wait">
+                        <p class="lockup-screen-locked-text">Waiting</p>
+                        <p class="lockup-screen-sub">Not in session</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="lockup-screen lockup-screen--out">
-                    <span class="lockup-out-icon"></span>
-                    <p class="lockup-screen-locked-text">Checked out</p>
-                    <p class="lockup-screen-sub">Phone unlocked</p>
+                </div>
+              </div>
+              <div class="iphone" data-phone="2">
+                <div class="iphone-shell">
+                  <span class="iphone-btn iphone-btn--silent"></span>
+                  <span class="iphone-btn iphone-btn--vol-up"></span>
+                  <span class="iphone-btn iphone-btn--vol-down"></span>
+                  <span class="iphone-btn iphone-btn--power"></span>
+                  <div class="iphone-bezel">
+                    <div class="iphone-island"></div>
+                    <div class="iphone-screen">
+                      <div class="lockup-screen lockup-screen--join">
+                        <p class="lockup-screen-label">Enter code</p>
+                        <div class="lockup-code">
+                          <span>H</span><span>O</span><span>U</span><span>S</span><span>E</span>
+                        </div>
+                        <span class="lockup-screen-btn">Join session</span>
+                      </div>
+                      <div class="lockup-screen lockup-screen--locked">
+                        <span class="lockup-lock-icon"></span>
+                        <p class="lockup-screen-locked-text">Phone locked</p>
+                        <p class="lockup-screen-sub">Session active</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--out">
+                        <span class="lockup-out-icon"></span>
+                        <p class="lockup-screen-locked-text">Checked out</p>
+                        <p class="lockup-screen-sub">Phone unlocked</p>
+                      </div>
+                      <div class="lockup-screen lockup-screen--wait">
+                        <p class="lockup-screen-locked-text">Waiting</p>
+                        <p class="lockup-screen-sub">Not in session</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -763,9 +843,9 @@
             </div>
           </div>
           <ol class="lockup-steps" aria-live="polite">
-            <li class="lockup-step is-active">Student enters the room code on the app</li>
-            <li class="lockup-step">Phone locks for the session</li>
-            <li class="lockup-step">Teacher dashboard updates in real time</li>
+            <li class="lockup-step is-active">Students enter the room code on the app</li>
+            <li class="lockup-step">Phones lock as each student checks in</li>
+            <li class="lockup-step">The teacher dashboard fills in live</li>
             <li class="lockup-step">Register and checkout at end of period</li>
           </ol>
         </div>
@@ -775,17 +855,18 @@
           <ul>
             <li>Incorporated as Lockup Technologies Limited; live on iOS and Android with a web dashboard</li>
             <li>Wonde MIS integration for timetables and student data across Irish secondary schools</li>
-            <li>Pilot schools rolling out for the 2026/27 term; NDRC Pre-Accelerator cohort</li>
-            <li>Built on React Native, AWS (CDK), and a teacher/admin web platform</li>
+            <li>Pilot rollouts underway for the 2026/27 term; NDRC Pre-Accelerator cohort</li>
+            <li>React Native apps, AWS infrastructure (CDK), and a teacher/admin web platform</li>
           </ul>
         </div>
 
         <div class="lockup-block">
           <h3>What I do</h3>
+          <p>I'm co-founder and COO. I own rollout and operations: getting schools live, keeping parents and staff informed, and making sure what we ship in the app matches what happens in the classroom.</p>
           <ul>
-            <li>Co-founder and COO: school rollout, parent communications, operations, and product direction</li>
-            <li>Hands-on across the student app, backend infrastructure, and the admin dashboard</li>
-            <li>Day-to-day: pilot coordination, feature shipping, and keeping parents and staff in the loop</li>
+            <li>Product and ops across the student app, backend, and admin dashboard</li>
+            <li>Pilot coordination, parent communications, and day-to-day school support</li>
+            <li>Feature shipping from idea through to production deploys</li>
           </ul>
         </div>
 

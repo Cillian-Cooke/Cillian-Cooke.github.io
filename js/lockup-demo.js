@@ -12,6 +12,7 @@
   let timer = null;
   let step = 0;
 
+  /* Matches staggered phone check-ins: 0 → 1 → 3 → checkout */
   const CHECKED_IN = [0, 1, 3, 0];
 
   function setStep(stage, next) {

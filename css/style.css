@@ -783,38 +783,122 @@ h3 { font-size: 1.2rem; }
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: clamp(1rem, 4vw, 2rem);
-  min-height: 240px;
+  gap: clamp(0.75rem, 3vw, 1.75rem);
+  min-height: 260px;
   padding: 0.5rem 0;
 }
 
-.lockup-device--phone {
+/* Three iPhone mockups */
+.lockup-phones {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.35rem, 2vw, 0.85rem);
+  flex: 0 1 auto;
+}
+
+.iphone {
   flex: 0 0 auto;
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
 }
 
-.lockup-device-frame {
-  width: clamp(108px, 22vw, 138px);
-  aspect-ratio: 9 / 19;
-  border-radius: 16px;
-  padding: 6px;
-  background: #1a1a1c;
-  box-shadow: 0 12px 32px rgba(18, 24, 27, 0.14);
-}
-
-.lockup-device-notch {
-  width: 36%;
-  height: 5px;
-  margin: 0 auto 5px;
-  border-radius: 999px;
-  background: #2c2c2e;
-}
-
-.lockup-phone-screen {
+.iphone-shell {
   position: relative;
-  height: calc(100% - 10px);
-  border-radius: 12px;
+  width: clamp(72px, 14vw, 96px);
+  aspect-ratio: 9 / 19.5;
+  padding: 3px;
+  border-radius: clamp(14px, 3vw, 20px);
+  background: linear-gradient(145deg, #3a3a3c 0%, #1c1c1e 45%, #2c2c2e 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 14px 36px rgba(18, 24, 27, 0.18),
+    0 2px 6px rgba(18, 24, 27, 0.08);
+}
+
+.iphone-bezel {
+  position: relative;
+  height: 100%;
+  border-radius: clamp(11px, 2.4vw, 17px);
+  padding: 5px 4px 4px;
+  background: #0a0a0b;
+  overflow: hidden;
+}
+
+.iphone-island {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  z-index: 2;
+  width: 28%;
+  height: 5px;
+  border-radius: 999px;
+  background: #000;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.iphone-screen {
+  position: relative;
+  height: 100%;
+  border-radius: clamp(8px, 1.8vw, 13px);
   overflow: hidden;
   background: #fff;
+}
+
+.iphone-btn {
+  position: absolute;
+  background: #2c2c2e;
+  border-radius: 1px;
+  z-index: 1;
+}
+
+.iphone-btn--silent {
+  left: -2px;
+  top: 18%;
+  width: 2px;
+  height: 14px;
+}
+
+.iphone-btn--vol-up {
+  left: -2px;
+  top: 28%;
+  width: 2px;
+  height: 22px;
+}
+
+.iphone-btn--vol-down {
+  left: -2px;
+  top: 38%;
+  width: 2px;
+  height: 22px;
+}
+
+.iphone-btn--power {
+  right: -2px;
+  top: 26%;
+  width: 2px;
+  height: 32px;
+}
+
+/* Active phone lifts slightly during its step */
+.lockup-stage[data-step="0"] .iphone[data-phone="0"],
+.lockup-stage[data-step="1"] .iphone[data-phone="1"],
+.lockup-stage[data-step="2"] .iphone[data-phone="2"] {
+  transform: translateY(-4px);
+}
+
+.lockup-stage[data-step="1"] .iphone[data-phone="0"],
+.lockup-stage[data-step="2"] .iphone[data-phone="0"],
+.lockup-stage[data-step="2"] .iphone[data-phone="1"],
+.lockup-stage[data-step="3"] .iphone[data-phone="0"],
+.lockup-stage[data-step="3"] .iphone[data-phone="1"],
+.lockup-stage[data-step="3"] .iphone[data-phone="2"] {
+  opacity: 0.88;
+}
+
+.lockup-screen--wait {
+  background: #f6f7f8;
+  color: #9ca3af;
 }
 
 .lockup-screen {
@@ -1095,23 +1179,40 @@ h3 { font-size: 1.2rem; }
   transform: scale(1.2);
 }
 
-/* Step 0: join code */
-.lockup-stage[data-step="0"] .lockup-screen--join {
+/* Phone 0: first to join */
+.lockup-stage[data-step="0"] .iphone[data-phone="0"] .lockup-screen--join,
+.lockup-stage[data-step="1"] .iphone[data-phone="0"] .lockup-screen--locked,
+.lockup-stage[data-step="2"] .iphone[data-phone="0"] .lockup-screen--locked,
+.lockup-stage[data-step="3"] .iphone[data-phone="0"] .lockup-screen--out {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Phone 1: joins second */
+.lockup-stage[data-step="0"] .iphone[data-phone="1"] .lockup-screen--wait,
+.lockup-stage[data-step="1"] .iphone[data-phone="1"] .lockup-screen--join,
+.lockup-stage[data-step="2"] .iphone[data-phone="1"] .lockup-screen--locked,
+.lockup-stage[data-step="3"] .iphone[data-phone="1"] .lockup-screen--out {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Phone 2: joins third */
+.lockup-stage[data-step="0"] .iphone[data-phone="2"] .lockup-screen--wait,
+.lockup-stage[data-step="1"] .iphone[data-phone="2"] .lockup-screen--wait,
+.lockup-stage[data-step="2"] .iphone[data-phone="2"] .lockup-screen--locked,
+.lockup-stage[data-step="3"] .iphone[data-phone="2"] .lockup-screen--out {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dashboard: step 0 waiting */
 .lockup-stage[data-step="0"] .lockup-dash-pill--idle {
   opacity: 1;
   transform: scale(1);
 }
 
-/* Step 1: locked */
-.lockup-stage[data-step="1"] .lockup-screen--locked {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Dashboard: step 1 one checked in */
 .lockup-stage[data-step="1"] .lockup-dash-pill--live {
   opacity: 1;
   transform: scale(1);
@@ -1126,12 +1227,7 @@ h3 { font-size: 1.2rem; }
   transform: translateX(0);
 }
 
-/* Step 2: live dashboard */
-.lockup-stage[data-step="2"] .lockup-screen--locked {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Dashboard: step 2 full class */
 .lockup-stage[data-step="2"] .lockup-dash-pill--live {
   opacity: 1;
   transform: scale(1);
@@ -1152,12 +1248,7 @@ h3 { font-size: 1.2rem; }
   opacity: 0.35;
 }
 
-/* Step 3: register / checkout */
-.lockup-stage[data-step="3"] .lockup-screen--out {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Dashboard: step 3 checkout */
 .lockup-stage[data-step="3"] .lockup-dash-pill--idle {
   opacity: 1;
   transform: scale(1);
@@ -1174,16 +1265,28 @@ h3 { font-size: 1.2rem; }
 
 .lockup-stage[data-step="3"] .lockup-dash-status {
   color: #6b7280;
+  font-size: 0;
 }
 
 .lockup-stage[data-step="3"] .lockup-dash-status::after {
-  content: " · Out";
+  content: "Out";
+  font-size: 0.52rem;
+  font-weight: 650;
+  color: #6b7280;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .lockup-stage {
     flex-direction: column;
     align-items: center;
+  }
+
+  .lockup-phones {
+    gap: 0.25rem;
+  }
+
+  .iphone-shell {
+    width: clamp(64px, 20vw, 80px);
   }
 
   .lockup-device--dash {
@@ -1195,7 +1298,8 @@ h3 { font-size: 1.2rem; }
 @media (prefers-reduced-motion: reduce) {
   .lockup-screen,
   .lockup-dash-pill,
-  .lockup-dash-row {
+  .lockup-dash-row,
+  .iphone {
     transition: none;
   }
 }
