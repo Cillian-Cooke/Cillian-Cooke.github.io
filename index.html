@@ -102,13 +102,14 @@
         <div>
           <p class="eyebrow">Startup</p>
           <h2>Lockup</h2>
-          <p>Phone-free classroom software for schools. Students check in each morning and their phones stay locked for the day. Teachers monitor compliance from a live dashboard.</p>
+          <p>Phone-free software for schools and anyone running a focus session. One code locks every phone in the room. The education platform runs on timetables, with live compliance for teachers.</p>
           <p class="project-go">Open project →</p>
         </div>
         <div class="project-featured-side">
           <img class="project-app-icon" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
           <div class="project-tags">
             <span class="project-tag">React Native</span>
+            <span class="project-tag">AWS</span>
             <span class="project-tag">Schools</span>
           </div>
         </div>
@@ -259,11 +260,11 @@
               <strong>Lockup</strong>
               <span class="cv-date">04/2026 – Present</span>
             </div>
-            <p class="cv-place">Co-founder · Lockup Technologies Limited · React Native</p>
+            <p class="cv-place">Co-founder &amp; COO · Lockup Technologies Limited · React Native, AWS</p>
             <ul>
-              <li>Building phone-free classroom software so schools can lock student phones for the school day</li>
-              <li>Student check-in app plus teacher/admin dashboard for live compliance, unlock codes, and timetables</li>
-              <li>Contracts signed with schools for the 2026/27 term; live at lockup-app.com</li>
+              <li>Two products: school platform on timetables and free phone-free sessions via a five-letter code</li>
+              <li>Student app (iOS/Android) plus teacher/admin dashboard: attendance, tamper reporting, parent accounts</li>
+              <li>Wonde MIS integration; pilot at St Conleth's for 2026/27; NDRC Pre-Accelerator; live at lockup-app.com</li>
             </ul>
           </div>
           <div class="cv-entry">
@@ -700,24 +701,85 @@
   </div>
 
   <div id="detail-lockup" class="page">
-    <section class="section detail-page">
+    <section class="section detail-page detail-page--lockup">
       <button class="detail-back" data-page="projects" type="button">← Projects</button>
       <div class="detail-header reveal">
         <div>
-          <p class="detail-meta">Apr 2026 – Present</p>
+          <p class="detail-meta">Apr 2026 – Present · Dublin</p>
           <h1>Lockup</h1>
-          <p class="lede">Software-driven focus for the modern classroom.</p>
+          <p class="lede">One code puts every phone in the room away.</p>
         </div>
         <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
       </div>
-      <div class="detail-body reveal">
-        <p>Lockup is the startup I co-founded with friends from college. Instead of pouches and confiscation, students check in each morning and their phone stays locked for the school day. Teachers watch compliance live from a web dashboard.</p>
-        <p>We’ve incorporated Lockup Technologies Limited, shipped the student app, and signed schools for the 2026/27 term.</p>
-        <ul>
-          <li>Stack: React Native</li>
-          <li>Student app + teacher/admin dashboard</li>
-          <li>Live at <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a></li>
-        </ul>
+      <div class="detail-body detail-body--lockup reveal">
+        <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley from college. We build software-driven phone policy: no pouches, no confiscation, just a check-in and a lock that teachers can see and control.</p>
+        <p>There are two products. <strong>Lockup for Schools</strong> runs on the school timetable with attendance, tamper reporting, parent accounts, and a teacher/admin dashboard. <strong>Lockup Phone Free Sessions</strong> is free for anyone: start a session, share a five-letter code, and every phone that joins stays locked until you end it.</p>
+
+        <div class="lockup-showcase" aria-label="Interactive phone lock demo">
+          <p class="lockup-showcase-hint">Tap <strong>Lock the room</strong> to see how a session starts. Drag the <strong>Education</strong> and <strong>Sessions</strong> tags around the page, same as on the Atlas project.</p>
+          <div class="lockup-wall" data-locked="false">
+            <div class="lockup-phone" style="--phone-delay: 0s">
+              <span class="lockup-phone-feed lockup-phone-feed--a">
+                <span class="lockup-feed-bar"></span>
+                <span class="lockup-feed-block"></span>
+                <span class="lockup-feed-block lockup-feed-block--short"></span>
+              </span>
+              <span class="lockup-phone-mark">
+                <img src="images/lockup-mark.png" alt="" width="48" height="62">
+              </span>
+            </div>
+            <div class="lockup-phone lockup-phone--offset" style="--phone-delay: 0.16s">
+              <span class="lockup-phone-feed lockup-phone-feed--b">
+                <span class="lockup-feed-bar lockup-feed-bar--green"></span>
+                <span class="lockup-feed-grid">
+                  <span></span><span></span><span></span><span></span>
+                </span>
+              </span>
+              <span class="lockup-phone-mark">
+                <img src="images/lockup-mark.png" alt="" width="48" height="62">
+              </span>
+            </div>
+            <div class="lockup-phone lockup-phone--offset" style="--phone-delay: 0.32s">
+              <span class="lockup-phone-feed lockup-phone-feed--c">
+                <span class="lockup-feed-bar"></span>
+                <span class="lockup-feed-block"></span>
+                <span class="lockup-feed-block"></span>
+              </span>
+              <span class="lockup-phone-mark">
+                <img src="images/lockup-mark.png" alt="" width="48" height="62">
+              </span>
+            </div>
+          </div>
+          <button class="lockup-lock-toggle" type="button" aria-pressed="false">Lock the room</button>
+        </div>
+
+        <div class="lockup-block">
+          <h3>Where we are now</h3>
+          <ul>
+            <li>Incorporated as Lockup Technologies Limited (June 2026)</li>
+            <li>Wonde MIS API signed for school timetable and student data (July 2026)</li>
+            <li>Pilot signed at St Conleth's College for the 2026/27 term; demos at St Jarlath's and St David's CBS</li>
+            <li>NDRC Pre-Accelerator cohort (Aug to Oct 2026)</li>
+            <li>Student app on iOS and Android (v2.2); teacher dashboard at lockup-app.com</li>
+          </ul>
+        </div>
+
+        <div class="lockup-block">
+          <h3>What I work on</h3>
+          <ul>
+            <li>COO: school rollout, parent comms, operations, and product direction with the team</li>
+            <li>React Native student app, AWS backend (CDK), and the admin/teacher web dashboard</li>
+            <li>Excuses, register, desk unlock, parent signup, tamper reporting, and timetable sync</li>
+          </ul>
+        </div>
+
+        <p>
+          <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a>
+          ·
+          <a href="https://apps.apple.com/us/app/lockup-education/id6772577559" target="_blank" rel="noopener noreferrer">App Store</a>
+          ·
+          <a href="https://www.linkedin.com/company/lockup-app" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </p>
       </div>
     </section>
     <footer class="footer">
@@ -794,5 +856,6 @@
 
   <script src="js/main.js"></script>
   <script src="js/bubbles.js"></script>
+  <script src="js/lockup-demo.js"></script>
 </body>
 </html>

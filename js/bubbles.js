@@ -5,11 +5,15 @@
 (function () {
   'use strict';
 
-  /* Bubbles + interest tags only on Atlas detail */
+  /* Bubbles + interest tags on project detail pages */
   const PAGE_CONFIG = {
     'detail-atlas': [
       { name: 'Proximity', color: '#0f6b6b' },
       { name: 'Map', color: '#e8913a' },
+    ],
+    'detail-lockup': [
+      { name: 'Education', color: '#164941' },
+      { name: 'Sessions', color: '#22c05a' },
     ],
   };
 
@@ -293,7 +297,7 @@
           continue;
         }
 
-        // Leaving Atlas (or any bubbles page) back to the scroll main —
+        // Leaving a bubbles page back to the scroll main —
         // nothing else becomes .page.active, so clear explicitly.
         if (el.id === currentPage) buildPage(null);
       }

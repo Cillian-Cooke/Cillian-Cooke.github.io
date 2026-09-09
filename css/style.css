@@ -739,6 +739,201 @@ h3 { font-size: 1.2rem; }
   font-style: italic;
 }
 
+/* ---------- Lockup detail ---------- */
+.detail-page--lockup {
+  --lockup-teal: #164941;
+  --lockup-green: #22c05a;
+  --lockup-phone-bg: #f2f2f4;
+}
+
+.detail-body--lockup {
+  border-left: 3px solid var(--lockup-teal);
+  background:
+    linear-gradient(160deg, rgba(22, 73, 65, 0.04) 0%, transparent 45%),
+    var(--bg-elevated);
+}
+
+.lockup-block {
+  margin-top: 1.5rem;
+}
+
+.lockup-block h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.01em;
+  color: var(--lockup-teal);
+}
+
+.lockup-showcase {
+  margin: 1.75rem 0;
+  padding: 1.5rem 1.25rem 1.35rem;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(22, 73, 65, 0.07) 0%, rgba(22, 73, 65, 0.02) 100%);
+  border: 1px solid rgba(22, 73, 65, 0.14);
+}
+
+.lockup-showcase-hint {
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.55;
+}
+
+.lockup-wall {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.65rem, 2.5vw, 1.1rem);
+  min-height: 200px;
+  padding: 0.5rem 0 0.25rem;
+}
+
+.lockup-phone {
+  position: relative;
+  display: block;
+  width: clamp(72px, 18vw, 96px);
+  aspect-ratio: 9 / 16;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--lockup-phone-bg);
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(18, 24, 27, 0.12);
+  animation: lockup-phone-float 4s ease-in-out infinite;
+  animation-delay: var(--phone-delay, 0s);
+  will-change: transform, background;
+}
+
+.lockup-phone--offset {
+  transform: translateY(12px);
+}
+
+.lockup-phone-feed {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 6px;
+  opacity: 1;
+  transition: opacity 0.35s var(--ease);
+}
+
+.lockup-feed-bar {
+  display: block;
+  height: 8px;
+  border-radius: 3px;
+  background: #d8dce0;
+}
+
+.lockup-feed-bar--green {
+  background: var(--lockup-green);
+}
+
+.lockup-feed-block {
+  display: block;
+  height: 22px;
+  border-radius: 4px;
+  background: #e4e7ea;
+}
+
+.lockup-feed-block--short {
+  width: 72%;
+}
+
+.lockup-feed-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  flex: 1;
+}
+
+.lockup-feed-grid span {
+  border-radius: 4px;
+  background: #e8ebee;
+}
+
+.lockup-phone-feed--b {
+  background: #fff;
+}
+
+.lockup-phone-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  pointer-events: none;
+}
+
+.lockup-phone-mark img {
+  width: 38%;
+  height: auto;
+}
+
+.lockup-wall[data-locked="true"] .lockup-phone {
+  background: var(--lockup-teal);
+  animation-play-state: paused;
+}
+
+.lockup-wall[data-locked="true"] .lockup-phone-feed {
+  opacity: 0;
+}
+
+.lockup-wall[data-locked="true"] .lockup-phone-mark {
+  opacity: 1;
+}
+
+.lockup-lock-toggle {
+  display: block;
+  margin: 1.15rem auto 0;
+  padding: 0.65rem 1.35rem;
+  border-radius: 999px;
+  background: var(--lockup-teal);
+  color: #fff;
+  font-weight: 650;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.lockup-lock-toggle:hover {
+  background: #0f3a34;
+  transform: translateY(-1px);
+}
+
+.lockup-lock-toggle[aria-pressed="true"] {
+  background: var(--lockup-green);
+}
+
+.lockup-lock-toggle[aria-pressed="true"]:hover {
+  background: #1a9e48;
+}
+
+@keyframes lockup-phone-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.lockup-phone--offset {
+  animation-name: lockup-phone-float-offset;
+}
+
+@keyframes lockup-phone-float-offset {
+  0%, 100% { transform: translateY(12px); }
+  50% { transform: translateY(5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockup-phone {
+    animation: none;
+  }
+  .lockup-phone--offset {
+    transform: translateY(12px);
+  }
+}
+
 /* ---------- Poetry ---------- */
 .poetry-page {
   max-width: 1080px;
