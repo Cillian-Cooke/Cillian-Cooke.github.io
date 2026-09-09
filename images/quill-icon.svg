@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" fill="none" role="img" aria-label="Quill">
+  <rect width="88" height="88" rx="18" fill="#0f6b6b"/>
+  <path d="M56 14C42 22 34 38 30 58L22 74L34 66C36 50 42 34 52 22L56 14Z" fill="#fff"/>
+  <path d="M54 16C44 26 38 42 36 58L32 68L38 62C40 48 44 32 52 20L54 16Z" fill="#fff" fill-opacity="0.22"/>
+  <path d="M54 18L28 68" stroke="#0a5252" stroke-width="1.25" stroke-linecap="round" opacity="0.45"/>
+  <path d="M22 74L18 80L28 76Z" fill="#12181b"/>
+</svg>
