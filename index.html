@@ -703,17 +703,19 @@
   <div id="detail-lockup" class="page">
     <section class="section detail-page detail-page--lockup">
       <button class="detail-back" data-page="projects" type="button">← Projects</button>
-      <div class="detail-header reveal">
-        <div>
-          <p class="detail-meta">Apr 2026 – Present · Dublin</p>
-          <h1>Lockup</h1>
-          <p class="lede">One code puts every phone in the room away.</p>
-        </div>
-        <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
-      </div>
-      <div class="detail-body detail-body--lockup reveal">
-        <div class="lockup-layout">
-          <div class="lockup-copy">
+
+      <div class="lockup-page-shell">
+        <div class="lockup-page-main">
+          <div class="detail-header reveal">
+            <div>
+              <p class="detail-meta">Apr 2026 – Present · Dublin</p>
+              <h1>Lockup</h1>
+              <p class="lede">One code puts every phone in the room away.</p>
+            </div>
+            <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
+          </div>
+
+          <div class="detail-body detail-body--lockup reveal">
             <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley. We built software that replaces phone pouches: a teacher shares a five-letter code, students join on the app, and every phone in the room locks until the session ends. Staff see who is in, who is out, and who needs attention on a live dashboard.</p>
             <p>There are two products. <strong>Lockup for Schools</strong> connects to a school’s timetable and MIS, with attendance, tamper alerts, parent accounts, and an admin platform built for daily use. <strong>Phone Free Sessions</strong> is free for anyone: run a lock session in a classroom, meeting, or at home without the full school stack.</p>
 
@@ -745,36 +747,36 @@
               <a href="https://www.linkedin.com/company/lockup-app" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </p>
           </div>
+        </div>
 
-          <aside class="lockup-phone-aside" aria-hidden="true">
-            <div class="lockup-iphone">
-              <span class="lockup-iphone-btn lockup-iphone-btn--silent"></span>
-              <span class="lockup-iphone-btn lockup-iphone-btn--vol-up"></span>
-              <span class="lockup-iphone-btn lockup-iphone-btn--vol-down"></span>
-              <span class="lockup-iphone-btn lockup-iphone-btn--power"></span>
-              <div class="lockup-iphone-bezel">
-                <div class="lockup-iphone-island"></div>
-                <div class="lockup-iphone-screen">
-                  <div class="lockup-overlay">
-                    <img class="lockup-overlay-logo" src="images/lockup-icon.png" alt="" width="96" height="96">
-                    <h2 class="lockup-overlay-title">You cannot use this app<br>during school hours</h2>
-                    <p class="lockup-overlay-subtitle">Your phone is locked during school hours</p>
-                    <div class="lockup-overlay-card">
-                      <img class="lockup-overlay-crest" src="images/lockup-icon.png" alt="" width="192" height="192">
-                      <p class="lockup-overlay-class">You should be in English<br>with Ms. O'Brien<br>Room 204</p>
-                    </div>
-                    <div class="lockup-overlay-pill">
-                      <span class="lockup-overlay-pill-text">School ends at 3:30 PM</span>
-                    </div>
-                    <div class="lockup-overlay-spacer"></div>
-                    <div class="lockup-overlay-button">Return to Lockup</div>
-                    <p class="lockup-overlay-footer">Attempts to delete Lockup are reported to your teacher</p>
+        <aside class="lockup-phone-stage" aria-hidden="true">
+          <div class="lockup-iphone">
+            <span class="lockup-iphone-btn lockup-iphone-btn--silent"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--vol-up"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--vol-down"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--power"></span>
+            <div class="lockup-iphone-bezel">
+              <div class="lockup-iphone-island"></div>
+              <div class="lockup-iphone-screen">
+                <!-- Mirrors activity_blocking_overlay.xml + BlockingService.applySchoolPalette -->
+                <div class="lockup-overlay">
+                  <img class="lockup-overlay-logo" src="images/lockup-shield-logo.png" alt="" width="96" height="96">
+                  <h2 class="lockup-overlay-title">You cannot use this app<br>during school hours</h2>
+                  <p class="lockup-overlay-subtitle">Your phone is locked during school hours</p>
+                  <div class="lockup-overlay-card">
+                    <img class="lockup-overlay-crest" src="images/lockup-school-crest.png" alt="">
+                    <p class="lockup-overlay-class">You should be in English<br>with Ms. O'Brien<br>Room 204</p>
                   </div>
+                  <div class="lockup-overlay-pill">
+                    <span class="lockup-overlay-pill-text" id="lockup-unlock-countdown">Unlocks in --:--</span>
+                  </div>
+                  <div class="lockup-overlay-spacer"></div>
+                  <button class="lockup-overlay-button" type="button" tabindex="-1">Navigate to the lockup app</button>
                 </div>
               </div>
             </div>
-          </aside>
-        </div>
+          </div>
+        </aside>
       </div>
     </section>
     <footer class="footer">
@@ -851,5 +853,6 @@
 
   <script src="js/main.js"></script>
   <script src="js/bubbles.js"></script>
+  <script src="js/lockup-demo.js"></script>
 </body>
 </html>
