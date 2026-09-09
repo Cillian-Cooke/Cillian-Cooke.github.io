@@ -264,7 +264,7 @@
             <ul>
               <li>Two products: school platform on timetables and free phone-free sessions via a five-letter code</li>
               <li>Student app (iOS/Android) plus teacher/admin dashboard: attendance, tamper reporting, parent accounts</li>
-              <li>Wonde MIS integration; pilot at St Conleth's for 2026/27; NDRC Pre-Accelerator; live at lockup-app.com</li>
+              <li>Wonde MIS integration; pilot schools for 2026/27; NDRC Pre-Accelerator; live at lockup-app.com</li>
             </ul>
           </div>
           <div class="cv-entry">
@@ -712,64 +712,80 @@
         <img class="project-app-icon project-app-icon--detail" src="images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
       </div>
       <div class="detail-body detail-body--lockup reveal">
-        <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley from college. We build software-driven phone policy: no pouches, no confiscation, just a check-in and a lock that teachers can see and control.</p>
-        <p>There are two products. <strong>Lockup for Schools</strong> runs on the school timetable with attendance, tamper reporting, parent accounts, and a teacher/admin dashboard. <strong>Lockup Phone Free Sessions</strong> is free for anyone: start a session, share a five-letter code, and every phone that joins stays locked until you end it.</p>
+        <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley. We replace phone pouches and confiscation with software: students check in with a code, their phone locks, and staff see live compliance on a dashboard.</p>
+        <p>Two products. <strong>Lockup for Schools</strong> ties into the school timetable with attendance, tamper alerts, parent accounts, and an admin dashboard. <strong>Phone Free Sessions</strong> is free for anyone: share a five-letter code and every phone that joins stays locked until the session ends.</p>
 
-        <div class="lockup-showcase" aria-label="Interactive phone lock demo">
-          <p class="lockup-showcase-hint">Tap <strong>Lock the room</strong> to see how a session starts. Drag the <strong>Education</strong> and <strong>Sessions</strong> tags around the page, same as on the Atlas project.</p>
-          <div class="lockup-wall" data-locked="false">
-            <div class="lockup-phone" style="--phone-delay: 0s">
-              <span class="lockup-phone-feed lockup-phone-feed--a">
-                <span class="lockup-feed-bar"></span>
-                <span class="lockup-feed-block"></span>
-                <span class="lockup-feed-block lockup-feed-block--short"></span>
-              </span>
-              <span class="lockup-phone-mark">
-                <img src="images/lockup-mark.png" alt="" width="48" height="62">
-              </span>
+        <div class="lockup-showcase" aria-label="How Lockup works">
+          <p class="lockup-showcase-hint">The demo cycles through a session automatically. Drag the <strong>Education</strong> and <strong>Sessions</strong> tags around the page.</p>
+          <div class="lockup-stage" data-step="0">
+            <div class="lockup-device lockup-device--phone" aria-hidden="true">
+              <div class="lockup-device-frame">
+                <div class="lockup-device-notch"></div>
+                <div class="lockup-phone-screen">
+                  <div class="lockup-screen lockup-screen--join">
+                    <p class="lockup-screen-label">Enter code</p>
+                    <div class="lockup-code">
+                      <span>H</span><span>O</span><span>U</span><span>S</span><span>E</span>
+                    </div>
+                    <span class="lockup-screen-btn">Join session</span>
+                  </div>
+                  <div class="lockup-screen lockup-screen--locked">
+                    <span class="lockup-lock-icon"></span>
+                    <p class="lockup-screen-locked-text">Phone locked</p>
+                    <p class="lockup-screen-sub">Session active</p>
+                  </div>
+                  <div class="lockup-screen lockup-screen--out">
+                    <span class="lockup-out-icon"></span>
+                    <p class="lockup-screen-locked-text">Checked out</p>
+                    <p class="lockup-screen-sub">Phone unlocked</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="lockup-phone lockup-phone--offset" style="--phone-delay: 0.16s">
-              <span class="lockup-phone-feed lockup-phone-feed--b">
-                <span class="lockup-feed-bar lockup-feed-bar--green"></span>
-                <span class="lockup-feed-grid">
-                  <span></span><span></span><span></span><span></span>
-                </span>
-              </span>
-              <span class="lockup-phone-mark">
-                <img src="images/lockup-mark.png" alt="" width="48" height="62">
-              </span>
-            </div>
-            <div class="lockup-phone lockup-phone--offset" style="--phone-delay: 0.32s">
-              <span class="lockup-phone-feed lockup-phone-feed--c">
-                <span class="lockup-feed-bar"></span>
-                <span class="lockup-feed-block"></span>
-                <span class="lockup-feed-block"></span>
-              </span>
-              <span class="lockup-phone-mark">
-                <img src="images/lockup-mark.png" alt="" width="48" height="62">
-              </span>
+            <div class="lockup-device lockup-device--dash" aria-hidden="true">
+              <div class="lockup-dash-frame">
+                <div class="lockup-dash-top">
+                  <span class="lockup-dash-title">Live session</span>
+                  <span class="lockup-dash-pill lockup-dash-pill--idle">Waiting</span>
+                  <span class="lockup-dash-pill lockup-dash-pill--live">Live</span>
+                </div>
+                <div class="lockup-dash-stats">
+                  <div class="lockup-dash-stat"><span class="lockup-dash-stat-num lockup-dash-stat-num--in">0</span><span>Checked in</span></div>
+                  <div class="lockup-dash-stat"><span class="lockup-dash-stat-num lockup-dash-stat-num--b">24</span><span>In class</span></div>
+                </div>
+                <ul class="lockup-dash-rows">
+                  <li class="lockup-dash-row"><span class="lockup-dash-avatar"></span><span class="lockup-dash-name">Student A</span><span class="lockup-dash-status">Locked</span></li>
+                  <li class="lockup-dash-row"><span class="lockup-dash-avatar"></span><span class="lockup-dash-name">Student B</span><span class="lockup-dash-status">Locked</span></li>
+                  <li class="lockup-dash-row"><span class="lockup-dash-avatar"></span><span class="lockup-dash-name">Student C</span><span class="lockup-dash-status lockup-dash-status--warn">Excused</span></li>
+                  <li class="lockup-dash-row lockup-dash-row--ghost"><span class="lockup-dash-avatar"></span><span class="lockup-dash-name">Student D</span><span class="lockup-dash-status">Waiting</span></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <button class="lockup-lock-toggle" type="button" aria-pressed="false">Lock the room</button>
+          <ol class="lockup-steps" aria-live="polite">
+            <li class="lockup-step is-active">Student enters the room code on the app</li>
+            <li class="lockup-step">Phone locks for the session</li>
+            <li class="lockup-step">Teacher dashboard updates in real time</li>
+            <li class="lockup-step">Register and checkout at end of period</li>
+          </ol>
         </div>
 
         <div class="lockup-block">
-          <h3>Where we are now</h3>
+          <h3>Overview</h3>
           <ul>
-            <li>Incorporated as Lockup Technologies Limited (June 2026)</li>
-            <li>Wonde MIS API signed for school timetable and student data (July 2026)</li>
-            <li>Pilot signed at St Conleth's College for the 2026/27 term; demos at St Jarlath's and St David's CBS</li>
-            <li>NDRC Pre-Accelerator cohort (Aug to Oct 2026)</li>
-            <li>Student app on iOS and Android (v2.2); teacher dashboard at lockup-app.com</li>
+            <li>Incorporated as Lockup Technologies Limited; live on iOS and Android with a web dashboard</li>
+            <li>Wonde MIS integration for timetables and student data across Irish secondary schools</li>
+            <li>Pilot schools rolling out for the 2026/27 term; NDRC Pre-Accelerator cohort</li>
+            <li>Built on React Native, AWS (CDK), and a teacher/admin web platform</li>
           </ul>
         </div>
 
         <div class="lockup-block">
-          <h3>What I work on</h3>
+          <h3>What I do</h3>
           <ul>
-            <li>COO: school rollout, parent comms, operations, and product direction with the team</li>
-            <li>React Native student app, AWS backend (CDK), and the admin/teacher web dashboard</li>
-            <li>Excuses, register, desk unlock, parent signup, tamper reporting, and timetable sync</li>
+            <li>Co-founder and COO: school rollout, parent communications, operations, and product direction</li>
+            <li>Hands-on across the student app, backend infrastructure, and the admin dashboard</li>
+            <li>Day-to-day: pilot coordination, feature shipping, and keeping parents and staff in the loop</li>
           </ul>
         </div>
 

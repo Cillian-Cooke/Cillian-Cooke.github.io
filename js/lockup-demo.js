@@ -1,46 +1,70 @@
 /* ============================================
-   LOCKUP SHOWCASE · phone lock demo (detail page)
+   LOCKUP SHOWCASE · auto-cycling demo
    ============================================ */
 
 (function () {
   'use strict';
 
+  const STEP_MS = 3200;
+  const STEPS = 4;
+
   let currentPage = null;
+  let timer = null;
+  let step = 0;
 
-  function initShowcase(page) {
-    const wall = page.querySelector('.lockup-wall');
-    const toggle = page.querySelector('.lockup-lock-toggle');
-    if (!wall || !toggle) return;
+  const CHECKED_IN = [0, 1, 3, 0];
 
-    let locked = wall.dataset.locked === 'true';
+  function setStep(stage, next) {
+    step = next;
+    stage.dataset.step = String(step);
 
-    function sync() {
-      wall.dataset.locked = locked ? 'true' : 'false';
-      toggle.textContent = locked ? 'Unlock the room' : 'Lock the room';
-      toggle.setAttribute('aria-pressed', locked ? 'true' : 'false');
-      toggle.setAttribute('aria-label', locked ? 'Unlock phones in demo' : 'Lock phones in demo');
+    const checkedIn = stage.querySelector('.lockup-dash-stat-num--in');
+    if (checkedIn) checkedIn.textContent = String(CHECKED_IN[step]);
+
+    const labels = stage.closest('.lockup-showcase')?.querySelectorAll('.lockup-step');
+    if (labels) {
+      labels.forEach((el, i) => {
+        el.classList.toggle('is-active', i === step);
+      });
     }
-
-    toggle.addEventListener('click', () => {
-      locked = !locked;
-      sync();
-    });
-
-    sync();
   }
 
-  function teardown(page) {
-    const toggle = page.querySelector('.lockup-lock-toggle');
-    if (toggle) toggle.replaceWith(toggle.cloneNode(true));
+  function startCycle(stage) {
+    stopCycle();
+    setStep(stage, 0);
+
+    timer = window.setInterval(() => {
+      setStep(stage, (step + 1) % STEPS);
+    }, STEP_MS);
+  }
+
+  function stopCycle() {
+    if (timer) {
+      window.clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function initShowcase(page) {
+    const stage = page.querySelector('.lockup-stage');
+    if (!stage) return;
+    startCycle(stage);
+  }
+
+  function teardown() {
+    stopCycle();
+    step = 0;
   }
 
   function onPageChange(pageId) {
-    const page = document.getElementById('detail-lockup');
-    if (currentPage === 'detail-lockup' && page) teardown(page);
+    if (currentPage === 'detail-lockup') teardown();
 
     currentPage = pageId;
 
-    if (pageId === 'detail-lockup' && page) initShowcase(page);
+    if (pageId === 'detail-lockup') {
+      const page = document.getElementById('detail-lockup');
+      if (page) initShowcase(page);
+    }
   }
 
   function watchPages() {
@@ -65,6 +89,17 @@
     const active = document.querySelector('.page.active');
     onPageChange(active ? active.id : null);
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopCycle();
+      return;
+    }
+    if (currentPage === 'detail-lockup') {
+      const page = document.getElementById('detail-lockup');
+      if (page) initShowcase(page);
+    }
+  });
 
   document.addEventListener('DOMContentLoaded', watchPages);
 })();
