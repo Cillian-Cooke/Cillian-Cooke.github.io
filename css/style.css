@@ -890,6 +890,8 @@ h3 { font-size: 1.2rem; }
   aspect-ratio: 1;
   margin-bottom: 5.6%;
   object-fit: contain;
+  /* splashscreen_logo ships on black; lighten drops the matte on brand-dark */
+  mix-blend-mode: lighten;
 }
 
 .lockup-overlay-title {
