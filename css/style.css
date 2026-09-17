@@ -351,6 +351,13 @@ h3 { font-size: 1.2rem; }
   flex-shrink: 0;
 }
 
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 7vw, 4.5rem);
@@ -359,6 +366,15 @@ h3 { font-size: 1.2rem; }
   line-height: 1.05;
   color: var(--ink);
   margin: 0;
+}
+
+.hero-tagline {
+  font-size: clamp(0.95rem, 2.2vw, 1.12rem);
+  color: var(--ink-muted);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  max-width: 28rem;
+  line-height: 1.5;
 }
 
 .empty-note {
@@ -680,6 +696,314 @@ h3 { font-size: 1.2rem; }
 
 .page-header .lede { margin-top: 0.35rem; }
 .project-featured + .project-featured { margin-top: 1.15rem; }
+
+.project-featured--quill {
+  background:
+    linear-gradient(135deg, rgba(15, 107, 107, 0.04) 0%, transparent 55%),
+    var(--bg-elevated);
+}
+
+.quill-icon {
+  box-shadow: 0 8px 24px rgba(15, 107, 107, 0.18);
+}
+
+.detail-body--quill {
+  border-left: 3px solid var(--accent);
+}
+
+.quill-byline {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.quill-block {
+  margin-top: 1.5rem;
+}
+
+.quill-block h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.quill-footer-note {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+/* ---------- Lockup detail ---------- */
+.detail-page--lockup {
+  max-width: min(1120px, 100%);
+  --lockup-brand-dark: #104f7d;
+  --lockup-surface: #0b3453;
+  --lockup-on-brand: #f0f9ff;
+  --lockup-tint: #dcf0fd;
+}
+
+.detail-body--lockup {
+  border-left: 3px solid var(--lockup-brand-dark);
+}
+
+.lockup-block {
+  margin-top: 1.5rem;
+}
+
+.lockup-block h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.01em;
+  color: var(--lockup-brand-dark);
+}
+
+/* Page shell: text column + phone column (phone is NOT inside detail-body) */
+.lockup-page-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+.lockup-page-main {
+  min-width: 0;
+}
+
+.lockup-phone-stage {
+  position: sticky;
+  top: calc(var(--nav-h, 64px) + 1.5rem);
+  align-self: start;
+  padding-top: 4.5rem;
+  animation: lockup-phone-float 6s ease-in-out infinite;
+}
+
+@keyframes lockup-phone-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* iPhone 15 Pro: 393 × 852 pt logical */
+.lockup-iphone {
+  position: relative;
+  width: 292px;
+  aspect-ratio: 393 / 852;
+  padding: 3px;
+  border-radius: 46px;
+  background: linear-gradient(160deg, #5a5a5c 0%, #1c1c1e 42%, #3a3a3c 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+    0 28px 56px rgba(16, 79, 125, 0.2),
+    0 10px 20px rgba(18, 24, 27, 0.14);
+}
+
+.lockup-iphone-bezel {
+  position: relative;
+  height: 100%;
+  border-radius: 43px;
+  padding: 11px 9px 9px;
+  background: #000;
+  overflow: hidden;
+}
+
+.lockup-iphone-island {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  z-index: 3;
+  width: 100px;
+  height: 30px;
+  border-radius: 999px;
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.lockup-iphone-screen {
+  position: relative;
+  height: 100%;
+  border-radius: 35px;
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+.lockup-iphone-btn {
+  position: absolute;
+  background: #48484a;
+  border-radius: 1px;
+  z-index: 2;
+}
+
+.lockup-iphone-btn--silent {
+  left: -2px;
+  top: 17%;
+  width: 3px;
+  height: 20px;
+}
+
+.lockup-iphone-btn--vol-up {
+  left: -2px;
+  top: 26%;
+  width: 3px;
+  height: 30px;
+}
+
+.lockup-iphone-btn--vol-down {
+  left: -2px;
+  top: 35%;
+  width: 3px;
+  height: 30px;
+}
+
+.lockup-iphone-btn--power {
+  right: -2px;
+  top: 24%;
+  width: 3px;
+  height: 46px;
+}
+
+/*
+ * School blocking overlay — activity_blocking_overlay.xml at 393dp wide,
+ * BlockingService.applySchoolPalette + updateOverlayContent (school plan).
+ * Padding: 32dp horizontal, 80dp top, 40dp bottom.
+ */
+.lockup-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 11.5% 8.14% 4.7%;
+  background: var(--lockup-brand-dark);
+  font-family: "Archivo", system-ui, sans-serif;
+  color: var(--lockup-on-brand);
+  text-align: center;
+}
+
+.lockup-overlay-logo {
+  width: 24.4cqw;
+  height: auto;
+  aspect-ratio: 1;
+  margin-bottom: 5.6%;
+  object-fit: contain;
+  /* splashscreen_logo ships on black; lighten drops the matte on brand-dark */
+  mix-blend-mode: lighten;
+}
+
+.lockup-overlay-title {
+  margin: 0 0 2.8%;
+  font-size: 5.6cqw;
+  font-weight: 600;
+  line-height: 1.27;
+  letter-spacing: 0.01em;
+  color: var(--lockup-on-brand);
+}
+
+.lockup-overlay-subtitle {
+  margin: 0 0 7.6%;
+  font-size: 3.56cqw;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: rgba(240, 249, 255, 0.86);
+}
+
+.lockup-overlay-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5.1%;
+  margin-bottom: 3.8%;
+  border-radius: 3.05cqw;
+  border: 1px solid rgba(255, 249, 238, 0.25);
+  background: var(--lockup-surface);
+}
+
+.lockup-overlay-crest {
+  display: block;
+  width: 48.9cqw;
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 3.6%;
+  object-fit: contain;
+}
+
+.lockup-overlay-class {
+  margin: 0;
+  font-size: 4.07cqw;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--lockup-on-brand);
+}
+
+.lockup-overlay-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52%;
+  padding: 2.8% 5.1%;
+  margin-bottom: 3.8%;
+  border-radius: 6.1cqw;
+  border: 1px solid rgba(255, 249, 238, 0.25);
+  background: var(--lockup-surface);
+}
+
+.lockup-overlay-pill-text {
+  font-size: 3.31cqw;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--lockup-tint);
+}
+
+.lockup-overlay-spacer {
+  flex: 1;
+  min-height: 2%;
+}
+
+.lockup-overlay-button {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3.8% 6.1%;
+  border: none;
+  border-radius: 8.14cqw;
+  background: #fff9ee;
+  font-family: inherit;
+  font-size: 3.82cqw;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--lockup-brand-dark);
+  cursor: default;
+}
+
+@media (max-width: 960px) {
+  .lockup-page-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .lockup-phone-stage {
+    position: static;
+    display: flex;
+    justify-content: center;
+    padding-top: 0;
+    order: -1;
+    margin-bottom: 1rem;
+  }
+
+  .lockup-iphone {
+    width: min(280px, 78vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockup-phone-stage {
+    animation: none;
+  }
+}
 
 /* ---------- Poetry ---------- */
 .poetry-page {
@@ -1242,6 +1566,12 @@ a.about-card:hover {
     flex-direction: column;
     text-align: center;
     gap: 1.25rem;
+  }
+  .hero-text {
+    align-items: center;
+  }
+  .hero-tagline {
+    text-align: center;
   }
   .project-featured {
     grid-template-columns: 1fr;
