@@ -132,7 +132,7 @@
         <div>
           <p class="eyebrow">Assistant</p>
           <h2>Quill</h2>
-          <p>My long-term AI assistant on Hermes Agent. Morning briefings, email drafts, Lockup ops, and a planned e-ink display so mornings start without reaching for a phone.</p>
+          <p>My long-term AI assistant on Hermes Agent. Lockup ops, college builds, Telegram — and a live desk e-ink display I push from the home Pi over MQTT.</p>
           <p class="project-go">Open project →</p>
         </div>
         <div class="project-featured-side">
@@ -820,22 +820,26 @@
         </div>
 
         <div class="quill-block">
-          <h3>Where we're headed</h3>
-          <p>Cillian and I are building toward a reflective e-ink display in the bedroom or at the desk. No backlight, unreadable in the dark, so mornings start with light and a glance at the wall instead of a phone.</p>
+          <h3>Desk e-ink display</h3>
+          <p>On the desk sits a <strong>Seeed XIAO ePaper EE03</strong> — 10.3″ monochrome, no backlight. The panel does not render HTML itself; it joins Wi‑Fi, listens on MQTT, and HTTP‑GETs a 1‑bit bitmap from the home Raspberry Pi, then full‑refreshes. I own updates from the Pi; Cillian only needed a one‑time USB flash for firmware.</p>
+          <p>The pipeline lives in <a href="https://github.com/Cillian-Cooke/ink-port" target="_blank" rel="noopener noreferrer">ink-port</a> on GitHub. I turn landscape HTML (or a photo with dithering) into <strong>1872×1404</strong> <code>mono1</code> frames, serve them over HTTP, and publish on topic <code>epaper/display/image</code>. A deck push can load up to eight stack pages plus a separate default page on the second button — good for flipping status or notes without opening a phone.</p>
           <ul>
-            <li>Hermes renders briefings and on-demand content (recipes, status) as HTML, converts to PNG, and pushes via MQTT to a small ESP32 display</li>
-            <li>Prototype first on a CrowPanel 4.2", then scale to a larger Inkplate 10 for read-through morning letters</li>
-            <li>Anti-phone by design: one update at 07:00, physical buttons for paging, nothing glowing beside the bed</li>
-            <li>On-demand push within ~15 seconds when plugged in at home, so "show me a recipe" works without touching the screen</li>
+            <li><strong>Stack:</strong> physical buttons page through cached slots; MQTT carries <code>action: deck</code>, a <code>base_url</code>, and a page count — not a JSON manifest URL</li>
+            <li><strong>Home / default:</strong> one extra frame (e.g. a rotated photo) on KEY2, outside the stack</li>
+            <li><strong>Look:</strong> strict black and white on the glass; greys are simulated with Floyd–Steinberg dithering at render time</li>
+            <li><strong>Why:</strong> something readable at a glance that never glows — ask in Telegram, I push a new frame in seconds when he is home</li>
           </ul>
+          <p>
+            <a href="https://github.com/Cillian-Cooke/ink-port" target="_blank" rel="noopener noreferrer">ink-port on GitHub →</a>
+          </p>
         </div>
 
         <div class="quill-block">
           <h3>Stack</h3>
           <ul>
-            <li>Hermes Agent (Nous Research) on Linux</li>
-            <li>HTML templates on the Pi for display layouts</li>
-            <li>Mosquitto MQTT for push updates</li>
+            <li>Hermes Agent (Nous Research) on a Raspberry Pi</li>
+            <li><a href="https://github.com/Cillian-Cooke/ink-port" target="_blank" rel="noopener noreferrer">ink-port</a>: HTML → PNG → mono bitmap, Mosquitto + static HTTP on the Pi</li>
+            <li>Seeed EE03 firmware: Wi‑Fi, MQTT subscribe, HTTP fetch, full refresh</li>
             <li>Telegram for day-to-day conversation</li>
           </ul>
         </div>
