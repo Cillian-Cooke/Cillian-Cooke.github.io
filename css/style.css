@@ -279,7 +279,7 @@ body.viewing-overlay {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--ink);
 }
 
 .font-toggle {
@@ -297,11 +297,11 @@ body.viewing-overlay {
   flex-shrink: 0;
 }
 .font-toggle:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
 }
 .font-toggle[aria-pressed='true'] {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--ink);
+  border-color: var(--ink);
   color: #fff;
 }
 .font-toggle-badge {
@@ -345,7 +345,7 @@ body.viewing-overlay {
   font-weight: 650;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink-muted);
   margin-bottom: 0.85rem;
 }
 h1, h2, h3 {
@@ -394,13 +394,13 @@ h3 { font-size: 1.2rem; }
 .btn svg { width: 16px; height: 16px; }
 .btn:hover { border-color: var(--ink); transform: translateY(-1px); }
 .btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--ink);
+  border-color: var(--ink);
   color: #fff;
 }
 .btn-primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: #000;
+  border-color: #000;
   color: #fff;
 }
 
@@ -530,7 +530,7 @@ h3 { font-size: 1.2rem; }
   cursor: pointer;
 }
 .hub-tile:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -581,7 +581,7 @@ h3 { font-size: 1.2rem; }
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 .project-featured:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
   box-shadow: var(--shadow);
 }
 .project-featured .eyebrow { margin-bottom: 0.5rem; }
@@ -653,8 +653,8 @@ h3 { font-size: 1.2rem; }
   text-transform: uppercase;
   padding: 0.3rem 0.55rem;
   border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--bg-soft);
+  color: var(--ink-muted);
 }
 
 /* ---------- Detail ---------- */
@@ -747,7 +747,7 @@ h3 { font-size: 1.2rem; }
   min-height: 200px;
 }
 .piece-card:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -788,12 +788,12 @@ h3 { font-size: 1.2rem; }
 }
 
 .detail-body--quill {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--border);
 }
 
 .quill-byline {
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--ink-muted);
   font-weight: 600;
   margin-bottom: 1.25rem;
   padding-bottom: 1rem;
@@ -1120,101 +1120,6 @@ h3 { font-size: 1.2rem; }
   }
 }
 
-/* ---------- Poetry ---------- */
-.poetry-page {
-  max-width: 1080px;
-}
-.poetry-shell {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: start;
-  margin-top: 1.5rem;
-}
-.poetry-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  position: sticky;
-  top: calc(var(--nav-h) + 1.25rem);
-}
-.poetry-nav .eyebrow {
-  margin-bottom: 1rem;
-}
-.poetry-nav-link {
-  text-align: left;
-  padding: 0.55rem 0;
-  color: var(--ink-faint);
-  font-family: var(--font-body);
-  font-size: 0.98rem;
-  font-weight: 550;
-  letter-spacing: -0.01em;
-  border-left: 2px solid transparent;
-  padding-left: 0.85rem;
-  margin-left: -0.85rem;
-  transition: color var(--transition), border-color var(--transition);
-}
-.poetry-nav-link:hover { color: var(--ink-muted); }
-.poetry-nav-link.is-active {
-  color: var(--ink);
-  border-left-color: var(--accent);
-  font-weight: 650;
-}
-.poetry-stage {
-  min-width: 0;
-  max-width: 38rem;
-}
-.poem-view[hidden] { display: none; }
-.poem-view h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 750;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  margin-bottom: 0.45rem;
-}
-.poem-lead {
-  color: var(--ink-faint);
-  font-size: 1.05rem;
-  margin-bottom: 2.25rem;
-}
-.poem-body {
-  font-family: var(--font-serif);
-  font-size: 1.18rem;
-  line-height: 1.85;
-  color: var(--ink);
-}
-.poem-body p + p { margin-top: 1.15rem; }
-
-@media (max-width: 820px) {
-  .poetry-shell {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
-  .poetry-nav {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.35rem 1.1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .poetry-nav .eyebrow {
-    width: 100%;
-    margin-bottom: 0.35rem;
-  }
-  .poetry-nav-link {
-    border-left: none;
-    margin-left: 0;
-    padding-left: 0;
-    padding: 0.2rem 0;
-  }
-  .poetry-nav-link.is-active {
-    border-left: none;
-    box-shadow: inset 0 -2px 0 var(--accent);
-  }
-}
-
 /* ---------- Books ---------- */
 .book-group + .book-group {
   margin-top: 2.75rem;
@@ -1291,7 +1196,7 @@ h3 { font-size: 1.2rem; }
 .episode-num {
   font-family: var(--font-display);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--ink-muted);
   width: 2.5rem;
   padding-top: 0.15rem;
 }
@@ -1340,7 +1245,7 @@ a.about-card {
   cursor: pointer;
 }
 a.about-card:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
@@ -1472,7 +1377,7 @@ a.about-card:hover {
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink-muted);
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.45rem;
   margin-bottom: 1rem;
@@ -1594,7 +1499,7 @@ a.about-card:hover {
   cursor: grab;
   pointer-events: auto;
   user-select: none;
-  border: 2px solid var(--tag-accent, var(--accent));
+  border: 2px solid var(--tag-accent, var(--ink-muted));
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   z-index: 102;
 }
@@ -1815,7 +1720,7 @@ a.about-card:hover {
 }
 .video-card:hover,
 .recommend-card:hover {
-  border-color: var(--accent);
+  border-color: var(--ink);
 }
 .video-card:focus-visible,
 .recommend-card:focus-visible,
@@ -2031,6 +1936,13 @@ body.research h2 {
   transform: translateY(-2px);
   transition: transform 160ms ease;
 }
+
+/* Featured video — one thin accent edge only */
+.research-videos .video-card:first-child {
+  box-shadow: inset 3px 0 0 var(--accent);
+  padding-left: 0.75rem;
+}
+
 
 /* Recommended — compact reading-list */
 .research-recommended {

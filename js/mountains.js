@@ -25,15 +25,15 @@
     'videos-detail': { x: 1930, y: 1540, zoom: 0.85 },
     portfolio:       { x: 4600, y: 3200, zoom: 2.05 },
     opinions:        { x: 4350, y: 3550, zoom: 0.85 },
-    poetry:          { x: 4200, y: 3700, zoom: 0.85 },
+
     essay:           { x: 4280, y: 3620, zoom: 0.85 },
     books:           { x: 4850, y: 3600, zoom: 0.85 },
     podcasts:        { x: 5000, y: 3480, zoom: 0.85 },
     photos:          { x: 5150, y: 3320, zoom: 0.85 },
     'detail-lockup': { x: 4450, y: 2950, zoom: 0.85 },
-    'detail-atlas':  { x: 4700, y: 2880, zoom: 0.85 },
     'detail-quill':  { x: 4900, y: 3020, zoom: 0.85 },
     'detail-fiveside':{ x: 5100, y: 3100, zoom: 0.85 },
+    'detail-atlas':  { x: 4700, y: 2880, zoom: 0.85 },
   };
 
   const HILLS = [

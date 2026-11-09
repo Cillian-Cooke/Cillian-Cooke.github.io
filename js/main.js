@@ -9,7 +9,7 @@
   const pages = {};
   const MAIN_SECTIONS = new Set(['home', 'projects', 'about', 'cv']);
   const ABOUT_OVERLAYS = new Set([
-    'opinions', 'poetry', 'books', 'podcasts', 'photos',
+    'opinions', 'books', 'podcasts', 'photos',
     'writing', 'media',
   ]);
   const REDIRECTS = {
@@ -324,29 +324,6 @@
     });
   }
 
-  function initPoetryNav() {
-    const nav = document.querySelector('.poetry-nav');
-    if (!nav) return;
-
-    const links = [...nav.querySelectorAll('.poetry-nav-link')];
-    const views = [...document.querySelectorAll('.poem-view')];
-
-    function showPoem(id) {
-      links.forEach((btn) => {
-        btn.classList.toggle('is-active', btn.getAttribute('data-poem') === id);
-      });
-      views.forEach((view) => {
-        const on = view.id === `poem-${id}`;
-        view.classList.toggle('is-active', on);
-        if (on) view.removeAttribute('hidden');
-        else view.setAttribute('hidden', '');
-      });
-    }
-
-    links.forEach((btn) => {
-      btn.addEventListener('click', () => showPoem(btn.getAttribute('data-poem')));
-    });
-  }
 
   document.addEventListener('DOMContentLoaded', () => {
     initFontToggle();
@@ -355,7 +332,6 @@
     initMobileMenu();
     initNavScroll();
     initBrandKeyboard();
-    initPoetryNav();
     initReveals();
     // Hero should appear immediately on load
     document.querySelectorAll('.reveal--hero').forEach((el) => el.classList.add('revealed'));
