@@ -29,4 +29,37 @@
       img.src = img.dataset.local;
     }
   }
+
+  function shuffle(items) {
+    var copy = items.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var swap = copy[i];
+      copy[i] = copy[j];
+      copy[j] = swap;
+    }
+    return copy;
+  }
+
+  document.querySelectorAll('[data-shuffle], [data-preview]').forEach(function (group) {
+    var grid = group.querySelector('.channel-grid, .recommend-grid, .where-next-grid');
+    if (!grid) return;
+    var cards = Array.prototype.filter.call(grid.children, function (el) {
+      return el.matches('a');
+    });
+    if (group.hasAttribute('data-shuffle')) {
+      shuffle(cards).forEach(function (card) { grid.appendChild(card); });
+    }
+    var limit = Number(group.getAttribute('data-preview'));
+    if (!limit) return;
+    var shown = [];
+    Array.prototype.forEach.call(grid.querySelectorAll(':scope > a'), function (card, index) {
+      var hide = index >= limit;
+      card.hidden = hide;
+      if (!hide) shown.push(card);
+    });
+    shown.forEach(function (card, index) {
+      card.classList.toggle('is-last-shown', index === shown.length - 1);
+    });
+  });
 })();

@@ -59,20 +59,24 @@
 
     <section class="section research-recommended" aria-labelledby="recommended">
       <h2 id="recommended">Recommended</h2>
-      <div class="recommend-group">
+      <div class="recommend-group" data-shuffle data-preview="4">
           <h3>YouTube channels</h3>
-          <div class="recommend-grid">
-          <a class="recommend-card" href="https://www.youtube.com/@PLACEHOLDER" target="_blank" rel="noopener noreferrer">
-            <h3>PLACEHOLDER: replace me</h3>
-            <p>PLACEHOLDER: replace me. A channel I want to recommend, with one sentence on why.</p>
+          <div class="channel-grid">
+          <a class="channel-card" href="https://www.youtube.com/@Exurb1a" target="_blank" rel="noopener noreferrer">
+            <img src="/images/channels/exurb1a.jpg" alt="" width="480" height="480" loading="lazy" decoding="async">
+            <span>exurb1a</span>
           </a>
-<a class="recommend-card" href="https://www.youtube.com/@PLACEHOLDER-TWO" target="_blank" rel="noopener noreferrer">
-            <h3>PLACEHOLDER: replace me</h3>
-            <p>PLACEHOLDER: replace me. A second channel, so the list layout is visible.</p>
+<a class="channel-card" href="https://www.youtube.com/@Siliconversations" target="_blank" rel="noopener noreferrer">
+            <img src="/images/channels/siliconversations.jpg" alt="" width="480" height="480" loading="lazy" decoding="async">
+            <span>Siliconversations</span>
+          </a>
+<a class="channel-card" href="https://www.youtube.com/@eightythousandhours" target="_blank" rel="noopener noreferrer">
+            <img src="/images/channels/eightythousandhours.jpg" alt="" width="480" height="480" loading="lazy" decoding="async">
+            <span>80,000 Hours</span>
           </a>
           </div>
         </div>
-<div class="recommend-group">
+<div class="recommend-group" data-preview="4">
           <h3>Podcasts</h3>
           <div class="recommend-grid">
           <a class="recommend-card" href="https://80000hours.org/podcast/" target="_blank" rel="noopener noreferrer">
@@ -96,17 +100,26 @@
             <p>Exactly 100 questions to get to know a guest. When the questions run out, the episode ends.</p>
           </a>
           </div>
+          <a class="recommend-more" href="/recommendations/podcasts/">View more</a>
         </div>
-<div class="recommend-group">
+<div class="recommend-group" data-shuffle data-preview="4">
           <h3>People who inspire me</h3>
-          <div class="recommend-grid">
-          <a class="recommend-card" href="https://example.com/placeholder-person" target="_blank" rel="noopener noreferrer">
-            <h3>PLACEHOLDER: replace me</h3>
-            <p>PLACEHOLDER: replace me. Someone whose work I want to point people to.</p>
+          <div class="channel-grid">
+          <a class="channel-card channel-card--person" href="https://en.wikipedia.org/wiki/William_MacAskill" target="_blank" rel="noopener noreferrer">
+            <img src="/images/people/william-macaskill.jpg" alt="" width="480" height="640" loading="lazy" decoding="async">
+            <span>William MacAskill</span>
+          </a>
+<a class="channel-card channel-card--person" href="https://en.wikipedia.org/wiki/Audrey_Tang" target="_blank" rel="noopener noreferrer">
+            <img src="/images/people/audrey-tang.jpg" alt="" width="480" height="640" loading="lazy" decoding="async">
+            <span>Audrey Tang</span>
+          </a>
+<a class="channel-card channel-card--person" href="https://en.wikipedia.org/wiki/Jimmy_Wales" target="_blank" rel="noopener noreferrer">
+            <img src="/images/people/jimmy-wales.jpg" alt="" width="480" height="640" loading="lazy" decoding="async">
+            <span>Jimmy Wales</span>
           </a>
           </div>
         </div>
-<div class="recommend-group">
+<div class="recommend-group" data-preview="4">
           <h3>Organisations worth checking out</h3>
           <div class="recommend-grid">
           <a class="recommend-card" href="https://example.com/placeholder-org" target="_blank" rel="noopener noreferrer">
@@ -115,6 +128,32 @@
           </a>
           </div>
         </div>
+    </section>
+
+    <section class="section where-next" data-shuffle data-preview="4" aria-labelledby="where-next">
+      <h2 id="where-next">Where to next</h2>
+      <div class="where-next-grid">
+          <a class="where-next-card" href="https://www.givewell.org/how-much-does-it-cost-to-save-a-life" target="_blank" rel="noopener noreferrer">
+            <img src="/images/next/givewell.png" alt="" width="304" height="52" loading="lazy" decoding="async">
+            <span>GiveWell</span>
+          </a>
+<a class="where-next-card" href="https://80000hours.org/ai/" target="_blank" rel="noopener noreferrer">
+            <img src="/images/next/80000hours.png" alt="" width="304" height="52" loading="lazy" decoding="async">
+            <span>80,000 Hours</span>
+          </a>
+<a class="where-next-card" href="https://www.forethought.org/" target="_blank" rel="noopener noreferrer">
+            <img src="/images/next/forethought.svg" alt="" width="304" height="52" loading="lazy" decoding="async">
+            <span>Forethought</span>
+          </a>
+<a class="where-next-card" href="https://www.givingwhatwecan.org/pledge" target="_blank" rel="noopener noreferrer">
+            <img src="/images/next/givingwhatwecan.svg" alt="" width="304" height="52" loading="lazy" decoding="async">
+            <span>Giving What We Can</span>
+          </a>
+      </div>
+      <a class="pledge-certificate" href="/files/giving-what-we-can-pledge.pdf" target="_blank" rel="noopener noreferrer">
+        <img src="/images/giving-what-we-can-pledge.png" alt="Giving What We Can pledge certificate for Cillian Cooke, member 11832, signed 9 November 2026" width="1158" height="816" loading="lazy" decoding="async">
+        <span>I took the 10% Pledge</span>
+      </a>
     </section>
 
     <footer class="footer">
@@ -127,7 +166,7 @@
       <p class="footer-copy">Dublin, Ireland · 2026</p>
     </footer>
   </main>
-  <script src="/js/research.js"></script>
+  <script src="/js/research.js?v=2"></script>
   <script src="/js/curves.js"></script>
 </body>
 </html>

@@ -1,14 +1,19 @@
 {
   "youtube": [
     {
-      "name": "PLACEHOLDER: replace me",
-      "url": "https://www.youtube.com/@PLACEHOLDER",
-      "why": "PLACEHOLDER: replace me. A channel I want to recommend, with one sentence on why."
+      "name": "exurb1a",
+      "url": "https://www.youtube.com/@Exurb1a",
+      "logo": "/images/channels/exurb1a.jpg"
     },
     {
-      "name": "PLACEHOLDER: replace me",
-      "url": "https://www.youtube.com/@PLACEHOLDER-TWO",
-      "why": "PLACEHOLDER: replace me. A second channel, so the list layout is visible."
+      "name": "Siliconversations",
+      "url": "https://www.youtube.com/@Siliconversations",
+      "logo": "/images/channels/siliconversations.jpg"
+    },
+    {
+      "name": "80,000 Hours",
+      "url": "https://www.youtube.com/@eightythousandhours",
+      "logo": "/images/channels/eightythousandhours.jpg"
     }
   ],
   "podcasts": [
@@ -40,9 +45,19 @@
   ],
   "people": [
     {
-      "name": "PLACEHOLDER: replace me",
-      "url": "https://example.com/placeholder-person",
-      "why": "PLACEHOLDER: replace me. Someone whose work I want to point people to."
+      "name": "William MacAskill",
+      "url": "https://en.wikipedia.org/wiki/William_MacAskill",
+      "photo": "/images/people/william-macaskill.jpg"
+    },
+    {
+      "name": "Audrey Tang",
+      "url": "https://en.wikipedia.org/wiki/Audrey_Tang",
+      "photo": "/images/people/audrey-tang.jpg"
+    },
+    {
+      "name": "Jimmy Wales",
+      "url": "https://en.wikipedia.org/wiki/Jimmy_Wales",
+      "photo": "/images/people/jimmy-wales.jpg"
     }
   ],
   "organisations": [
@@ -50,6 +65,28 @@
       "name": "PLACEHOLDER: replace me",
       "url": "https://example.com/placeholder-org",
       "why": "PLACEHOLDER: replace me. An organisation worth checking out."
+    }
+  ],
+  "next": [
+    {
+      "name": "GiveWell",
+      "url": "https://www.givewell.org/how-much-does-it-cost-to-save-a-life",
+      "logo": "/images/next/givewell.png"
+    },
+    {
+      "name": "80,000 Hours",
+      "url": "https://80000hours.org/ai/",
+      "logo": "/images/next/80000hours.png"
+    },
+    {
+      "name": "Forethought",
+      "url": "https://www.forethought.org/",
+      "logo": "/images/next/forethought.svg"
+    },
+    {
+      "name": "Giving What We Can",
+      "url": "https://www.givingwhatwecan.org/pledge",
+      "logo": "/images/next/givingwhatwecan.svg"
     }
   ]
 }

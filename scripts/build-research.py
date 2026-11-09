@@ -147,7 +147,7 @@ def shell(title: str, description: str, canonical: str, body: str, *, og_image: 
       <p class="footer-copy">Dublin, Ireland · 2026</p>
     </footer>
   </main>
-  <script src="/js/research.js"></script>
+  <script src="/js/research.js?v=2"></script>
   <script src="/js/curves.js"></script>
 </body>
 </html>
@@ -199,6 +199,65 @@ def render_cards(videos: list[dict]) -> str:
     return "\n          ".join(video_card(video) for video in videos)
 
 
+PREVIEW_LIMIT = 4
+SHUFFLE_KEYS = {"youtube", "people", "next"}
+LIST_LABELS = {key: label for key, label in GROUPS}
+LIST_LABELS["next"] = "Where to next"
+
+
+def entry_card(key: str, entry: dict) -> str:
+    if key == "youtube":
+        return (
+            f"""<a class="channel-card" href="{esc(entry['url'])}" target="_blank" rel="noopener noreferrer">
+            <img src="{esc(entry['logo'])}" alt="" width="480" height="480" loading="lazy" decoding="async">
+            <span>{esc(entry['name'])}</span>
+          </a>"""
+        )
+    if key == "people":
+        return (
+            f"""<a class="channel-card channel-card--person" href="{esc(entry['url'])}" target="_blank" rel="noopener noreferrer">
+            <img src="{esc(entry['photo'])}" alt="" width="480" height="640" loading="lazy" decoding="async">
+            <span>{esc(entry['name'])}</span>
+          </a>"""
+        )
+    if key == "next":
+        return (
+            f"""<a class="where-next-card" href="{esc(entry['url'])}" target="_blank" rel="noopener noreferrer">
+            <img src="{esc(entry['logo'])}" alt="" width="304" height="52" loading="lazy" decoding="async">
+            <span>{esc(entry['name'])}</span>
+          </a>"""
+        )
+    return (
+        f"""<a class="recommend-card" href="{esc(entry['url'])}" target="_blank" rel="noopener noreferrer">
+            <h3>{esc(entry['name'])}</h3>
+            <p>{esc(entry['why'])}</p>
+          </a>"""
+    )
+
+
+def grid_class(key: str) -> str:
+    if key in ("youtube", "people"):
+        return "channel-grid"
+    if key == "next":
+        return "where-next-grid"
+    return "recommend-grid"
+
+
+def list_attrs(key: str, *, preview: bool) -> str:
+    parts = []
+    if key in SHUFFLE_KEYS:
+        parts.append("data-shuffle")
+    if preview:
+        parts.append(f'data-preview="{PREVIEW_LIMIT}"')
+    return (" " + " ".join(parts)) if parts else ""
+
+
+def more_link(key: str, count: int) -> str:
+    if count <= PREVIEW_LIMIT:
+        return ""
+    return f'\n          <a class="recommend-more" href="/recommendations/{esc(key)}/">View more</a>'
+
+
 def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
     latest = videos[:5]
     more = ""
@@ -206,22 +265,17 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
         more = '\n        <p class="research-more"><a class="btn" href="/videos/">Load all</a></p>'
     groups = []
     for key, label in GROUPS:
-        cards = []
-        for entry in recs[key]:
-            cards.append(
-                f"""<a class="recommend-card" href="{esc(entry['url'])}" target="_blank" rel="noopener noreferrer">
-            <h3>{esc(entry['name'])}</h3>
-            <p>{esc(entry['why'])}</p>
-          </a>"""
-            )
+        cards = [entry_card(key, entry) for entry in recs[key]]
         groups.append(
-            f"""<div class="recommend-group">
+            f"""<div class="recommend-group"{list_attrs(key, preview=True)}>
           <h3>{esc(label)}</h3>
-          <div class="recommend-grid">
+          <div class="{grid_class(key)}">
           {chr(10).join(cards)}
-          </div>
+          </div>{more_link(key, len(cards))}
         </div>"""
         )
+    next_entries = recs.get("next", [])
+    next_cards = [entry_card("next", entry) for entry in next_entries]
     body = f"""    <section class="section research-videos" aria-labelledby="latest-videos">
       <h2 id="latest-videos">Latest videos</h2>
       <div class="video-grid">
@@ -233,6 +287,17 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
       <h2 id="recommended">Recommended</h2>
       {chr(10).join(groups)}
     </section>
+
+    <section class="section where-next"{list_attrs("next", preview=True)} aria-labelledby="where-next">
+      <h2 id="where-next">Where to next</h2>
+      <div class="where-next-grid">
+          {chr(10).join(next_cards)}
+      </div>{more_link("next", len(next_cards))}
+      <a class="pledge-certificate" href="/files/giving-what-we-can-pledge.pdf" target="_blank" rel="noopener noreferrer">
+        <img src="/images/giving-what-we-can-pledge.png" alt="Giving What We Can pledge certificate for Cillian Cooke, member 11832, signed 9 November 2026" width="1158" height="816" loading="lazy" decoding="async">
+        <span>I took the 10% Pledge</span>
+      </a>
+    </section>
 """
     return shell(
         "Cillian Cooke · AI research",
@@ -241,6 +306,30 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
         body,
         og_image=f"{SITE}/images/site-icon.png",
         hash_redirect=True,
+    )
+
+
+def render_list(key: str, entries: list[dict]) -> str:
+    label = LIST_LABELS[key]
+    cards = [entry_card(key, entry) for entry in entries]
+    back = "/#where-next" if key == "next" else "/#recommended"
+    body = f"""    <section class="section"{list_attrs(key, preview=False)}>
+      <a class="detail-back" href="{back}">← Home</a>
+      <div class="page-header">
+        <p class="eyebrow">Recommended</p>
+        <h1>{esc(label)}</h1>
+      </div>
+      <div class="{grid_class(key)}">
+          {chr(10).join(cards)}
+      </div>
+    </section>
+"""
+    return shell(
+        f"{label} · Cillian Cooke",
+        label,
+        f"{SITE}/recommendations/{key}/",
+        body,
+        og_image=f"{SITE}/images/site-icon.png",
     )
 
 
@@ -371,8 +460,12 @@ def write(path: Path, text: str) -> None:
     print(path.relative_to(ROOT))
 
 
-def render_sitemap(videos: list[dict]) -> str:
+def render_sitemap(videos: list[dict], recs: dict) -> str:
     urls = [f"{SITE}/", f"{SITE}/videos/", f"{SITE}/portfolio/", f"{SITE}/portfolio/essays/agent-identity.html"]
+    for key in list(LIST_LABELS):
+        entries = recs.get(key, [])
+        if len(entries) > PREVIEW_LIMIT:
+            urls.append(f"{SITE}/recommendations/{key}/")
     urls[2:2] = [f"{SITE}/videos/{video['slug']}/" for video in videos]
     lines = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>", '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for url in urls:
@@ -393,6 +486,10 @@ def main() -> None:
 
     write(ROOT / "index.html", render_home(site, recs, videos))
     write(ROOT / "videos" / "index.html", render_index(videos))
+    for key in LIST_LABELS:
+        entries = recs.get(key, [])
+        if len(entries) > PREVIEW_LIMIT:
+            write(ROOT / "recommendations" / key / "index.html", render_list(key, entries))
 
     keep = set()
     for index, video in enumerate(videos):
@@ -408,7 +505,7 @@ def main() -> None:
             shutil.rmtree(child)
             print(f"removed videos/{child.name}")
 
-    write(ROOT / "sitemap.xml", render_sitemap(videos))
+    write(ROOT / "sitemap.xml", render_sitemap(videos, recs))
 
 
 if __name__ == "__main__":

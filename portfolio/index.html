@@ -112,23 +112,6 @@
         </div>
       </a>
 
-      <a class="project-featured project-featured--quill reveal" data-page="detail-quill">
-        <div>
-          <p class="eyebrow">Hardware</p>
-          <h2>Quill</h2>
-          <p>Desk e-ink display: custom ink-port firmware on a Seeed XIAO ePaper EE03 (10.3″ mono, 1404×1872) with a Raspberry Pi HTML→PNG→1-bit publish pipeline over MQTT.</p>
-          <p class="project-go">Open project →</p>
-        </div>
-        <div class="project-featured-side">
-          <img class="project-app-icon quill-icon" src="/images/quill-icon.svg" alt="" width="88" height="88">
-          <div class="project-tags">
-            <span class="project-tag">ESP32-S3</span>
-            <span class="project-tag">MQTT</span>
-            <span class="project-tag">E-ink</span>
-          </div>
-        </div>
-      </a>
-
       <a class="project-featured reveal" data-page="detail-fiveside">
         <div>
           <p class="eyebrow">College</p>
@@ -142,6 +125,23 @@
             <span class="project-tag">React</span>
             <span class="project-tag">Vite</span>
             <span class="project-tag">Sheets</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="project-featured project-featured--quill reveal" data-page="detail-quill">
+        <div>
+          <p class="eyebrow">Hardware</p>
+          <h2>Quill</h2>
+          <p>Desk e-ink display: custom ink-port firmware on a Seeed XIAO ePaper EE03 (10.3″ mono, 1404×1872) with a Raspberry Pi HTML→PNG→1-bit publish pipeline over MQTT.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <img class="project-app-icon quill-icon" src="/images/quill-icon.svg" alt="" width="88" height="88">
+          <div class="project-tags">
+            <span class="project-tag">ESP32-S3</span>
+            <span class="project-tag">MQTT</span>
+            <span class="project-tag">E-ink</span>
           </div>
         </div>
       </a>
@@ -174,10 +174,10 @@
           <p class="eyebrow">Who I am</p>
           <h2>Cillian Cooke</h2>
           <p>
-            I’m a 2nd-year Computer Science (TR033) student at Trinity College Dublin and COO / co-founder of Lockup with Carlos Manuel Cejas (CEO) and Michael Crowley (CTO) — phone-free classroom software now rolling out for the 2026/27 term. I also build Quill (desk e-ink), the Trinity Five-A-Side league site, and Atlas (Flutter social). On Formula Trinity I’m Software Engineer, Path Planning (first year on the team). I’m registered for TCD Schols (Foundation Scholarship) exams, and I’m learning AI safety, AI welfare, and agent research in public.
+            I’m a 2nd-year Computer Science (TR033) student at Trinity College Dublin and COO / co-founder of Lockup with Carlos Manuel Cejas (CEO) and Michael Crowley (CTO) — phone-free classroom software now rolling out for the 2026/27 term. On Formula Trinity I’m Software Engineer, Path Planning. I’m learning AI safety, AI welfare, and agent research in public.
           </p>
           <p>
-            Outside of code I’m co-Lead Activator for Trinity Five-A-Side, Software Engineer (Path Planning) on Formula Trinity, play social rugby, and juggle with the Circus and Juggling Society. I’m taking a break from club football this year to focus on college and Lockup.
+            Outside of code I’m co-Lead Activator for Trinity Five-A-Side and juggle with the Circus and Juggling Society.
           </p>
           <div class="bio-facts">
             <div><span>Location</span>Dublin, Ireland</div>
@@ -647,20 +647,25 @@
           </div>
         </div>
 
-        <aside class="lockup-phone-stage" aria-hidden="true">
-          <!-- Exact school-hero phone visual from lockup-landing (cmcejas/lockup-landing
-               public/product-lockup-app-phone.webp, src/App.tsx hero; HEAD b637ae8).
-               Live: https://lockup-app.com/landing/product-lockup-app-phone.webp -->
-          <div class="hero__phone-stage">
+        <aside class="lockup-phone-stage">
+          <div class="hero__phone-stage" aria-hidden="true">
             <img
               class="hero__phone"
               src="/images/product-lockup-app-phone.webp"
-              alt="Lockup app showing a locked phone session"
-              width="600"
-              height="1100"
+              alt=""
+              width="1268"
+              height="2060"
               loading="lazy"
               decoding="async"
             >
+          </div>
+          <div class="lockup-store-badges">
+            <a href="https://apps.apple.com/us/app/lockup-education/id6772577559" target="_blank" rel="noopener noreferrer">
+              <img src="/images/appstore-badge.svg" alt="Download on the App Store" width="120" height="40">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.lockupapp.lockup" target="_blank" rel="noopener noreferrer">
+              <img src="/images/googleplay-badge.png" alt="Get it on Google Play" width="564" height="168">
+            </a>
           </div>
         </aside>
       </div>
@@ -744,7 +749,7 @@
     <section class="section detail-page detail-page--lockup">
       <button class="detail-back" data-page="projects" type="button">← Projects</button>
 
-      <div class="lockup-page-shell">
+      <div class="lockup-page-shell fiveside-page-shell">
         <div class="lockup-page-main">
           <div class="detail-header reveal">
             <div>
@@ -785,21 +790,54 @@
               <a href="https://github.com/Cillian-Cooke/fiveside" target="_blank" rel="noopener noreferrer">GitHub</a>
             </p>
           </div>
-        </div>
 
-        <aside class="lockup-phone-stage" aria-hidden="true">
-          <div class="hero__phone-stage">
+          <div class="fiveside-gallery">
             <img
-              class="hero__phone project-shot"
-              src="/images/fiveside-home.png"
-              alt="Trinity Five-A-Side homepage showing this week’s fixtures"
-              width="1280"
-              height="800"
+              src="/images/fiveside-week.png"
+              alt="Week fixture grid for Botany Bay, Monday to Friday"
+              width="1016"
+              height="569"
               loading="lazy"
               decoding="async"
             >
+            <div class="fiveside-gallery-split">
+              <img
+                src="/images/fiveside-team.png"
+                alt="Team page for git gud, with the next match, fixtures to reschedule, and past results"
+                width="1016"
+                height="569"
+                loading="lazy"
+                decoding="async"
+              >
+              <img
+                src="/images/fiveside-standings.png"
+                alt="League tables for Division 1, Division 2, and the start of Division 3"
+                width="695"
+                height="567"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <div class="fiveside-gallery-phones">
+              <img
+                src="/images/fiveside-mobile-week.png"
+                alt="Mobile fixture grid with abbreviated team names and a Monday list below"
+                width="245"
+                height="469"
+                loading="lazy"
+                decoding="async"
+              >
+              <img
+                src="/images/fiveside-mobile-day.png"
+                alt="Mobile day view with afternoon fixtures and games still to be rescheduled"
+                width="245"
+                height="469"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
     <footer class="footer">
