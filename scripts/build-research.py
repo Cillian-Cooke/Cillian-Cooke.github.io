@@ -38,6 +38,7 @@ PORTFOLIO_HASHES = [
     "detail-atlas",
     "detail-lockup",
     "detail-quill",
+    "detail-fiveside",
     "writing",
     "media",
 ]
@@ -222,26 +223,14 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
           </div>
         </div>"""
         )
-    body = f"""    <section class="section research-intro">
-      <p class="eyebrow">AI research</p>
-      <h1>{esc(site['name'])}</h1>
-      <p class="lede">{esc(site['intro'])}</p>
-      <div class="research-links">
-        {external(site['youtube'], 'YouTube')}
-        {external(site['substack'], 'Substack')}
-        {external(site['github'], 'GitHub')}
-        {external(site['linkedin'], 'LinkedIn')}
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="latest-videos">
+    body = f"""    <section class="section research-videos" aria-labelledby="latest-videos">
       <h2 id="latest-videos">Latest videos</h2>
       <div class="video-grid">
           {render_cards(latest)}
       </div>{more}
     </section>
 
-    <section class="section" aria-labelledby="recommended">
+    <section class="section research-recommended" aria-labelledby="recommended">
       <h2 id="recommended">Recommended</h2>
       {chr(10).join(groups)}
     </section>

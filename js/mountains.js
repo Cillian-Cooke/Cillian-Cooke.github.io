@@ -33,6 +33,7 @@
     'detail-lockup': { x: 4450, y: 2950, zoom: 0.85 },
     'detail-atlas':  { x: 4700, y: 2880, zoom: 0.85 },
     'detail-quill':  { x: 4900, y: 3020, zoom: 0.85 },
+    'detail-fiveside':{ x: 5100, y: 3100, zoom: 0.85 },
   };
 
   const HILLS = [
