@@ -1,0 +1,37 @@
+{
+  "slug": "placeholder-two",
+  "title": "PLACEHOLDER: replace me — newer video",
+  "date": "2026-11-01",
+  "youtubeId": "PLCHOLDER02",
+  "shortDescription": "PLACEHOLDER: replace me. Two sentences of plain English about this video and the paper it is based on. Nothing here is a real claim.",
+  "paper": {
+    "title": "PLACEHOLDER: replace me — paper title",
+    "authors": "PLACEHOLDER: replace me",
+    "year": 2026,
+    "source": "PLACEHOLDER venue",
+    "url": "https://example.com/placeholder-paper-two",
+    "image": "/images/papers/placeholder-two.svg",
+    "alt": "PLACEHOLDER title page for the newer sample video"
+  },
+  "extraLinks": [
+    {
+      "label": "PLACEHOLDER: replace me — article",
+      "url": "https://example.com/placeholder-article"
+    }
+  ],
+  "mentions": [
+    {
+      "name": "PLACEHOLDER: replace me — person",
+      "url": "https://example.com/placeholder-mention"
+    }
+  ],
+  "summary": "PLACEHOLDER: replace me. This is the plain-English summary of the whole video.\n\nPLACEHOLDER: replace me. Say what the paper does show, and what it does not show. Do not invent results.",
+  "uncertainties": "PLACEHOLDER: replace me. A short note on what I am still unsure about.",
+  "standoutComments": [
+    {
+      "author": "PLACEHOLDER: replace me",
+      "text": "PLACEHOLDER: replace me. A notable viewer comment, quoted only after it is a real comment.",
+      "url": "https://www.youtube.com/watch?v=PLCHOLDER02&lc=PLACEHOLDER"
+    }
+  ]
+}

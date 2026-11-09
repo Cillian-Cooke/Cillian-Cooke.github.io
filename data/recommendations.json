@@ -1,0 +1,55 @@
+{
+  "youtube": [
+    {
+      "name": "PLACEHOLDER: replace me",
+      "url": "https://www.youtube.com/@PLACEHOLDER",
+      "why": "PLACEHOLDER: replace me. A channel I want to recommend, with one sentence on why."
+    },
+    {
+      "name": "PLACEHOLDER: replace me",
+      "url": "https://www.youtube.com/@PLACEHOLDER-TWO",
+      "why": "PLACEHOLDER: replace me. A second channel, so the list layout is visible."
+    }
+  ],
+  "podcasts": [
+    {
+      "name": "80,000 Hours Podcast",
+      "url": "https://80000hours.org/podcast/",
+      "why": "Long interviews on the world’s most pressing problems, with Rob Wiblin and the 80,000 Hours team."
+    },
+    {
+      "name": "Will MacAskill on how we survive the ‘intelligence explosion,’ AI character, and the case for ‘viatopia’",
+      "url": "https://80000hours.org/podcast/episodes/will-macaskill-ai-character-viatopia/",
+      "why": "Episode 242 with Will MacAskill, one of the 80,000 Hours episodes I come back to."
+    },
+    {
+      "name": "Robert Long on how we’re not ready for AI consciousness",
+      "url": "https://80000hours.org/podcast/episodes/robert-long-eleos-ai-welfare-research/",
+      "why": "Episode 237 with Robert Long, on AI welfare research."
+    },
+    {
+      "name": "Will MacAskill on AI causing a “century in a decade”, and how we’re completely unprepared",
+      "url": "https://80000hours.org/podcast/episodes/will-macaskill-century-in-a-decade-navigating-intelligence-explosion/",
+      "why": "Episode 213 with Will MacAskill, on navigating an intelligence explosion."
+    },
+    {
+      "name": "100 Questions with Tom Simons",
+      "url": "https://open.spotify.com/show/6AzaIexPNKUrdg5NYxhGqa",
+      "why": "Exactly 100 questions to get to know a guest. When the questions run out, the episode ends."
+    }
+  ],
+  "people": [
+    {
+      "name": "PLACEHOLDER: replace me",
+      "url": "https://example.com/placeholder-person",
+      "why": "PLACEHOLDER: replace me. Someone whose work I want to point people to."
+    }
+  ],
+  "organisations": [
+    {
+      "name": "PLACEHOLDER: replace me",
+      "url": "https://example.com/placeholder-org",
+      "why": "PLACEHOLDER: replace me. An organisation worth checking out."
+    }
+  ]
+}

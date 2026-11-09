@@ -22,6 +22,7 @@
   let savedMainScroll = 0;
   let onOverlay = false;
 
+
   function initFontToggle() {
     const saved = localStorage.getItem('font') || 'default';
     applyFont(saved);
@@ -83,6 +84,10 @@
     initReveals();
   }
 
+  function emitNavigate(detail) {
+    window.dispatchEvent(new CustomEvent('site:navigate', { detail: detail || {} }));
+  }
+
   function showOverlay(pageId) {
     if (!onOverlay) {
       savedMainScroll = window.scrollY;
@@ -101,12 +106,14 @@
     onOverlay = true;
     window.scrollTo(0, 0);
     target.classList.add('active', 'visible');
+    emitNavigate({ to: pageId, kind: 'overlay' });
     requestAnimationFrame(() => revealInView(target));
   }
 
   function returnToMain(sectionId, { updateHash = true } = {}) {
     showMain();
     onOverlay = false;
+    emitNavigate({ to: sectionId, kind: 'return' });
 
     const id = MAIN_SECTIONS.has(sectionId) ? sectionId : 'home';
     setNavActive(id);
@@ -164,6 +171,7 @@
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    emitNavigate({ to: id, kind: 'section' });
     requestAnimationFrame(() => revealInView(siteMain()));
   }
 

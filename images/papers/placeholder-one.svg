@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640" role="img" aria-label="PLACEHOLDER paper image">
+  <rect width="480" height="640" fill="#f4f6f7"/>
+  <rect x="16" y="16" width="448" height="608" fill="#ffffff" stroke="#12181b" stroke-opacity="0.18"/>
+  <text x="40" y="88" fill="#0f6b6b" font-family="system-ui, sans-serif" font-size="18" font-weight="700">PLACEHOLDER</text>
+  <text x="40" y="128" fill="#12181b" font-family="system-ui, sans-serif" font-size="22" font-weight="700">Paper title page</text>
+  <text x="40" y="168" fill="#5a6670" font-family="system-ui, sans-serif" font-size="16">replace me</text>
+  <text x="40" y="240" fill="#8a959e" font-family="system-ui, sans-serif" font-size="14">Local thumbnail only.</text>
+  <text x="40" y="264" fill="#8a959e" font-family="system-ui, sans-serif" font-size="14">Not copied from a paper.</text>
+</svg>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morphing tessellation prototype</title>
+  <style>
+    :root {
+      --bg: #f4f6f7;
+      --ink: #12181b;
+      --accent: #0f6b6b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 500vh;
+    }
+    canvas#tess {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hud {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 2;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(18,24,27,0.12);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      max-width: 26rem;
+      backdrop-filter: blur(8px);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .hud strong { display: block; margin-bottom: 0.35rem; }
+    .hud code {
+      font-size: 0.8em;
+      background: #e8ecee;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+    .bar {
+      margin-top: 0.65rem;
+      height: 6px;
+      background: #e8ecee;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: inherit;
+    }
+    .stage {
+      position: relative;
+      z-index: 1;
+      width: min(40rem, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 5rem 0 8rem;
+    }
+    .stage section {
+      min-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+    .stage h2 { font-size: 1.45rem; letter-spacing: -0.02em; }
+    .stage p { color: #5a6670; max-width: 34rem; }
+    .note { font-size: 0.82rem; color: #8a959e; margin-top: 0.45rem; }
+  </style>
+</head>
+<body>
+  <canvas id="tess" aria-hidden="true"></canvas>
+
+  <div class="hud">
+    <strong>Morphing tessellation v3</strong>
+    Peaks snap to true tilings: triangles → squares → hexagons → rhombi.
+    (Octagons dropped — they need gaps. Rhombi tessellate cleanly.)
+    <div class="bar"><span id="prog"></span></div>
+    <p class="note">Phase: <code id="phase">—</code> · mode <code id="mode">—</code></p>
+  </div>
+
+  <div class="stage">
+    <section>
+      <h2>1 · Triangles</h2>
+      <p>Full triangular tiling (up + down). Scroll to bend into squares.</p>
+    </section>
+    <section>
+      <h2>2 · Squares</h2>
+      <p>Axis-aligned square grid, edge-sharing. Then bend toward hexagons.</p>
+    </section>
+    <section>
+      <h2>3 · Hexagons</h2>
+      <p>Honeycomb — the last regular polygon that tiles alone.</p>
+    </section>
+    <section>
+      <h2>4 · Rhombi</h2>
+      <p>60° diamonds that tessellate (hex family). No leftover gaps.</p>
+    </section>
+    <section>
+      <h2>End</h2>
+      <p>If peaks look locked and the bends feel right, we can put this behind the site.</p>
+    </section>
+  </div>
+
+  <script>
+(function () {
+  const canvas = document.getElementById('tess');
+  const ctx = canvas.getContext('2d');
+  const progEl = document.getElementById('prog');
+  const phaseEl = document.getElementById('phase');
+  const modeEl = document.getElementById('mode');
+
+  const ACCENT = '15, 107, 107';
+  const SAMPLES = 64;
+  // Shared metric: square side / triangle side / hex flat-to-flat related
+  const UNIT = 64;
+
+  let w = 0, h = 0, dpr = 1;
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function smoothstep(a, b, x) {
+    const t = clamp((x - a) / (b - a), 0, 1);
+    return t * t * (3 - 2 * t);
+  }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function scrollT() {
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    return clamp(window.scrollY / max, 0, 1);
+  }
+
+  /**
+   * Progress through 4 peaks with morph bands between.
+   * Returns { peakA, peakB, morphT, label, mode }
+   * peaks: 'tri' | 'sq' | 'hex' | 'rhomb'
+   */
+  function stageFromScroll(t) {
+    // 0.00–0.12 hold tri
+    // 0.12–0.28 morph tri→sq
+    // 0.28–0.40 hold sq
+    // 0.40–0.60 morph sq→hex
+    // 0.60–0.72 hold hex
+    // 0.72–0.90 morph hex→rhomb
+    // 0.90–1.00 hold rhomb
+    if (t < 0.12) return { a: 'tri', b: 'tri', u: 0, label: 'triangles', mode: 'tessellating' };
+    if (t < 0.28) return { a: 'tri', b: 'sq', u: smoothstep(0.12, 0.28, t), label: 'triangles → squares', mode: 'bending' };
+    if (t < 0.40) return { a: 'sq', b: 'sq', u: 0, label: 'squares', mode: 'tessellating' };
+    if (t < 0.60) return { a: 'sq', b: 'hex', u: smoothstep(0.40, 0.60, t), label: 'squares → hexagons', mode: 'bending' };
+    if (t < 0.72) return { a: 'hex', b: 'hex', u: 0, label: 'hexagons', mode: 'tessellating' };
+    if (t < 0.90) return { a: 'hex', b: 'rhomb', u: smoothstep(0.72, 0.90, t), label: 'hexagons → rhombi', mode: 'bending' };
+    return { a: 'rhomb', b: 'rhomb', u: 0, label: 'rhombi', mode: 'tessellating' };
+  }
+
+  /** Polar radius of regular n-gon with given apothem, flat facing +x when rot=0 */
+  function regularR(apothem, n, theta, rot) {
+    const R = apothem / Math.cos(Math.PI / n);
+    const a = theta - rot;
+    const sector = (Math.PI * 2) / n;
+    const local = ((a % sector) + sector) % sector - sector / 2;
+    return R * Math.cos(Math.PI / n) / Math.cos(local);
+  }
+
+  /** 60° rhombus as polar radius (diamond that tiles like hex dual) */
+  function rhombR(halfWidth, halfHeight, theta, rot) {
+    // Rhombus with diagonals 2*halfWidth (x) and 2*halfHeight (y)
+    // For 60° rhombus tiling: diagonals ratio related to hex
+    const a = theta - rot;
+    const c = Math.cos(a);
+    const s = Math.sin(a);
+    // Ray–rhombus intersection: |x|/hw + |y|/hh = 1 in diagonal-aligned coords... 
+    // Actually axis-aligned diamond: |x|/a + |y|/b = 1
+    const denom = Math.abs(c) / halfWidth + Math.abs(s) / halfHeight;
+    return denom > 1e-6 ? 1 / denom : halfWidth;
+  }
+
+  function shapeRadius(kind, metric, theta) {
+    // metric = shared UNIT-based size so peaks lock edge-to-edge
+    // Note: regularR hits vertices when (theta-rot) is a multiple of 2π/n,
+    // and flats at the mid-angles. Pick rot so peaks look "standard".
+    if (kind === 'tri') {
+      const side = metric;
+      const apo = (Math.sqrt(3) / 6) * side;
+      // Pointy-top: a vertex at -90°
+      return regularR(apo, 3, theta, Math.PI / 2);
+    }
+    if (kind === 'sq') {
+      const apo = metric / 2;
+      // Axis-aligned (flats on NESW): rotate by π/4 from vertex-up diamond
+      return regularR(apo, 4, theta, Math.PI / 4);
+    }
+    if (kind === 'hex') {
+      const apo = metric / 2;
+      // Flat-top hex
+      return regularR(apo, 6, theta, Math.PI / 6);
+    }
+    if (kind === 'rhomb') {
+      // 60° rhombus: short diagonal horizontal = metric
+      const halfShort = metric / 2;
+      const halfLong = (metric * Math.sqrt(3)) / 2;
+      return rhombR(halfShort, halfLong, theta, 0);
+    }
+    return metric / 2;
+  }
+
+  function morphRadius(kindA, kindB, u, metric, theta) {
+    if (u <= 0) return shapeRadius(kindA, metric, theta);
+    if (u >= 1) return shapeRadius(kindB, metric, theta);
+    // Sample both; slight metric ease so edges stay near-touching mid-morph
+    const mA = metric;
+    const mB = metric;
+    return lerp(shapeRadius(kindA, mA, theta), shapeRadius(kindB, mB, theta), u);
+  }
+
+  /**
+   * Cell centers for each tiling type (true tessellation lattices).
+   */
+  function cellsFor(kind, metric) {
+    const cells = [];
+    if (kind === 'tri') {
+      // Triangular tiling: draw UP triangles on a hex lattice of centroids,
+      // and DOWN triangles on the dual offsets — together they fill the plane.
+      const side = metric;
+      const hTri = (Math.sqrt(3) / 2) * side;
+      // Up-triangle centroids are at 2/3 the height of each up cell
+      // Simpler: place triangles by vertex grid
+      const rows = Math.ceil(h / hTri) + 3;
+      const cols = Math.ceil(w / side) + 3;
+      for (let row = -1; row < rows; row++) {
+        for (let col = -1; col < cols; col++) {
+          const x0 = col * side + (row % 2 ? side * 0.5 : 0);
+          const y0 = row * hTri;
+          // Up triangle centroid
+          cells.push({
+            x: x0 + side / 2,
+            y: y0 + hTri / 3,
+            kind: 'tri',
+            rotExtra: 0, // pointy up already via shapeRadius
+            flip: false,
+          });
+          // Down triangle centroid
+          cells.push({
+            x: x0 + side / 2,
+            y: y0 + (2 * hTri) / 3,
+            kind: 'tri',
+            rotExtra: Math.PI, // flip
+            flip: true,
+          });
+        }
+      }
+      return cells;
+    }
+
+    if (kind === 'sq') {
+      const s = metric;
+      const rows = Math.ceil(h / s) + 3;
+      const cols = Math.ceil(w / s) + 3;
+      for (let row = -1; row < rows; row++) {
+        for (let col = -1; col < cols; col++) {
+          cells.push({ x: col * s + s / 2, y: row * s + s / 2, kind: 'sq' });
+        }
+      }
+      return cells;
+    }
+
+    if (kind === 'hex') {
+      // Flat-top hexes: vertical flat-to-flat = metric
+      const R = metric / Math.sqrt(3); // center → vertex
+      const xStep = 1.5 * R;
+      const yStep = Math.sqrt(3) * R; // = metric
+      const cols = Math.ceil(w / xStep) + 3;
+      const rows = Math.ceil(h / yStep) + 3;
+      for (let row = -1; row < rows; row++) {
+        for (let col = -1; col < cols; col++) {
+          const x = col * xStep + R;
+          const y = row * yStep + yStep / 2 + (col % 2 ? yStep / 2 : 0);
+          cells.push({ x, y, kind: 'hex' });
+        }
+      }
+      return cells;
+    }
+
+    if (kind === 'rhomb') {
+      // Rhombille-style: 60° rhombi on a hex brick lattice
+      // Horizontal step = metric, vertical = metric * √3 / 2, alternate offset
+      const xStep = metric;
+      const yStep = metric * Math.sqrt(3) / 2;
+      const cols = Math.ceil(w / xStep) + 3;
+      const rows = Math.ceil(h / yStep) + 3;
+      for (let row = -1; row < rows; row++) {
+        for (let col = -1; col < cols; col++) {
+          const x = col * xStep + (row % 2 ? xStep / 2 : 0) + xStep / 2;
+          const y = row * yStep + yStep / 2;
+          cells.push({ x, y, kind: 'rhomb' });
+        }
+      }
+      return cells;
+    }
+
+    return cells;
+  }
+
+  /**
+   * During morph, blend cell positions from lattice A toward lattice B
+   * by nearest-neighbor matching in a quantized grid (approx).
+   * Simpler reliable approach: draw BOTH lattices with opacity cross-weight
+   * on the STROKE of morphing shapes — but user wants bending not fade.
+   *
+   * Approach: use a single interpolated lattice parameter + morphing radius.
+   * For peak holds, use exact cellsFor(kind).
+   * For morphs, generate cells from lerp of two lattices with same index scheme.
+   */
+  function cellsMorph(kindA, kindB, u, metric) {
+    if (u <= 0.001) return cellsFor(kindA, metric);
+    if (u >= 0.999) return cellsFor(kindB, metric);
+
+    // Build paired lattices with similar density using a shared hex-ish enumeration
+    // and morph each drawn tile's radius; lattice centers lerp via parametric UV.
+    const cells = [];
+    const xStep = metric * lerp(1, 0.866, u); // soften step during morph
+    const yStep = metric * lerp(1, Math.sqrt(3) / 2, kindA === 'sq' || kindB === 'sq' ? u : 1);
+    // Use a dense hex-compatible enumeration and morph radius only —
+    // centers follow a blend between square and hex packing.
+    const cols = Math.ceil(w / (metric * 0.75)) + 4;
+    const rows = Math.ceil(h / (metric * 0.65)) + 4;
+
+    for (let row = -1; row < rows; row++) {
+      for (let col = -1; col < cols; col++) {
+        // Square center
+        const sx = col * metric + metric / 2;
+        const sy = row * metric + metric / 2;
+        // Hex center (flat-top-ish)
+        const Rhex = (metric / 2) / Math.cos(Math.PI / 6);
+        const xStepH = 1.5 * Rhex;
+        const yStepH = Math.sqrt(3) * Rhex;
+        const hx = col * xStepH + Rhex;
+        const hy = row * yStepH + yStepH / 2 + (col % 2 ? yStepH / 2 : 0);
+
+        // Triangle centroid approx (up only during morph — dual fades via shape)
+        const side = metric;
+        const hTri = (Math.sqrt(3) / 2) * side;
+        const tx = col * side + (row % 2 ? side * 0.5 : 0) + side / 2;
+        const ty = row * hTri + hTri / 3;
+
+        // Rhomb center
+        const rx = col * metric + (row % 2 ? metric / 2 : 0) + metric / 2;
+        const ry = row * (metric * Math.sqrt(3) / 2) + (metric * Math.sqrt(3) / 4);
+
+        function center(kind) {
+          if (kind === 'tri') return [tx, ty];
+          if (kind === 'sq') return [sx, sy];
+          if (kind === 'hex') return [hx, hy];
+          return [rx, ry];
+        }
+
+        const [x0, y0] = center(kindA);
+        const [x1, y1] = center(kindB);
+        cells.push({ x: lerp(x0, x1, u), y: lerp(y0, y1, u), morph: true });
+      }
+    }
+    return cells;
+  }
+
+  function strokePoly(cx, cy, kindA, kindB, u, metric, alpha, flip) {
+    ctx.beginPath();
+
+    // Exact vertex polygons at peaks (u≈0 or same kinds) — guarantees clean tessellation
+    if (u < 0.001 && kindA === kindB) {
+      const verts = peakVertices(kindA, metric, flip);
+      verts.forEach(([px, py], i) => {
+        const x = cx + px;
+        const y = cy + py;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+    } else {
+      for (let i = 0; i <= SAMPLES; i++) {
+        let theta = (i / SAMPLES) * Math.PI * 2;
+        if (flip) theta += Math.PI;
+        const r = morphRadius(kindA, kindB, u, metric, theta);
+        const x = cx + r * Math.cos(theta);
+        const y = cy + r * Math.sin(theta);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    ctx.strokeStyle = `rgba(${ACCENT}, ${alpha})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  /** Exact vertex offsets from center for tessellating peaks */
+  function peakVertices(kind, metric, flip) {
+    if (kind === 'tri') {
+      const side = metric;
+      const hTri = (Math.sqrt(3) / 2) * side;
+      // Centroid-relative vertices for equilateral triangle
+      // Centroid at 2/3 from vertex to base mid… vertices:
+      const verts = flip
+        ? [ [0, (2 / 3) * hTri], [-side / 2, -(1 / 3) * hTri], [side / 2, -(1 / 3) * hTri] ]
+        : [ [0, -(2 / 3) * hTri], [-side / 2, (1 / 3) * hTri], [side / 2, (1 / 3) * hTri] ];
+      return verts;
+    }
+    if (kind === 'sq') {
+      const h = metric / 2;
+      return [[-h, -h], [h, -h], [h, h], [-h, h]];
+    }
+    if (kind === 'hex') {
+      // Flat-top hex, vertical flat-to-flat = metric
+      const R = metric / Math.sqrt(3);
+      const verts = [];
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 180) * (60 * i); // 0°, 60°, … → flat-top
+        verts.push([R * Math.cos(a), R * Math.sin(a)]);
+      }
+      return verts;
+    }
+    if (kind === 'rhomb') {
+      // 60° rhombus: vertices at ends of diagonals
+      const halfShort = metric / 2;              // horizontal half-diagonal
+      const halfLong = (metric * Math.sqrt(3)) / 2; // vertical half-diagonal
+      return [[0, -halfLong], [halfShort, 0], [0, halfLong], [-halfShort, 0]];
+    }
+    return [];
+  }
+
+  function drawPeak(kind, metric, alpha) {
+    const cells = cellsFor(kind, metric);
+    for (const c of cells) {
+      if (c.x < -metric || c.y < -metric || c.x > w + metric || c.y > h + metric) continue;
+      if (kind === 'tri') {
+        strokePoly(c.x, c.y, 'tri', 'tri', 0, metric, alpha, c.flip);
+      } else {
+        strokePoly(c.x, c.y, kind, kind, 0, metric, alpha, false);
+      }
+    }
+  }
+
+  function drawMorph(kindA, kindB, u, metric, alpha) {
+    // During morph: one lattice interpolated + radius morph (bending)
+    // For tri involvement, also lightly draw the dual set early in the morph
+    const cells = cellsMorph(kindA, kindB, u, metric);
+    for (const c of cells) {
+      if (c.x < -metric || c.y < -metric || c.x > w + metric || c.y > h + metric) continue;
+      strokePoly(c.x, c.y, kindA, kindB, u, metric, alpha, false);
+    }
+
+    // If leaving triangles, keep down-pointing set fading out so tessellation doesn't pop
+    if (kindA === 'tri' && u < 0.85) {
+      const fade = (1 - u) * 0.55;
+      const cellsTri = cellsFor('tri', metric);
+      for (const c of cellsTri) {
+        if (!c.flip) continue;
+        if (c.x < -metric || c.y < -metric || c.x > w + metric || c.y > h + metric) continue;
+        strokePoly(c.x, c.y, 'tri', kindB, u, metric, alpha * fade, true);
+      }
+    }
+  }
+
+  function draw() {
+    const t = scrollT();
+    const st = stageFromScroll(t);
+    const metric = UNIT;
+    const alpha = 0.15;
+
+    ctx.clearRect(0, 0, w, h);
+
+    if (st.u <= 0.001) {
+      drawPeak(st.a, metric, alpha);
+    } else {
+      drawMorph(st.a, st.b, st.u, metric, alpha);
+    }
+
+    progEl.style.width = (t * 100).toFixed(1) + '%';
+    phaseEl.textContent = st.label;
+    modeEl.textContent = st.mode;
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      draw();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.documentElement.style.scrollBehavior = 'auto';
+  resize();
+})();
+  </script>
+</body>
+</html>

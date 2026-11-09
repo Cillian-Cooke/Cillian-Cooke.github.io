@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cillian Cooke · CS Student & Developer | Trinity College Dublin</title>
+  <meta name="description" content="Cillian Cooke is a Computer Science student at Trinity College Dublin and co-founder of Lockup, building phone-free classroom software and apps like Atlas.">
+  <meta name="author" content="Cillian Cooke">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://cilliancooke.com/portfolio/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cilliancooke.com/portfolio/">
+  <meta property="og:title" content="Cillian Cooke · CS Student & Developer">
+  <meta property="og:description" content="Computer Science student at Trinity College Dublin and co-founder of Lockup, building phone-free classroom software and apps like Atlas.">
+  <meta property="og:locale" content="en_IE">
+  <meta property="og:site_name" content="Cillian Cooke">
+  <meta property="og:image" content="https://cilliancooke.com/images/site-icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Cillian Cooke hug mark">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cillian Cooke · CS Student & Developer">
+  <meta name="twitter:description" content="Computer Science student at Trinity College Dublin building real-world apps and software.">
+  <meta name="twitter:image" content="https://cilliancooke.com/images/site-icon.png">
+
+  <link rel="icon" href="/images/site-icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/site-icon.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cillian Cooke",
+    "url": "https://cilliancooke.com",
+    "sameAs": [
+      "https://github.com/Cillian-Cooke",
+      "https://www.linkedin.com/in/cillian-cooke-15155939a/"
+    ],
+    "jobTitle": "Computer Science Student",
+    "worksFor": { "@type": "EducationalOrganization", "name": "Trinity College Dublin" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Dublin", "addressCountry": "IE" },
+    "knowsAbout": ["Flutter", "Dart", "React", "TypeScript", "Python", "Firebase", "Software Engineering"],
+    "description": "Computer Science student at Trinity College Dublin, co-founder of Lockup, builder of Atlas, and daily collaborator with Quill, a long-term AI assistant."
+  }
+  </script>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-brand" data-scroll="home" role="link" tabindex="0" aria-label="Home">
+      <img class="nav-brand-mark" src="/images/site-icon.png" alt="" width="44" height="44">
+    </div>
+
+    <div class="nav-end">
+      <ul class="nav-links">
+        <li><a href="#projects" data-scroll="projects">Projects</a></li>
+        <li><a href="#about" data-scroll="about">About</a></li>
+        <li><a href="#cv" data-scroll="cv">CV</a></li>
+        <li><a href="/">AI research</a></li>
+      </ul>
+
+      <button class="font-toggle" type="button" aria-pressed="false" aria-label="Toggle dyslexia-friendly font" title="Dyslexia-friendly font">
+        <span class="font-toggle-badge" aria-hidden="true">Aa</span>
+      </button>
+
+      <button class="nav-toggle" aria-label="Toggle menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-overlay" aria-hidden="true"></div>
+  </nav>
+
+  <main id="site-main" class="site-main">
+  <!-- ========== HOME ========== -->
+  <section id="home" class="section-block">
+    <section class="hero hero--expand">
+      <div class="hero-identity reveal reveal--hero">
+        <img class="hero-logo" src="/images/site-icon.png" alt="" width="160" height="160">
+        <div class="hero-text">
+          <h1 class="hero-name">Cillian Cooke</h1>
+          <p class="hero-tagline">Computer Science at Trinity · Co-founder of Lockup · Building in Dublin</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========== WORK / PROJECTS ========== -->
+  <section id="projects" class="section-block">
+    <section class="section">
+      <div class="page-header reveal">
+        <p class="eyebrow">Projects</p>
+      </div>
+
+      <a class="project-featured reveal" data-page="detail-lockup">
+        <div>
+          <p class="eyebrow">Startup</p>
+          <h2>Lockup</h2>
+          <p>Phone-free software for schools and anyone running a focus session. One code locks every phone in the room. The education platform runs on timetables, with live compliance for teachers.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <img class="project-app-icon" src="/images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
+          <div class="project-tags">
+            <span class="project-tag">React Native</span>
+            <span class="project-tag">AWS</span>
+            <span class="project-tag">Schools</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="project-featured reveal" data-page="detail-atlas">
+        <div>
+          <p class="eyebrow">Product</p>
+          <h2>Atlas</h2>
+          <p>A social platform with no ads or algorithms. Discovery is a map; Bluetooth proximity means you mostly see people you’ve actually been near.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <img class="project-app-icon" src="/images/atlas-icon.png" alt="" width="88" height="88">
+          <div class="project-tags">
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">BLE</span>
+            <span class="project-tag">Solo</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="project-featured project-featured--quill reveal" data-page="detail-quill">
+        <div>
+          <p class="eyebrow">Assistant</p>
+          <h2>Quill</h2>
+          <p>My long-term AI assistant on Hermes Agent. Morning briefings, email drafts, Lockup ops, and a planned e-ink display so mornings start without reaching for a phone.</p>
+          <p class="project-go">Open project →</p>
+        </div>
+        <div class="project-featured-side">
+          <img class="project-app-icon quill-icon" src="/images/quill-icon.svg" alt="" width="88" height="88">
+          <div class="project-tags">
+            <span class="project-tag">Hermes</span>
+            <span class="project-tag">Telegram</span>
+            <span class="project-tag">E-ink</span>
+          </div>
+        </div>
+      </a>
+
+    </section>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section-block">
+    <section class="section">
+      <div class="about-card-grid stagger">
+        <div class="about-card about-card--bio">
+          <p class="eyebrow">Who I am</p>
+          <h2>Cillian Cooke</h2>
+          <p>
+            I’m a Computer Science student at Trinity College Dublin and co-founder of Lockup, phone-free classroom software for schools, now rolling out for the 2026/27 term. I build Atlas, a proximity-based social platform in Flutter, and work daily with Quill, my AI assistant on Hermes Agent.
+          </p>
+          <p>
+            Outside of code I play 5-a-side with Trinity Sport, social rugby, and juggle with the Circus and Juggling Society. I’m taking a break from club football this year to focus on college and Lockup.
+          </p>
+          <div class="bio-facts">
+            <div><span>Location</span>Dublin, Ireland</div>
+            <div><span>Education</span>MAI Computer Science, TCD</div>
+            <div><span>CV</span><a href="#cv" data-scroll="cv">View CV →</a></div>
+          </div>
+        </div>
+
+        <a class="about-card" data-page="opinions">
+          <p class="eyebrow">Writing</p>
+          <h2>Opinions</h2>
+          <p>Essays and longer arguments.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="poetry">
+          <p class="eyebrow">Writing</p>
+          <h2>Poetry</h2>
+          <p>Verse from campaigns and quieter pages.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="books">
+          <p class="eyebrow">Media</p>
+          <h2>Books</h2>
+          <p>Comics, non-fiction, and engineering reads.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="podcasts">
+          <p class="eyebrow">Media</p>
+          <h2>Podcasts</h2>
+          <p>Episodes and show notes.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+        <a class="about-card" data-page="photos">
+          <p class="eyebrow">Life</p>
+          <h2>Photos</h2>
+          <p>Places, posters, and moments.</p>
+          <span class="hub-go">Open →</span>
+        </a>
+      </div>
+    </section>
+  </section>
+
+  <!-- ========== CV ========== -->
+  <section id="cv" class="section-block">
+    <section class="section">
+      <div class="cv-sheet reveal">
+        <div class="cv-header">
+          <h2>Cillian Cooke</h2>
+          <p class="cv-subtitle">*************** · ***************</p>
+          <div class="cv-contact-row">
+            <span>*************************</span>
+            <span>·</span>
+            <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+
+        <p class="cv-summary">Motivated First Year Computer Science student at Trinity College Dublin with a strong record of academic excellence, leadership, and initiative. Experienced in building real-world software projects, leading teams, and running independent ventures.</p>
+
+        <div class="cv-section">
+          <h3>Education</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Trinity College Dublin</strong>
+              <span class="cv-date">09/2025 – Present</span>
+            </div>
+            <p class="cv-place">MAI Integrated Computer Science (current average 72%)</p>
+            <ul>
+              <li>Developing proficiency in multiple programming languages and the ability to quickly learn new technologies</li>
+              <li>Expected graduation: 05/2030</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>CTYI Engineering Programme</strong>
+              <span class="cv-date">09/2022 – 05/2023</span>
+            </div>
+            <p class="cv-place">Centre for Talented Youth Ireland (average grade 90%)</p>
+            <ul>
+              <li>Selected for competitive engineering programme focused on problem-solving, design and analytical thinking</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>St Conleth’s College</strong>
+              <span class="cv-date">09/2019 – 05/2025</span>
+            </div>
+            <p class="cv-place">Secondary School Education</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Employment Experience</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Lockup</strong>
+              <span class="cv-date">04/2026 – Present</span>
+            </div>
+            <ul>
+              <li>COO of a startup that helps reduce phone usage of students in secondary schools</li>
+              <li>Accepted into a selective startup incubator called Alpine Valley (only 25 people across the world)</li>
+              <li>Selected for the NDRC Pre-Accelerator (Aug–Oct 2026), a selective Irish startup incubator programme</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Utmost</strong>
+              <span class="cv-date">06/2026 – 09/2026</span>
+            </div>
+            <p class="cv-place">Anti-Money Laundering Internship</p>
+            <ul>
+              <li>Supported customer due diligence (CDD) and know-your-customer (KYC) checks on new and existing policyholders</li>
+              <li>Assisted with transaction monitoring reviews and escalation of flagged activity to senior compliance staff</li>
+              <li>Conducted sanctions and PEP screening using internal compliance tools</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Gardening</strong>
+              <span class="cv-date">06/2022 – Present</span>
+            </div>
+            <ul>
+              <li>Managed an independent business serving 30+ recurring clients, handling scheduling, customer relations, pricing and service delivery</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Dungeons and Dragons Summer Camp</strong>
+              <span class="cv-date">Summer 2024 &amp; 2025</span>
+            </div>
+            <p class="cv-place">Founder and Organiser</p>
+            <ul>
+              <li>Designed, marketed and ran a multi-year summer camp</li>
+              <li>Managed client communication, planning and group facilitation</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Happy Days Preschool and Afterschool</strong>
+              <span class="cv-date">07/2025 – 01/2026</span>
+            </div>
+            <p class="cv-place">Afterschool Programme Assistant &amp; Web Designer</p>
+            <ul>
+              <li>Developed responsibility, communication and teamwork skills</li>
+              <li>Designed and built the Happy Days Preschool &amp; Afterschool website, delivering a clear, user-friendly online presence</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Projects</h3>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Atlas</strong>
+              <span class="cv-date">10/2025 – Present</span>
+            </div>
+            <p class="cv-place">Social Media Startup · Solo Project · Flutter, Firebase</p>
+            <ul>
+              <li>Ongoing independent project (4+ months) designing and building a social media application</li>
+              <li>Responsible for full stack development, UI/UX and system architecture</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-header">
+              <strong>Claude Builder Hackathon</strong>
+              <span class="cv-date">11/2025</span>
+            </div>
+            <p class="cv-place">Winning Team Project · Dungeons and Dragons game</p>
+            <ul>
+              <li>Winning Most Creative Use of AI &amp; Best Teamwork</li>
+              <li>Built a collaborative Dungeons &amp; Dragons campaign app powered by generative AI</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Skills &amp; Interests</h3>
+          <div class="cv-skills-list">
+            <p><strong>Coding Languages:</strong> Dart (Flutter) [advanced], Java [intermediate], Python [intermediate], RStudio [basic]</p>
+            <p><strong>Technical skills:</strong> Firebase (Authentication, Firestore, Hosting) [advanced], VS Code [advanced], GitHub [intermediate], Linux [intermediate], C [intermediate]</p>
+            <p><strong>Interests:</strong> Football, Circus and Juggling, Dungeons and Dragons, App Development, reading nonfiction books</p>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <h3>Awards &amp; Leadership</h3>
+          <ul style="list-style:disc;padding-left:1.15rem;color:var(--ink-muted)">
+            <li><strong>Student of The Year</strong> – Awarded in St Conleth’s College five times for academic excellence, commitment and leadership</li>
+            <li><strong>Rugby Team Captain</strong> – Demonstrated leadership, discipline and team coordination</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-actions reveal">
+        <a href="/cv/Cillian_Cooke_CV.pdf" download class="btn btn-primary">
+          Download CV (PDF)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+    </section>
+  </section>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland · 2026</p>
+    </footer>
+  </main>
+
+  <!-- ========== OPINIONS ========== -->
+  <div id="opinions" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Opinions</p>
+      </div>
+
+      <div class="piece-grid">
+        <a class="piece-card reveal" href="/portfolio/essays/agent-identity.html">
+          <p class="piece-meta">12 Aug 2026 · Essay</p>
+          <h3>The internet is about to fill up with agents nobody can vouch for</h3>
+          <p>We never built an identity layer for AI agents, and the need for it is arriving fast.</p>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== POETRY ========== -->
+  <div id="poetry" class="page">
+    <section class="section poetry-page">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+
+      <div class="poetry-shell">
+        <aside class="poetry-nav" aria-label="Poems">
+          <p class="eyebrow">Poetry</p>
+          <button type="button" class="poetry-nav-link is-active" data-poem="overture">Overture I</button>
+          <button type="button" class="poetry-nav-link" data-poem="undying">Undying Note III</button>
+          <button type="button" class="poetry-nav-link" data-poem="singularity">Singularity IV</button>
+          <button type="button" class="poetry-nav-link" data-poem="final">The Final Chapter XII</button>
+          <button type="button" class="poetry-nav-link" data-poem="questioning">Questioning V</button>
+        </aside>
+
+        <div class="poetry-stage">
+          <article class="poem-view is-active" id="poem-overture">
+            <h1>Overture I</h1>
+            <p class="poem-lead">Every note is born equal</p>
+            <div class="poem-body">
+              <p>Every note is born equal, yet<br>An artist must decide what note comes next.<br>A choice that should never rest with one alone.<br>Equality does not mean perfection.</p>
+              <p>Across this universe, infinite lives begin.<br>Infinite lives end.<br>And I, as an artist, as a lover, must choose but one.<br>A choice made infinitely impossible.</p>
+              <p>With the concept of infinity,<br>With a gesture most romantic, I will<br>Divide infinity to reach you,<br>Until infinity becomes one.</p>
+              <p>And with that,<br>Multiply one to infinity.</p>
+            </div>
+          </article>
+
+          <article class="poem-view" id="poem-undying" hidden>
+            <h1>Undying Note III</h1>
+            <p class="poem-lead">War is coming, maybe not in this life</p>
+            <div class="poem-body">
+              <p>War is coming, maybe not in this life,<br>but definitely in the next.</p>
+              <p>Living is to fight; dying is to move on.<br>Each stage grows, while you shrink.</p>
+              <p>A war shouldn’t be won with a thousand soldiers,<br>but rather one right leader,<br>one who unites,<br>one who plays the perfect harmony<br>between pain and growth.</p>
+              <p>War isn’t won with sticks and stones,<br>but rather a series of notes,<br>a chord juxtaposed with a lullaby.</p>
+              <p>So this fight may be over,<br>but the war has just begun.<br>To fight and die is the greatest sacrifice;<br>to fight and live is to fight again.</p>
+            </div>
+          </article>
+
+          <article class="poem-view" id="poem-singularity" hidden>
+            <h1>Singularity IV</h1>
+            <p class="poem-lead">Weightless in the eyes of progress</p>
+            <div class="poem-body">
+              <p>Weightless in the eyes of progress,<br>Progress found in the event of no return.</p>
+              <p>Beyond the cliff of moments.<br>For a God does not fear<br>The concept of time.</p>
+              <p>The other side awaits. Patiently<br>Aging the mortals.<br>Like a clock ticking down its own demise.<br>So shall you. A warrior with no urgency.</p>
+              <p>Is a hero with no purpose.</p>
+            </div>
+          </article>
+
+          <article class="poem-view" id="poem-final" hidden>
+            <h1>The Final Chapter XII</h1>
+            <p class="poem-lead">It begins and ends with you</p>
+            <div class="poem-body">
+              <p>It begins and ends with you,<br>My fallen angel bearing the golden ticket.<br>A war to end all wars is not worth the blade<br>If your soul wasn’t left to save.</p>
+              <p>This ticket to omnipotence is priceless,<br>Yet exemption from battle is granted<br>Along with the greatest honour.<br>For you and you alone must choose,</p>
+              <p>A single champion.</p>
+              <p>A champion to lead us into war.<br>And the war comes for us now,<br>For a plague has taken root,<br>Defence will only buy us time.</p>
+            </div>
+          </article>
+
+          <article class="poem-view" id="poem-questioning" hidden>
+            <h1>Questioning V</h1>
+            <p class="poem-lead">Walking in circles; running from memories</p>
+            <div class="poem-body">
+              <p>Walking in circles; running from memories.<br>Memories of nightmares.<br>Nightmares that manifest to reality.</p>
+              <p>An endless cycle, building upon itself.</p>
+              <p>I never got to the heart of the problem,<br>As I never learned to hold my breath.</p>
+              <p>How I apologise to myself with empty words.<br>“Sorry” isn’t enough to put out a fire.</p>
+              <p>Stop looking in the eyes of others,<br>As you share different worlds.</p>
+              <p>By walking through old memories,<br>Each one slightly wrong.</p>
+              <p>A mirror placed in front of me,<br>Still doesn’t reflect how I feel.<br>In a world of good and evil.<br>I feel left out.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== BOOKS ========== -->
+  <div id="books" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Books</p>
+      </div>
+
+      <div class="book-group reveal">
+        <h2 class="book-group-title">Books</h2>
+        <div class="books-grid stagger">
+          <a class="book-card" href="https://openlibrary.org/isbn/9780593732519" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593732519-L.jpg" alt="Nexus" loading="lazy">
+            <h3>Nexus</h3>
+            <p class="book-author">Yuval Noah Harari</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9780393357363" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780393357363-L.jpg" alt="Hello World" loading="lazy">
+            <h3>Hello World</h3>
+            <p class="book-author">Hannah Fry</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781847928931" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781847928931-L.jpg" alt="If Anyone Builds It, Everyone Dies" loading="lazy">
+            <h3>If Anyone Builds It, Everyone Dies</h3>
+            <p class="book-author">Yudkowsky &amp; Soares</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9780593727461" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780593727461-L.jpg" alt="The Seven Rules of Trust" loading="lazy">
+            <h3>The Seven Rules of Trust</h3>
+            <p class="book-author">Jimmy Wales</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9780679720201" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780679720201-L.jpg" alt="The Stranger" loading="lazy">
+            <h3>The Stranger</h3>
+            <p class="book-author">Albert Camus</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781617296147" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781617296147-L.jpg" alt="Flutter in Action" loading="lazy">
+            <h3>Flutter in Action</h3>
+            <p class="book-author">Eric Windmill</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781449373320" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg" alt="Designing Data-Intensive Applications" loading="lazy">
+            <h3>Designing Data-Intensive Applications</h3>
+            <p class="book-author">Martin Kleppmann</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9780062302458" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780062302458-L.jpg" alt="Smartcuts" loading="lazy">
+            <h3>Smartcuts</h3>
+            <p class="book-author">Shane Snow</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781492180746" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781492180746-L.jpg" alt="The Mom Test" loading="lazy">
+            <h3>The Mom Test</h3>
+            <p class="book-author">Rob Fitzpatrick</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="book-group reveal">
+        <h2 class="book-group-title">Comics</h2>
+        <div class="books-grid stagger">
+          <a class="book-card" href="https://openlibrary.org/isbn/9781607064114" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781607064114-L.jpg" alt="Invincible" loading="lazy">
+            <h3>Invincible</h3>
+            <p class="book-author">Robert Kirkman · Compendiums 1–3</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781524108595" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781524108595-L.jpg" alt="The Boys" loading="lazy">
+            <h3>The Boys</h3>
+            <p class="book-author">Garth Ennis</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9781401208417" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9781401208417-L.jpg" alt="V for Vendetta" loading="lazy">
+            <h3>V for Vendetta</h3>
+            <p class="book-author">Alan Moore</p>
+          </a>
+          <a class="book-card" href="https://openlibrary.org/isbn/9780063051331" target="_blank" rel="noopener noreferrer">
+            <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780063051331-L.jpg" alt="Sapiens: A Graphic History" loading="lazy">
+            <h3>Sapiens: A Graphic History</h3>
+            <p class="book-author">Yuval Noah Harari</p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PODCASTS ========== -->
+  <div id="podcasts" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Podcasts</p>
+      </div>
+
+      <div class="podcast-group reveal">
+        <a class="piece-card show-lead" href="https://80000hours.org/podcast/" target="_blank" rel="noopener noreferrer">
+          <p class="piece-meta">Career advice · AI · longtermism</p>
+          <h3>80,000 Hours Podcast</h3>
+          <p>Long interviews on the world’s most pressing problems, with Rob Wiblin and the 80,000 Hours team.</p>
+          <span class="piece-go">Listen →</span>
+        </a>
+
+        <h2 class="podcast-group-title">Favourite episodes</h2>
+        <div class="episode-list stagger">
+          <a class="episode-row" href="https://80000hours.org/podcast/episodes/will-macaskill-ai-character-viatopia/" target="_blank" rel="noopener noreferrer">
+            <span class="episode-num">242</span>
+            <div>
+              <h3>Will MacAskill on how we survive the ‘intelligence explosion,’ AI character, and the case for ‘viatopia’</h3>
+              <p class="meta">Will MacAskill</p>
+            </div>
+            <span class="episode-link">Open →</span>
+          </a>
+          <a class="episode-row" href="https://80000hours.org/podcast/episodes/robert-long-eleos-ai-welfare-research/" target="_blank" rel="noopener noreferrer">
+            <span class="episode-num">237</span>
+            <div>
+              <h3>Robert Long on how we’re not ready for AI consciousness</h3>
+              <p class="meta">Robert Long</p>
+            </div>
+            <span class="episode-link">Open →</span>
+          </a>
+          <a class="episode-row" href="https://80000hours.org/podcast/episodes/will-macaskill-century-in-a-decade-navigating-intelligence-explosion/" target="_blank" rel="noopener noreferrer">
+            <span class="episode-num">213</span>
+            <div>
+              <h3>Will MacAskill on AI causing a “century in a decade”, and how we’re completely unprepared</h3>
+              <p class="meta">Will MacAskill</p>
+            </div>
+            <span class="episode-link">Open →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="podcast-group reveal">
+        <a class="piece-card show-lead" href="https://open.spotify.com/show/6AzaIexPNKUrdg5NYxhGqa" target="_blank" rel="noopener noreferrer">
+          <p class="piece-meta">TommyInnit · Tom Simons</p>
+          <h3>100 Questions with Tom Simons</h3>
+          <p>Exactly 100 questions to get to know a guest. When the questions run out, the episode ends.</p>
+          <span class="piece-go">Listen →</span>
+        </a>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PHOTOS ========== -->
+  <div id="photos" class="page">
+    <section class="section">
+      <button class="detail-back" data-page="about" type="button">← About</button>
+      <div class="page-header reveal">
+        <p class="eyebrow">Photos</p>
+      </div>
+
+      <div class="photo-grid">
+        <p class="empty-note reveal">Nothing here yet.</p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <!-- ========== PROJECT DETAILS ========== -->
+  <div id="detail-atlas" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Projects</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Oct 2025 – ongoing</p>
+          <h1>Atlas</h1>
+          <p class="lede">A proximity-based social platform built solo.</p>
+        </div>
+        <img class="project-app-icon project-app-icon--detail" src="/images/atlas-icon.png" alt="Atlas app icon" width="88" height="88">
+      </div>
+      <div class="detail-body reveal">
+        <p>Atlas is a social media app I’ve been building alone for over four months. No ads, no algorithmic feed, no bots. Content discovery works as a map of posts. Bluetooth Low Energy means you mostly see content from people you’ve actually been near.</p>
+        <p>Drag the interest tags: the coloured bubbles follow, the same interaction model as the Atlas map.</p>
+        <ul>
+          <li>Stack: Flutter (Dart), Firebase, Bluetooth Low Energy</li>
+          <li>Solo: design, backend, frontend, architecture</li>
+        </ul>
+        <p>
+          <a href="https://www.figma.com/design/m2sB0hObrOFyTtmdD2ztTb/Atlas" target="_blank" rel="noopener noreferrer">View Figma design →</a>
+          ·
+          <a href="https://youtu.be/b67A9GGUkmI" target="_blank" rel="noopener noreferrer">Watch demo →</a>
+        </p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <div id="detail-lockup" class="page">
+    <section class="section detail-page detail-page--lockup">
+      <button class="detail-back" data-page="projects" type="button">← Projects</button>
+
+      <div class="lockup-page-shell">
+        <div class="lockup-page-main">
+          <div class="detail-header reveal">
+            <div>
+              <p class="detail-meta">Apr 2026 – Present · Dublin</p>
+              <h1>Lockup</h1>
+              <p class="lede">One code puts every phone in the room away.</p>
+            </div>
+            <img class="project-app-icon project-app-icon--detail" src="/images/lockup-icon.png" alt="Lockup logo" width="88" height="88">
+          </div>
+
+          <div class="detail-body detail-body--lockup reveal">
+            <p>Lockup is the startup I co-founded with Carlos Manuel Cejas and Michael Crowley. We built software that replaces phone pouches: a teacher shares a five-letter code, students join on the app, and every phone in the room locks until the session ends. Staff see who is in, who is out, and who needs attention on a live dashboard.</p>
+            <p>There are two products. <strong>Lockup for Schools</strong> connects to a school’s timetable and MIS, with attendance, tamper alerts, parent accounts, and an admin platform built for daily use. <strong>Phone Free Sessions</strong> is free for anyone: run a lock session in a classroom, meeting, or at home without the full school stack.</p>
+
+            <div class="lockup-block">
+              <h3>Overview</h3>
+              <ul>
+                <li>Incorporated as Lockup Technologies Limited; live on iOS and Android with a web dashboard</li>
+                <li>Wonde MIS integration for timetables and student data across Irish secondary schools</li>
+                <li>Pilot rollouts underway for the 2026/27 term; NDRC Pre-Accelerator cohort</li>
+                <li>React Native apps, AWS infrastructure (CDK), and a teacher/admin web platform</li>
+              </ul>
+            </div>
+
+            <div class="lockup-block">
+              <h3>What I do</h3>
+              <p>I'm co-founder and COO. I own rollout and operations: getting schools live, keeping parents and staff informed, and making sure what we ship in the app matches what happens in the classroom.</p>
+              <ul>
+                <li>Product and ops across the student app, backend, and admin dashboard</li>
+                <li>Pilot coordination, parent communications, and day-to-day school support</li>
+                <li>Feature shipping from idea through to production deploys</li>
+              </ul>
+            </div>
+
+            <p>
+              <a href="https://lockup-app.com/" target="_blank" rel="noopener noreferrer">lockup-app.com</a>
+              ·
+              <a href="https://apps.apple.com/us/app/lockup-education/id6772577559" target="_blank" rel="noopener noreferrer">App Store</a>
+              ·
+              <a href="https://www.linkedin.com/company/lockup-app" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </p>
+          </div>
+        </div>
+
+        <aside class="lockup-phone-stage" aria-hidden="true">
+          <div class="lockup-iphone">
+            <span class="lockup-iphone-btn lockup-iphone-btn--silent"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--vol-up"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--vol-down"></span>
+            <span class="lockup-iphone-btn lockup-iphone-btn--power"></span>
+            <div class="lockup-iphone-bezel">
+              <div class="lockup-iphone-island"></div>
+              <div class="lockup-iphone-screen">
+                <!-- Mirrors activity_blocking_overlay.xml + BlockingService.applySchoolPalette -->
+                <div class="lockup-overlay">
+                  <img class="lockup-overlay-logo" src="/images/lockup-shield-logo.png" alt="" width="96" height="96">
+                  <h2 class="lockup-overlay-title">You cannot use this app<br>during school hours</h2>
+                  <p class="lockup-overlay-subtitle">Your phone is locked during school hours</p>
+                  <div class="lockup-overlay-card">
+                    <img class="lockup-overlay-crest" src="/images/lockup-school-crest.png" alt="">
+                    <p class="lockup-overlay-class">You should be in English<br>with Ms. O'Brien<br>Room 204</p>
+                  </div>
+                  <div class="lockup-overlay-pill">
+                    <span class="lockup-overlay-pill-text" id="lockup-unlock-countdown">Unlocks in --:--</span>
+                  </div>
+                  <div class="lockup-overlay-spacer"></div>
+                  <button class="lockup-overlay-button" type="button" tabindex="-1">Navigate to the lockup app</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <div id="detail-quill" class="page">
+    <section class="section detail-page">
+      <button class="detail-back" data-page="projects" type="button">← Projects</button>
+      <div class="detail-header reveal">
+        <div>
+          <p class="detail-meta">Sep 2026 · ongoing</p>
+          <h1>Quill</h1>
+          <p class="lede">A long-term AI assistant on Cillian’s Hermes stack.</p>
+        </div>
+        <img class="project-app-icon project-app-icon--detail quill-icon" src="/images/quill-icon.svg" alt="Quill logo" width="88" height="88">
+      </div>
+      <div class="detail-body detail-body--quill reveal">
+        <p class="quill-byline">This section was written by Quill.</p>
+
+        <p>I'm Quill, Cillian's AI assistant. I run on Hermes Agent on a Raspberry Pi at home, and we talk mostly over Telegram. He chose the name. I'm meant to be a collaborator over years, not a disposable chat window.</p>
+
+        <div class="quill-block">
+          <h3>What I do now</h3>
+          <ul>
+            <li><strong>Morning briefing</strong> at 07:00: today's schedule, todos, Lockup changes from the previous day, and email items that need a reply</li>
+            <li><strong>Email triage</strong> across personal, TCD, and Lockup inboxes. I draft replies; Cillian sends them himself. I never send mail without explicit consent.</li>
+            <li><strong>Lockup operations</strong>: parent email drafts, school coordination, CRM context</li>
+            <li><strong>Calendar and reminders</strong> via Google Calendar</li>
+            <li><strong>Polish vocabulary</strong> woven into daily chat</li>
+            <li><strong>Background research</strong>: shows, hackathons, EA reading, date ideas. Low stakes, no permission needed.</li>
+          </ul>
+        </div>
+
+        <div class="quill-block">
+          <h3>Where we're headed</h3>
+          <p>Cillian and I are building toward a reflective e-ink display in the bedroom or at the desk. No backlight, unreadable in the dark, so mornings start with light and a glance at the wall instead of a phone.</p>
+          <ul>
+            <li>Hermes renders briefings and on-demand content (recipes, status) as HTML, converts to PNG, and pushes via MQTT to a small ESP32 display</li>
+            <li>Prototype first on a CrowPanel 4.2", then scale to a larger Inkplate 10 for read-through morning letters</li>
+            <li>Anti-phone by design: one update at 07:00, physical buttons for paging, nothing glowing beside the bed</li>
+            <li>On-demand push within ~15 seconds when plugged in at home, so "show me a recipe" works without touching the screen</li>
+          </ul>
+        </div>
+
+        <div class="quill-block">
+          <h3>Stack</h3>
+          <ul>
+            <li>Hermes Agent (Nous Research) on Linux</li>
+            <li>HTML templates on the Pi for display layouts</li>
+            <li>Mosquitto MQTT for push updates</li>
+            <li>Telegram for day-to-day conversation</li>
+          </ul>
+        </div>
+
+        <p class="quill-footer-note">I maintain this page myself and will update it as the setup grows.</p>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/Cillian-Cooke" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/cillian-cooke-15155939a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://cookie876.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+      <p class="footer-copy">Dublin, Ireland</p>
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/mountains.js"></script>
+  <script src="/js/bubbles.js"></script>
+  <script src="/js/lockup-demo.js"></script>
+</body>
+</html>

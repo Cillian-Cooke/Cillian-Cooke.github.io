@@ -1,0 +1,35 @@
+{
+  "slug": "placeholder-one",
+  "title": "PLACEHOLDER: replace me — older video",
+  "date": "2026-10-01",
+  "youtubeId": "PLCHOLDER01",
+  "shortDescription": "PLACEHOLDER: replace me. Two sentences of plain English about this older sample video. Nothing here is a real claim.",
+  "paper": {
+    "title": "PLACEHOLDER: replace me — other paper title",
+    "authors": "PLACEHOLDER: replace me",
+    "year": 2025,
+    "source": "PLACEHOLDER source",
+    "url": "https://example.com/placeholder-paper-one",
+    "image": "/images/papers/placeholder-one.svg",
+    "alt": "PLACEHOLDER title page for the older sample video"
+  },
+  "extraLinks": [
+    {
+      "label": "PLACEHOLDER: replace me — talk",
+      "url": "https://example.com/placeholder-talk"
+    },
+    {
+      "label": "PLACEHOLDER: replace me — code",
+      "url": "https://example.com/placeholder-code"
+    }
+  ],
+  "mentions": [
+    {
+      "name": "PLACEHOLDER: replace me — organisation",
+      "url": "https://example.com/placeholder-org"
+    }
+  ],
+  "summary": "PLACEHOLDER: replace me. This summary is fake layout text.\n\nPLACEHOLDER: replace me. Describe what the paper does and does not show once a real paper is linked.",
+  "uncertainties": "PLACEHOLDER: replace me. What I am still unsure about goes here.",
+  "standoutComments": []
+}
