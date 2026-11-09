@@ -1,0 +1,50 @@
+[
+  {
+    "status": "will",
+    "title": "Functional Welfare for AI Safety",
+    "authors": "Rikhil Jhaveri, Jamie Johnson, Punya Syon Pandey, David Demitri Africa",
+    "url": "https://arxiv.org/pdf/2610.22460"
+  },
+  {
+    "status": "will",
+    "title": "Consciousness in Artificial Intelligence: Insights from the Science of Consciousness",
+    "authors": "Patrick Butlin, Robert Long, Eric Elmoznino, Yoshua Bengio et al.",
+    "url": "https://arxiv.org/pdf/2308.08708"
+  },
+  {
+    "status": "will",
+    "title": "Could a Large Language Model be Conscious?",
+    "authors": "David J. Chalmers",
+    "url": "https://arxiv.org/pdf/2303.07103"
+  },
+  {
+    "status": "will",
+    "title": "Taking AI Welfare Seriously",
+    "authors": "Robert Long, Jeff Sebo, Patrick Butlin, Kathleen Finlinson et al.",
+    "url": "https://arxiv.org/pdf/2411.00986"
+  },
+  {
+    "status": "will",
+    "title": "Can LLMs make trade-offs involving stipulated pain and pleasure states?",
+    "authors": "Geoff Keeling, Winnie Street, Martyna Stachaczyk, Daria Zakharova et al.",
+    "url": "https://arxiv.org/pdf/2411.02432"
+  },
+  {
+    "status": "will",
+    "title": "Emergent introspective awareness in LLMs",
+    "authors": "Anthropic",
+    "url": "https://www.anthropic.com/research/introspection"
+  },
+  {
+    "status": "will",
+    "title": "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?",
+    "authors": "Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, Shmargaret Shmitchell",
+    "url": "https://dl.acm.org/doi/pdf/10.1145/3442188.3445922"
+  },
+  {
+    "status": "will",
+    "title": "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models",
+    "authors": "Tyna Eloundou, Sam Manning, Pamela Mishkin, Daniel Rock",
+    "url": "https://arxiv.org/pdf/2303.10130"
+  }
+]

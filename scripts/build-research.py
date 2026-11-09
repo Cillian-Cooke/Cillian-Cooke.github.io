@@ -23,7 +23,6 @@ GROUPS = [
     ("youtube", "YouTube channels"),
     ("podcasts", "Podcasts"),
     ("people", "People who inspire me"),
-    ("organisations", "Organisations worth checking out"),
 ]
 
 PORTFOLIO_HASHES = [
@@ -148,7 +147,7 @@ def shell(title: str, description: str, canonical: str, body: str, *, og_image: 
     </footer>
   </main>
   <script src="/js/research.js?v=2"></script>
-  <script src="/js/curves.js"></script>
+  <script src="/js/mountains.js"></script>
 </body>
 </html>
 """
@@ -258,7 +257,97 @@ def more_link(key: str, count: int) -> str:
     return f'\n          <a class="recommend-more" href="/recommendations/{esc(key)}/">View more</a>'
 
 
-def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
+def split_papers(papers: list[dict]) -> tuple[list[dict], list[dict], list[dict]]:
+    read = [paper for paper in papers if paper["status"] == "read"]
+    reading = [paper for paper in papers if paper["status"] == "reading"]
+    will = [paper for paper in papers if paper["status"] == "will"]
+    return read, reading, will
+
+
+def paper_sheet(paper: dict) -> str:
+    return f"""<a class="paper-sheet" href="{esc(paper['url'])}" target="_blank" rel="noopener noreferrer">
+            <span class="paper-sheet-face">
+              <span class="paper-sheet-kicker">PDF</span>
+              <strong>{esc(paper['title'])}</strong>
+              <span class="paper-sheet-lines" aria-hidden="true"></span>
+            </span>
+            <span class="paper-sheet-caption">{esc(paper['authors'])}</span>
+          </a>"""
+
+
+def paper_lane(label: str, papers: list[dict], empty: str, modifier: str) -> str:
+    if papers:
+        body = "\n".join(paper_sheet(paper) for paper in papers)
+    else:
+        body = f"""<div class="paper-sheet paper-sheet--empty">
+            <span class="paper-sheet-face"><span class="paper-empty">{esc(empty)}</span></span>
+          </div>"""
+    return f"""<div class="paper-lane paper-lane--{modifier}">
+            <p class="eyebrow">{esc(label)}</p>
+            <div class="paper-lane-sheets">
+            {body}
+            </div>
+          </div>"""
+
+
+def render_paper_timeline(papers: list[dict]) -> str:
+    read, reading, will = split_papers(papers)
+    lanes = "\n".join(
+        [
+            paper_lane("Read", read[-2:], "None yet", "read"),
+            paper_lane("Reading", reading[:1], "Not reading one right now", "now"),
+            paper_lane("Will read", will[:3], "None queued", "next"),
+        ]
+    )
+    return f"""    <section class="section paper-timeline-section" aria-labelledby="papers">
+      <div class="paper-timeline-head">
+        <h2 id="papers">Research papers</h2>
+        <a class="paper-timeline-more" href="/papers/">Full list</a>
+      </div>
+      <div class="paper-timeline-grid">
+          {lanes}
+      </div>
+    </section>
+"""
+
+
+def render_papers(papers: list[dict]) -> str:
+    read, reading, will = split_papers(papers)
+    groups = [
+        ("Reading", reading),
+        ("Will read", will),
+        ("Read", list(reversed(read))),
+    ]
+    blocks = []
+    for label, items in groups:
+        if not items:
+            continue
+        lines = "\n".join(paper_sheet(paper) for paper in items)
+        blocks.append(
+            f"""<div class="paper-group">
+        <h2>{esc(label)}</h2>
+        {lines}
+      </div>"""
+        )
+    body = f"""    <section class="section">
+      <a class="detail-back" href="/#papers">← Home</a>
+      <div class="page-header">
+        <p class="eyebrow">AI research</p>
+        <h1>Research papers</h1>
+      </div>
+      {chr(10).join(blocks)}
+    </section>
+"""
+    return shell(
+        "Research papers · Cillian Cooke",
+        "Papers I have read, the one I am reading, and the ones I will read.",
+        f"{SITE}/papers/",
+        body,
+        og_image=f"{SITE}/images/site-icon.png",
+    )
+
+
+def render_home(site: dict, recs: dict, videos: list[dict], papers: list[dict]) -> str:
     latest = videos[:5]
     more = ""
     if len(videos) > 5:
@@ -283,6 +372,7 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
       </div>{more}
     </section>
 
+{render_paper_timeline(papers)}
     <section class="section research-recommended" aria-labelledby="recommended">
       <h2 id="recommended">Recommended</h2>
       {chr(10).join(groups)}
@@ -293,10 +383,6 @@ def render_home(site: dict, recs: dict, videos: list[dict]) -> str:
       <div class="where-next-grid">
           {chr(10).join(next_cards)}
       </div>{more_link("next", len(next_cards))}
-      <a class="pledge-certificate" href="/files/giving-what-we-can-pledge.pdf" target="_blank" rel="noopener noreferrer">
-        <img src="/images/giving-what-we-can-pledge.png" alt="Giving What We Can pledge certificate for Cillian Cooke, member 11832, signed 9 November 2026" width="1158" height="816" loading="lazy" decoding="async">
-        <span>I took the 10% Pledge</span>
-      </a>
     </section>
 """
     return shell(
@@ -461,7 +547,7 @@ def write(path: Path, text: str) -> None:
 
 
 def render_sitemap(videos: list[dict], recs: dict) -> str:
-    urls = [f"{SITE}/", f"{SITE}/videos/", f"{SITE}/portfolio/", f"{SITE}/portfolio/essays/agent-identity.html"]
+    urls = [f"{SITE}/", f"{SITE}/papers/", f"{SITE}/videos/", f"{SITE}/portfolio/", f"{SITE}/portfolio/essays/agent-identity.html"]
     for key in list(LIST_LABELS):
         entries = recs.get(key, [])
         if len(entries) > PREVIEW_LIMIT:
@@ -483,8 +569,10 @@ def main() -> None:
     videos = load_videos()
     if not videos:
         raise SystemExit("Add at least one file in data/videos/")
+    papers = load_json(DATA / "papers.json")
 
-    write(ROOT / "index.html", render_home(site, recs, videos))
+    write(ROOT / "index.html", render_home(site, recs, videos, papers))
+    write(ROOT / "papers" / "index.html", render_papers(papers))
     write(ROOT / "videos" / "index.html", render_index(videos))
     for key in LIST_LABELS:
         entries = recs.get(key, [])

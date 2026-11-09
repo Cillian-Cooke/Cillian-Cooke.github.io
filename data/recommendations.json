@@ -60,13 +60,6 @@
       "photo": "/images/people/jimmy-wales.jpg"
     }
   ],
-  "organisations": [
-    {
-      "name": "PLACEHOLDER: replace me",
-      "url": "https://example.com/placeholder-org",
-      "why": "PLACEHOLDER: replace me. An organisation worth checking out."
-    }
-  ],
   "next": [
     {
       "name": "GiveWell",

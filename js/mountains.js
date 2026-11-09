@@ -19,6 +19,7 @@
 
   const PLACES = {
     research:        { x: 1400, y: 1200, zoom: 2.15 },
+    papers:          { x: 1580, y: 1280, zoom: 2.05 },
     videos:          { x: 1750, y: 1450, zoom: 2.0 },
     'videos-one':    { x: 1880, y: 1580, zoom: 0.85 },
     'videos-two':    { x: 1980, y: 1500, zoom: 0.85 },
@@ -155,6 +156,7 @@
     if (path.includes('/essays/')) return 'essay';
     if (path.includes('/videos/placeholder-one')) return 'videos-one';
     if (path.includes('/videos/placeholder-two')) return 'videos-two';
+    if (path === '/papers') return 'papers';
     if (path === '/videos') return 'videos';
     if (path.includes('/videos/')) return 'videos-detail';
     if (path.includes('/portfolio')) {
